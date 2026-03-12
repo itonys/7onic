@@ -292,7 +292,7 @@ const TableCaption = React.forwardRef<
 ))
 TableCaption.displayName = 'TableCaption'
 
-export type { TableSize, TableVariant, SortDirection, SortIconSet }
+export type { TableSize, TableVariant, SortDirection }
 
 export {
   Table,
