@@ -10,7 +10,7 @@ A design system combining beauty, consistency, and developer experience. Designe
 
 ## Features
 
-- **Figma Token Sync** — Auto-generate code from Figma tokens with `npm run sync-tokens`
+- **Figma Token Sync** — Auto-generate code from Figma tokens with `npx sync-tokens`
 - **100% TypeScript** — Full type safety with IntelliSense support
 - **Dark Mode Built-in** — Light/dark themes with system preference detection
 - **Radix UI Primitives** — Accessible, keyboard-navigable components out of the box
@@ -163,7 +163,7 @@ All components follow these patterns:
 ```
 figma-tokens.json               ← Single Source of Truth
     │
-    │  npm run sync-tokens
+    │  npx sync-tokens
     │
     ├── css/variables.css        ← CSS Variables (all primitives)
     ├── css/themes/light.css     ← Light theme semantics
@@ -225,7 +225,7 @@ The documentation site includes:
 ## Roadmap
 
 - [x] Design token system (14 categories)
-- [x] Token sync script (`npm run sync-tokens`)
+- [x] Token sync script (`npx sync-tokens`)
 - [x] Tailwind v3/v4 dual preset generation
 - [x] Light/dark theme
 - [x] Documentation site with interactive playgrounds
