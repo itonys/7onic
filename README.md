@@ -211,7 +211,7 @@ The documentation site includes:
 |---|---|
 | **Framework** | Next.js 14 + React 18 |
 | **Language** | TypeScript 5 |
-| **Styling** | Tailwind CSS 3 + CSS Variables |
+| **Styling** | Tailwind CSS v3 / v4 + CSS Variables |
 | **Primitives** | Radix UI |
 | **Charts** | Recharts |
 | **Tokens** | Figma Token Studio → `sync-tokens` |
