@@ -1,0 +1,47 @@
+{
+  "name": "@7onic-ui/tokens",
+  "version": "0.1.0",
+  "description": "Design tokens for 7onic Design System — CSS variables, Tailwind presets, JS, TypeScript",
+  "license": "MIT",
+  "main": "./js/index.js",
+  "module": "./js/index.mjs",
+  "types": "./types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./js/index.mjs",
+      "require": "./js/index.js"
+    },
+    "./css": "./css/variables.css",
+    "./css/all.css": "./css/all.css",
+    "./css/variables.css": "./css/variables.css",
+    "./css/themes/light.css": "./css/themes/light.css",
+    "./css/themes/dark.css": "./css/themes/dark.css",
+    "./tailwind/v3-preset": "./tailwind/v3-preset.js",
+    "./tailwind/v3-preset.js": "./tailwind/v3-preset.js",
+    "./tailwind/v4-theme": "./tailwind/v4-theme.css",
+    "./tailwind/v4-theme.css": "./tailwind/v4-theme.css",
+    "./tailwind/v4.css": "./tailwind/v4.css",
+    "./json/tokens.json": "./json/tokens.json",
+    "./figma-tokens.json": "./figma-tokens.json"
+  },
+  "files": [
+    "css",
+    "tailwind",
+    "js",
+    "json",
+    "types",
+    "cli",
+    "figma-tokens.json"
+  ],
+  "bin": {
+    "sync-tokens": "./cli/sync.js"
+  },
+  "keywords": [
+    "design-tokens",
+    "css-variables",
+    "tailwindcss",
+    "design-system",
+    "7onic"
+  ]
+}

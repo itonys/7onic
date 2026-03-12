@@ -1,0 +1,331 @@
+/* ========================================
+   Documentation Site Only Styles
+   このファイルは配布されません
+   ======================================== */
+
+/* ----------------------------------------
+   Animations - 文書サイト専用
+   ---------------------------------------- */
+
+/* Count-up animation for stats cards */
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s var(--easing-ease-in-out) infinite;
+}
+
+/* Ready status dot animation */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s var(--easing-ease-in-out) infinite;
+}
+
+/* Mobile sidebar slide-in */
+@keyframes slide-in-from-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-from-left {
+  animation: slide-in-from-left var(--duration-normal) var(--easing-ease-out);
+}
+
+/* Accordion */
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+
+.animate-accordion-down {
+  animation: accordion-down var(--duration-normal) var(--easing-ease-out);
+}
+
+.animate-accordion-up {
+  animation: accordion-up var(--duration-normal) var(--easing-ease-out);
+}
+
+/* Fade */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--easing-ease-out);
+}
+
+.animate-fade-out {
+  animation: fade-out var(--duration-normal) var(--easing-ease-out);
+}
+
+/* Slide */
+@keyframes slide-in-from-top {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slide-in-from-bottom {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes slide-in-from-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.animate-slide-in-from-top {
+  animation: slide-in-from-top var(--duration-normal) var(--easing-ease-out);
+}
+
+.animate-slide-in-from-bottom {
+  animation: slide-in-from-bottom var(--duration-normal) var(--easing-ease-out);
+}
+
+.animate-slide-in-from-right {
+  animation: slide-in-from-right var(--duration-normal) var(--easing-ease-out);
+}
+
+/* Shooting star animation - ヒーローセクション背景用 */
+@keyframes shooting-star-1 {
+  0% { top: -5%; left: 10%; opacity: 0; }
+  1% { opacity: 1; }
+  4% { opacity: 1; }
+  6% { top: 60%; left: 45%; opacity: 0; }
+  100% { top: 60%; left: 45%; opacity: 0; }
+}
+
+@keyframes shooting-star-2 {
+  0% { top: -5%; left: 50%; opacity: 0; }
+  1% { opacity: 1; }
+  4% { opacity: 1; }
+  6% { top: 55%; left: 80%; opacity: 0; }
+  100% { top: 55%; left: 80%; opacity: 0; }
+}
+
+@keyframes shooting-star-3 {
+  0% { top: -5%; left: 30%; opacity: 0; }
+  1% { opacity: 1; }
+  5% { opacity: 1; }
+  7% { top: 70%; left: 70%; opacity: 0; }
+  100% { top: 70%; left: 70%; opacity: 0; }
+}
+
+.animate-shooting-star-1 {
+  animation: shooting-star-1 8s var(--easing-linear) infinite;
+}
+
+.animate-shooting-star-2 {
+  animation: shooting-star-2 11s var(--easing-linear) 4s infinite;
+}
+
+.animate-shooting-star-3 {
+  animation: shooting-star-3 14s var(--easing-linear) 8s infinite;
+}
+
+/* ----------------------------------------
+   Slider - Docs site custom range input
+   Track: spacing-1-5 (6px), rounded-full, primary fill
+   Thumb: spacing-4 (16px) circle, white + primary border
+   ---------------------------------------- */
+.slider {
+  --slider-fill: 0%;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: var(--spacing-1-5);
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--color-primary) var(--slider-fill),
+    var(--color-background-muted) var(--slider-fill)
+  );
+  outline: none;
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--easing-ease);
+}
+
+/* WebKit Thumb */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  border: var(--border-width-1) solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: box-shadow var(--duration-micro) var(--easing-ease-out);
+}
+.slider::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 var(--spacing-1) color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+.slider:active::-webkit-slider-thumb {
+  box-shadow: 0 0 0 var(--spacing-1-5) color-mix(in srgb, var(--color-primary) 16%, transparent);
+}
+
+/* Firefox Thumb */
+.slider::-moz-range-thumb {
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  border-radius: var(--radius-full);
+  background: var(--color-background);
+  border: var(--border-width-1) solid var(--color-primary);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: box-shadow var(--duration-micro) var(--easing-ease-out);
+}
+.slider::-moz-range-thumb:hover {
+  box-shadow: 0 0 0 var(--spacing-1) color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+.slider:active::-moz-range-thumb {
+  box-shadow: 0 0 0 var(--spacing-1-5) color-mix(in srgb, var(--color-primary) 16%, transparent);
+}
+
+/* Firefox Progress Fill */
+.slider::-moz-range-progress {
+  background: var(--color-primary);
+  height: var(--spacing-1-5);
+  border-radius: var(--radius-full);
+}
+
+/* Firefox Track */
+.slider::-moz-range-track {
+  height: var(--spacing-1-5);
+  border-radius: var(--radius-full);
+  background: var(--color-background-muted);
+}
+
+/* Disabled */
+.slider:disabled {
+  opacity: var(--opacity-40);
+  cursor: not-allowed;
+}
+.slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+}
+.slider:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+}
+
+/* ----------------------------------------
+   Utilities - 文書サイト専用
+   ---------------------------------------- */
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Hide scrollbar but allow scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* === SYNC-TOKENS: FORCE-LIGHT START === */
+/* Force light mode — ダークモード内でライトモードプレビュー用 */
+.light {
+  /* Background */
+  --color-background: var(--color-white);
+  --color-background-paper: var(--color-white);
+  --color-background-elevated: var(--color-white);
+  --color-background-muted: var(--color-gray-100);
+  /* Text */
+  --color-text: var(--color-gray-900);
+  --color-text-muted: var(--color-gray-500);
+  --color-text-subtle: var(--color-gray-400);
+  --color-text-link: var(--color-blue-600);
+  --color-text-primary: var(--color-primary-600);
+  --color-text-info: var(--color-blue-600);
+  --color-text-success: var(--color-green-600);
+  --color-text-error: var(--color-red-600);
+  --color-text-warning: var(--color-yellow-600);
+  /* Primary */
+  --color-primary: var(--color-primary-600);
+  --color-primary-hover: var(--color-primary-700);
+  --color-primary-active: var(--color-primary-700);
+  --color-primary-tint: var(--color-primary-50);
+  --color-primary-text: var(--color-white);
+  /* Secondary */
+  --color-secondary: var(--color-secondary-600);
+  --color-secondary-hover: var(--color-secondary-700);
+  --color-secondary-active: var(--color-secondary-700);
+  --color-secondary-tint: var(--color-gray-100);
+  --color-secondary-text: var(--color-white);
+  /* Success */
+  --color-success: var(--color-green-600);
+  --color-success-hover: var(--color-green-700);
+  --color-success-active: var(--color-green-700);
+  --color-success-tint: var(--color-green-50);
+  --color-success-text: var(--color-white);
+  /* Warning */
+  --color-warning: var(--color-yellow-500);
+  --color-warning-hover: var(--color-yellow-600);
+  --color-warning-active: var(--color-yellow-600);
+  --color-warning-tint: var(--color-yellow-50);
+  --color-warning-text: var(--color-gray-900);
+  /* Error */
+  --color-error: var(--color-red-600);
+  --color-error-hover: var(--color-red-700);
+  --color-error-active: var(--color-red-700);
+  --color-error-tint: var(--color-red-50);
+  --color-error-text: var(--color-white);
+  --color-error-bg: color-mix(in srgb, var(--color-error) 10%, transparent);
+  /* Info */
+  --color-info: var(--color-blue-600);
+  --color-info-hover: var(--color-blue-700);
+  --color-info-active: var(--color-blue-700);
+  --color-info-tint: var(--color-blue-50);
+  --color-info-text: var(--color-white);
+  /* Border */
+  --color-border: var(--color-gray-200);
+  --color-border-subtle: var(--color-gray-100);
+  --color-border-strong: var(--color-gray-300);
+  /* Disabled */
+  --color-disabled: var(--color-gray-300);
+  --color-disabled-text: var(--color-gray-400);
+  /* Focus */
+  --color-focus-ring: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  --color-focus-ring-error: color-mix(in srgb, var(--color-error) 15%, transparent);
+  /* Chart */
+  --color-chart-1: var(--color-chart-blue-light);
+  --color-chart-2: var(--color-chart-pink-light);
+  --color-chart-3: var(--color-chart-lavender-light);
+  --color-chart-4: var(--color-chart-sky-light);
+  --color-chart-5: var(--color-chart-rose-light);
+}
+    /* === SYNC-TOKENS: FORCE-LIGHT END === */

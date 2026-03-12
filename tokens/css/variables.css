@@ -1,0 +1,430 @@
+/**
+ * Design System - CSS Variables
+ * ⚠️ Auto-generated from figma-tokens.json — DO NOT EDIT
+ *
+ * No Tailwind required. Just import:
+ * @import '@7onic-ui/tokens/css/variables.css';
+ *
+ * Regenerate: npx sync-tokens
+ */
+
+:root {
+  /* ========================================
+     Primitive Colors
+     Raw color palette — the building blocks
+     for semantic color tokens
+     ======================================== */
+
+  /* Base */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* Gray */
+  --color-gray-50: #F9F9FA;
+  --color-gray-100: #F4F4F5;
+  --color-gray-200: #E4E4E6;
+  --color-gray-300: #D4D4D4;
+  --color-gray-400: #9A9A9A;
+  --color-gray-500: #6B6B6B;
+  --color-gray-600: #4A4A4A;
+  --color-gray-700: #3C3C3C;
+  --color-gray-800: #2D2D2D;
+  --color-gray-900: #212121;
+
+  /* Primary */
+  --color-primary-50: #DBF8FB;
+  --color-primary-100: #B2F0F5;
+  --color-primary-200: #89E8F0;
+  --color-primary-300: #60E0EB;
+  --color-primary-400: #37D8E6;
+  --color-primary-500: #1AC6D5;
+  --color-primary-600: #15A0AC;
+  --color-primary-700: #107A84;
+  --color-primary-800: #0B545B;
+  --color-primary-900: #062E32;
+
+  /* Secondary */
+  --color-secondary-50: #F8FAFC;
+  --color-secondary-100: #F1F5F9;
+  --color-secondary-200: #E2E8F0;
+  --color-secondary-300: #CBD5E1;
+  --color-secondary-400: #94A3B8;
+  --color-secondary-500: #64748B;
+  --color-secondary-600: #475569;
+  --color-secondary-700: #334155;
+  --color-secondary-800: #1E293B;
+  --color-secondary-900: #0F172A;
+
+  /* Blue */
+  --color-blue-50: #EFF6FF;
+  --color-blue-100: #DBEAFE;
+  --color-blue-200: #BFDBFE;
+  --color-blue-300: #93C5FD;
+  --color-blue-400: #60A5FA;
+  --color-blue-500: #3B82F6;
+  --color-blue-600: #2563EB;
+  --color-blue-700: #1D4ED8;
+  --color-blue-800: #1E40AF;
+  --color-blue-900: #1E3A8A;
+
+  /* Green */
+  --color-green-50: #ECFDF5;
+  --color-green-100: #D1FAE5;
+  --color-green-200: #A7F3D0;
+  --color-green-300: #6EE7B7;
+  --color-green-400: #34D399;
+  --color-green-500: #10B981;
+  --color-green-600: #059669;
+  --color-green-700: #047857;
+  --color-green-800: #065F46;
+  --color-green-900: #064E3B;
+
+  /* Yellow */
+  --color-yellow-50: #FFFBEB;
+  --color-yellow-100: #FEF3C7;
+  --color-yellow-200: #FDE68A;
+  --color-yellow-300: #FCD34D;
+  --color-yellow-400: #FBBF24;
+  --color-yellow-500: #F59E0B;
+  --color-yellow-600: #D97706;
+  --color-yellow-700: #B45309;
+  --color-yellow-800: #92400E;
+  --color-yellow-900: #78350F;
+
+  /* Red */
+  --color-red-50: #FEF2F2;
+  --color-red-100: #FEE2E2;
+  --color-red-200: #FECACA;
+  --color-red-300: #FCA5A5;
+  --color-red-400: #F87171;
+  --color-red-500: #EF4444;
+  --color-red-600: #DC2626;
+  --color-red-700: #B91C1C;
+  --color-red-800: #991B1B;
+  --color-red-900: #7F1D1D;
+
+  /* Chart */
+  --color-chart-blue-light: #4570E8;
+  --color-chart-blue-dark: #6B8FF5;
+  --color-chart-pink-light: #D94F9A;
+  --color-chart-pink-dark: #E870B8;
+  --color-chart-lavender-light: #A888F0;
+  --color-chart-lavender-dark: #C4A8F8;
+  --color-chart-sky-light: #68C8F5;
+  --color-chart-sky-dark: #8DD8F8;
+  --color-chart-rose-light: #F0A0CC;
+  --color-chart-rose-dark: #F8C0DE;
+
+  /* ========================================
+     Font Family
+     ======================================== */
+  --font-family-sans: Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-mono: 'Fira Code', 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* ========================================
+     Typography
+     ======================================== */
+  --font-size-2xs: 0.6875rem; /* 11px */
+  --line-height-2xs: 1rem; /* 16px */
+  --font-size-xs: 0.75rem; /* 12px */
+  --line-height-xs: 1.125rem; /* 18px */
+  --font-size-sm: 0.8125rem; /* 13px */
+  --line-height-sm: 1.25rem; /* 20px */
+  --font-size-md: 0.875rem; /* 14px */
+  --line-height-md: 1.375rem; /* 22px */
+  --font-size-base: 1rem; /* 16px */
+  --line-height-base: 1.625rem; /* 26px */
+  --font-size-lg: 1.125rem; /* 18px */
+  --line-height-lg: 1.75rem; /* 28px */
+  --font-size-xl: 1.25rem; /* 20px */
+  --line-height-xl: 1.875rem; /* 30px */
+  --font-size-2xl: 1.5rem; /* 24px */
+  --line-height-2xl: 2.125rem; /* 34px */
+  --font-size-3xl: 1.875rem; /* 30px */
+  --line-height-3xl: 2.5rem; /* 40px */
+  --font-size-4xl: 2.25rem; /* 36px */
+  --line-height-4xl: 2.875rem; /* 46px */
+  --font-size-5xl: 3rem; /* 48px */
+  --line-height-5xl: 3.625rem; /* 58px */
+
+  /* ========================================
+     Font Weight
+     ======================================== */
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* ========================================
+     Spacing
+     0~12px: 2px increments, 12px~: 4px increments
+     ======================================== */
+  --spacing-0: 0; 
+  --spacing-0-5: 0.125rem; /* 2px */
+  --spacing-1: 0.25rem; /* 4px */
+  --spacing-1-5: 0.375rem; /* 6px */
+  --spacing-2: 0.5rem; /* 8px */
+  --spacing-2-5: 0.625rem; /* 10px */
+  --spacing-3: 0.75rem; /* 12px */
+  --spacing-4: 1rem; /* 16px */
+  --spacing-5: 1.25rem; /* 20px */
+  --spacing-6: 1.5rem; /* 24px */
+  --spacing-7: 1.75rem; /* 28px */
+  --spacing-8: 2rem; /* 32px */
+  --spacing-10: 2.5rem; /* 40px */
+  --spacing-12: 3rem; /* 48px */
+  --spacing-14: 3.5rem; /* 56px */
+  --spacing-16: 4rem; /* 64px */
+  --spacing-20: 5rem; /* 80px */
+  --spacing-24: 6rem; /* 96px */
+
+  /* ========================================
+     Border Radius
+     ======================================== */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-base: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* ========================================
+     Border Width
+     ======================================== */
+  --border-width-0: 0px;
+  --border-width-1: 1px;
+  --border-width-2: 2px;
+  --border-width-4: 4px;
+  --border-width-8: 8px;
+
+  /* ========================================
+     Shadows (Light Mode)
+     ======================================== */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-primary-glow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 15%, transparent);
+
+  /* ========================================
+     Icon Size (5-step scale)
+     ======================================== */
+  --icon-size-xs: 0.875rem; /* 14px */
+  --icon-size-sm: 1rem; /* 16px */
+  --icon-size-md: 1.25rem; /* 20px */
+  --icon-size-lg: 1.5rem; /* 24px */
+  --icon-size-xl: 2rem; /* 32px */
+
+  /* ========================================
+     Scale
+     ======================================== */
+  --scale-50: 0.5;
+  --scale-75: 0.75;
+  --scale-pressed: 0.98;
+
+  /* ========================================
+     Z-Index
+     ======================================== */
+  --z-index-0: 0;
+  --z-index-10: 10;
+  --z-index-20: 20;
+  --z-index-30: 30;
+  --z-index-40: 40;
+  --z-index-50: 50;
+  --z-index-sticky: 100;
+  --z-index-dropdown: 1000;
+  --z-index-overlay: 1100;
+  --z-index-modal: 2000;
+  --z-index-popover: 2100;
+  --z-index-tooltip: 2200;
+  --z-index-toast: 3000;
+
+  /* ========================================
+     Opacity
+     ======================================== */
+  --opacity-0: 0%;
+  --opacity-5: 5%;
+  --opacity-10: 10%;
+  --opacity-15: 15%;
+  --opacity-20: 20%;
+  --opacity-25: 25%;
+  --opacity-30: 30%;
+  --opacity-35: 35%;
+  --opacity-40: 40%;
+  --opacity-45: 45%;
+  --opacity-50: 50%;
+  --opacity-55: 55%;
+  --opacity-60: 60%;
+  --opacity-65: 65%;
+  --opacity-70: 70%;
+  --opacity-75: 75%;
+  --opacity-80: 80%;
+  --opacity-85: 85%;
+  --opacity-90: 90%;
+  --opacity-95: 95%;
+  --opacity-100: 100%;
+
+  /* ========================================
+     Duration
+     ======================================== */
+  --duration-instant: 0ms;
+  --duration-fast: 100ms;
+  --duration-micro: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --duration-slower: 400ms;
+  --duration-slowest: 500ms;
+
+  /* ========================================
+     Easing
+     ======================================== */
+  --easing-linear: linear;
+  --easing-ease: ease;
+  --easing-ease-in: ease-in;
+  --easing-ease-out: ease-out;
+  --easing-ease-in-out: ease-in-out;
+
+  /* ========================================
+     Breakpoints
+     ======================================== */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+
+  /* ========================================
+     Component Size
+     ======================================== */
+  --component-switch-track-sm-width: 24px;
+  --component-switch-track-sm-height: 14px;
+  --component-switch-track-default-width: 32px;
+  --component-switch-track-default-height: 18px;
+  --component-switch-track-lg-width: 40px;
+  --component-switch-track-lg-height: 22px;
+  --component-switch-thumb-sm: 12px;
+  --component-switch-thumb-default: 16px;
+  --component-switch-thumb-lg: 20px;
+  --component-slider-thumb-sm: 14px;
+  --component-slider-thumb-default: 18px;
+  --component-slider-thumb-lg: 22px;
+
+  /* ========================================
+     Semantic Typography
+     ======================================== */
+  --typography-heading-1-font-size: var(--font-size-3xl); /* 30px */
+  --typography-heading-1-line-height: var(--line-height-3xl); /* 40px */
+  --typography-heading-1-font-weight: var(--font-weight-bold); /* 700 */
+  --typography-heading-1-font-family: var(--font-family-sans);
+  --typography-heading-2-font-size: var(--font-size-2xl); /* 24px */
+  --typography-heading-2-line-height: var(--line-height-2xl); /* 34px */
+  --typography-heading-2-font-weight: var(--font-weight-bold); /* 700 */
+  --typography-heading-2-font-family: var(--font-family-sans);
+  --typography-heading-3-font-size: var(--font-size-xl); /* 20px */
+  --typography-heading-3-line-height: var(--line-height-xl); /* 30px */
+  --typography-heading-3-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-heading-3-font-family: var(--font-family-sans);
+  --typography-heading-4-font-size: var(--font-size-lg); /* 18px */
+  --typography-heading-4-line-height: var(--line-height-lg); /* 28px */
+  --typography-heading-4-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-heading-4-font-family: var(--font-family-sans);
+  --typography-heading-5-font-size: var(--font-size-base); /* 16px */
+  --typography-heading-5-line-height: var(--line-height-base); /* 26px */
+  --typography-heading-5-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-heading-5-font-family: var(--font-family-sans);
+  --typography-heading-6-font-size: var(--font-size-md); /* 14px */
+  --typography-heading-6-line-height: var(--line-height-md); /* 22px */
+  --typography-heading-6-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-heading-6-font-family: var(--font-family-sans);
+  --typography-body-lg-font-size: var(--font-size-lg); /* 18px */
+  --typography-body-lg-line-height: var(--line-height-lg); /* 28px */
+  --typography-body-lg-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-body-lg-font-family: var(--font-family-sans);
+  --typography-body-default-font-size: var(--font-size-base); /* 16px */
+  --typography-body-default-line-height: var(--line-height-base); /* 26px */
+  --typography-body-default-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-body-default-font-family: var(--font-family-sans);
+  --typography-body-md-font-size: var(--font-size-md); /* 14px */
+  --typography-body-md-line-height: var(--line-height-md); /* 22px */
+  --typography-body-md-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-body-md-font-family: var(--font-family-sans);
+  --typography-body-sm-font-size: var(--font-size-sm); /* 13px */
+  --typography-body-sm-line-height: var(--line-height-sm); /* 20px */
+  --typography-body-sm-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-body-sm-font-family: var(--font-family-sans);
+  --typography-body-xs-font-size: var(--font-size-xs); /* 12px */
+  --typography-body-xs-line-height: var(--line-height-xs); /* 18px */
+  --typography-body-xs-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-body-xs-font-family: var(--font-family-sans);
+  --typography-body-2xs-font-size: var(--font-size-2xs); /* 11px */
+  --typography-body-2xs-line-height: var(--line-height-2xs); /* 16px */
+  --typography-body-2xs-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-body-2xs-font-family: var(--font-family-sans);
+  --typography-label-lg-font-size: var(--font-size-base); /* 16px */
+  --typography-label-lg-line-height: var(--line-height-base); /* 26px */
+  --typography-label-lg-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-label-lg-font-family: var(--font-family-sans);
+  --typography-label-md-font-size: var(--font-size-md); /* 14px */
+  --typography-label-md-line-height: var(--line-height-md); /* 22px */
+  --typography-label-md-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-label-md-font-family: var(--font-family-sans);
+  --typography-label-default-font-size: var(--font-size-sm); /* 13px */
+  --typography-label-default-line-height: var(--line-height-sm); /* 20px */
+  --typography-label-default-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-label-default-font-family: var(--font-family-sans);
+  --typography-label-sm-font-size: var(--font-size-xs); /* 12px */
+  --typography-label-sm-line-height: var(--line-height-xs); /* 18px */
+  --typography-label-sm-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-label-sm-font-family: var(--font-family-sans);
+  --typography-label-xs-font-size: var(--font-size-2xs); /* 11px */
+  --typography-label-xs-line-height: var(--line-height-2xs); /* 16px */
+  --typography-label-xs-font-weight: var(--font-weight-semibold); /* 600 */
+  --typography-label-xs-font-family: var(--font-family-sans);
+  --typography-caption-font-size: var(--font-size-xs); /* 12px */
+  --typography-caption-line-height: var(--line-height-xs); /* 18px */
+  --typography-caption-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-caption-font-family: var(--font-family-sans);
+  --typography-code-block-font-size: var(--font-size-sm); /* 13px */
+  --typography-code-block-line-height: 1.375rem; /* override: sm default = 20px */
+  --typography-code-block-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-code-block-font-family: var(--font-family-mono);
+  --typography-code-inline-font-size: var(--font-size-sm); /* 13px */
+  --typography-code-inline-line-height: var(--line-height-sm); /* 20px */
+  --typography-code-inline-font-weight: var(--font-weight-normal); /* 400 */
+  --typography-code-inline-font-family: var(--font-family-mono);
+
+}
+
+/* ========================================
+   Component Enter Animations
+   Generated from primitive.animation in figma-tokens.json
+   Tailwind users get these from v3-preset or v4-theme.
+   Non-Tailwind users: these classes work as plain CSS.
+   ======================================== */
+
+@keyframes enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
+              scale(var(--tw-enter-scale, 1))
+              rotate(var(--tw-enter-rotate, 0));
+  }
+}
+
+.animate-in {
+  animation-name: enter;
+  animation-duration: var(--duration-micro);
+  animation-timing-function: var(--easing-ease-out);
+  --tw-enter-opacity: initial;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: initial;
+}
+
+.fade-in-0 { --tw-enter-opacity: 0; }
+.zoom-in-75 { --tw-enter-scale: 0.75; }
+.zoom-in-50 { --tw-enter-scale: 0.5; }

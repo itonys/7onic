@@ -1,0 +1,466 @@
+/**
+ * Design System - Tailwind CSS v4 Theme
+ * ⚠️ Auto-generated from figma-tokens.json — DO NOT EDIT
+ *
+ * This file is a MAPPING layer between variables.css and Tailwind v4 utilities.
+ * Actual values live in variables.css (single source of truth).
+ *
+ * - var() references: auto-sync when variables.css changes
+ * - Hardcoded values: same-name variables (overridden by variables.css at runtime)
+ * - Dark mode: handled entirely by variables.css .dark block (no duplication here)
+ *
+ * Usage:
+ * ```css
+ * @import "tailwindcss";
+ * @import "@7onic-ui/react/tokens";   <- variables.css (values)
+ * @import "@7onic-ui/react/theme";    <- this file (mapping)
+ * ```
+ */
+
+@theme {
+  /* =============================================
+     Colors — var() references (different names → auto-sync)
+     When variables.css changes, these follow automatically.
+     Dark mode: variables.css .dark changes the source → auto-cascade.
+     ============================================= */
+
+  /* Background */
+  --color-background: #FFFFFF;          /* same name → overridden by variables.css */
+  --color-background-paper: #FFFFFF;          /* same name → overridden by variables.css */
+  --color-background-elevated: #FFFFFF;       /* same name → overridden by variables.css */
+  --color-background-muted: #F4F4F5;         /* same name → overridden by variables.css */
+
+  /* Foreground */
+  --color-foreground: var(--color-text);
+
+  /* Primary */
+  --color-primary: #15A0AC;               /* same name → overridden by variables.css */
+  --color-primary-hover: #107A84;             /* same name → overridden by variables.css */
+  --color-primary-active: #107A84;            /* same name → overridden by variables.css */
+  --color-primary-tint: #DBF8FB;              /* same name → overridden by variables.css */
+  --color-primary-foreground: var(--color-primary-text);
+
+  /* Secondary */
+  --color-secondary: #475569;               /* same name → overridden by variables.css */
+  --color-secondary-hover: #334155;             /* same name → overridden by variables.css */
+  --color-secondary-active: #334155;            /* same name → overridden by variables.css */
+  --color-secondary-tint: #F4F4F5;              /* same name → overridden by variables.css */
+  --color-secondary-foreground: var(--color-secondary-text);
+
+  /* Success */
+  --color-success: #059669;               /* same name → overridden by variables.css */
+  --color-success-hover: #047857;             /* same name → overridden by variables.css */
+  --color-success-active: #047857;            /* same name → overridden by variables.css */
+  --color-success-tint: #ECFDF5;              /* same name → overridden by variables.css */
+  --color-success-foreground: var(--color-success-text);
+
+  /* Warning */
+  --color-warning: #F59E0B;               /* same name → overridden by variables.css */
+  --color-warning-hover: #D97706;             /* same name → overridden by variables.css */
+  --color-warning-active: #D97706;            /* same name → overridden by variables.css */
+  --color-warning-tint: #FFFBEB;              /* same name → overridden by variables.css */
+  --color-warning-foreground: var(--color-warning-text);
+
+  /* Error */
+  --color-error: #DC2626;               /* same name → overridden by variables.css */
+  --color-error-hover: #B91C1C;             /* same name → overridden by variables.css */
+  --color-error-active: #B91C1C;            /* same name → overridden by variables.css */
+  --color-error-tint: #FEF2F2;              /* same name → overridden by variables.css */
+  --color-error-foreground: var(--color-error-text);
+  --color-error-bg: var(--color-error-bg);
+
+  /* Info */
+  --color-info: #2563EB;               /* same name → overridden by variables.css */
+  --color-info-hover: #1D4ED8;             /* same name → overridden by variables.css */
+  --color-info-active: #1D4ED8;            /* same name → overridden by variables.css */
+  --color-info-tint: #EFF6FF;              /* same name → overridden by variables.css */
+  --color-info-foreground: var(--color-info-text);
+
+  /* Border */
+  --color-border: #E4E4E6;                /* same name → overridden by variables.css */
+  --color-border-strong: #D4D4D4;             /* same name → overridden by variables.css */
+  --color-border-subtle: #F4F4F5;             /* same name → overridden by variables.css */
+
+  /* Muted */
+  --color-muted: var(--color-background-muted);
+  --color-muted-foreground: var(--color-text-muted);
+
+  /* Ring (focus) */
+  --color-ring: var(--color-focus-ring);
+  --color-ring-error: var(--color-focus-ring-error);
+
+  /* Disabled */
+  --color-disabled: #D4D4D4;             /* same name → overridden by variables.css */
+  --color-disabled-foreground: var(--color-disabled-text);
+
+  /* Chart */
+  --color-chart-1: #4570E8;               /* same name → overridden by variables.css */
+  --color-chart-2: #D94F9A;               /* same name → overridden by variables.css */
+  --color-chart-3: #A888F0;               /* same name → overridden by variables.css */
+  --color-chart-4: #68C8F5;               /* same name → overridden by variables.css */
+  --color-chart-5: #F0A0CC;               /* same name → overridden by variables.css */
+
+  /* Text */
+  --color-text: #212121;                   /* same name → overridden by variables.css */
+  --color-text-muted: #6B6B6B;               /* same name → overridden by variables.css */
+  --color-text-subtle: #9A9A9A;              /* same name → overridden by variables.css */
+  --color-text-link: #2563EB;                /* same name → overridden by variables.css */
+  --color-text-primary: #15A0AC;             /* same name → overridden by variables.css */
+  --color-text-info: #2563EB;                /* same name → overridden by variables.css */
+  --color-text-success: #059669;             /* same name → overridden by variables.css */
+  --color-text-error: #DC2626;               /* same name → overridden by variables.css */
+  --color-text-warning: #D97706;             /* same name → overridden by variables.css */
+
+  /* =============================================
+     Primitive Color Palettes
+     Same names as variables.css — overridden at runtime.
+     ============================================= */
+
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* gray */
+  --color-gray-50: #F9F9FA;
+  --color-gray-100: #F4F4F5;
+  --color-gray-200: #E4E4E6;
+  --color-gray-300: #D4D4D4;
+  --color-gray-400: #9A9A9A;
+  --color-gray-500: #6B6B6B;
+  --color-gray-600: #4A4A4A;
+  --color-gray-700: #3C3C3C;
+  --color-gray-800: #2D2D2D;
+  --color-gray-900: #212121;
+
+  /* primary */
+  --color-primary-50: #DBF8FB;
+  --color-primary-100: #B2F0F5;
+  --color-primary-200: #89E8F0;
+  --color-primary-300: #60E0EB;
+  --color-primary-400: #37D8E6;
+  --color-primary-500: #1AC6D5;
+  --color-primary-600: #15A0AC;
+  --color-primary-700: #107A84;
+  --color-primary-800: #0B545B;
+  --color-primary-900: #062E32;
+
+  /* secondary */
+  --color-secondary-50: #F8FAFC;
+  --color-secondary-100: #F1F5F9;
+  --color-secondary-200: #E2E8F0;
+  --color-secondary-300: #CBD5E1;
+  --color-secondary-400: #94A3B8;
+  --color-secondary-500: #64748B;
+  --color-secondary-600: #475569;
+  --color-secondary-700: #334155;
+  --color-secondary-800: #1E293B;
+  --color-secondary-900: #0F172A;
+
+  /* blue */
+  --color-blue-50: #EFF6FF;
+  --color-blue-100: #DBEAFE;
+  --color-blue-200: #BFDBFE;
+  --color-blue-300: #93C5FD;
+  --color-blue-400: #60A5FA;
+  --color-blue-500: #3B82F6;
+  --color-blue-600: #2563EB;
+  --color-blue-700: #1D4ED8;
+  --color-blue-800: #1E40AF;
+  --color-blue-900: #1E3A8A;
+
+  /* green */
+  --color-green-50: #ECFDF5;
+  --color-green-100: #D1FAE5;
+  --color-green-200: #A7F3D0;
+  --color-green-300: #6EE7B7;
+  --color-green-400: #34D399;
+  --color-green-500: #10B981;
+  --color-green-600: #059669;
+  --color-green-700: #047857;
+  --color-green-800: #065F46;
+  --color-green-900: #064E3B;
+
+  /* yellow */
+  --color-yellow-50: #FFFBEB;
+  --color-yellow-100: #FEF3C7;
+  --color-yellow-200: #FDE68A;
+  --color-yellow-300: #FCD34D;
+  --color-yellow-400: #FBBF24;
+  --color-yellow-500: #F59E0B;
+  --color-yellow-600: #D97706;
+  --color-yellow-700: #B45309;
+  --color-yellow-800: #92400E;
+  --color-yellow-900: #78350F;
+
+  /* red */
+  --color-red-50: #FEF2F2;
+  --color-red-100: #FEE2E2;
+  --color-red-200: #FECACA;
+  --color-red-300: #FCA5A5;
+  --color-red-400: #F87171;
+  --color-red-500: #EF4444;
+  --color-red-600: #DC2626;
+  --color-red-700: #B91C1C;
+  --color-red-800: #991B1B;
+  --color-red-900: #7F1D1D;
+
+  /* =============================================
+     Typography — var() references (different namespace → auto-sync)
+     @theme uses --text-*, variables.css uses --font-size-*
+     ============================================= */
+  --text-2xs: var(--font-size-2xs);
+  --text-2xs--line-height: var(--line-height-2xs);
+  --text-xs: var(--font-size-xs);
+  --text-xs--line-height: var(--line-height-xs);
+  --text-sm: var(--font-size-sm);
+  --text-sm--line-height: var(--line-height-sm);
+  --text-md: var(--font-size-md);
+  --text-md--line-height: var(--line-height-md);
+  --text-base: var(--font-size-base);
+  --text-base--line-height: var(--line-height-base);
+  --text-lg: var(--font-size-lg);
+  --text-lg--line-height: var(--line-height-lg);
+  --text-xl: var(--font-size-xl);
+  --text-xl--line-height: var(--line-height-xl);
+  --text-2xl: var(--font-size-2xl);
+  --text-2xl--line-height: var(--line-height-2xl);
+  --text-3xl: var(--font-size-3xl);
+  --text-3xl--line-height: var(--line-height-3xl);
+  --text-4xl: var(--font-size-4xl);
+  --text-4xl--line-height: var(--line-height-4xl);
+  --text-5xl: var(--font-size-5xl);
+  --text-5xl--line-height: var(--line-height-5xl);
+
+  /* =============================================
+     Font Family — var() references to variables.css
+     ============================================= */
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+
+  /* =============================================
+     Border Radius
+     Same names as variables.css — values here just register utilities.
+     Runtime values come from variables.css (unlayered > theme layer).
+     ============================================= */
+  --radius-none: 0px;
+  --radius-sm: 2px;
+  --radius-DEFAULT: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-full: 9999px;
+
+  /* =============================================
+     Shadows
+     Same names as variables.css — overridden at runtime.
+     Dark mode shadows also handled by variables.css .dark block.
+     ============================================= */
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  --shadow-primary-glow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 15%, transparent);
+
+  /* =============================================
+     Component Sizes
+     Switch, Slider thumb/track dimensions.
+     ============================================= */
+  --component-switch-track-sm-width: 24px;
+  --component-switch-track-sm-height: 14px;
+  --component-switch-track-default-width: 32px;
+  --component-switch-track-default-height: 18px;
+  --component-switch-track-lg-width: 40px;
+  --component-switch-track-lg-height: 22px;
+  --component-switch-thumb-sm: 12px;
+  --component-switch-thumb-default: 16px;
+  --component-switch-thumb-lg: 20px;
+  --component-slider-thumb-sm: 14px;
+  --component-slider-thumb-default: 18px;
+  --component-slider-thumb-lg: 22px;
+
+  /* =============================================
+     Opacity
+     Same names as variables.css — overridden at runtime.
+     ============================================= */
+  --opacity-0: 0%;
+  --opacity-5: 5%;
+  --opacity-10: 10%;
+  --opacity-15: 15%;
+  --opacity-20: 20%;
+  --opacity-25: 25%;
+  --opacity-30: 30%;
+  --opacity-35: 35%;
+  --opacity-40: 40%;
+  --opacity-45: 45%;
+  --opacity-50: 50%;
+  --opacity-55: 55%;
+  --opacity-60: 60%;
+  --opacity-65: 65%;
+  --opacity-70: 70%;
+  --opacity-75: 75%;
+  --opacity-80: 80%;
+  --opacity-85: 85%;
+  --opacity-90: 90%;
+  --opacity-95: 95%;
+  --opacity-100: 100%;
+
+  /* =============================================
+     Easing — var() references to variables.css
+     ============================================= */
+  --ease-linear: var(--easing-linear);
+  --ease-DEFAULT: var(--easing-ease);
+  --ease-in: var(--easing-ease-in);
+  --ease-out: var(--easing-ease-out);
+  --ease-in-out: var(--easing-ease-in-out);
+
+  /* =============================================
+     Animation
+     ============================================= */
+  --animate-spin: spin 1s linear infinite;
+}
+
+/*
+ * NOTE: No .dark block needed here.
+ *
+ * Dark mode is handled entirely by variables.css .dark { } block.
+ * - var() referenced variables: source changes in .dark → auto-cascade
+ * - Same-name variables: variables.css (unlayered) overrides @theme (theme layer)
+ *
+ * CSS cascade: unlayered > @layer theme
+ * So variables.css always wins over @theme for same-name variables.
+ */
+
+/* =============================================
+   Custom Utilities
+   ============================================= */
+
+/* Transition duration — var() references to variables.css */
+@utility duration-instant {
+  transition-duration: var(--duration-instant);
+}
+@utility duration-fast {
+  transition-duration: var(--duration-fast);
+}
+@utility duration-micro {
+  transition-duration: var(--duration-micro);
+}
+@utility duration-normal {
+  transition-duration: var(--duration-normal);
+}
+@utility duration-slow {
+  transition-duration: var(--duration-slow);
+}
+@utility duration-slower {
+  transition-duration: var(--duration-slower);
+}
+@utility duration-slowest {
+  transition-duration: var(--duration-slowest);
+}
+
+/* Scale — var() references to variables.css */
+@utility scale-50 {
+  scale: var(--scale-50);
+}
+@utility scale-75 {
+  scale: var(--scale-75);
+}
+@utility scale-pressed {
+  scale: var(--scale-pressed);
+}
+
+/* Icon size utilities (5-step system) — var() references */
+@utility icon-xs {
+  width: var(--icon-size-xs);
+  height: var(--icon-size-xs);
+}
+@utility icon-sm {
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
+}
+@utility icon-md {
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
+}
+@utility icon-lg {
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
+}
+@utility icon-xl {
+  width: var(--icon-size-xl);
+  height: var(--icon-size-xl);
+}
+
+/* Focus ring utility (v3/v4 compatible) */
+@utility focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--color-focus-ring);
+}
+
+/* Z-index utilities (named semantic values) — var() references */
+@utility z-sticky {
+  z-index: var(--z-index-sticky);
+}
+@utility z-dropdown {
+  z-index: var(--z-index-dropdown);
+}
+@utility z-overlay {
+  z-index: var(--z-index-overlay);
+}
+@utility z-modal {
+  z-index: var(--z-index-modal);
+}
+@utility z-popover {
+  z-index: var(--z-index-popover);
+}
+@utility z-tooltip {
+  z-index: var(--z-index-tooltip);
+}
+@utility z-toast {
+  z-index: var(--z-index-toast);
+}
+
+/* Scale reset for grouped buttons (override active:scale-pressed) */
+@utility scale-none {
+  scale: 1 !important;
+  transform: none !important;
+}
+
+/* =============================================
+   Enter Animations
+   Generated from primitive.animation in figma-tokens.json
+   ============================================= */
+
+@keyframes enter {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
+              scale(var(--tw-enter-scale, 1))
+              rotate(var(--tw-enter-rotate, 0));
+  }
+}
+
+@utility animate-in {
+  animation-name: enter;
+  animation-duration: var(--duration-micro);
+  animation-timing-function: var(--easing-ease-out);
+  --tw-enter-opacity: initial;
+  --tw-enter-scale: initial;
+  --tw-enter-rotate: initial;
+  --tw-enter-translate-x: initial;
+  --tw-enter-translate-y: initial;
+}
+
+@utility fade-in-0 {
+  --tw-enter-opacity: 0;
+}
+
+@utility zoom-in-75 {
+  --tw-enter-scale: 0.75;
+}
+
+@utility zoom-in-50 {
+  --tw-enter-scale: 0.5;
+}

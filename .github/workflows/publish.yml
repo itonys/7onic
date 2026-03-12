@@ -1,0 +1,55 @@
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Which package to publish?'
+        required: true
+        type: choice
+        options:
+          - both
+          - tokens-only
+          - react-only
+
+jobs:
+  publish-tokens:
+    if: inputs.package == 'both' || inputs.package == 'tokens-only'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish @7onic-ui/tokens
+        working-directory: tokens
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-react:
+    if: inputs.package == 'both' || inputs.package == 'react-only'
+    needs: publish-tokens
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build component library
+        run: npm run build:lib
+
+      - name: Publish @7onic-ui/react
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
