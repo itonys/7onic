@@ -1,5 +1,7 @@
 # 7onic Design System
 
+> 🚧 **Coming soon — releasing April 2026**
+
 Bridging the gap between design and code — down to zero.
 
 A design system combining beauty, consistency, and developer experience. Designed by a designer, built for developers.
