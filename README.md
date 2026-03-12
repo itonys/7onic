@@ -13,7 +13,7 @@ A design system combining beauty, consistency, and developer experience. Designe
 - **Dark Mode Built-in** — Light/dark themes with system preference detection
 - **Radix UI Primitives** — Accessible, keyboard-navigable components out of the box
 - **Tailwind v3/v4 Dual Support** — Both versions supported via presets
-- **Japanese Typography** — Font stack optimized for Japanese text (Noto Sans JP)
+- **CJK Typography** — Font stack optimized for CJK text (Noto Sans JP)
 
 ---
 
@@ -118,15 +118,14 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 
 | Category | Components | Status |
 |----------|-----------|--------|
-| **Actions** | Button, IconButton, ButtonGroup | Ready |
-| **Forms** | Input, Textarea, Select, Field | Ready |
-| **Selection** | Toggle, ToggleGroup, Segmented | Ready |
-| **Controls** | Checkbox, RadioGroup, Switch, Slider | Ready |
-| **Overlay** | Dropdown | Ready |
-| **Data Display** | Avatar, Badge, Card | Planned |
-| **Feedback** | Toast, Alert, Dialog | Planned |
-| **Navigation** | Tabs, Breadcrumb, Sidebar | Planned |
-| **Layout** | Modal, Drawer | Planned |
+| **Forms** | Button, IconButton, ButtonGroup, Input, Textarea, Select, Dropdown, Checkbox, Radio, Switch, Toggle, ToggleGroup, Segmented, Slider | Ready |
+| **Data Display** | Avatar, Badge, Card, Table | Ready |
+| **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
+| **Layout** | Tabs, Accordion, Divider | Planned |
+| **Overlay** | Modal, Drawer, Tooltip, Popover | Planned |
+| **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
+| **Navigation** | Breadcrumb, Pagination, Menu | Planned |
+| **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
 
 All components follow these patterns:
 - CVA (class-variance-authority) for variant management
@@ -141,7 +140,7 @@ All components follow these patterns:
 | Token | Values | Description |
 |-------|--------|-------------|
 | **Colors** | Semantic color system | Brand, status, text, background, border |
-| **Typography** | 13 sizes (11px–72px) | CJK-optimized with `md`(14px) for UI, `base`(16px) for body |
+| **Typography** | 11 sizes (11px–72px) | CJK-optimized with `md`(14px) for UI, `base`(16px) for body |
 | **Spacing** | 0–96px | 2px increments (0–12px), 4px increments (12px+) |
 | **Radius** | 9 values (0–9999px) | `none` through `full` |
 | **Shadows** | 6 primitives | `xs` through `xl`, plus `primary-glow` |
@@ -153,6 +152,7 @@ All components follow these patterns:
 | **Breakpoints** | 5 widths | `sm`(640) through `2xl`(1536) |
 | **Border Width** | 5 values | `0`, `1`, `2`, `4`, `8` |
 | **Scale** | 3 values | `50`(0.5), `75`(0.75), `pressed`(0.98) |
+| **Animation** | 2 values | `spin`, `pulse` |
 
 ---
 
@@ -199,7 +199,7 @@ All above files are distributed to users via npm.
 
 The documentation site includes:
 
-- **Design Tokens** — Colors, typography, spacing, shadows, radius, z-index, duration, easing, opacity, breakpoints, border-width, icon-sizes, scale
+- **Design Tokens** — Colors, typography, spacing, shadows, radius, z-index, duration, easing, opacity, breakpoints, border-width, icon-sizes, scale, animation
 - **Components** — Interactive playground, props table, code examples
 - **Guidelines** — Accessibility, icons, Tailwind v3/v4 versions
 
@@ -213,6 +213,7 @@ The documentation site includes:
 | **Language** | TypeScript 5 |
 | **Styling** | Tailwind CSS 3 + CSS Variables |
 | **Primitives** | Radix UI |
+| **Charts** | Recharts |
 | **Tokens** | Figma Token Studio → `sync-tokens` |
 | **Variants** | class-variance-authority (CVA) |
 | **Build** | tsup (library), Next.js (docs) |
@@ -221,16 +222,14 @@ The documentation site includes:
 
 ## Roadmap
 
-- [x] Design token system (15 categories)
+- [x] Design token system (14 categories)
 - [x] Token sync script (`npm run sync-tokens`)
 - [x] Tailwind v3/v4 dual preset generation
 - [x] Light/dark theme
 - [x] Documentation site with interactive playgrounds
-- [x] Core components (Button, Input, Toggle, Segmented, etc.)
+- [x] Core components — Forms (14), Data Display (4), Charts (5)
 - [x] npm package distribution setup
-- [x] Multi-brand support
 - [ ] Theme Customizer (live color preview)
-- [ ] i18n (Japanese, English, Korean)
 - [ ] `npx 7onic add` CLI
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
