@@ -97,7 +97,7 @@ const componentSections: SidebarSection[] = [
     items: [
       { name: 'Breadcrumb', href: '/components/breadcrumb' },
       { name: 'Pagination', href: '/components/pagination' },
-      { name: 'Menu', href: '/components/menu' },
+      { name: 'NavigationMenu', href: '/components/navigation-menu' },
     ],
   },
   {

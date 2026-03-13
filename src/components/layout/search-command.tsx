@@ -33,6 +33,7 @@ const searchData = [
   { id: 'switch', title: 'Switch', desc: 'スイッチ', href: '/components/switch', category: 'Components', keywords: ['switch', 'toggle', 'スイッチ'] },
   { id: 'slider', title: 'Slider', desc: 'スライダー', href: '/components/slider', category: 'Components', keywords: ['slider', 'range', 'スライダー'] },
   { id: 'segmented', title: 'Segmented', desc: 'セグメント', href: '/components/segmented', category: 'Components', keywords: ['segment', 'tabs', 'segmented'] },
+  { id: 'tabs', title: 'Tabs', desc: 'タブ', href: '/components/tabs', category: 'Components', keywords: ['tabs', 'tab', 'panel', 'タブ'] },
   // Guidelines
   { id: 'icons', title: 'Icons', desc: 'アイコン', href: '/guidelines/icons', category: 'Guidelines', keywords: ['icon', 'lucide'] },
   { id: 'accessibility', title: 'Accessibility', desc: 'アクセシビリティ', href: '/guidelines/accessibility', category: 'Guidelines', keywords: ['a11y', 'accessibility'] },

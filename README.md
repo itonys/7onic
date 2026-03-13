@@ -123,10 +123,11 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Forms** | Button, IconButton, ButtonGroup, Input, Textarea, Select, Dropdown, Checkbox, Radio, Switch, Toggle, ToggleGroup, Segmented, Slider | Ready |
 | **Data Display** | Avatar, Badge, Card, Table | Ready |
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
-| **Layout** | Tabs, Accordion, Divider | Planned |
+| **Layout** | Tabs, Accordion, Divider | Ready |
 | **Overlay** | Modal, Drawer, Tooltip, Popover | Planned |
 | **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
-| **Navigation** | Breadcrumb, Pagination, Menu | Planned |
+| **Navigation** | Breadcrumb | Ready |
+| | Pagination, NavigationMenu | Planned |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
 
 All components follow these patterns:
@@ -227,9 +228,10 @@ The documentation site includes:
 - [x] Design token system (14 categories)
 - [x] Token sync script (`npx sync-tokens`)
 - [x] Tailwind v3/v4 dual preset generation
+- [x] RGB channel variables for v3 semantic opacity modifier support (`bg-primary/50`)
 - [x] Light/dark theme
 - [x] Documentation site with interactive playgrounds
-- [x] Core components — Forms (14), Data Display (4), Charts (5)
+- [x] Core components — Forms (14), Data Display (4), Layout (3), Navigation (1), Charts (5)
 - [x] npm package distribution setup
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI

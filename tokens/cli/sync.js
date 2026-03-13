@@ -415,6 +415,11 @@ function extractRefKey(ref) {
 function scaleToPercent(raw) {
   return String(Math.round(parseFloat(raw) * 100));
 }
+function hexToRgb(hex) {
+  const match = hex.replace("#", "").match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+  if (!match) return null;
+  return `${parseInt(match[1], 16)} ${parseInt(match[2], 16)} ${parseInt(match[3], 16)}`;
+}
 function generateVariablesCss(tokens) {
   const lines = [];
   const p = tokens.primitive;
@@ -443,7 +448,10 @@ function generateVariablesCss(tokens) {
     if (typeof paletteData === "object" && "value" in paletteData) {
       if (palette === "white" || palette === "black") {
         if (palette === "white") lines.push(`  /* Base */`);
-        lines.push(`  --color-${palette}: ${paletteData.value};`);
+        const hexVal = String(paletteData.value);
+        lines.push(`  --color-${palette}: ${hexVal};`);
+        const rgb = hexToRgb(hexVal);
+        if (rgb) lines.push(`  --color-${palette}-rgb: ${rgb};`);
         if (palette === "black") lines.push(``);
       }
     } else {
@@ -454,7 +462,10 @@ function generateVariablesCss(tokens) {
       for (const shade of shadeKeys) {
         const token = shades[shade];
         if (token && token.value) {
-          lines.push(`  --color-${palette}-${shade}: ${token.value};`);
+          const hexVal = String(token.value);
+          lines.push(`  --color-${palette}-${shade}: ${hexVal};`);
+          const rgb = hexToRgb(hexVal);
+          if (rgb) lines.push(`  --color-${palette}-${shade}-rgb: ${rgb};`);
         }
       }
       lines.push(``);
@@ -774,6 +785,9 @@ function generateThemeLight(tokens) {
       } else {
         const resolved = typeof tv.value === "string" && tv.value.startsWith("{") ? resolveToVar(tv.value, tokens) : String(tv.value);
         lines.push(`  ${semanticColorVar(category, variant)}: ${resolved};`);
+        const resolvedHex = typeof tv.value === "string" && tv.value.startsWith("{") ? resolveReference(tv.value, tokens) : String(tv.value);
+        const rgb = hexToRgb(resolvedHex);
+        if (rgb) lines.push(`  ${semanticColorVar(category, variant)}-rgb: ${rgb};`);
       }
     }
     lines.push(``);
@@ -815,6 +829,9 @@ function generateThemeDark(tokens) {
       } else {
         const resolved = typeof tv.value === "string" && tv.value.startsWith("{") ? resolveToVar(tv.value, tokens) : String(tv.value);
         declLines.push(`  ${semanticColorVar(category, variant)}: ${resolved};`);
+        const resolvedHex = typeof tv.value === "string" && tv.value.startsWith("{") ? resolveReference(tv.value, tokens) : String(tv.value);
+        const rgb = hexToRgb(resolvedHex);
+        if (rgb) declLines.push(`  ${semanticColorVar(category, variant)}-rgb: ${rgb};`);
       }
     }
     declLines.push(``);
@@ -1511,7 +1528,7 @@ function generateV3Preset(tokens) {
   lines.push(` *`);
   lines.push(` * Non-color values reference CSS variables from variables.css for auto-sync.`);
   lines.push(` * Primitive colors use HEX for Tailwind v3 opacity modifier support (bg-white/10, etc.).`);
-  lines.push(` * Semantic colors use var() for light/dark mode \u2014 opacity modifier (bg-primary/50) is NOT supported.`);
+  lines.push(` * Semantic colors use rgb() with RGB channel variables for opacity modifier support (bg-primary/50, etc.).`);
   lines.push(` *`);
   lines.push(` * Usage:`);
   lines.push(` * \`\`\`js`);
@@ -1534,23 +1551,24 @@ function generateV3Preset(tokens) {
   lines.push(`        white: '${whiteToken?.value || "#FFFFFF"}',`);
   lines.push(`        black: '${blackToken?.value || "#000000"}',`);
   lines.push(``);
-  lines.push(`        // Semantic colors (CSS variables for light/dark mode)`);
+  const rgbAlpha = (varName) => `'rgb(var(${varName}-rgb) / <alpha-value>)'`;
+  lines.push(`        // Semantic colors (rgb() with alpha-value for opacity modifier support)`);
   lines.push(`        background: {`);
-  lines.push(`          DEFAULT: 'var(--color-background)',`);
-  lines.push(`          paper: 'var(--color-background-paper)',`);
-  lines.push(`          elevated: 'var(--color-background-elevated)',`);
-  lines.push(`          muted: 'var(--color-background-muted)',`);
+  lines.push(`          DEFAULT: ${rgbAlpha("--color-background")},`);
+  lines.push(`          paper: ${rgbAlpha("--color-background-paper")},`);
+  lines.push(`          elevated: ${rgbAlpha("--color-background-elevated")},`);
+  lines.push(`          muted: ${rgbAlpha("--color-background-muted")},`);
   lines.push(`        },`);
-  lines.push(`        foreground: 'var(--color-text)',`);
+  lines.push(`        foreground: ${rgbAlpha("--color-text")},`);
   lines.push(``);
   const brandColors = ["primary", "secondary"];
   for (const color of brandColors) {
     lines.push(`        ${color}: {`);
-    lines.push(`          DEFAULT: 'var(--color-${color})',`);
-    lines.push(`          hover: 'var(--color-${color}-hover)',`);
-    lines.push(`          active: 'var(--color-${color}-active)',`);
-    lines.push(`          tint: 'var(--color-${color}-tint)',`);
-    lines.push(`          foreground: 'var(--color-${color}-text)',`);
+    lines.push(`          DEFAULT: ${rgbAlpha(`--color-${color}`)},`);
+    lines.push(`          hover: ${rgbAlpha(`--color-${color}-hover`)},`);
+    lines.push(`          active: ${rgbAlpha(`--color-${color}-active`)},`);
+    lines.push(`          tint: ${rgbAlpha(`--color-${color}-tint`)},`);
+    lines.push(`          foreground: ${rgbAlpha(`--color-${color}-text`)},`);
     const palette = colorData[color];
     if (palette) {
       for (const shade of orderedKeys(palette, { type: "known", order: KNOWN_ORDERS.shadeOrder }, `primitive.color.${color}`)) {
@@ -1567,13 +1585,13 @@ function generateV3Preset(tokens) {
   const semanticColors = ["success", "warning", "error", "info"];
   for (const color of semanticColors) {
     lines.push(`        ${color}: {`);
-    lines.push(`          DEFAULT: 'var(--color-${color})',`);
-    lines.push(`          hover: 'var(--color-${color}-hover)',`);
-    lines.push(`          active: 'var(--color-${color}-active)',`);
-    lines.push(`          tint: 'var(--color-${color}-tint)',`);
-    lines.push(`          foreground: 'var(--color-${color}-text)',`);
+    lines.push(`          DEFAULT: ${rgbAlpha(`--color-${color}`)},`);
+    lines.push(`          hover: ${rgbAlpha(`--color-${color}-hover`)},`);
+    lines.push(`          active: ${rgbAlpha(`--color-${color}-active`)},`);
+    lines.push(`          tint: ${rgbAlpha(`--color-${color}-tint`)},`);
+    lines.push(`          foreground: ${rgbAlpha(`--color-${color}-text`)},`);
     if (color === "error") {
-      lines.push(`          bg: 'var(--color-error-bg)',`);
+      lines.push(`          bg: ${rgbAlpha("--color-error-bg")},`);
     }
     lines.push(`        },`);
   }
@@ -1595,43 +1613,43 @@ function generateV3Preset(tokens) {
   lines.push(``);
   lines.push(`        // UI colors`);
   lines.push(`        border: {`);
-  lines.push(`          DEFAULT: 'var(--color-border)',`);
-  lines.push(`          strong: 'var(--color-border-strong)',`);
-  lines.push(`          subtle: 'var(--color-border-subtle)',`);
+  lines.push(`          DEFAULT: ${rgbAlpha("--color-border")},`);
+  lines.push(`          strong: ${rgbAlpha("--color-border-strong")},`);
+  lines.push(`          subtle: ${rgbAlpha("--color-border-subtle")},`);
   lines.push(`        },`);
   lines.push(`        ring: {`);
-  lines.push(`          DEFAULT: 'var(--color-focus-ring)',`);
-  lines.push(`          error: 'var(--color-focus-ring-error)',`);
+  lines.push(`          DEFAULT: ${rgbAlpha("--color-focus-ring")},`);
+  lines.push(`          error: ${rgbAlpha("--color-focus-ring-error")},`);
   lines.push(`        },`);
   lines.push(`        muted: {`);
-  lines.push(`          DEFAULT: 'var(--color-background-muted)',`);
-  lines.push(`          foreground: 'var(--color-text-muted)',`);
+  lines.push(`          DEFAULT: ${rgbAlpha("--color-background-muted")},`);
+  lines.push(`          foreground: ${rgbAlpha("--color-text-muted")},`);
   lines.push(`        },`);
   lines.push(`        disabled: {`);
-  lines.push(`          DEFAULT: 'var(--color-disabled)',`);
-  lines.push(`          foreground: 'var(--color-disabled-text)',`);
+  lines.push(`          DEFAULT: ${rgbAlpha("--color-disabled")},`);
+  lines.push(`          foreground: ${rgbAlpha("--color-disabled-text")},`);
   lines.push(`        },`);
   lines.push(``);
   lines.push(`        // Chart colors`);
   lines.push(`        chart: {`);
-  lines.push(`          '1': 'var(--color-chart-1)',`);
-  lines.push(`          '2': 'var(--color-chart-2)',`);
-  lines.push(`          '3': 'var(--color-chart-3)',`);
-  lines.push(`          '4': 'var(--color-chart-4)',`);
-  lines.push(`          '5': 'var(--color-chart-5)',`);
+  lines.push(`          '1': ${rgbAlpha("--color-chart-1")},`);
+  lines.push(`          '2': ${rgbAlpha("--color-chart-2")},`);
+  lines.push(`          '3': ${rgbAlpha("--color-chart-3")},`);
+  lines.push(`          '4': ${rgbAlpha("--color-chart-4")},`);
+  lines.push(`          '5': ${rgbAlpha("--color-chart-5")},`);
   lines.push(`        },`);
   lines.push(``);
   lines.push(`        // Text`);
   lines.push(`        text: {`);
-  lines.push(`          DEFAULT: 'var(--color-text)',`);
-  lines.push(`          muted: 'var(--color-text-muted)',`);
-  lines.push(`          subtle: 'var(--color-text-subtle)',`);
-  lines.push(`          link: 'var(--color-text-link)',`);
-  lines.push(`          primary: 'var(--color-text-primary)',`);
-  lines.push(`          info: 'var(--color-text-info)',`);
-  lines.push(`          success: 'var(--color-text-success)',`);
-  lines.push(`          error: 'var(--color-text-error)',`);
-  lines.push(`          warning: 'var(--color-text-warning)',`);
+  lines.push(`          DEFAULT: ${rgbAlpha("--color-text")},`);
+  lines.push(`          muted: ${rgbAlpha("--color-text-muted")},`);
+  lines.push(`          subtle: ${rgbAlpha("--color-text-subtle")},`);
+  lines.push(`          link: ${rgbAlpha("--color-text-link")},`);
+  lines.push(`          primary: ${rgbAlpha("--color-text-primary")},`);
+  lines.push(`          info: ${rgbAlpha("--color-text-info")},`);
+  lines.push(`          success: ${rgbAlpha("--color-text-success")},`);
+  lines.push(`          error: ${rgbAlpha("--color-text-error")},`);
+  lines.push(`          warning: ${rgbAlpha("--color-text-warning")},`);
   lines.push(`        },`);
   lines.push(`      },`);
   lines.push(``);

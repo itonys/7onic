@@ -154,7 +154,7 @@ const TableRow = React.forwardRef<HTMLTableRowElement, TableRowProps>(
       data-selected={selected || undefined}
       className={cn(
         'border-b border-border transition-colors duration-fast',
-        interactive && 'hover:bg-background-muted cursor-pointer',
+        interactive && 'hover:bg-background-muted/50 cursor-pointer',
         className
       )}
       {...props}

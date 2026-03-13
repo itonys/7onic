@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils'
 type SegmentedContextValue = {
   variant?: 'default' | 'outline' | 'underline' | 'ghost'
   size?: 'sm' | 'md' | 'default' | 'lg'
+  radius?: 'none' | 'sm' | 'base' | 'default' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
 }
 const SegmentedContext = React.createContext<SegmentedContextValue>({})
 const useSegmentedContext = () => React.useContext(SegmentedContext)
@@ -157,7 +158,7 @@ const Segmented = React.forwardRef<
   const resolvedFontWeight = fontWeight ?? 'normal'
 
   return (
-    <SegmentedContext.Provider value={{ variant: variant || 'default', size: size || 'default' }}>
+    <SegmentedContext.Provider value={{ variant: variant || 'default', size: size || 'default', radius: radius || 'default' }}>
       <RadioGroupPrimitive.Root
         className={cn(segmentedVariants({ variant, size, radius, fontWeight: resolvedFontWeight }), className)}
         {...props}
@@ -185,14 +186,15 @@ const SegmentedItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   SegmentedItemProps
 >(({ className, children, size, radius, contentType, ...props }, ref) => {
-  const { variant, size: contextSize } = useSegmentedContext()
+  const { variant, size: contextSize, radius: contextRadius } = useSegmentedContext()
   const resolvedSize = size || contextSize || 'default'
+  const resolvedRadius = radius || contextRadius || 'default'
 
   return (
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        segmentedItemVariants({ variant, size: resolvedSize, radius, contentType }),
+        segmentedItemVariants({ variant, size: resolvedSize, radius: resolvedRadius, contentType }),
         iconSizeClasses[resolvedSize],
         className
       )}

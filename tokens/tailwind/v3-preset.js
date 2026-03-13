@@ -4,7 +4,7 @@
  *
  * Non-color values reference CSS variables from variables.css for auto-sync.
  * Primitive colors use HEX for Tailwind v3 opacity modifier support (bg-white/10, etc.).
- * Semantic colors use var() for light/dark mode — opacity modifier (bg-primary/50) is NOT supported.
+ * Semantic colors use rgb() with RGB channel variables for opacity modifier support (bg-primary/50, etc.).
  *
  * Usage:
  * ```js
@@ -24,21 +24,21 @@ module.exports = {
         white: '#FFFFFF',
         black: '#000000',
 
-        // Semantic colors (CSS variables for light/dark mode)
+        // Semantic colors (rgb() with alpha-value for opacity modifier support)
         background: {
-          DEFAULT: 'var(--color-background)',
-          paper: 'var(--color-background-paper)',
-          elevated: 'var(--color-background-elevated)',
-          muted: 'var(--color-background-muted)',
+          DEFAULT: 'rgb(var(--color-background-rgb) / <alpha-value>)',
+          paper: 'rgb(var(--color-background-paper-rgb) / <alpha-value>)',
+          elevated: 'rgb(var(--color-background-elevated-rgb) / <alpha-value>)',
+          muted: 'rgb(var(--color-background-muted-rgb) / <alpha-value>)',
         },
-        foreground: 'var(--color-text)',
+        foreground: 'rgb(var(--color-text-rgb) / <alpha-value>)',
 
         primary: {
-          DEFAULT: 'var(--color-primary)',
-          hover: 'var(--color-primary-hover)',
-          active: 'var(--color-primary-active)',
-          tint: 'var(--color-primary-tint)',
-          foreground: 'var(--color-primary-text)',
+          DEFAULT: 'rgb(var(--color-primary-rgb) / <alpha-value>)',
+          hover: 'rgb(var(--color-primary-hover-rgb) / <alpha-value>)',
+          active: 'rgb(var(--color-primary-active-rgb) / <alpha-value>)',
+          tint: 'rgb(var(--color-primary-tint-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-primary-text-rgb) / <alpha-value>)',
           '50': '#DBF8FB',
           '100': '#B2F0F5',
           '200': '#89E8F0',
@@ -51,11 +51,11 @@ module.exports = {
           '900': '#062E32',
         },
         secondary: {
-          DEFAULT: 'var(--color-secondary)',
-          hover: 'var(--color-secondary-hover)',
-          active: 'var(--color-secondary-active)',
-          tint: 'var(--color-secondary-tint)',
-          foreground: 'var(--color-secondary-text)',
+          DEFAULT: 'rgb(var(--color-secondary-rgb) / <alpha-value>)',
+          hover: 'rgb(var(--color-secondary-hover-rgb) / <alpha-value>)',
+          active: 'rgb(var(--color-secondary-active-rgb) / <alpha-value>)',
+          tint: 'rgb(var(--color-secondary-tint-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-secondary-text-rgb) / <alpha-value>)',
           '50': '#F8FAFC',
           '100': '#F1F5F9',
           '200': '#E2E8F0',
@@ -70,33 +70,33 @@ module.exports = {
 
         // Status colors
         success: {
-          DEFAULT: 'var(--color-success)',
-          hover: 'var(--color-success-hover)',
-          active: 'var(--color-success-active)',
-          tint: 'var(--color-success-tint)',
-          foreground: 'var(--color-success-text)',
+          DEFAULT: 'rgb(var(--color-success-rgb) / <alpha-value>)',
+          hover: 'rgb(var(--color-success-hover-rgb) / <alpha-value>)',
+          active: 'rgb(var(--color-success-active-rgb) / <alpha-value>)',
+          tint: 'rgb(var(--color-success-tint-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-success-text-rgb) / <alpha-value>)',
         },
         warning: {
-          DEFAULT: 'var(--color-warning)',
-          hover: 'var(--color-warning-hover)',
-          active: 'var(--color-warning-active)',
-          tint: 'var(--color-warning-tint)',
-          foreground: 'var(--color-warning-text)',
+          DEFAULT: 'rgb(var(--color-warning-rgb) / <alpha-value>)',
+          hover: 'rgb(var(--color-warning-hover-rgb) / <alpha-value>)',
+          active: 'rgb(var(--color-warning-active-rgb) / <alpha-value>)',
+          tint: 'rgb(var(--color-warning-tint-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-warning-text-rgb) / <alpha-value>)',
         },
         error: {
-          DEFAULT: 'var(--color-error)',
-          hover: 'var(--color-error-hover)',
-          active: 'var(--color-error-active)',
-          tint: 'var(--color-error-tint)',
-          foreground: 'var(--color-error-text)',
-          bg: 'var(--color-error-bg)',
+          DEFAULT: 'rgb(var(--color-error-rgb) / <alpha-value>)',
+          hover: 'rgb(var(--color-error-hover-rgb) / <alpha-value>)',
+          active: 'rgb(var(--color-error-active-rgb) / <alpha-value>)',
+          tint: 'rgb(var(--color-error-tint-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-error-text-rgb) / <alpha-value>)',
+          bg: 'rgb(var(--color-error-bg-rgb) / <alpha-value>)',
         },
         info: {
-          DEFAULT: 'var(--color-info)',
-          hover: 'var(--color-info-hover)',
-          active: 'var(--color-info-active)',
-          tint: 'var(--color-info-tint)',
-          foreground: 'var(--color-info-text)',
+          DEFAULT: 'rgb(var(--color-info-rgb) / <alpha-value>)',
+          hover: 'rgb(var(--color-info-hover-rgb) / <alpha-value>)',
+          active: 'rgb(var(--color-info-active-rgb) / <alpha-value>)',
+          tint: 'rgb(var(--color-info-tint-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-info-text-rgb) / <alpha-value>)',
         },
 
         // Primitive color palettes (HEX for opacity modifier support)
@@ -163,43 +163,43 @@ module.exports = {
 
         // UI colors
         border: {
-          DEFAULT: 'var(--color-border)',
-          strong: 'var(--color-border-strong)',
-          subtle: 'var(--color-border-subtle)',
+          DEFAULT: 'rgb(var(--color-border-rgb) / <alpha-value>)',
+          strong: 'rgb(var(--color-border-strong-rgb) / <alpha-value>)',
+          subtle: 'rgb(var(--color-border-subtle-rgb) / <alpha-value>)',
         },
         ring: {
-          DEFAULT: 'var(--color-focus-ring)',
-          error: 'var(--color-focus-ring-error)',
+          DEFAULT: 'rgb(var(--color-focus-ring-rgb) / <alpha-value>)',
+          error: 'rgb(var(--color-focus-ring-error-rgb) / <alpha-value>)',
         },
         muted: {
-          DEFAULT: 'var(--color-background-muted)',
-          foreground: 'var(--color-text-muted)',
+          DEFAULT: 'rgb(var(--color-background-muted-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-text-muted-rgb) / <alpha-value>)',
         },
         disabled: {
-          DEFAULT: 'var(--color-disabled)',
-          foreground: 'var(--color-disabled-text)',
+          DEFAULT: 'rgb(var(--color-disabled-rgb) / <alpha-value>)',
+          foreground: 'rgb(var(--color-disabled-text-rgb) / <alpha-value>)',
         },
 
         // Chart colors
         chart: {
-          '1': 'var(--color-chart-1)',
-          '2': 'var(--color-chart-2)',
-          '3': 'var(--color-chart-3)',
-          '4': 'var(--color-chart-4)',
-          '5': 'var(--color-chart-5)',
+          '1': 'rgb(var(--color-chart-1-rgb) / <alpha-value>)',
+          '2': 'rgb(var(--color-chart-2-rgb) / <alpha-value>)',
+          '3': 'rgb(var(--color-chart-3-rgb) / <alpha-value>)',
+          '4': 'rgb(var(--color-chart-4-rgb) / <alpha-value>)',
+          '5': 'rgb(var(--color-chart-5-rgb) / <alpha-value>)',
         },
 
         // Text
         text: {
-          DEFAULT: 'var(--color-text)',
-          muted: 'var(--color-text-muted)',
-          subtle: 'var(--color-text-subtle)',
-          link: 'var(--color-text-link)',
-          primary: 'var(--color-text-primary)',
-          info: 'var(--color-text-info)',
-          success: 'var(--color-text-success)',
-          error: 'var(--color-text-error)',
-          warning: 'var(--color-text-warning)',
+          DEFAULT: 'rgb(var(--color-text-rgb) / <alpha-value>)',
+          muted: 'rgb(var(--color-text-muted-rgb) / <alpha-value>)',
+          subtle: 'rgb(var(--color-text-subtle-rgb) / <alpha-value>)',
+          link: 'rgb(var(--color-text-link-rgb) / <alpha-value>)',
+          primary: 'rgb(var(--color-text-primary-rgb) / <alpha-value>)',
+          info: 'rgb(var(--color-text-info-rgb) / <alpha-value>)',
+          success: 'rgb(var(--color-text-success-rgb) / <alpha-value>)',
+          error: 'rgb(var(--color-text-error-rgb) / <alpha-value>)',
+          warning: 'rgb(var(--color-text-warning-rgb) / <alpha-value>)',
         },
       },
 
