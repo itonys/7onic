@@ -70,6 +70,44 @@
   animation: accordion-up var(--duration-normal) var(--easing-ease-out);
 }
 
+/* Collapsible (NavigationMenu vertical sub-menus) */
+@keyframes collapsible-down {
+  from { height: 0; }
+  to { height: var(--radix-collapsible-content-height); }
+}
+
+@keyframes collapsible-up {
+  from { height: var(--radix-collapsible-content-height); }
+  to { height: 0; }
+}
+
+.animate-collapsible-down {
+  animation: collapsible-down var(--duration-normal) var(--easing-ease-out);
+}
+
+.animate-collapsible-up {
+  animation: collapsible-up var(--duration-normal) var(--easing-ease-out);
+}
+
+/* NavigationMenu Viewport */
+@keyframes nav-viewport-enter {
+  from { opacity: 0; transform: translateY(-2px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes nav-viewport-exit {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-2px) scale(0.98); }
+}
+
+.animate-nav-viewport-enter {
+  animation: nav-viewport-enter var(--duration-micro) var(--easing-ease-out);
+}
+
+.animate-nav-viewport-exit {
+  animation: nav-viewport-exit var(--duration-fast) var(--easing-ease-out);
+}
+
 /* Fade */
 @keyframes fade-in {
   from { opacity: 0; }

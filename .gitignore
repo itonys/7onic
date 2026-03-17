@@ -35,7 +35,8 @@ yarn-error.log*
 next-env.d.ts
 
 # IDE / Editor
-.claude/
+.claude/*
+!.claude/commands/
 .playwright-mcp/
 .idea/
 .vscode/
