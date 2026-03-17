@@ -126,8 +126,8 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Layout** | Tabs, Accordion, Divider | Ready |
 | **Overlay** | Modal, Drawer, Tooltip, Popover | Planned |
 | **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
-| **Navigation** | Breadcrumb | Ready |
-| | Pagination, NavigationMenu | Planned |
+| **Navigation** | Breadcrumb, NavigationMenu | Ready |
+| | Pagination | Planned |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
 
 All components follow these patterns:
