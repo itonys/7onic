@@ -33,7 +33,7 @@ const ModalStyleContext = React.createContext<ModalStyleContextValue>({
 // ═══════════════════════════════════════════════════════════════
 
 // ─── Modal (Root) ───────────────────────────────────────────
-const Modal = DialogPrimitive.Root
+const ModalRoot = DialogPrimitive.Root
 
 // ─── ModalTrigger ───────────────────────────────────────────
 const ModalTrigger = DialogPrimitive.Trigger
@@ -258,7 +258,7 @@ ModalFooter.displayName = 'ModalFooter'
 // ═══════════════════════════════════════════════════════════════
 
 // ─── AlertModal (Root) ──────────────────────────────────────
-const AlertModal = AlertDialogPrimitive.Root
+const AlertModalRoot = AlertDialogPrimitive.Root
 
 // ─── AlertModalTrigger ──────────────────────────────────────
 const AlertModalTrigger = AlertDialogPrimitive.Trigger
@@ -418,6 +418,45 @@ const AlertModalCancel = React.forwardRef<
   />
 ))
 AlertModalCancel.displayName = 'AlertModalCancel'
+
+// ─── Namespace: Modal ────────────────────────────────────
+const Modal = Object.assign(ModalRoot, {
+  Trigger: ModalTrigger,
+  Portal: ModalPortal,
+  Overlay: ModalOverlay,
+  Content: ModalContent,
+  Header: ModalHeader,
+  Title: ModalTitle,
+  Description: ModalDescription,
+  Body: ModalBody,
+  Footer: ModalFooter,
+  Close: ModalClose,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace Modal {
+  export type ContentProps = ModalContentProps
+}
+
+// ─── Namespace: AlertModal ──────────────────────────────
+const AlertModal = Object.assign(AlertModalRoot, {
+  Trigger: AlertModalTrigger,
+  Portal: AlertModalPortal,
+  Overlay: AlertModalOverlay,
+  Content: AlertModalContent,
+  Header: AlertModalHeader,
+  Title: AlertModalTitle,
+  Description: AlertModalDescription,
+  Body: AlertModalBody,
+  Footer: AlertModalFooter,
+  Action: AlertModalAction,
+  Cancel: AlertModalCancel,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace AlertModal {
+  export type ContentProps = AlertModalContentProps
+}
 
 // ─── Exports ────────────────────────────────────────────────
 export {

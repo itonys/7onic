@@ -75,7 +75,7 @@ export interface CardProps
   asChild?: boolean
 }
 
-const Card = React.forwardRef<HTMLDivElement, CardProps>(
+const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
   ({
     className,
     variant = 'default',
@@ -131,7 +131,7 @@ const Card = React.forwardRef<HTMLDivElement, CardProps>(
     )
   }
 )
-Card.displayName = 'Card'
+CardRoot.displayName = 'Card'
 
 // ── Size-based padding map (responsive: mobile → desktop) ──
 const sizePaddingMap = {
@@ -399,6 +399,28 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
   }
 )
 CardFooter.displayName = 'CardFooter'
+
+// ─── Namespace ──────────────────────────────────────────
+const Card = Object.assign(CardRoot, {
+  Image: CardImage,
+  Header: CardHeader,
+  Title: CardTitle,
+  Description: CardDescription,
+  Action: CardAction,
+  Content: CardContent,
+  Footer: CardFooter,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace Card {
+  export type ImageProps = CardImageProps
+  export type HeaderProps = CardHeaderProps
+  export type TitleProps = CardTitleProps
+  export type DescriptionProps = CardDescriptionProps
+  export type ActionProps = CardActionProps
+  export type ContentProps = CardContentProps
+  export type FooterProps = CardFooterProps
+}
 
 export {
   Card,

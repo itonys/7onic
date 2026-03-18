@@ -4,6 +4,7 @@ import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
+import { useButtonGroup } from './button-group'
 
 const iconButtonVariants = cva(
   'inline-flex items-center justify-center transition-all duration-micro focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-50',
@@ -53,7 +54,15 @@ export interface IconButtonProps
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ className, variant, size, radius, asChild = false, loading, pressEffect, children, disabled, ...props }, ref) => {
+  ({ className, variant: variantProp, size: sizeProp, radius: radiusProp, asChild = false, loading, pressEffect, children, disabled: disabledProp, ...props }, ref) => {
+    const groupContext = useButtonGroup()
+
+    // Priority: direct prop > ButtonGroup context > variant default
+    const variant = variantProp ?? groupContext?.variant
+    const size = sizeProp ?? groupContext?.size
+    const radius = radiusProp ?? groupContext?.radius
+    const disabled = disabledProp ?? groupContext?.disabled
+
     const Comp = asChild ? Slot : 'button'
 
     // Icon size for icon-only button (5-step scale)

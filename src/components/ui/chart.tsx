@@ -844,7 +844,23 @@ function ChartPie({
 
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ─── Namespace ──────────────────────────────────────────
+const Chart = Object.assign(ChartContainer, {
+  Bar: ChartBar,
+  Line: ChartLine,
+  Area: ChartArea,
+  Pie: ChartPie,
+  Tooltip: ChartTooltip,
+  TooltipContent: ChartTooltipContent,
+  Legend: ChartLegend,
+  LegendContent: ChartLegendContent,
+  XAxis: ChartXAxis,
+  YAxis: ChartYAxis,
+  Style: ChartStyle,
+})
+
 export {
+  Chart,
   ChartContainer,
   ChartBar,
   ChartLine,

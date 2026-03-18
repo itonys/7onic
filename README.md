@@ -11,6 +11,7 @@ A design system combining beauty, consistency, and developer experience. Designe
 ## Features
 
 - **Figma Token Sync** — Auto-generate code from Figma tokens with `npx sync-tokens`
+- **Namespace + Named Exports** — Both `<Card.Header>` and `<CardHeader>` work. Use whichever you prefer
 - **100% TypeScript** — Full type safety with IntelliSense support
 - **Dark Mode Built-in** — Light/dark themes with system preference detection
 - **Radix UI Primitives** — Accessible, keyboard-navigable components out of the box
@@ -28,11 +29,30 @@ npm install @7onic-ui/react @7onic-ui/tokens
 ```
 
 ```tsx
+// Standalone components
 import { Button } from '@7onic-ui/react'
 
-export default function App() {
-  return <Button variant="primary">Get Started</Button>
-}
+<Button variant="primary">Get Started</Button>
+
+// Compound components — namespace (recommended)
+import { Card } from '@7onic-ui/react'
+
+<Card>
+  <Card.Header>
+    <Card.Title>Settings</Card.Title>
+  </Card.Header>
+  <Card.Content>...</Card.Content>
+</Card>
+
+// Compound components — named exports (also supported)
+import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
+
+<Card>
+  <CardHeader>
+    <CardTitle>Settings</CardTitle>
+  </CardHeader>
+  <CardContent>...</CardContent>
+</Card>
 ```
 
 #### Tailwind v4
@@ -134,6 +154,7 @@ All components follow these patterns:
 - Controlled & uncontrolled modes
 - `forwardRef` for ref forwarding
 - `'use client'` directive
+- Namespace compound export (`Card.Header`) + backward-compatible named exports (`CardHeader`)
 
 ---
 
@@ -232,6 +253,7 @@ The documentation site includes:
 - [x] Documentation site with interactive playgrounds
 - [x] Core components — Forms (14), Data Display (4), Layout (3), Navigation (3), Charts (5)
 - [x] npm package distribution setup
+- [x] Namespace compound exports — `<Card.Header>` style with backward-compatible named exports
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI
 - [ ] Figma UI Kit

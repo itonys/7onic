@@ -272,7 +272,7 @@ export interface PaginationProps extends Omit<React.ComponentPropsWithoutRef<'na
   loop?: boolean
 }
 
-const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
+const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
   ({
     className,
     total = 1,
@@ -336,7 +336,7 @@ const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
     )
   }
 )
-Pagination.displayName = 'Pagination'
+PaginationRoot.displayName = 'Pagination'
 
 // ─── PaginationContent ───────────────────────────────────
 
@@ -606,6 +606,28 @@ const PaginationItems = React.forwardRef<HTMLDivElement, React.ComponentPropsWit
 PaginationItems.displayName = 'PaginationItems'
 
 // ─── Exports ─────────────────────────────────────────────
+
+// ─── Namespace ──────────────────────────────────────────
+const Pagination = Object.assign(PaginationRoot, {
+  Content: PaginationContent,
+  Item: PaginationItem,
+  Link: PaginationLink,
+  Previous: PaginationPrevious,
+  Next: PaginationNext,
+  First: PaginationFirst,
+  Last: PaginationLast,
+  Ellipsis: PaginationEllipsis,
+  Items: PaginationItems,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace Pagination {
+  export type LinkProps = PaginationLinkProps
+  export type PreviousProps = PaginationPreviousProps
+  export type NextProps = PaginationNextProps
+  export type FirstProps = PaginationFirstProps
+  export type LastProps = PaginationLastProps
+}
 
 export {
   Pagination,

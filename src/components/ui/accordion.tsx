@@ -55,7 +55,7 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean
 }
 
-const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
+const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionProps>(
   ({ className, variant = 'default', size = 'default', iconPosition = 'right', type = 'single', collapsible = true, defaultValue, value, onValueChange, disabled, ...props }, ref) => {
     const sharedClassName = cn(accordionVariants({ variant }), className)
 
@@ -89,7 +89,7 @@ const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
     )
   }
 )
-Accordion.displayName = 'Accordion'
+AccordionRoot.displayName = 'Accordion'
 
 // ─── AccordionItem ───────────────────────────────────────────
 
@@ -236,6 +236,20 @@ const AccordionContent = React.forwardRef<
 AccordionContent.displayName = 'AccordionContent'
 
 // ─── Exports ─────────────────────────────────────────────────
+
+// ─── Namespace ──────────────────────────────────────────
+const Accordion = Object.assign(AccordionRoot, {
+  Item: AccordionItem,
+  Trigger: AccordionTrigger,
+  Content: AccordionContent,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace Accordion {
+  export type ItemProps = AccordionItemProps
+  export type TriggerProps = AccordionTriggerProps
+  export type ContentProps = AccordionContentProps
+}
 
 export {
   Accordion,

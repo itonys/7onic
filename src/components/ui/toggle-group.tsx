@@ -100,7 +100,7 @@ export type ToggleGroupProps = ToggleGroupBaseProps &
   VariantProps<typeof toggleGroupItemVariants> &
   (ToggleGroupSingleProps | ToggleGroupMultipleProps)
 
-const ToggleGroup = React.forwardRef<
+const ToggleGroupRoot = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
   ToggleGroupProps
 >(({ className, orientation, variant, size, radius, fontWeight, children, ...props }, ref) => (
@@ -139,7 +139,7 @@ const ToggleGroup = React.forwardRef<
     </ToggleGroupContext.Provider>
   </ToggleGroupPrimitive.Root>
 ))
-ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
+ToggleGroupRoot.displayName = ToggleGroupPrimitive.Root.displayName
 
 export interface ToggleGroupItemProps
   extends React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>,
@@ -184,5 +184,15 @@ const ToggleGroupItem = React.forwardRef<
   )
 })
 ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName
+
+// ─── Namespace ──────────────────────────────────────────
+const ToggleGroup = Object.assign(ToggleGroupRoot, {
+  Item: ToggleGroupItem,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace ToggleGroup {
+  export type ItemProps = ToggleGroupItemProps
+}
 
 export { ToggleGroup, ToggleGroupItem, toggleGroupVariants, toggleGroupItemVariants }

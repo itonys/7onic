@@ -134,7 +134,7 @@ export interface NavigationMenuProps extends React.HTMLAttributes<HTMLElement> {
   onValueChange?: (value: string) => void
 }
 
-const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
+const NavigationMenuRoot = React.forwardRef<HTMLElement, NavigationMenuProps>(
   ({
     className,
     orientation = 'horizontal',
@@ -201,7 +201,7 @@ const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
     )
   }
 )
-NavigationMenu.displayName = 'NavigationMenu'
+NavigationMenuRoot.displayName = 'NavigationMenu'
 
 // ─── NavigationMenuList ───────────────────────────────────
 
@@ -653,6 +653,30 @@ const NavigationMenuViewport = React.forwardRef<HTMLDivElement, NavigationMenuVi
 NavigationMenuViewport.displayName = 'NavigationMenuViewport'
 
 // ─── Exports ──────────────────────────────────────────────
+
+// ─── Namespace ──────────────────────────────────────────
+const NavigationMenu = Object.assign(NavigationMenuRoot, {
+  List: NavigationMenuList,
+  Item: NavigationMenuItem,
+  Trigger: NavigationMenuTrigger,
+  Content: NavigationMenuContent,
+  Link: NavigationMenuLink,
+  Group: NavigationMenuGroup,
+  Indicator: NavigationMenuIndicator,
+  Viewport: NavigationMenuViewport,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace NavigationMenu {
+  export type ListProps = NavigationMenuListProps
+  export type ItemProps = NavigationMenuItemProps
+  export type TriggerProps = NavigationMenuTriggerProps
+  export type ContentProps = NavigationMenuContentProps
+  export type LinkProps = NavigationMenuLinkProps
+  export type GroupProps = NavigationMenuGroupProps
+  export type IndicatorProps = NavigationMenuIndicatorProps
+  export type ViewportProps = NavigationMenuViewportProps
+}
 
 export {
   NavigationMenu,
