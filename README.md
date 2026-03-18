@@ -10,13 +10,16 @@ A design system combining beauty, consistency, and developer experience. Designe
 
 ## Features
 
-- **Figma Token Sync** — Auto-generate code from Figma tokens with `npx sync-tokens`
+- **Figma Token Sync** — Single source of truth. Change a token, everything updates automatically
 - **Namespace + Named Exports** — Both `<Card.Header>` and `<CardHeader>` work. Use whichever you prefer
 - **100% TypeScript** — Full type safety with IntelliSense support
 - **Dark Mode Built-in** — Light/dark themes with system preference detection
 - **Radix UI Primitives** — Accessible, keyboard-navigable components out of the box
 - **Tailwind v3/v4 Dual Support** — Both versions supported via presets
-- **CJK Typography** — Font stack optimized for CJK text (Noto Sans JP)
+- **AI-Optimized Development** — CLAUDE.md + consistent patterns enable AI to generate components accurately
+- **Chart Components** — 5 chart types (Bar, Line, Area, Pie, MetricCard) with design token integration
+- **Tokens-only Distribution** — Use CSS variables without Tailwind or React
+- **Zero Runtime CSS** — No CSS-in-JS runtime overhead. Pure Tailwind classes
 
 ---
 
