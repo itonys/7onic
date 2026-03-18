@@ -305,6 +305,7 @@
      ======================================== */
   --scale-50: 0.5;
   --scale-75: 0.75;
+  --scale-95: 0.95;
   --scale-pressed: 0.98;
 
   /* ========================================
@@ -359,6 +360,7 @@
   --duration-slow: 300ms;
   --duration-slower: 400ms;
   --duration-slowest: 500ms;
+  --duration-spin: 1000ms;
 
   /* ========================================
      Easing
@@ -481,32 +483,127 @@
 }
 
 /* ========================================
-   Component Enter Animations
-   Generated from primitive.animation in figma-tokens.json
-   Tailwind users get these from v3-preset or v4-theme.
-   Non-Tailwind users: these classes work as plain CSS.
+   Component Animations
+   Generated from semantic.animation in figma-tokens.json
+   Token name = keyframe name = class name (1:1)
    ======================================== */
 
-@keyframes enter {
-  from {
-    opacity: var(--tw-enter-opacity, 1);
-    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
-              scale(var(--tw-enter-scale, 1))
-              rotate(var(--tw-enter-rotate, 0));
-  }
+@keyframes checkbox-enter {
+  from { opacity: 0; transform: scale(0.75); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-checkbox-enter {
+  animation: checkbox-enter var(--duration-micro) var(--easing-ease-out);
 }
 
-.animate-in {
-  animation-name: enter;
-  animation-duration: var(--duration-micro);
-  animation-timing-function: var(--easing-ease-out);
-  --tw-enter-opacity: initial;
-  --tw-enter-scale: initial;
-  --tw-enter-rotate: initial;
-  --tw-enter-translate-x: initial;
-  --tw-enter-translate-y: initial;
+@keyframes radio-enter {
+  from { opacity: 0; transform: scale(0.5); }
+  to { opacity: 1; transform: scale(1); }
+}
+.animate-radio-enter {
+  animation: radio-enter var(--duration-micro) var(--easing-ease-out);
 }
 
-.fade-in-0 { --tw-enter-opacity: 0; }
-.zoom-in-75 { --tw-enter-scale: 0.75; }
-.zoom-in-50 { --tw-enter-scale: 0.5; }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.animate-fade-out {
+  animation: fade-out var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes modal-overlay-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-modal-overlay-enter {
+  animation: modal-overlay-enter var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes modal-overlay-exit {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+.animate-modal-overlay-exit {
+  animation: modal-overlay-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes modal-content-enter {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-modal-content-enter {
+  animation: modal-content-enter var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes modal-content-exit {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.95) translateY(8px); }
+}
+.animate-modal-content-exit {
+  animation: modal-content-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes nav-viewport-enter {
+  from { opacity: 0; transform: scale(0.98) translateY(-2px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.animate-nav-viewport-enter {
+  animation: nav-viewport-enter var(--duration-micro) var(--easing-ease-out);
+}
+
+@keyframes nav-viewport-exit {
+  from { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 0; transform: scale(0.98) translateY(-2px); }
+}
+.animate-nav-viewport-exit {
+  animation: nav-viewport-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes accordion-down {
+  from { height: 0; }
+  to { height: var(--radix-accordion-content-height); }
+}
+.animate-accordion-down {
+  animation: accordion-down var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); }
+  to { height: 0; }
+}
+.animate-accordion-up {
+  animation: accordion-up var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes collapsible-down {
+  from { height: 0; }
+  to { height: var(--radix-collapsible-content-height); }
+}
+.animate-collapsible-down {
+  animation: collapsible-down var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes collapsible-up {
+  from { height: var(--radix-collapsible-content-height); }
+  to { height: 0; }
+}
+.animate-collapsible-up {
+  animation: collapsible-up var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin var(--duration-spin) var(--easing-linear) infinite;
+}

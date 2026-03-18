@@ -289,6 +289,7 @@ module.exports = {
         'slow': 'var(--duration-slow)',
         'slower': 'var(--duration-slower)',
         'slowest': 'var(--duration-slowest)',
+        'spin': 'var(--duration-spin)',
       },
 
       transitionTimingFunction: {
@@ -326,25 +327,89 @@ module.exports = {
       scale: {
         '50': 'var(--scale-50)',
         '75': 'var(--scale-75)',
+        '95': 'var(--scale-95)',
         'pressed': 'var(--scale-pressed)',
       },
 
       keyframes: {
-        'spin': {
-          from: { transform: 'rotate(0deg)' },
-          to: { transform: 'rotate(360deg)' },
+        'checkbox-enter': {
+          from: { 'opacity': '0', 'transform': 'scale(0.75)' },
+          to: { 'opacity': '1', 'transform': 'scale(1)' },
         },
-        'enter': {
-          from: {
-            opacity: 'var(--tw-enter-opacity, 1)',
-            transform: 'translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale(var(--tw-enter-scale, 1)) rotate(var(--tw-enter-rotate, 0))',
-          },
+        'radio-enter': {
+          from: { 'opacity': '0', 'transform': 'scale(0.5)' },
+          to: { 'opacity': '1', 'transform': 'scale(1)' },
+        },
+        'fade-in': {
+          from: { 'opacity': '0' },
+          to: { 'opacity': '1' },
+        },
+        'fade-out': {
+          from: { 'opacity': '1' },
+          to: { 'opacity': '0' },
+        },
+        'modal-overlay-enter': {
+          from: { 'opacity': '0' },
+          to: { 'opacity': '1' },
+        },
+        'modal-overlay-exit': {
+          from: { 'opacity': '1' },
+          to: { 'opacity': '0' },
+        },
+        'modal-content-enter': {
+          from: { 'opacity': '0', 'transform': 'scale(0.95) translateY(8px)' },
+          to: { 'opacity': '1', 'transform': 'scale(1) translateY(0)' },
+        },
+        'modal-content-exit': {
+          from: { 'opacity': '1', 'transform': 'scale(1) translateY(0)' },
+          to: { 'opacity': '0', 'transform': 'scale(0.95) translateY(8px)' },
+        },
+        'nav-viewport-enter': {
+          from: { 'opacity': '0', 'transform': 'scale(0.98) translateY(-2px)' },
+          to: { 'opacity': '1', 'transform': 'scale(1) translateY(0)' },
+        },
+        'nav-viewport-exit': {
+          from: { 'opacity': '1', 'transform': 'scale(1) translateY(0)' },
+          to: { 'opacity': '0', 'transform': 'scale(0.98) translateY(-2px)' },
+        },
+        'accordion-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-accordion-content-height)' },
+        },
+        'accordion-up': {
+          from: { height: 'var(--radix-accordion-content-height)' },
+          to: { height: '0' },
+        },
+        'collapsible-down': {
+          from: { height: '0' },
+          to: { height: 'var(--radix-collapsible-content-height)' },
+        },
+        'collapsible-up': {
+          from: { height: 'var(--radix-collapsible-content-height)' },
+          to: { height: '0' },
+        },
+        'spin': {
+          from: {  },
+          to: {  },
         },
       },
 
       animation: {
-        'spin': 'spin 1s linear infinite',
-        'in': 'enter var(--duration-micro) var(--easing-ease-out)',
+        'checkbox-enter': 'checkbox-enter var(--duration-micro) var(--easing-ease-out)',
+        'radio-enter': 'radio-enter var(--duration-micro) var(--easing-ease-out)',
+        'fade-in': 'fade-in var(--duration-normal) var(--easing-ease-out)',
+        'fade-out': 'fade-out var(--duration-normal) var(--easing-ease-out)',
+        'modal-overlay-enter': 'modal-overlay-enter var(--duration-normal) var(--easing-ease-out)',
+        'modal-overlay-exit': 'modal-overlay-exit var(--duration-fast) var(--easing-ease-out)',
+        'modal-content-enter': 'modal-content-enter var(--duration-normal) var(--easing-ease-out)',
+        'modal-content-exit': 'modal-content-exit var(--duration-fast) var(--easing-ease-out)',
+        'nav-viewport-enter': 'nav-viewport-enter var(--duration-micro) var(--easing-ease-out)',
+        'nav-viewport-exit': 'nav-viewport-exit var(--duration-fast) var(--easing-ease-out)',
+        'accordion-down': 'accordion-down var(--duration-normal) var(--easing-ease-out)',
+        'accordion-up': 'accordion-up var(--duration-normal) var(--easing-ease-out)',
+        'collapsible-down': 'collapsible-down var(--duration-normal) var(--easing-ease-out)',
+        'collapsible-up': 'collapsible-up var(--duration-normal) var(--easing-ease-out)',
+        'spin': 'spin var(--duration-spin) var(--easing-linear) infinite',
       },
     },
   },
@@ -375,22 +440,24 @@ module.exports = {
         },
       })
     },
-    // Enter animation utilities (generated from primitive.animation)
+    // Animation utilities (generated from semantic.animation)
     function({ addUtilities }) {
       addUtilities({
-        '.animate-in': {
-          'animation-name': 'enter',
-          'animation-duration': 'var(--duration-micro)',
-          'animation-timing-function': 'var(--easing-ease-out)',
-          '--tw-enter-opacity': 'initial',
-          '--tw-enter-scale': 'initial',
-          '--tw-enter-rotate': 'initial',
-          '--tw-enter-translate-x': 'initial',
-          '--tw-enter-translate-y': 'initial',
-        },
-        '.fade-in-0': { '--tw-enter-opacity': '0' },
-        '.zoom-in-75': { '--tw-enter-scale': '0.75' },
-        '.zoom-in-50': { '--tw-enter-scale': '0.5' },
+        '.animate-checkbox-enter': { 'animation': 'checkbox-enter var(--duration-micro) var(--easing-ease-out)' },
+        '.animate-radio-enter': { 'animation': 'radio-enter var(--duration-micro) var(--easing-ease-out)' },
+        '.animate-fade-in': { 'animation': 'fade-in var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-fade-out': { 'animation': 'fade-out var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-modal-overlay-enter': { 'animation': 'modal-overlay-enter var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-modal-overlay-exit': { 'animation': 'modal-overlay-exit var(--duration-fast) var(--easing-ease-out)' },
+        '.animate-modal-content-enter': { 'animation': 'modal-content-enter var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-modal-content-exit': { 'animation': 'modal-content-exit var(--duration-fast) var(--easing-ease-out)' },
+        '.animate-nav-viewport-enter': { 'animation': 'nav-viewport-enter var(--duration-micro) var(--easing-ease-out)' },
+        '.animate-nav-viewport-exit': { 'animation': 'nav-viewport-exit var(--duration-fast) var(--easing-ease-out)' },
+        '.animate-accordion-down': { 'animation': 'accordion-down var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-accordion-up': { 'animation': 'accordion-up var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-collapsible-down': { 'animation': 'collapsible-down var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-collapsible-up': { 'animation': 'collapsible-up var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-spin': { 'animation': 'spin var(--duration-spin) var(--easing-linear) infinite' },
       })
     },
   ],

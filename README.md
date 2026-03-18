@@ -124,7 +124,7 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Data Display** | Avatar, Badge, Card, Table | Ready |
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
 | **Layout** | Tabs, Accordion, Divider | Ready |
-| **Overlay** | Modal, Drawer, Tooltip, Popover | Planned |
+| **Overlay** | **Modal**, Drawer, Tooltip, Popover | Modal Ready |
 | **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | Ready |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
@@ -146,15 +146,15 @@ All components follow these patterns:
 | **Spacing** | 0–96px | 2px increments (0–12px), 4px increments (12px+) |
 | **Radius** | 9 values (0–9999px) | `none` through `full` |
 | **Shadows** | 6 primitives | `xs` through `xl`, plus `primary-glow` |
-| **Duration** | 7 values (0–500ms) | `instant`, `fast`, `micro`, `normal`, `slow`, `slower`, `slowest` |
+| **Duration** | 8 values (0–1000ms) | `instant`, `fast`, `micro`, `normal`, `slow`, `slower`, `slowest`, `spin` |
 | **Easing** | 5 functions | `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out` |
 | **Z-Index** | 13 layers | `0` through `toast`(3000) |
 | **Icon Sizes** | 5 sizes (14–32px) | `xs`, `sm`, `md`, `lg`, `xl` |
 | **Opacity** | 21 values (0–1) | `0`, `5`, `10`, `15`...`95`, `100` |
 | **Breakpoints** | 5 widths | `sm`(640) through `2xl`(1536) |
 | **Border Width** | 5 values | `0`, `1`, `2`, `4`, `8` |
-| **Scale** | 3 values | `50`(0.5), `75`(0.75), `pressed`(0.98) |
-| **Animation** | 2 values | `spin`, `pulse` |
+| **Scale** | 4 values | `50`(0.5), `75`(0.75), `95`(0.95), `pressed`(0.98) |
+| **Animation** | 15 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `nav-viewport-*`, `accordion-*`, `collapsible-*`, `spin` |
 
 ---
 

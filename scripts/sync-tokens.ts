@@ -589,8 +589,7 @@ const KNOWN_ORDERS = {
 const KNOWN_PRIMITIVE_SECTIONS = new Set([
   'color', 'fontFamily', 'fontSize', 'fontWeight', 'spacing',
   'borderRadius', 'borderWidth', 'shadow', 'iconSize', 'scale',
-  'zIndex', 'opacity', 'duration', 'easing', 'breakpoint', 'animation',
-  'componentSize',
+  'zIndex', 'opacity', 'duration', 'easing', 'breakpoint',
 ])
 
 function warnUnknownPrimitiveSections(primitive: Record<string, unknown>): void {
@@ -602,7 +601,7 @@ function warnUnknownPrimitiveSections(primitive: Record<string, unknown>): void 
 }
 
 const KNOWN_SEMANTIC_SECTIONS = new Set([
-  'typography', 'spacing',
+  'typography', 'spacing', 'animation', 'componentSize',
 ])
 
 function warnUnknownSemanticSections(semantic: Record<string, unknown>): void {
@@ -623,74 +622,81 @@ function warnUnknownThemeCategories(themeColor: Record<string, Record<string, To
 }
 
 // ============================================================
-// Animation Composite Token Reader
+// Animation Token Reader
 // ============================================================
 
-interface AnimationComposite {
+/**
+ * Parsed animation token — all types unified as named animations.
+ * Each token generates: @keyframes {name} + .animate-{name} class.
+ * Token name = keyframe name = class name (1:1 mapping).
+ */
+interface AnimationToken {
   name: string
-  opacity: string   // raw value e.g. "0"
-  scale: string     // raw value e.g. "0.75"
-  durationVar: string  // CSS var e.g. "var(--duration-micro)"
-  easingVar: string    // CSS var e.g. "var(--easing-ease-out)"
+  type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin'
+  opacity: string         // raw value e.g. "0" (empty if not used)
+  scale: string           // raw value e.g. "0.75" (empty if not used)
+  translateY: string      // raw value e.g. "8" in px (empty if not used)
+  translateYNegative: boolean
+  heightVar: string       // CSS var name for height animations (empty if not used)
+  durationVar: string     // CSS var e.g. "var(--duration-micro)"
+  easingVar: string       // CSS var e.g. "var(--easing-ease-out)"
 }
 
 /**
- * Read primitive.animation composites from figma-tokens.json.
- * Each composite references primitive values via {primitive.*} syntax.
- * Returns parsed composites + deduplicated modifier values for CSS generation.
+ * Read semantic.animation composites from figma-tokens.json.
+ * All animations are generated as named: @keyframes {name} + .animate-{name}
+ * No composable system — token name maps 1:1 to CSS class name.
  */
-function readAnimationTokens(tokens: FigmaTokens): {
-  composites: AnimationComposite[]
-  fadeValues: string[]    // unique opacity start values
-  zoomValues: string[]    // unique scale start values as percentages
-  defaultDurationVar: string
-  defaultEasingVar: string
-} | null {
-  const animation = (tokens.primitive as Record<string, unknown>).animation as Record<string, unknown> | undefined
+function readAnimationTokens(tokens: FigmaTokens): AnimationToken[] | null {
+  const sem = tokens.semantic as Record<string, unknown> | undefined
+  const animation = sem?.animation as Record<string, unknown> | undefined
   if (!animation) return null
 
   const p = tokens.primitive as Record<string, unknown>
-  const composites: AnimationComposite[] = []
+  const result: AnimationToken[] = []
 
   for (const [name, entry] of Object.entries(animation)) {
     if (name.startsWith('$')) continue
     const token = entry as TokenValue
     if (token.type !== 'composition') continue
     const val = token.value as Record<string, string>
+    const ext = (token as Record<string, unknown>).$extensions as Record<string, unknown> | undefined
 
-    // Resolve {primitive.opacity.0} → raw value "0"
-    const opacityRaw = resolveRef(val.opacity, p)
-    const scaleRaw = resolveRef(val.scale, p)
-    const durationKey = extractRefKey(val.duration)   // "micro"
-    const easingKey = extractRefKey(val.easing)       // "easeOut"
+    const durationKey = extractRefKey(val.duration)
+    const easingKey = extractRefKey(val.easing)
+    const durationVar = `var(--duration-${durationKey})`
+    const easingVar = `var(--easing-${camelToKebab(easingKey)})`
 
-    composites.push({
-      name,
-      opacity: opacityRaw,
-      scale: scaleRaw,
-      durationVar: `var(--duration-${durationKey})`,
-      easingVar: `var(--easing-${camelToKebab(easingKey)})`,
-    })
+    // Special types
+    const animationType = ext?.animationType as string | undefined
+    if (animationType === 'spin') {
+      result.push({ name, type: 'spin', opacity: '', scale: '', translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
+      continue
+    }
+
+    // Height-based animations (Radix runtime)
+    if (animationType === 'height-expand' || animationType === 'height-collapse') {
+      result.push({ name, type: animationType, opacity: '', scale: '', translateY: '', translateYNegative: false, heightVar: val.heightVar, durationVar, easingVar })
+      continue
+    }
+
+    // Enter/exit direction (from $extensions or inferred from token name)
+    const direction = ext?.direction as string | undefined
+    const type = (direction === 'exit' ? 'exit' : 'enter') as 'enter' | 'exit'
+    const opacityRaw = val.opacity ? resolveRef(val.opacity, p) : ''
+    const scaleRaw = val.scale ? resolveRef(val.scale, p) : ''
+    const translateYRaw = val.translateY ? resolveRef(val.translateY, p) : ''
+    const translateYNegative = ext?.translateYNegative === true
+
+    result.push({ name, type, opacity: opacityRaw, scale: scaleRaw, translateY: translateYRaw, translateYNegative, heightVar: '', durationVar, easingVar })
   }
 
-  if (composites.length === 0) return null
-
-  // Deduplicate modifier values
-  const fadeValues = [...new Set(composites.map(c => c.opacity))]
-  const zoomValues = [...new Set(composites.map(c => c.scale))]
-
-  return {
-    composites,
-    fadeValues,
-    zoomValues,
-    defaultDurationVar: composites[0].durationVar,
-    defaultEasingVar: composites[0].easingVar,
-  }
+  return result.length > 0 ? result : null
 }
 
-/** Resolve {primitive.section.key} to raw value from tokens */
+/** Resolve {primitive.section.key} to raw value from tokens (supports keys like "0.5") */
 function resolveRef(ref: string, primitive: Record<string, unknown>): string {
-  const match = ref.match(/^\{primitive\.(\w+)\.(\w+)\}$/)
+  const match = ref.match(/^\{primitive\.(\w+)\.([\w.]+)\}$/)
   if (!match) return ref
   const [, section, key] = match
   const sectionData = primitive[section] as Record<string, TokenValue> | undefined
@@ -706,6 +712,82 @@ function extractRefKey(ref: string): string {
 /** Convert scale raw value "0.75" → percentage integer "75" */
 function scaleToPercent(raw: string): string {
   return String(Math.round(parseFloat(raw) * 100))
+}
+
+/**
+ * Generate CSS for a single animation token.
+ * Produces @keyframes {name} + .animate-{name} (or @utility for v4).
+ * Token name = keyframe name = class name (1:1 mapping).
+ */
+function generateAnimationCss(a: AnimationToken, format: 'css' | 'v4'): string {
+  const lines: string[] = []
+
+  // Spin animation (infinite rotation)
+  if (a.type === 'spin') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  from { transform: rotate(0deg); }`)
+    lines.push(`  to { transform: rotate(360deg); }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Height-based animations
+  if (a.type === 'height-expand' || a.type === 'height-collapse') {
+    const isExpand = a.type === 'height-expand'
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  from { height: ${isExpand ? '0' : `var(${a.heightVar})`}; }`)
+    lines.push(`  to { height: ${isExpand ? `var(${a.heightVar})` : '0'}; }`)
+    lines.push(`}`)
+  } else {
+    // Enter/exit animations
+    const isEnter = a.type === 'enter'
+    const fromProps: string[] = []
+    const toProps: string[] = []
+
+    if (a.opacity) {
+      fromProps.push(`opacity: ${isEnter ? a.opacity : '1'}`)
+      toProps.push(`opacity: ${isEnter ? '1' : a.opacity}`)
+    }
+
+    const fromT: string[] = [], toT: string[] = []
+    if (a.scale) {
+      fromT.push(isEnter ? `scale(${a.scale})` : 'scale(1)')
+      toT.push(isEnter ? 'scale(1)' : `scale(${a.scale})`)
+    }
+    if (a.translateY) {
+      const px = `${a.translateYNegative ? '-' : ''}${a.translateY}px`
+      fromT.push(isEnter ? `translateY(${px})` : 'translateY(0)')
+      toT.push(isEnter ? 'translateY(0)' : `translateY(${px})`)
+    }
+    if (fromT.length) {
+      fromProps.push(`transform: ${fromT.join(' ')}`)
+      toProps.push(`transform: ${toT.join(' ')}`)
+    }
+
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  from { ${fromProps.join('; ')}; }`)
+    lines.push(`  to { ${toProps.join('; ')}; }`)
+    lines.push(`}`)
+  }
+
+  // Utility class
+  if (format === 'v4') {
+    lines.push(`@utility animate-${a.name} {`)
+  } else {
+    lines.push(`.animate-${a.name} {`)
+  }
+  lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar};`)
+  lines.push(`}`)
+
+  return lines.join('\n')
 }
 
 /** Convert 6-digit hex color to space-separated RGB channels: "#F4F4F5" → "244 244 245" */
@@ -934,8 +1016,9 @@ function generateVariablesCss(tokens: FigmaTokens): string {
   }
   lines.push(``)
 
-  // --- Component Size ---
-  const compSizeData = p.componentSize as Record<string, unknown> | undefined
+  // --- Component Size (semantic.componentSize) ---
+  const sem = tokens.semantic as Record<string, unknown> | undefined
+  const compSizeData = sem?.componentSize as Record<string, unknown> | undefined
   if (compSizeData) {
     lines.push(`  /* ========================================`)
     lines.push(`     Component Size`)
@@ -1062,44 +1145,20 @@ function generateVariablesCss(tokens: FigmaTokens): string {
   lines.push(`}`)
   lines.push(``)
 
-  // --- Component Enter Animations (from primitive.animation composites) ---
-  const anim = readAnimationTokens(tokens)
-  if (anim) {
+  // --- Component Animations (from semantic.animation) ---
+  // Each token generates: @keyframes {name} + .animate-{name} (1:1 mapping)
+  const animTokens = readAnimationTokens(tokens)
+  if (animTokens) {
     lines.push(`/* ========================================`)
-    lines.push(`   Component Enter Animations`)
-    lines.push(`   Generated from primitive.animation in figma-tokens.json`)
-    lines.push(`   Tailwind users get these from v3-preset or v4-theme.`)
-    lines.push(`   Non-Tailwind users: these classes work as plain CSS.`)
+    lines.push(`   Component Animations`)
+    lines.push(`   Generated from semantic.animation in figma-tokens.json`)
+    lines.push(`   Token name = keyframe name = class name (1:1)`)
     lines.push(`   ======================================== */`)
     lines.push(``)
-    lines.push(`@keyframes enter {`)
-    lines.push(`  from {`)
-    lines.push(`    opacity: var(--tw-enter-opacity, 1);`)
-    lines.push(`    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)`)
-    lines.push(`              scale(var(--tw-enter-scale, 1))`)
-    lines.push(`              rotate(var(--tw-enter-rotate, 0));`)
-    lines.push(`  }`)
-    lines.push(`}`)
-    lines.push(``)
-    lines.push(`.animate-in {`)
-    lines.push(`  animation-name: enter;`)
-    lines.push(`  animation-duration: ${anim.defaultDurationVar};`)
-    lines.push(`  animation-timing-function: ${anim.defaultEasingVar};`)
-    lines.push(`  --tw-enter-opacity: initial;`)
-    lines.push(`  --tw-enter-scale: initial;`)
-    lines.push(`  --tw-enter-rotate: initial;`)
-    lines.push(`  --tw-enter-translate-x: initial;`)
-    lines.push(`  --tw-enter-translate-y: initial;`)
-    lines.push(`}`)
-    lines.push(``)
-    for (const opacity of anim.fadeValues) {
-      lines.push(`.fade-in-${opacity} { --tw-enter-opacity: ${opacity}; }`)
+    for (const a of animTokens) {
+      lines.push(generateAnimationCss(a, 'css'))
+      lines.push(``)
     }
-    for (const scale of anim.zoomValues) {
-      const pct = scaleToPercent(scale)
-      lines.push(`.zoom-in-${pct} { --tw-enter-scale: ${scale}; }`)
-    }
-    lines.push(``)
   }
 
   return lines.join('\n')
@@ -1429,8 +1488,8 @@ function generateJsTokens(tokens: FigmaTokens): { cjs: string; esm: string } {
     data.fontFamily = fontFamily
   }
 
-  // Component Size
-  const compSizeData = p.componentSize as Record<string, unknown> | undefined
+  // Component Size (semantic.componentSize)
+  const compSizeData = (tokens.semantic as Record<string, unknown>)?.componentSize as Record<string, unknown> | undefined
   if (compSizeData) {
     const componentSize: Record<string, Record<string, Record<string, string | Record<string, string>>>> = {}
     for (const comp of Object.keys(compSizeData)) {
@@ -1461,24 +1520,25 @@ function generateJsTokens(tokens: FigmaTokens): { cjs: string; esm: string } {
   }
 
   // Animation (composite tokens → resolved values)
-  const animPrim = p.animation as Record<string, TokenValue> | undefined
-  if (animPrim) {
+  const animSem = (tokens.semantic as Record<string, unknown>)?.animation as Record<string, TokenValue> | undefined
+  if (animSem) {
     const animData: Record<string, Record<string, string>> = {}
-    for (const [name, entry] of Object.entries(animPrim)) {
+    for (const [name, entry] of Object.entries(animSem)) {
       if (name.startsWith('$')) continue
       const token = entry as TokenValue
       if (token.type !== 'composition') continue
       const val = token.value as Record<string, string>
-      const opacityRaw = resolveRef(val.opacity, p)
-      const scaleRaw = resolveRef(val.scale, p)
-      const durationRaw = resolveRef(val.duration, p)  // "150"
-      const easingRaw = resolveRef(val.easing, p)       // "ease-out"
-      animData[name] = {
-        opacity: opacityRaw,
-        scale: scaleRaw,
+      const durationRaw = resolveRef(val.duration, p)
+      const easingRaw = resolveRef(val.easing, p)
+      const obj: Record<string, string> = {
         duration: durationRaw.endsWith('ms') ? durationRaw : `${durationRaw}ms`,
         easing: easingRaw,
       }
+      if (val.opacity) obj.opacity = resolveRef(val.opacity, p)
+      if (val.scale) obj.scale = resolveRef(val.scale, p)
+      if (val.translateY) obj.translateY = resolveRef(val.translateY, p)
+      if (val.heightVar) obj.heightVar = val.heightVar
+      animData[name] = obj
     }
     data.animation = animData
   }
@@ -1682,8 +1742,8 @@ function generateTypeDefinitions(tokens: FigmaTokens): string {
     lines.push(``)
   }
 
-  // Component Size
-  const compSizeDataT = p.componentSize as Record<string, unknown> | undefined
+  // Component Size (semantic.componentSize)
+  const compSizeDataT = (tokens.semantic as Record<string, unknown>)?.componentSize as Record<string, unknown> | undefined
   if (compSizeDataT) {
     lines.push(`export declare const componentSize: {`)
     for (const comp of Object.keys(compSizeDataT)) {
@@ -1713,14 +1773,20 @@ function generateTypeDefinitions(tokens: FigmaTokens): string {
   }
 
   // Animation
-  const animPrimT = p.animation as Record<string, TokenValue> | undefined
-  if (animPrimT) {
+  const animSemT = (tokens.semantic as Record<string, unknown>)?.animation as Record<string, TokenValue> | undefined
+  if (animSemT) {
     lines.push(`export declare const animation: {`)
-    for (const [name, entry] of Object.entries(animPrimT)) {
+    for (const [name, entry] of Object.entries(animSemT)) {
       if (name.startsWith('$')) continue
       const token = entry as TokenValue
       if (token.type !== 'composition') continue
-      lines.push(`  '${name}': { opacity: string; scale: string; duration: string; easing: string };`)
+      const val = token.value as Record<string, string>
+      const fields: string[] = ['duration: string', 'easing: string']
+      if (val.opacity) fields.unshift('opacity: string')
+      if (val.scale) fields.unshift('scale: string')
+      if (val.translateY) fields.unshift('translateY: string')
+      if (val.heightVar) fields.unshift('heightVar: string')
+      lines.push(`  '${name}': { ${fields.join('; ')} };`)
     }
     lines.push(`};`)
     lines.push(``)
@@ -1993,8 +2059,8 @@ function generateNormalizedJson(tokens: FigmaTokens): string {
     result.fontFamily = fontFamilyFlat
   }
 
-  // Component Size (flat: "switch-track-sm-width": "32px")
-  const compSizeData = p.componentSize as Record<string, unknown> | undefined
+  // Component Size (semantic.componentSize, flat: "switch-track-sm-width": "32px")
+  const compSizeData = (tokens.semantic as Record<string, unknown>)?.componentSize as Record<string, unknown> | undefined
   if (compSizeData) {
     const compFlat: Record<string, string> = {}
     for (const comp of Object.keys(compSizeData)) {
@@ -2021,22 +2087,22 @@ function generateNormalizedJson(tokens: FigmaTokens): string {
   }
 
   // Animation (flat: "checkbox-enter-opacity": "0")
-  const animPrimJ = p.animation as Record<string, TokenValue> | undefined
-  if (animPrimJ) {
+  const animSemJ = (tokens.semantic as Record<string, unknown>)?.animation as Record<string, TokenValue> | undefined
+  if (animSemJ) {
     const animFlat: Record<string, string> = {}
-    for (const [name, entry] of Object.entries(animPrimJ)) {
+    for (const [name, entry] of Object.entries(animSemJ)) {
       if (name.startsWith('$')) continue
       const token = entry as TokenValue
       if (token.type !== 'composition') continue
       const val = token.value as Record<string, string>
-      const opacityRaw = resolveRef(val.opacity, p)
-      const scaleRaw = resolveRef(val.scale, p)
       const durationRaw = resolveRef(val.duration, p)
       const easingRaw = resolveRef(val.easing, p)
-      animFlat[`${name}-opacity`] = opacityRaw
-      animFlat[`${name}-scale`] = scaleRaw
       animFlat[`${name}-duration`] = durationRaw.endsWith('ms') ? durationRaw : `${durationRaw}ms`
       animFlat[`${name}-easing`] = easingRaw
+      if (val.opacity) animFlat[`${name}-opacity`] = resolveRef(val.opacity, p)
+      if (val.scale) animFlat[`${name}-scale`] = resolveRef(val.scale, p)
+      if (val.translateY) animFlat[`${name}-translateY`] = resolveRef(val.translateY, p)
+      if (val.heightVar) animFlat[`${name}-heightVar`] = val.heightVar
     }
     result.animation = animFlat
   }
@@ -2309,28 +2375,42 @@ function generateV3Preset(tokens: FigmaTokens): string {
   lines.push(`      },`)
   lines.push(``)
 
-  // --- keyframes + animation (from primitive.animation) ---
+  // --- keyframes + animation (from semantic.animation, 1:1 named) ---
   const v3Anim = readAnimationTokens(tokens)
   lines.push(`      keyframes: {`)
-  lines.push(`        'spin': {`)
-  lines.push(`          from: { transform: 'rotate(0deg)' },`)
-  lines.push(`          to: { transform: 'rotate(360deg)' },`)
-  lines.push(`        },`)
   if (v3Anim) {
-    lines.push(`        'enter': {`)
-    lines.push(`          from: {`)
-    lines.push(`            opacity: 'var(--tw-enter-opacity, 1)',`)
-    lines.push(`            transform: 'translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale(var(--tw-enter-scale, 1)) rotate(var(--tw-enter-rotate, 0))',`)
-    lines.push(`          },`)
-    lines.push(`        },`)
+    for (const a of v3Anim) {
+      if (a.type === 'height-expand' || a.type === 'height-collapse') {
+        const isExpand = a.type === 'height-expand'
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          from: { height: '${isExpand ? '0' : `var(${a.heightVar})`}' },`)
+        lines.push(`          to: { height: '${isExpand ? `var(${a.heightVar})` : '0'}' },`)
+        lines.push(`        },`)
+      } else {
+        const isEnter = a.type === 'enter'
+        const fromProps: string[] = []
+        const toProps: string[] = []
+        if (a.opacity) { fromProps.push(`'opacity': '${isEnter ? a.opacity : '1'}'`); toProps.push(`'opacity': '${isEnter ? '1' : a.opacity}'`) }
+        const fromT: string[] = [], toT: string[] = []
+        if (a.scale) { fromT.push(isEnter ? `scale(${a.scale})` : 'scale(1)'); toT.push(isEnter ? 'scale(1)' : `scale(${a.scale})`) }
+        if (a.translateY) { const px = `${a.translateYNegative ? '-' : ''}${a.translateY}px`; fromT.push(isEnter ? `translateY(${px})` : 'translateY(0)'); toT.push(isEnter ? 'translateY(0)' : `translateY(${px})`) }
+        if (fromT.length) { fromProps.push(`'transform': '${fromT.join(' ')}'`); toProps.push(`'transform': '${toT.join(' ')}'`) }
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          from: { ${fromProps.join(', ')} },`)
+        lines.push(`          to: { ${toProps.join(', ')} },`)
+        lines.push(`        },`)
+      }
+    }
   }
   lines.push(`      },`)
   lines.push(``)
 
   lines.push(`      animation: {`)
-  lines.push(`        'spin': 'spin 1s linear infinite',`)
   if (v3Anim) {
-    lines.push(`        'in': 'enter ${v3Anim.defaultDurationVar} ${v3Anim.defaultEasingVar}',`)
+    for (const a of v3Anim) {
+      const infinite = a.type === 'spin' ? ' infinite' : ''
+      lines.push(`        '${a.name}': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}',`)
+    }
   }
   lines.push(`      },`)
 
@@ -2363,27 +2443,14 @@ function generateV3Preset(tokens: FigmaTokens): string {
   lines.push(`        },`)
   lines.push(`      })`)
   lines.push(`    },`)
-  // Enter animation utilities (from primitive.animation)
+  // Animation utilities (from semantic.animation, 1:1 named)
   if (v3Anim) {
-    lines.push(`    // Enter animation utilities (generated from primitive.animation)`)
+    lines.push(`    // Animation utilities (generated from semantic.animation)`)
     lines.push(`    function({ addUtilities }) {`)
     lines.push(`      addUtilities({`)
-    lines.push(`        '.animate-in': {`)
-    lines.push(`          'animation-name': 'enter',`)
-    lines.push(`          'animation-duration': '${v3Anim.defaultDurationVar}',`)
-    lines.push(`          'animation-timing-function': '${v3Anim.defaultEasingVar}',`)
-    lines.push(`          '--tw-enter-opacity': 'initial',`)
-    lines.push(`          '--tw-enter-scale': 'initial',`)
-    lines.push(`          '--tw-enter-rotate': 'initial',`)
-    lines.push(`          '--tw-enter-translate-x': 'initial',`)
-    lines.push(`          '--tw-enter-translate-y': 'initial',`)
-    lines.push(`        },`)
-    for (const opacity of v3Anim.fadeValues) {
-      lines.push(`        '.fade-in-${opacity}': { '--tw-enter-opacity': '${opacity}' },`)
-    }
-    for (const scale of v3Anim.zoomValues) {
-      const pct = scaleToPercent(scale)
-      lines.push(`        '.zoom-in-${pct}': { '--tw-enter-scale': '${scale}' },`)
+    for (const a of v3Anim) {
+      const infinite = a.type === 'spin' ? ' infinite' : ''
+      lines.push(`        '.animate-${a.name}': { 'animation': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}' },`)
     }
     lines.push(`      })`)
     lines.push(`    },`)
@@ -2614,8 +2681,8 @@ function generateV4Theme(tokens: FigmaTokens): string {
   }
   lines.push(``)
 
-  // --- Component Sizes ---
-  const v4CompSizeData = p.componentSize as Record<string, unknown> | undefined
+  // --- Component Sizes (semantic.componentSize) ---
+  const v4CompSizeData = (tokens.semantic as Record<string, unknown>)?.componentSize as Record<string, unknown> | undefined
   if (v4CompSizeData) {
     lines.push(`  /* =============================================`)
     lines.push(`     Component Sizes`)
@@ -2770,45 +2837,17 @@ function generateV4Theme(tokens: FigmaTokens): string {
   lines.push(`}`)
   lines.push(``)
 
-  // Enter animations (from primitive.animation composites)
+  // Animations (from semantic.animation, 1:1 named)
   const v4Anim = readAnimationTokens(tokens)
   if (v4Anim) {
     lines.push(`/* =============================================`)
-    lines.push(`   Enter Animations`)
-    lines.push(`   Generated from primitive.animation in figma-tokens.json`)
+    lines.push(`   Animations`)
+    lines.push(`   Generated from semantic.animation in figma-tokens.json`)
+    lines.push(`   Token name = keyframe name = class name (1:1)`)
     lines.push(`   ============================================= */`)
     lines.push(``)
-    lines.push(`@keyframes enter {`)
-    lines.push(`  from {`)
-    lines.push(`    opacity: var(--tw-enter-opacity, 1);`)
-    lines.push(`    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)`)
-    lines.push(`              scale(var(--tw-enter-scale, 1))`)
-    lines.push(`              rotate(var(--tw-enter-rotate, 0));`)
-    lines.push(`  }`)
-    lines.push(`}`)
-    lines.push(``)
-    lines.push(`@utility animate-in {`)
-    lines.push(`  animation-name: enter;`)
-    lines.push(`  animation-duration: ${v4Anim.defaultDurationVar};`)
-    lines.push(`  animation-timing-function: ${v4Anim.defaultEasingVar};`)
-    lines.push(`  --tw-enter-opacity: initial;`)
-    lines.push(`  --tw-enter-scale: initial;`)
-    lines.push(`  --tw-enter-rotate: initial;`)
-    lines.push(`  --tw-enter-translate-x: initial;`)
-    lines.push(`  --tw-enter-translate-y: initial;`)
-    lines.push(`}`)
-    lines.push(``)
-    for (const opacity of v4Anim.fadeValues) {
-      lines.push(`@utility fade-in-${opacity} {`)
-      lines.push(`  --tw-enter-opacity: ${opacity};`)
-      lines.push(`}`)
-      lines.push(``)
-    }
-    for (const scale of v4Anim.zoomValues) {
-      const pct = scaleToPercent(scale)
-      lines.push(`@utility zoom-in-${pct} {`)
-      lines.push(`  --tw-enter-scale: ${scale};`)
-      lines.push(`}`)
+    for (const a of v4Anim) {
+      lines.push(generateAnimationCss(a, 'v4'))
       lines.push(``)
     }
   }

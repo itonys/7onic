@@ -211,7 +211,8 @@ const tokens = {
     "normal": "200ms",
     "slow": "300ms",
     "slower": "400ms",
-    "slowest": "500ms"
+    "slowest": "500ms",
+    "spin": "1000ms"
   },
   "iconSize": {
     "xs": "0.875rem",
@@ -258,6 +259,7 @@ const tokens = {
   "scale": {
     "50": "0.5",
     "75": "0.75",
+    "95": "0.95",
     "pressed": "0.98"
   },
   "easing": {
@@ -310,16 +312,88 @@ const tokens = {
   },
   "animation": {
     "checkbox-enter": {
-      "opacity": "0",
-      "scale": "0.75",
       "duration": "150ms",
-      "easing": "ease-out"
+      "easing": "ease-out",
+      "opacity": "0",
+      "scale": "0.75"
     },
     "radio-enter": {
-      "opacity": "0",
-      "scale": "0.5",
       "duration": "150ms",
-      "easing": "ease-out"
+      "easing": "ease-out",
+      "opacity": "0",
+      "scale": "0.5"
+    },
+    "fade-in": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0"
+    },
+    "fade-out": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0"
+    },
+    "modal-overlay-enter": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0"
+    },
+    "modal-overlay-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0"
+    },
+    "modal-content-enter": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "scale": "0.95",
+      "translateY": "8"
+    },
+    "modal-content-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "scale": "0.95",
+      "translateY": "8"
+    },
+    "nav-viewport-enter": {
+      "duration": "150ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "scale": "0.98",
+      "translateY": "2"
+    },
+    "nav-viewport-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "scale": "0.98",
+      "translateY": "2"
+    },
+    "accordion-down": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "heightVar": "--radix-accordion-content-height"
+    },
+    "accordion-up": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "heightVar": "--radix-accordion-content-height"
+    },
+    "collapsible-down": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "heightVar": "--radix-collapsible-content-height"
+    },
+    "collapsible-up": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "heightVar": "--radix-collapsible-content-height"
+    },
+    "spin": {
+      "duration": "1000ms",
+      "easing": "linear"
     }
   },
   "typography": {

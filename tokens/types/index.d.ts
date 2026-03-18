@@ -39,7 +39,7 @@ export declare const fontWeight: Record<'normal' | 'semibold' | 'bold', string>;
 
 export declare const borderWidth: Record<'0' | '1' | '2' | '4' | '8', string>;
 
-export declare const scale: Record<'50' | '75' | 'pressed', string>;
+export declare const scale: Record<'50' | '75' | '95' | 'pressed', string>;
 
 export declare const easing: Record<'linear' | 'ease' | 'easeIn' | 'easeOut' | 'easeInOut', string>;
 
@@ -70,8 +70,21 @@ export declare const componentSize: {
 };
 
 export declare const animation: {
-  'checkbox-enter': { opacity: string; scale: string; duration: string; easing: string };
-  'radio-enter': { opacity: string; scale: string; duration: string; easing: string };
+  'checkbox-enter': { scale: string; opacity: string; duration: string; easing: string };
+  'radio-enter': { scale: string; opacity: string; duration: string; easing: string };
+  'fade-in': { opacity: string; duration: string; easing: string };
+  'fade-out': { opacity: string; duration: string; easing: string };
+  'modal-overlay-enter': { opacity: string; duration: string; easing: string };
+  'modal-overlay-exit': { opacity: string; duration: string; easing: string };
+  'modal-content-enter': { translateY: string; scale: string; opacity: string; duration: string; easing: string };
+  'modal-content-exit': { translateY: string; scale: string; opacity: string; duration: string; easing: string };
+  'nav-viewport-enter': { translateY: string; scale: string; opacity: string; duration: string; easing: string };
+  'nav-viewport-exit': { translateY: string; scale: string; opacity: string; duration: string; easing: string };
+  'accordion-down': { heightVar: string; duration: string; easing: string };
+  'accordion-up': { heightVar: string; duration: string; easing: string };
+  'collapsible-down': { heightVar: string; duration: string; easing: string };
+  'collapsible-up': { heightVar: string; duration: string; easing: string };
+  'spin': { duration: string; easing: string };
 };
 
 export declare const typography: {

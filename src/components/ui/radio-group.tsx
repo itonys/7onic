@@ -129,7 +129,7 @@ const RadioGroupItem = React.forwardRef<
       )}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center animate-in fade-in-0 zoom-in-50 duration-micro">
+      <RadioGroupPrimitive.Indicator className="flex items-center justify-center animate-radio-enter">
         <div className={cn('rounded-full bg-primary', dotSizes[size])} />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>

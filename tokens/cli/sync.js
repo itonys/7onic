@@ -369,40 +369,42 @@ var KNOWN_ORDERS = {
   typographyOrders: { heading: ["1", "2", "3", "4", "5", "6"], body: ["lg", "default", "md", "sm", "xs", "2xs"], label: ["lg", "md", "default", "sm", "xs"] }
 };
 function readAnimationTokens(tokens) {
-  const animation = tokens.primitive.animation;
+  const sem = tokens.semantic;
+  const animation = sem?.animation;
   if (!animation) return null;
   const p = tokens.primitive;
-  const composites = [];
+  const result = [];
   for (const [name, entry] of Object.entries(animation)) {
     if (name.startsWith("$")) continue;
     const token = entry;
     if (token.type !== "composition") continue;
     const val = token.value;
-    const opacityRaw = resolveRef(val.opacity, p);
-    const scaleRaw = resolveRef(val.scale, p);
+    const ext = token.$extensions;
     const durationKey = extractRefKey(val.duration);
     const easingKey = extractRefKey(val.easing);
-    composites.push({
-      name,
-      opacity: opacityRaw,
-      scale: scaleRaw,
-      durationVar: `var(--duration-${durationKey})`,
-      easingVar: `var(--easing-${camelToKebab(easingKey)})`
-    });
+    const durationVar = `var(--duration-${durationKey})`;
+    const easingVar = `var(--easing-${camelToKebab(easingKey)})`;
+    const animationType = ext?.animationType;
+    if (animationType === "spin") {
+      result.push({ name, type: "spin", opacity: "", scale: "", translateY: "", translateYNegative: false, heightVar: "", durationVar, easingVar });
+      continue;
+    }
+    if (animationType === "height-expand" || animationType === "height-collapse") {
+      result.push({ name, type: animationType, opacity: "", scale: "", translateY: "", translateYNegative: false, heightVar: val.heightVar, durationVar, easingVar });
+      continue;
+    }
+    const direction = ext?.direction;
+    const type = direction === "exit" ? "exit" : "enter";
+    const opacityRaw = val.opacity ? resolveRef(val.opacity, p) : "";
+    const scaleRaw = val.scale ? resolveRef(val.scale, p) : "";
+    const translateYRaw = val.translateY ? resolveRef(val.translateY, p) : "";
+    const translateYNegative = ext?.translateYNegative === true;
+    result.push({ name, type, opacity: opacityRaw, scale: scaleRaw, translateY: translateYRaw, translateYNegative, heightVar: "", durationVar, easingVar });
   }
-  if (composites.length === 0) return null;
-  const fadeValues = [...new Set(composites.map((c) => c.opacity))];
-  const zoomValues = [...new Set(composites.map((c) => c.scale))];
-  return {
-    composites,
-    fadeValues,
-    zoomValues,
-    defaultDurationVar: composites[0].durationVar,
-    defaultEasingVar: composites[0].easingVar
-  };
+  return result.length > 0 ? result : null;
 }
 function resolveRef(ref, primitive) {
-  const match = ref.match(/^\{primitive\.(\w+)\.(\w+)\}$/);
+  const match = ref.match(/^\{primitive\.(\w+)\.([\w.]+)\}$/);
   if (!match) return ref;
   const [, section, key] = match;
   const sectionData = primitive[section];
@@ -412,8 +414,63 @@ function extractRefKey(ref) {
   const match = ref.match(/^\{primitive\.\w+\.(\w+)\}$/);
   return match ? match[1] : ref;
 }
-function scaleToPercent(raw) {
-  return String(Math.round(parseFloat(raw) * 100));
+function generateAnimationCss(a, format) {
+  const lines = [];
+  if (a.type === "spin") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  from { transform: rotate(0deg); }`);
+    lines.push(`  to { transform: rotate(360deg); }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "height-expand" || a.type === "height-collapse") {
+    const isExpand = a.type === "height-expand";
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  from { height: ${isExpand ? "0" : `var(${a.heightVar})`}; }`);
+    lines.push(`  to { height: ${isExpand ? `var(${a.heightVar})` : "0"}; }`);
+    lines.push(`}`);
+  } else {
+    const isEnter = a.type === "enter";
+    const fromProps = [];
+    const toProps = [];
+    if (a.opacity) {
+      fromProps.push(`opacity: ${isEnter ? a.opacity : "1"}`);
+      toProps.push(`opacity: ${isEnter ? "1" : a.opacity}`);
+    }
+    const fromT = [], toT = [];
+    if (a.scale) {
+      fromT.push(isEnter ? `scale(${a.scale})` : "scale(1)");
+      toT.push(isEnter ? "scale(1)" : `scale(${a.scale})`);
+    }
+    if (a.translateY) {
+      const px = `${a.translateYNegative ? "-" : ""}${a.translateY}px`;
+      fromT.push(isEnter ? `translateY(${px})` : "translateY(0)");
+      toT.push(isEnter ? "translateY(0)" : `translateY(${px})`);
+    }
+    if (fromT.length) {
+      fromProps.push(`transform: ${fromT.join(" ")}`);
+      toProps.push(`transform: ${toT.join(" ")}`);
+    }
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  from { ${fromProps.join("; ")}; }`);
+    lines.push(`  to { ${toProps.join("; ")}; }`);
+    lines.push(`}`);
+  }
+  if (format === "v4") {
+    lines.push(`@utility animate-${a.name} {`);
+  } else {
+    lines.push(`.animate-${a.name} {`);
+  }
+  lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar};`);
+  lines.push(`}`);
+  return lines.join("\n");
 }
 function hexToRgb(hex) {
   const match = hex.replace("#", "").match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
@@ -608,7 +665,8 @@ function generateVariablesCss(tokens) {
     lines.push(`  --breakpoint-${name}: ${formatValue(String(token.value), "dimension")};`);
   }
   lines.push(``);
-  const compSizeData = p.componentSize;
+  const sem = tokens.semantic;
+  const compSizeData = sem?.componentSize;
   if (compSizeData) {
     lines.push(`  /* ========================================`);
     lines.push(`     Component Size`);
@@ -718,43 +776,18 @@ function generateVariablesCss(tokens) {
   lines.push(``);
   lines.push(`}`);
   lines.push(``);
-  const anim = readAnimationTokens(tokens);
-  if (anim) {
+  const animTokens = readAnimationTokens(tokens);
+  if (animTokens) {
     lines.push(`/* ========================================`);
-    lines.push(`   Component Enter Animations`);
-    lines.push(`   Generated from primitive.animation in figma-tokens.json`);
-    lines.push(`   Tailwind users get these from v3-preset or v4-theme.`);
-    lines.push(`   Non-Tailwind users: these classes work as plain CSS.`);
+    lines.push(`   Component Animations`);
+    lines.push(`   Generated from semantic.animation in figma-tokens.json`);
+    lines.push(`   Token name = keyframe name = class name (1:1)`);
     lines.push(`   ======================================== */`);
     lines.push(``);
-    lines.push(`@keyframes enter {`);
-    lines.push(`  from {`);
-    lines.push(`    opacity: var(--tw-enter-opacity, 1);`);
-    lines.push(`    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)`);
-    lines.push(`              scale(var(--tw-enter-scale, 1))`);
-    lines.push(`              rotate(var(--tw-enter-rotate, 0));`);
-    lines.push(`  }`);
-    lines.push(`}`);
-    lines.push(``);
-    lines.push(`.animate-in {`);
-    lines.push(`  animation-name: enter;`);
-    lines.push(`  animation-duration: ${anim.defaultDurationVar};`);
-    lines.push(`  animation-timing-function: ${anim.defaultEasingVar};`);
-    lines.push(`  --tw-enter-opacity: initial;`);
-    lines.push(`  --tw-enter-scale: initial;`);
-    lines.push(`  --tw-enter-rotate: initial;`);
-    lines.push(`  --tw-enter-translate-x: initial;`);
-    lines.push(`  --tw-enter-translate-y: initial;`);
-    lines.push(`}`);
-    lines.push(``);
-    for (const opacity of anim.fadeValues) {
-      lines.push(`.fade-in-${opacity} { --tw-enter-opacity: ${opacity}; }`);
+    for (const a of animTokens) {
+      lines.push(generateAnimationCss(a, "css"));
+      lines.push(``);
     }
-    for (const scale of anim.zoomValues) {
-      const pct = scaleToPercent(scale);
-      lines.push(`.zoom-in-${pct} { --tw-enter-scale: ${scale}; }`);
-    }
-    lines.push(``);
   }
   return lines.join("\n");
 }
@@ -1010,7 +1043,7 @@ function generateJsTokens(tokens) {
     }
     data.fontFamily = fontFamily;
   }
-  const compSizeData = p.componentSize;
+  const compSizeData = tokens.semantic?.componentSize;
   if (compSizeData) {
     const componentSize = {};
     for (const comp of Object.keys(compSizeData)) {
@@ -1039,24 +1072,25 @@ function generateJsTokens(tokens) {
     }
     data.componentSize = componentSize;
   }
-  const animPrim = p.animation;
-  if (animPrim) {
+  const animSem = tokens.semantic?.animation;
+  if (animSem) {
     const animData = {};
-    for (const [name, entry] of Object.entries(animPrim)) {
+    for (const [name, entry] of Object.entries(animSem)) {
       if (name.startsWith("$")) continue;
       const token = entry;
       if (token.type !== "composition") continue;
       const val = token.value;
-      const opacityRaw = resolveRef(val.opacity, p);
-      const scaleRaw = resolveRef(val.scale, p);
       const durationRaw = resolveRef(val.duration, p);
       const easingRaw = resolveRef(val.easing, p);
-      animData[name] = {
-        opacity: opacityRaw,
-        scale: scaleRaw,
+      const obj = {
         duration: durationRaw.endsWith("ms") ? durationRaw : `${durationRaw}ms`,
         easing: easingRaw
       };
+      if (val.opacity) obj.opacity = resolveRef(val.opacity, p);
+      if (val.scale) obj.scale = resolveRef(val.scale, p);
+      if (val.translateY) obj.translateY = resolveRef(val.translateY, p);
+      if (val.heightVar) obj.heightVar = val.heightVar;
+      animData[name] = obj;
     }
     data.animation = animData;
   }
@@ -1212,7 +1246,7 @@ function generateTypeDefinitions(tokens) {
     lines.push(`export declare const fontFamily: Record<${ffKeys.map((k) => `'${k}'`).join(" | ")}, string>;`);
     lines.push(``);
   }
-  const compSizeDataT = p.componentSize;
+  const compSizeDataT = tokens.semantic?.componentSize;
   if (compSizeDataT) {
     lines.push(`export declare const componentSize: {`);
     for (const comp of Object.keys(compSizeDataT)) {
@@ -1240,14 +1274,20 @@ function generateTypeDefinitions(tokens) {
     lines.push(`};`);
     lines.push(``);
   }
-  const animPrimT = p.animation;
-  if (animPrimT) {
+  const animSemT = tokens.semantic?.animation;
+  if (animSemT) {
     lines.push(`export declare const animation: {`);
-    for (const [name, entry] of Object.entries(animPrimT)) {
+    for (const [name, entry] of Object.entries(animSemT)) {
       if (name.startsWith("$")) continue;
       const token = entry;
       if (token.type !== "composition") continue;
-      lines.push(`  '${name}': { opacity: string; scale: string; duration: string; easing: string };`);
+      const val = token.value;
+      const fields = ["duration: string", "easing: string"];
+      if (val.opacity) fields.unshift("opacity: string");
+      if (val.scale) fields.unshift("scale: string");
+      if (val.translateY) fields.unshift("translateY: string");
+      if (val.heightVar) fields.unshift("heightVar: string");
+      lines.push(`  '${name}': { ${fields.join("; ")} };`);
     }
     lines.push(`};`);
     lines.push(``);
@@ -1473,7 +1513,7 @@ function generateNormalizedJson(tokens) {
     }
     result.fontFamily = fontFamilyFlat;
   }
-  const compSizeData = p.componentSize;
+  const compSizeData = tokens.semantic?.componentSize;
   if (compSizeData) {
     const compFlat = {};
     for (const comp of Object.keys(compSizeData)) {
@@ -1498,22 +1538,22 @@ function generateNormalizedJson(tokens) {
     }
     result.componentSize = compFlat;
   }
-  const animPrimJ = p.animation;
-  if (animPrimJ) {
+  const animSemJ = tokens.semantic?.animation;
+  if (animSemJ) {
     const animFlat = {};
-    for (const [name, entry] of Object.entries(animPrimJ)) {
+    for (const [name, entry] of Object.entries(animSemJ)) {
       if (name.startsWith("$")) continue;
       const token = entry;
       if (token.type !== "composition") continue;
       const val = token.value;
-      const opacityRaw = resolveRef(val.opacity, p);
-      const scaleRaw = resolveRef(val.scale, p);
       const durationRaw = resolveRef(val.duration, p);
       const easingRaw = resolveRef(val.easing, p);
-      animFlat[`${name}-opacity`] = opacityRaw;
-      animFlat[`${name}-scale`] = scaleRaw;
       animFlat[`${name}-duration`] = durationRaw.endsWith("ms") ? durationRaw : `${durationRaw}ms`;
       animFlat[`${name}-easing`] = easingRaw;
+      if (val.opacity) animFlat[`${name}-opacity`] = resolveRef(val.opacity, p);
+      if (val.scale) animFlat[`${name}-scale`] = resolveRef(val.scale, p);
+      if (val.translateY) animFlat[`${name}-translateY`] = resolveRef(val.translateY, p);
+      if (val.heightVar) animFlat[`${name}-heightVar`] = val.heightVar;
     }
     result.animation = animFlat;
   }
@@ -1748,24 +1788,51 @@ function generateV3Preset(tokens) {
   lines.push(``);
   const v3Anim = readAnimationTokens(tokens);
   lines.push(`      keyframes: {`);
-  lines.push(`        'spin': {`);
-  lines.push(`          from: { transform: 'rotate(0deg)' },`);
-  lines.push(`          to: { transform: 'rotate(360deg)' },`);
-  lines.push(`        },`);
   if (v3Anim) {
-    lines.push(`        'enter': {`);
-    lines.push(`          from: {`);
-    lines.push(`            opacity: 'var(--tw-enter-opacity, 1)',`);
-    lines.push(`            transform: 'translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale(var(--tw-enter-scale, 1)) rotate(var(--tw-enter-rotate, 0))',`);
-    lines.push(`          },`);
-    lines.push(`        },`);
+    for (const a of v3Anim) {
+      if (a.type === "height-expand" || a.type === "height-collapse") {
+        const isExpand = a.type === "height-expand";
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          from: { height: '${isExpand ? "0" : `var(${a.heightVar})`}' },`);
+        lines.push(`          to: { height: '${isExpand ? `var(${a.heightVar})` : "0"}' },`);
+        lines.push(`        },`);
+      } else {
+        const isEnter = a.type === "enter";
+        const fromProps = [];
+        const toProps = [];
+        if (a.opacity) {
+          fromProps.push(`'opacity': '${isEnter ? a.opacity : "1"}'`);
+          toProps.push(`'opacity': '${isEnter ? "1" : a.opacity}'`);
+        }
+        const fromT = [], toT = [];
+        if (a.scale) {
+          fromT.push(isEnter ? `scale(${a.scale})` : "scale(1)");
+          toT.push(isEnter ? "scale(1)" : `scale(${a.scale})`);
+        }
+        if (a.translateY) {
+          const px = `${a.translateYNegative ? "-" : ""}${a.translateY}px`;
+          fromT.push(isEnter ? `translateY(${px})` : "translateY(0)");
+          toT.push(isEnter ? "translateY(0)" : `translateY(${px})`);
+        }
+        if (fromT.length) {
+          fromProps.push(`'transform': '${fromT.join(" ")}'`);
+          toProps.push(`'transform': '${toT.join(" ")}'`);
+        }
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          from: { ${fromProps.join(", ")} },`);
+        lines.push(`          to: { ${toProps.join(", ")} },`);
+        lines.push(`        },`);
+      }
+    }
   }
   lines.push(`      },`);
   lines.push(``);
   lines.push(`      animation: {`);
-  lines.push(`        'spin': 'spin 1s linear infinite',`);
   if (v3Anim) {
-    lines.push(`        'in': 'enter ${v3Anim.defaultDurationVar} ${v3Anim.defaultEasingVar}',`);
+    for (const a of v3Anim) {
+      const infinite = a.type === "spin" ? " infinite" : "";
+      lines.push(`        '${a.name}': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}',`);
+    }
   }
   lines.push(`      },`);
   lines.push(`    },`);
@@ -1796,25 +1863,12 @@ function generateV3Preset(tokens) {
   lines.push(`      })`);
   lines.push(`    },`);
   if (v3Anim) {
-    lines.push(`    // Enter animation utilities (generated from primitive.animation)`);
+    lines.push(`    // Animation utilities (generated from semantic.animation)`);
     lines.push(`    function({ addUtilities }) {`);
     lines.push(`      addUtilities({`);
-    lines.push(`        '.animate-in': {`);
-    lines.push(`          'animation-name': 'enter',`);
-    lines.push(`          'animation-duration': '${v3Anim.defaultDurationVar}',`);
-    lines.push(`          'animation-timing-function': '${v3Anim.defaultEasingVar}',`);
-    lines.push(`          '--tw-enter-opacity': 'initial',`);
-    lines.push(`          '--tw-enter-scale': 'initial',`);
-    lines.push(`          '--tw-enter-rotate': 'initial',`);
-    lines.push(`          '--tw-enter-translate-x': 'initial',`);
-    lines.push(`          '--tw-enter-translate-y': 'initial',`);
-    lines.push(`        },`);
-    for (const opacity of v3Anim.fadeValues) {
-      lines.push(`        '.fade-in-${opacity}': { '--tw-enter-opacity': '${opacity}' },`);
-    }
-    for (const scale of v3Anim.zoomValues) {
-      const pct = scaleToPercent(scale);
-      lines.push(`        '.zoom-in-${pct}': { '--tw-enter-scale': '${scale}' },`);
+    for (const a of v3Anim) {
+      const infinite = a.type === "spin" ? " infinite" : "";
+      lines.push(`        '.animate-${a.name}': { 'animation': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}' },`);
     }
     lines.push(`      })`);
     lines.push(`    },`);
@@ -1988,7 +2042,7 @@ function generateV4Theme(tokens) {
     lines.push(`  --shadow-${name}: ${formatShadow(token.value, ext)};`);
   }
   lines.push(``);
-  const v4CompSizeData = p.componentSize;
+  const v4CompSizeData = tokens.semantic?.componentSize;
   if (v4CompSizeData) {
     lines.push(`  /* =============================================`);
     lines.push(`     Component Sizes`);
@@ -2118,41 +2172,13 @@ function generateV4Theme(tokens) {
   const v4Anim = readAnimationTokens(tokens);
   if (v4Anim) {
     lines.push(`/* =============================================`);
-    lines.push(`   Enter Animations`);
-    lines.push(`   Generated from primitive.animation in figma-tokens.json`);
+    lines.push(`   Animations`);
+    lines.push(`   Generated from semantic.animation in figma-tokens.json`);
+    lines.push(`   Token name = keyframe name = class name (1:1)`);
     lines.push(`   ============================================= */`);
     lines.push(``);
-    lines.push(`@keyframes enter {`);
-    lines.push(`  from {`);
-    lines.push(`    opacity: var(--tw-enter-opacity, 1);`);
-    lines.push(`    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)`);
-    lines.push(`              scale(var(--tw-enter-scale, 1))`);
-    lines.push(`              rotate(var(--tw-enter-rotate, 0));`);
-    lines.push(`  }`);
-    lines.push(`}`);
-    lines.push(``);
-    lines.push(`@utility animate-in {`);
-    lines.push(`  animation-name: enter;`);
-    lines.push(`  animation-duration: ${v4Anim.defaultDurationVar};`);
-    lines.push(`  animation-timing-function: ${v4Anim.defaultEasingVar};`);
-    lines.push(`  --tw-enter-opacity: initial;`);
-    lines.push(`  --tw-enter-scale: initial;`);
-    lines.push(`  --tw-enter-rotate: initial;`);
-    lines.push(`  --tw-enter-translate-x: initial;`);
-    lines.push(`  --tw-enter-translate-y: initial;`);
-    lines.push(`}`);
-    lines.push(``);
-    for (const opacity of v4Anim.fadeValues) {
-      lines.push(`@utility fade-in-${opacity} {`);
-      lines.push(`  --tw-enter-opacity: ${opacity};`);
-      lines.push(`}`);
-      lines.push(``);
-    }
-    for (const scale of v4Anim.zoomValues) {
-      const pct = scaleToPercent(scale);
-      lines.push(`@utility zoom-in-${pct} {`);
-      lines.push(`  --tw-enter-scale: ${scale};`);
-      lines.push(`}`);
+    for (const a of v4Anim) {
+      lines.push(generateAnimationCss(a, "v4"));
       lines.push(``);
     }
   }

@@ -789,6 +789,10 @@
         "value": "0.75",
         "type": "other"
       },
+      "95": {
+        "value": "0.95",
+        "type": "other"
+      },
       "pressed": {
         "value": "0.98",
         "type": "other"
@@ -962,6 +966,10 @@
       "slowest": {
         "value": "500ms",
         "type": "duration"
+      },
+      "spin": {
+        "value": "1000ms",
+        "type": "duration"
       }
     },
     "easing": {
@@ -1022,7 +1030,9 @@
           "unit": "px"
         }
       }
-    },
+    }
+  },
+  "semantic": {
     "animation": {
       "checkbox-enter": {
         "value": {
@@ -1041,6 +1051,130 @@
           "easing": "{primitive.easing.easeOut}"
         },
         "type": "composition"
+      },
+      "fade-in": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "fade-out": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
+      "modal-overlay-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "modal-overlay-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
+      "modal-content-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "scale": "{primitive.scale.95}",
+          "translateY": "{primitive.spacing.2}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "modal-content-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "scale": "{primitive.scale.95}",
+          "translateY": "{primitive.spacing.2}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
+      "nav-viewport-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "scale": "{primitive.scale.pressed}",
+          "translateY": "{primitive.spacing.0.5}",
+          "duration": "{primitive.duration.micro}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter", "translateYNegative": true }
+      },
+      "nav-viewport-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "scale": "{primitive.scale.pressed}",
+          "translateY": "{primitive.spacing.0.5}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit", "translateYNegative": true }
+      },
+      "accordion-down": {
+        "value": {
+          "heightVar": "--radix-accordion-content-height",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "height-expand", "radixRuntime": true, "doNotModify": true }
+      },
+      "accordion-up": {
+        "value": {
+          "heightVar": "--radix-accordion-content-height",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "height-collapse", "radixRuntime": true, "doNotModify": true }
+      },
+      "collapsible-down": {
+        "value": {
+          "heightVar": "--radix-collapsible-content-height",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "height-expand", "radixRuntime": true, "doNotModify": true }
+      },
+      "collapsible-up": {
+        "value": {
+          "heightVar": "--radix-collapsible-content-height",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "height-collapse", "radixRuntime": true, "doNotModify": true }
+      },
+      "spin": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.linear}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "spin" }
       }
     },
     "componentSize": {
@@ -1090,9 +1224,7 @@
           }
         }
       }
-    }
-  },
-  "semantic": {
+    },
     "typography": {
       "heading": {
         "1": {

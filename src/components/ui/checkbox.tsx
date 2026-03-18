@@ -92,7 +92,7 @@ const Checkbox = React.forwardRef<
       )}
       {...props}
     >
-      <CheckboxPrimitive.Indicator className="flex items-center justify-center animate-in fade-in-0 zoom-in-75 duration-micro">
+      <CheckboxPrimitive.Indicator className="flex items-center justify-center animate-checkbox-enter">
         <CheckIcon className={checkIconSizes[resolvedSize]} />
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
