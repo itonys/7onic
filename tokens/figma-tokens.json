@@ -1168,6 +1168,78 @@
         "type": "composition",
         "$extensions": { "animationType": "height-collapse", "radixRuntime": true, "doNotModify": true }
       },
+      "drawer-right-enter": {
+        "value": {
+          "translateX": "100%",
+          "duration": "{primitive.duration.slow}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "drawer-right-exit": {
+        "value": {
+          "translateX": "100%",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
+      "drawer-left-enter": {
+        "value": {
+          "translateX": "100%",
+          "duration": "{primitive.duration.slow}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter", "translateXNegative": true }
+      },
+      "drawer-left-exit": {
+        "value": {
+          "translateX": "100%",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit", "translateXNegative": true }
+      },
+      "drawer-top-enter": {
+        "value": {
+          "translateY": "100%",
+          "duration": "{primitive.duration.slow}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter", "translateYNegative": true }
+      },
+      "drawer-top-exit": {
+        "value": {
+          "translateY": "100%",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit", "translateYNegative": true }
+      },
+      "drawer-bottom-enter": {
+        "value": {
+          "translateY": "100%",
+          "duration": "{primitive.duration.slow}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "drawer-bottom-exit": {
+        "value": {
+          "translateY": "100%",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
       "spin": {
         "value": {
           "duration": "{primitive.duration.spin}",

@@ -84,6 +84,14 @@ export declare const animation: {
   'accordion-up': { heightVar: string; duration: string; easing: string };
   'collapsible-down': { heightVar: string; duration: string; easing: string };
   'collapsible-up': { heightVar: string; duration: string; easing: string };
+  'drawer-right-enter': { translateX: string; duration: string; easing: string };
+  'drawer-right-exit': { translateX: string; duration: string; easing: string };
+  'drawer-left-enter': { translateX: string; duration: string; easing: string };
+  'drawer-left-exit': { translateX: string; duration: string; easing: string };
+  'drawer-top-enter': { translateY: string; duration: string; easing: string };
+  'drawer-top-exit': { translateY: string; duration: string; easing: string };
+  'drawer-bottom-enter': { translateY: string; duration: string; easing: string };
+  'drawer-bottom-exit': { translateY: string; duration: string; easing: string };
   'spin': { duration: string; easing: string };
 };
 

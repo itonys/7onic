@@ -392,6 +392,46 @@ const tokens = {
       "easing": "ease-out",
       "heightVar": "--radix-collapsible-content-height"
     },
+    "drawer-right-enter": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "translateX": "100%"
+    },
+    "drawer-right-exit": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "translateX": "100%"
+    },
+    "drawer-left-enter": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "translateX": "100%"
+    },
+    "drawer-left-exit": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "translateX": "100%"
+    },
+    "drawer-top-enter": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "translateY": "100%"
+    },
+    "drawer-top-exit": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "translateY": "100%"
+    },
+    "drawer-bottom-enter": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "translateY": "100%"
+    },
+    "drawer-bottom-exit": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "translateY": "100%"
+    },
     "spin": {
       "duration": "1000ms",
       "easing": "linear"

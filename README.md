@@ -147,7 +147,7 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Data Display** | Avatar, Badge, Card, Table | Ready |
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
 | **Layout** | Tabs, Accordion, Divider | Ready |
-| **Overlay** | **Modal**, Drawer, Tooltip, Popover | Modal Ready |
+| **Overlay** | **Modal**, **Drawer**, Tooltip, Popover | Modal, Drawer Ready |
 | **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | Ready |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
@@ -178,7 +178,7 @@ All components follow these patterns:
 | **Breakpoints** | 5 widths | `sm`(640) through `2xl`(1536) |
 | **Border Width** | 5 values | `0`, `1`, `2`, `4`, `8` |
 | **Scale** | 4 values | `50`(0.5), `75`(0.75), `95`(0.95), `pressed`(0.98) |
-| **Animation** | 15 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `nav-viewport-*`, `accordion-*`, `collapsible-*`, `spin` |
+| **Animation** | 23 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `drawer-*` (8), `nav-viewport-*`, `accordion-*`, `collapsible-*`, `spin` |
 
 ---
 

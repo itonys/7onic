@@ -388,6 +388,38 @@ module.exports = {
           from: { height: 'var(--radix-collapsible-content-height)' },
           to: { height: '0' },
         },
+        'drawer-right-enter': {
+          from: { 'transform': 'translateX(100%)' },
+          to: { 'transform': 'translateX(0)' },
+        },
+        'drawer-right-exit': {
+          from: { 'transform': 'translateX(0)' },
+          to: { 'transform': 'translateX(100%)' },
+        },
+        'drawer-left-enter': {
+          from: { 'transform': 'translateX(-100%)' },
+          to: { 'transform': 'translateX(0)' },
+        },
+        'drawer-left-exit': {
+          from: { 'transform': 'translateX(0)' },
+          to: { 'transform': 'translateX(-100%)' },
+        },
+        'drawer-top-enter': {
+          from: { 'transform': 'translateY(-100%)' },
+          to: { 'transform': 'translateY(0)' },
+        },
+        'drawer-top-exit': {
+          from: { 'transform': 'translateY(0)' },
+          to: { 'transform': 'translateY(-100%)' },
+        },
+        'drawer-bottom-enter': {
+          from: { 'transform': 'translateY(100%)' },
+          to: { 'transform': 'translateY(0)' },
+        },
+        'drawer-bottom-exit': {
+          from: { 'transform': 'translateY(0)' },
+          to: { 'transform': 'translateY(100%)' },
+        },
         'spin': {
           from: {  },
           to: {  },
@@ -409,6 +441,14 @@ module.exports = {
         'accordion-up': 'accordion-up var(--duration-normal) var(--easing-ease-out)',
         'collapsible-down': 'collapsible-down var(--duration-normal) var(--easing-ease-out)',
         'collapsible-up': 'collapsible-up var(--duration-normal) var(--easing-ease-out)',
+        'drawer-right-enter': 'drawer-right-enter var(--duration-slow) var(--easing-ease-out)',
+        'drawer-right-exit': 'drawer-right-exit var(--duration-normal) var(--easing-ease-out)',
+        'drawer-left-enter': 'drawer-left-enter var(--duration-slow) var(--easing-ease-out)',
+        'drawer-left-exit': 'drawer-left-exit var(--duration-normal) var(--easing-ease-out)',
+        'drawer-top-enter': 'drawer-top-enter var(--duration-slow) var(--easing-ease-out)',
+        'drawer-top-exit': 'drawer-top-exit var(--duration-normal) var(--easing-ease-out)',
+        'drawer-bottom-enter': 'drawer-bottom-enter var(--duration-slow) var(--easing-ease-out)',
+        'drawer-bottom-exit': 'drawer-bottom-exit var(--duration-normal) var(--easing-ease-out)',
         'spin': 'spin var(--duration-spin) var(--easing-linear) infinite',
       },
     },
@@ -457,6 +497,14 @@ module.exports = {
         '.animate-accordion-up': { 'animation': 'accordion-up var(--duration-normal) var(--easing-ease-out)' },
         '.animate-collapsible-down': { 'animation': 'collapsible-down var(--duration-normal) var(--easing-ease-out)' },
         '.animate-collapsible-up': { 'animation': 'collapsible-up var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-drawer-right-enter': { 'animation': 'drawer-right-enter var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-drawer-right-exit': { 'animation': 'drawer-right-exit var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-drawer-left-enter': { 'animation': 'drawer-left-enter var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-drawer-left-exit': { 'animation': 'drawer-left-exit var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-drawer-top-enter': { 'animation': 'drawer-top-enter var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-drawer-top-exit': { 'animation': 'drawer-top-exit var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-drawer-bottom-enter': { 'animation': 'drawer-bottom-enter var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-drawer-bottom-exit': { 'animation': 'drawer-bottom-exit var(--duration-normal) var(--easing-ease-out)' },
         '.animate-spin': { 'animation': 'spin var(--duration-spin) var(--easing-linear) infinite' },
       })
     },

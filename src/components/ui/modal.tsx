@@ -32,8 +32,10 @@ const ModalStyleContext = React.createContext<ModalStyleContextValue>({
 // Modal (Dialog)
 // ═══════════════════════════════════════════════════════════════
 
-// ─── Modal (Root) ───────────────────────────────────────────
-const ModalRoot = DialogPrimitive.Root
+// ─── Modal (Root) — wrapper to avoid Object.assign mutating DialogPrimitive.Root ──
+function ModalRoot(props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
+  return <DialogPrimitive.Root {...props} />
+}
 
 // ─── ModalTrigger ───────────────────────────────────────────
 const ModalTrigger = DialogPrimitive.Trigger

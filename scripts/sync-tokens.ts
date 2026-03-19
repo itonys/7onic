@@ -635,6 +635,8 @@ interface AnimationToken {
   type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin'
   opacity: string         // raw value e.g. "0" (empty if not used)
   scale: string           // raw value e.g. "0.75" (empty if not used)
+  translateX: string      // raw value e.g. "100%" or "8" in px (empty if not used)
+  translateXNegative: boolean
   translateY: string      // raw value e.g. "8" in px (empty if not used)
   translateYNegative: boolean
   heightVar: string       // CSS var name for height animations (empty if not used)
@@ -670,13 +672,13 @@ function readAnimationTokens(tokens: FigmaTokens): AnimationToken[] | null {
     // Special types
     const animationType = ext?.animationType as string | undefined
     if (animationType === 'spin') {
-      result.push({ name, type: 'spin', opacity: '', scale: '', translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
+      result.push({ name, type: 'spin', opacity: '', scale: '', translateX: '', translateXNegative: false, translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
       continue
     }
 
     // Height-based animations (Radix runtime)
     if (animationType === 'height-expand' || animationType === 'height-collapse') {
-      result.push({ name, type: animationType, opacity: '', scale: '', translateY: '', translateYNegative: false, heightVar: val.heightVar, durationVar, easingVar })
+      result.push({ name, type: animationType, opacity: '', scale: '', translateX: '', translateXNegative: false, translateY: '', translateYNegative: false, heightVar: val.heightVar, durationVar, easingVar })
       continue
     }
 
@@ -685,10 +687,12 @@ function readAnimationTokens(tokens: FigmaTokens): AnimationToken[] | null {
     const type = (direction === 'exit' ? 'exit' : 'enter') as 'enter' | 'exit'
     const opacityRaw = val.opacity ? resolveRef(val.opacity, p) : ''
     const scaleRaw = val.scale ? resolveRef(val.scale, p) : ''
+    const translateXRaw = val.translateX ? (val.translateX.startsWith('{') ? resolveRef(val.translateX, p) : val.translateX) : ''
+    const translateXNegative = ext?.translateXNegative === true
     const translateYRaw = val.translateY ? resolveRef(val.translateY, p) : ''
     const translateYNegative = ext?.translateYNegative === true
 
-    result.push({ name, type, opacity: opacityRaw, scale: scaleRaw, translateY: translateYRaw, translateYNegative, heightVar: '', durationVar, easingVar })
+    result.push({ name, type, opacity: opacityRaw, scale: scaleRaw, translateX: translateXRaw, translateXNegative, translateY: translateYRaw, translateYNegative, heightVar: '', durationVar, easingVar })
   }
 
   return result.length > 0 ? result : null
@@ -712,6 +716,13 @@ function extractRefKey(ref: string): string {
 /** Convert scale raw value "0.75" → percentage integer "75" */
 function scaleToPercent(raw: string): string {
   return String(Math.round(parseFloat(raw) * 100))
+}
+
+/** Format translate value: if already has unit (%, em, etc.) use as-is, otherwise append px */
+function formatTranslateVal(raw: string, negative: boolean): string {
+  const sign = negative ? '-' : ''
+  if (/[%a-z]/i.test(raw)) return `${sign}${raw}`
+  return `${sign}${raw}px`
 }
 
 /**
@@ -762,10 +773,15 @@ function generateAnimationCss(a: AnimationToken, format: 'css' | 'v4'): string {
       fromT.push(isEnter ? `scale(${a.scale})` : 'scale(1)')
       toT.push(isEnter ? 'scale(1)' : `scale(${a.scale})`)
     }
+    if (a.translateX) {
+      const v = formatTranslateVal(a.translateX, a.translateXNegative)
+      fromT.push(isEnter ? `translateX(${v})` : 'translateX(0)')
+      toT.push(isEnter ? 'translateX(0)' : `translateX(${v})`)
+    }
     if (a.translateY) {
-      const px = `${a.translateYNegative ? '-' : ''}${a.translateY}px`
-      fromT.push(isEnter ? `translateY(${px})` : 'translateY(0)')
-      toT.push(isEnter ? 'translateY(0)' : `translateY(${px})`)
+      const v = formatTranslateVal(a.translateY, a.translateYNegative)
+      fromT.push(isEnter ? `translateY(${v})` : 'translateY(0)')
+      toT.push(isEnter ? 'translateY(0)' : `translateY(${v})`)
     }
     if (fromT.length) {
       fromProps.push(`transform: ${fromT.join(' ')}`)
@@ -1536,6 +1552,7 @@ function generateJsTokens(tokens: FigmaTokens): { cjs: string; esm: string } {
       }
       if (val.opacity) obj.opacity = resolveRef(val.opacity, p)
       if (val.scale) obj.scale = resolveRef(val.scale, p)
+      if (val.translateX) obj.translateX = val.translateX.startsWith('{') ? resolveRef(val.translateX, p) : val.translateX
       if (val.translateY) obj.translateY = resolveRef(val.translateY, p)
       if (val.heightVar) obj.heightVar = val.heightVar
       animData[name] = obj
@@ -1784,6 +1801,7 @@ function generateTypeDefinitions(tokens: FigmaTokens): string {
       const fields: string[] = ['duration: string', 'easing: string']
       if (val.opacity) fields.unshift('opacity: string')
       if (val.scale) fields.unshift('scale: string')
+      if (val.translateX) fields.unshift('translateX: string')
       if (val.translateY) fields.unshift('translateY: string')
       if (val.heightVar) fields.unshift('heightVar: string')
       lines.push(`  '${name}': { ${fields.join('; ')} };`)
@@ -2101,6 +2119,7 @@ function generateNormalizedJson(tokens: FigmaTokens): string {
       animFlat[`${name}-easing`] = easingRaw
       if (val.opacity) animFlat[`${name}-opacity`] = resolveRef(val.opacity, p)
       if (val.scale) animFlat[`${name}-scale`] = resolveRef(val.scale, p)
+      if (val.translateX) animFlat[`${name}-translateX`] = val.translateX.startsWith('{') ? resolveRef(val.translateX, p) : val.translateX
       if (val.translateY) animFlat[`${name}-translateY`] = resolveRef(val.translateY, p)
       if (val.heightVar) animFlat[`${name}-heightVar`] = val.heightVar
     }
@@ -2393,7 +2412,8 @@ function generateV3Preset(tokens: FigmaTokens): string {
         if (a.opacity) { fromProps.push(`'opacity': '${isEnter ? a.opacity : '1'}'`); toProps.push(`'opacity': '${isEnter ? '1' : a.opacity}'`) }
         const fromT: string[] = [], toT: string[] = []
         if (a.scale) { fromT.push(isEnter ? `scale(${a.scale})` : 'scale(1)'); toT.push(isEnter ? 'scale(1)' : `scale(${a.scale})`) }
-        if (a.translateY) { const px = `${a.translateYNegative ? '-' : ''}${a.translateY}px`; fromT.push(isEnter ? `translateY(${px})` : 'translateY(0)'); toT.push(isEnter ? 'translateY(0)' : `translateY(${px})`) }
+        if (a.translateX) { const v = formatTranslateVal(a.translateX, a.translateXNegative); fromT.push(isEnter ? `translateX(${v})` : 'translateX(0)'); toT.push(isEnter ? 'translateX(0)' : `translateX(${v})`) }
+        if (a.translateY) { const v = formatTranslateVal(a.translateY, a.translateYNegative); fromT.push(isEnter ? `translateY(${v})` : 'translateY(0)'); toT.push(isEnter ? 'translateY(0)' : `translateY(${v})`) }
         if (fromT.length) { fromProps.push(`'transform': '${fromT.join(' ')}'`); toProps.push(`'transform': '${toT.join(' ')}'`) }
         lines.push(`        '${a.name}': {`)
         lines.push(`          from: { ${fromProps.join(', ')} },`)
