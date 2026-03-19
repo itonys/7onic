@@ -56,12 +56,12 @@ const searchData = [
   { id: 'breadcrumb', title: 'Breadcrumb', desc: 'パンくずリスト', href: '/components/breadcrumb', category: 'Components', keywords: ['breadcrumb', 'navigation', 'パンくず'] },
   { id: 'pagination', title: 'Pagination', desc: 'ページネーション', href: '/components/pagination', category: 'Components', keywords: ['pagination', 'page', 'ページ'] },
   { id: 'navigation-menu', title: 'NavigationMenu', desc: 'ナビゲーションメニュー', href: '/components/navigation-menu', category: 'Components', keywords: ['navigation', 'menu', 'nav', 'ナビ'] },
-  // Charts
-  { id: 'line-chart', title: 'LineChart', desc: '折れ線グラフ', href: '/components/line-chart', category: 'Charts', keywords: ['line', 'chart', 'graph', 'グラフ'] },
-  { id: 'area-chart', title: 'AreaChart', desc: 'エリアチャート', href: '/components/area-chart', category: 'Charts', keywords: ['area', 'chart', 'graph'] },
-  { id: 'bar-chart', title: 'BarChart', desc: '棒グラフ', href: '/components/bar-chart', category: 'Charts', keywords: ['bar', 'chart', 'graph', '棒グラフ'] },
-  { id: 'pie-chart', title: 'PieChart', desc: '円グラフ', href: '/components/pie-chart', category: 'Charts', keywords: ['pie', 'donut', 'chart', '円グラフ'] },
-  { id: 'metric-card', title: 'MetricCard', desc: 'メトリクスカード', href: '/components/metric-card', category: 'Charts', keywords: ['metric', 'kpi', 'card', 'stat'] },
+  // Components — Charts
+  { id: 'line-chart', title: 'LineChart', desc: '折れ線グラフ', href: '/components/line-chart', category: 'Components', keywords: ['line', 'chart', 'graph', 'グラフ'] },
+  { id: 'area-chart', title: 'AreaChart', desc: 'エリアチャート', href: '/components/area-chart', category: 'Components', keywords: ['area', 'chart', 'graph'] },
+  { id: 'bar-chart', title: 'BarChart', desc: '棒グラフ', href: '/components/bar-chart', category: 'Components', keywords: ['bar', 'chart', 'graph', '棒グラフ'] },
+  { id: 'pie-chart', title: 'PieChart', desc: '円グラフ', href: '/components/pie-chart', category: 'Components', keywords: ['pie', 'donut', 'chart', '円グラフ'] },
+  { id: 'metric-card', title: 'MetricCard', desc: 'メトリクスカード', href: '/components/metric-card', category: 'Components', keywords: ['metric', 'kpi', 'card', 'stat'] },
   // Guidelines
   { id: 'icons', title: 'Icons', desc: 'アイコン', href: '/guidelines/icons', category: 'Guidelines', keywords: ['icon', 'lucide'] },
   { id: 'accessibility', title: 'Accessibility', desc: 'アクセシビリティ', href: '/guidelines/accessibility', category: 'Guidelines', keywords: ['a11y', 'accessibility', 'wcag'] },
