@@ -268,7 +268,7 @@ export function Sidebar({ type = 'components' }: SidebarProps) {
       <nav className="flex-1 overflow-y-auto overflow-x-hidden p-4 space-y-6 w-64">
         {sections.map((section) => (
           <div key={section.title}>
-            <h3 className="px-3 pt-4 mb-3 text-xs font-semibold text-text-muted uppercase tracking-wider">
+            <h3 className="px-3 pt-4 mb-3 text-xs font-semibold text-text-subtle uppercase tracking-wider">
               {section.title}
             </h3>
             <ul className="space-y-1">
@@ -320,7 +320,7 @@ export function MobileSidebar({ type = 'components' }: SidebarProps) {
         <nav className="p-4 space-y-6 overflow-y-auto h-[calc(100%-4rem)]">
           {sections.map((section) => (
             <div key={section.title}>
-              <h3 className="px-3 pt-4 mb-3 text-xs font-semibold text-text-muted uppercase tracking-wider">
+              <h3 className="px-3 pt-4 mb-3 text-xs font-semibold text-text-subtle uppercase tracking-wider">
                 {section.title}
               </h3>
               <ul className="space-y-1">
