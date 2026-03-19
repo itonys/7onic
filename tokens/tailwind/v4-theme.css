@@ -616,6 +616,134 @@
   animation: drawer-bottom-exit var(--duration-normal) var(--easing-ease-out);
 }
 
+@keyframes tooltip-top-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility animate-tooltip-top-enter {
+  animation: tooltip-top-enter var(--duration-micro) var(--easing-ease-out);
+}
+
+@keyframes tooltip-top-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(4px); }
+}
+@utility animate-tooltip-top-exit {
+  animation: tooltip-top-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes tooltip-bottom-enter {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility animate-tooltip-bottom-enter {
+  animation: tooltip-bottom-enter var(--duration-micro) var(--easing-ease-out);
+}
+
+@keyframes tooltip-bottom-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-4px); }
+}
+@utility animate-tooltip-bottom-exit {
+  animation: tooltip-bottom-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes tooltip-right-enter {
+  from { opacity: 0; transform: translateX(-4px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@utility animate-tooltip-right-enter {
+  animation: tooltip-right-enter var(--duration-micro) var(--easing-ease-out);
+}
+
+@keyframes tooltip-right-exit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-4px); }
+}
+@utility animate-tooltip-right-exit {
+  animation: tooltip-right-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes tooltip-left-enter {
+  from { opacity: 0; transform: translateX(4px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@utility animate-tooltip-left-enter {
+  animation: tooltip-left-enter var(--duration-micro) var(--easing-ease-out);
+}
+
+@keyframes tooltip-left-exit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(4px); }
+}
+@utility animate-tooltip-left-exit {
+  animation: tooltip-left-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes popover-top-enter {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility animate-popover-top-enter {
+  animation: popover-top-enter var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes popover-top-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(4px); }
+}
+@utility animate-popover-top-exit {
+  animation: popover-top-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes popover-bottom-enter {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@utility animate-popover-bottom-enter {
+  animation: popover-bottom-enter var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes popover-bottom-exit {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-4px); }
+}
+@utility animate-popover-bottom-exit {
+  animation: popover-bottom-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes popover-right-enter {
+  from { opacity: 0; transform: translateX(-4px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@utility animate-popover-right-enter {
+  animation: popover-right-enter var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes popover-right-exit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-4px); }
+}
+@utility animate-popover-right-exit {
+  animation: popover-right-exit var(--duration-fast) var(--easing-ease-out);
+}
+
+@keyframes popover-left-enter {
+  from { opacity: 0; transform: translateX(4px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@utility animate-popover-left-enter {
+  animation: popover-left-enter var(--duration-normal) var(--easing-ease-out);
+}
+
+@keyframes popover-left-exit {
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(4px); }
+}
+@utility animate-popover-left-exit {
+  animation: popover-left-exit var(--duration-fast) var(--easing-ease-out);
+}
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

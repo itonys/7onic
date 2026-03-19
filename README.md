@@ -147,7 +147,7 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Data Display** | Avatar, Badge, Card, Table | Ready |
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
 | **Layout** | Tabs, Accordion, Divider | Ready |
-| **Overlay** | **Modal**, **Drawer**, Tooltip, Popover | Modal, Drawer Ready |
+| **Overlay** | **Modal**, **Drawer**, **Tooltip**, **Popover** | All Ready |
 | **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | Ready |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
@@ -178,7 +178,7 @@ All components follow these patterns:
 | **Breakpoints** | 5 widths | `sm`(640) through `2xl`(1536) |
 | **Border Width** | 5 values | `0`, `1`, `2`, `4`, `8` |
 | **Scale** | 4 values | `50`(0.5), `75`(0.75), `95`(0.95), `pressed`(0.98) |
-| **Animation** | 23 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `drawer-*` (8), `nav-viewport-*`, `accordion-*`, `collapsible-*`, `spin` |
+| **Animation** | 39 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `drawer-*` (8), `nav-viewport-*`, `accordion-*`, `collapsible-*`, `tooltip-*` (8), `popover-*` (8), `spin` |
 
 ---
 
@@ -254,7 +254,7 @@ The documentation site includes:
 - [x] RGB channel variables for v3 semantic opacity modifier support (`bg-primary/50`)
 - [x] Light/dark theme
 - [x] Documentation site with interactive playgrounds
-- [x] Core components — Forms (14), Data Display (4), Layout (3), Navigation (3), Charts (5)
+- [x] Core components — Forms (14), Data Display (4), Layout (3), Overlay (4), Navigation (3), Charts (5)
 - [x] npm package distribution setup
 - [x] Namespace compound exports — `<Card.Header>` style with backward-compatible named exports
 - [ ] Theme Customizer (live color preview)

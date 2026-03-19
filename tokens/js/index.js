@@ -432,6 +432,102 @@ const tokens = {
       "easing": "ease-out",
       "translateY": "100%"
     },
+    "tooltip-top-enter": {
+      "duration": "150ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "tooltip-top-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "tooltip-bottom-enter": {
+      "duration": "150ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "tooltip-bottom-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "tooltip-right-enter": {
+      "duration": "150ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
+    "tooltip-right-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
+    "tooltip-left-enter": {
+      "duration": "150ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
+    "tooltip-left-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
+    "popover-top-enter": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "popover-top-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "popover-bottom-enter": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "popover-bottom-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "4"
+    },
+    "popover-right-enter": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
+    "popover-right-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
+    "popover-left-enter": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
+    "popover-left-exit": {
+      "duration": "100ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "4"
+    },
     "spin": {
       "duration": "1000ms",
       "easing": "linear"

@@ -1240,6 +1240,166 @@
         "type": "composition",
         "$extensions": { "direction": "exit" }
       },
+      "tooltip-top-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.micro}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "tooltip-top-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
+      "tooltip-bottom-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.micro}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter", "translateYNegative": true }
+      },
+      "tooltip-bottom-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit", "translateYNegative": true }
+      },
+      "tooltip-right-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.micro}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter", "translateXNegative": true }
+      },
+      "tooltip-right-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit", "translateXNegative": true }
+      },
+      "tooltip-left-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.micro}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "tooltip-left-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
+      "popover-top-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "popover-top-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
+      "popover-bottom-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter", "translateYNegative": true }
+      },
+      "popover-bottom-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateY": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit", "translateYNegative": true }
+      },
+      "popover-right-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter", "translateXNegative": true }
+      },
+      "popover-right-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit", "translateXNegative": true }
+      },
+      "popover-left-enter": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.normal}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "enter" }
+      },
+      "popover-left-exit": {
+        "value": {
+          "opacity": "{primitive.opacity.0}",
+          "translateX": "{primitive.spacing.1}",
+          "duration": "{primitive.duration.fast}",
+          "easing": "{primitive.easing.easeOut}"
+        },
+        "type": "composition",
+        "$extensions": { "direction": "exit" }
+      },
       "spin": {
         "value": {
           "duration": "{primitive.duration.spin}",

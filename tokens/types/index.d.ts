@@ -92,6 +92,22 @@ export declare const animation: {
   'drawer-top-exit': { translateY: string; duration: string; easing: string };
   'drawer-bottom-enter': { translateY: string; duration: string; easing: string };
   'drawer-bottom-exit': { translateY: string; duration: string; easing: string };
+  'tooltip-top-enter': { translateY: string; opacity: string; duration: string; easing: string };
+  'tooltip-top-exit': { translateY: string; opacity: string; duration: string; easing: string };
+  'tooltip-bottom-enter': { translateY: string; opacity: string; duration: string; easing: string };
+  'tooltip-bottom-exit': { translateY: string; opacity: string; duration: string; easing: string };
+  'tooltip-right-enter': { translateX: string; opacity: string; duration: string; easing: string };
+  'tooltip-right-exit': { translateX: string; opacity: string; duration: string; easing: string };
+  'tooltip-left-enter': { translateX: string; opacity: string; duration: string; easing: string };
+  'tooltip-left-exit': { translateX: string; opacity: string; duration: string; easing: string };
+  'popover-top-enter': { translateY: string; opacity: string; duration: string; easing: string };
+  'popover-top-exit': { translateY: string; opacity: string; duration: string; easing: string };
+  'popover-bottom-enter': { translateY: string; opacity: string; duration: string; easing: string };
+  'popover-bottom-exit': { translateY: string; opacity: string; duration: string; easing: string };
+  'popover-right-enter': { translateX: string; opacity: string; duration: string; easing: string };
+  'popover-right-exit': { translateX: string; opacity: string; duration: string; easing: string };
+  'popover-left-enter': { translateX: string; opacity: string; duration: string; easing: string };
+  'popover-left-exit': { translateX: string; opacity: string; duration: string; easing: string };
   'spin': { duration: string; easing: string };
 };
 
