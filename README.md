@@ -147,7 +147,7 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Data Display** | Avatar, Badge, Card, Table | Ready |
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
 | **Layout** | Tabs, Accordion, Divider | Ready |
-| **Overlay** | **Modal**, **Drawer**, **Tooltip**, **Popover** | All Ready |
+| **Overlay** | Modal, Drawer, Tooltip, Popover | Ready |
 | **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | Ready |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
