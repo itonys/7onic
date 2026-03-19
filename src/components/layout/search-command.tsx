@@ -23,20 +23,49 @@ const searchData = [
   { id: 'easing', title: 'Easing', desc: 'イージング', href: '/design-tokens/easing', category: 'Design Tokens', keywords: ['easing', 'animation'] },
   { id: 'scale', title: 'Scale', desc: 'スケール変換', href: '/design-tokens/scale', category: 'Design Tokens', keywords: ['scale', 'transform'] },
   { id: 'animation', title: 'Animation', desc: 'アニメーション', href: '/design-tokens/animation', category: 'Design Tokens', keywords: ['animation', 'enter', 'fade', 'zoom', 'keyframes'] },
-  // Components
+  // Components — Forms
   { id: 'button', title: 'Button', desc: 'ボタン', href: '/components/button', category: 'Components', keywords: ['button', 'click', 'ボタン'] },
   { id: 'icon-button', title: 'IconButton', desc: 'アイコンボタン', href: '/components/icon-button', category: 'Components', keywords: ['icon', 'button'] },
   { id: 'button-group', title: 'ButtonGroup', desc: 'ボタングループ', href: '/components/button-group', category: 'Components', keywords: ['button', 'group'] },
-  { id: 'toggle', title: 'Toggle', desc: 'トグル', href: '/components/toggle', category: 'Components', keywords: ['toggle', 'switch'] },
+  { id: 'input', title: 'Input', desc: 'テキスト入力', href: '/components/input', category: 'Components', keywords: ['input', 'text', 'form', 'テキスト'] },
+  { id: 'textarea', title: 'Textarea', desc: 'テキストエリア', href: '/components/textarea', category: 'Components', keywords: ['textarea', 'text', 'multiline'] },
+  { id: 'select', title: 'Select', desc: 'セレクト', href: '/components/select', category: 'Components', keywords: ['select', 'dropdown', 'option', 'セレクト'] },
+  { id: 'dropdown', title: 'Dropdown', desc: 'ドロップダウン', href: '/components/dropdown', category: 'Components', keywords: ['dropdown', 'menu', 'ドロップダウン'] },
   { id: 'checkbox', title: 'Checkbox', desc: 'チェックボックス', href: '/components/checkbox', category: 'Components', keywords: ['checkbox', 'check', 'チェック'] },
   { id: 'radio', title: 'Radio', desc: 'ラジオ', href: '/components/radio', category: 'Components', keywords: ['radio', 'option', 'ラジオ'] },
   { id: 'switch', title: 'Switch', desc: 'スイッチ', href: '/components/switch', category: 'Components', keywords: ['switch', 'toggle', 'スイッチ'] },
+  { id: 'toggle', title: 'Toggle', desc: 'トグル', href: '/components/toggle', category: 'Components', keywords: ['toggle', 'トグル'] },
+  { id: 'toggle-group', title: 'ToggleGroup', desc: 'トグルグループ', href: '/components/toggle-group', category: 'Components', keywords: ['toggle', 'group'] },
+  { id: 'segmented', title: 'Segmented', desc: 'セグメント', href: '/components/segmented', category: 'Components', keywords: ['segment', 'segmented', 'セグメント'] },
   { id: 'slider', title: 'Slider', desc: 'スライダー', href: '/components/slider', category: 'Components', keywords: ['slider', 'range', 'スライダー'] },
-  { id: 'segmented', title: 'Segmented', desc: 'セグメント', href: '/components/segmented', category: 'Components', keywords: ['segment', 'tabs', 'segmented'] },
+  // Components — Data Display
+  { id: 'avatar', title: 'Avatar', desc: 'アバター', href: '/components/avatar', category: 'Components', keywords: ['avatar', 'image', 'user', 'アバター'] },
+  { id: 'badge', title: 'Badge', desc: 'バッジ', href: '/components/badge', category: 'Components', keywords: ['badge', 'label', 'tag', 'バッジ'] },
+  { id: 'card', title: 'Card', desc: 'カード', href: '/components/card', category: 'Components', keywords: ['card', 'panel', 'カード'] },
+  { id: 'table', title: 'Table', desc: 'テーブル', href: '/components/table', category: 'Components', keywords: ['table', 'grid', 'data', 'テーブル'] },
+  // Components — Layout
   { id: 'tabs', title: 'Tabs', desc: 'タブ', href: '/components/tabs', category: 'Components', keywords: ['tabs', 'tab', 'panel', 'タブ'] },
+  { id: 'accordion', title: 'Accordion', desc: 'アコーディオン', href: '/components/accordion', category: 'Components', keywords: ['accordion', 'collapse', 'expand', 'アコーディオン'] },
+  { id: 'divider', title: 'Divider', desc: '区切り線', href: '/components/divider', category: 'Components', keywords: ['divider', 'separator', 'line', '区切り'] },
+  // Components — Overlay
+  { id: 'modal', title: 'Modal', desc: 'モーダル', href: '/components/modal', category: 'Components', keywords: ['modal', 'dialog', 'overlay', 'モーダル'] },
+  { id: 'drawer', title: 'Drawer', desc: 'ドロワー', href: '/components/drawer', category: 'Components', keywords: ['drawer', 'panel', 'sidebar', 'ドロワー'] },
+  { id: 'tooltip', title: 'Tooltip', desc: 'ツールチップ', href: '/components/tooltip', category: 'Components', keywords: ['tooltip', 'hint', 'ツールチップ'] },
+  { id: 'popover', title: 'Popover', desc: 'ポップオーバー', href: '/components/popover', category: 'Components', keywords: ['popover', 'floating', 'ポップオーバー'] },
+  // Components — Navigation
+  { id: 'breadcrumb', title: 'Breadcrumb', desc: 'パンくずリスト', href: '/components/breadcrumb', category: 'Components', keywords: ['breadcrumb', 'navigation', 'パンくず'] },
+  { id: 'pagination', title: 'Pagination', desc: 'ページネーション', href: '/components/pagination', category: 'Components', keywords: ['pagination', 'page', 'ページ'] },
+  { id: 'navigation-menu', title: 'NavigationMenu', desc: 'ナビゲーションメニュー', href: '/components/navigation-menu', category: 'Components', keywords: ['navigation', 'menu', 'nav', 'ナビ'] },
+  // Charts
+  { id: 'line-chart', title: 'LineChart', desc: '折れ線グラフ', href: '/components/line-chart', category: 'Charts', keywords: ['line', 'chart', 'graph', 'グラフ'] },
+  { id: 'area-chart', title: 'AreaChart', desc: 'エリアチャート', href: '/components/area-chart', category: 'Charts', keywords: ['area', 'chart', 'graph'] },
+  { id: 'bar-chart', title: 'BarChart', desc: '棒グラフ', href: '/components/bar-chart', category: 'Charts', keywords: ['bar', 'chart', 'graph', '棒グラフ'] },
+  { id: 'pie-chart', title: 'PieChart', desc: '円グラフ', href: '/components/pie-chart', category: 'Charts', keywords: ['pie', 'donut', 'chart', '円グラフ'] },
+  { id: 'metric-card', title: 'MetricCard', desc: 'メトリクスカード', href: '/components/metric-card', category: 'Charts', keywords: ['metric', 'kpi', 'card', 'stat'] },
   // Guidelines
   { id: 'icons', title: 'Icons', desc: 'アイコン', href: '/guidelines/icons', category: 'Guidelines', keywords: ['icon', 'lucide'] },
-  { id: 'accessibility', title: 'Accessibility', desc: 'アクセシビリティ', href: '/guidelines/accessibility', category: 'Guidelines', keywords: ['a11y', 'accessibility'] },
+  { id: 'accessibility', title: 'Accessibility', desc: 'アクセシビリティ', href: '/guidelines/accessibility', category: 'Guidelines', keywords: ['a11y', 'accessibility', 'wcag'] },
+  { id: 'tailwind-versions', title: 'Tailwind Versions', desc: 'Tailwind v3 / v4', href: '/guidelines/tailwind-versions', category: 'Guidelines', keywords: ['tailwind', 'v3', 'v4', 'css'] },
 ]
 
 interface SearchCommandProps {
