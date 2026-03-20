@@ -592,10 +592,13 @@ NavigationMenuGroup.displayName = 'NavigationMenuGroup'
 
 // ─── NavigationMenuIndicator ──────────────────────────────
 
-export interface NavigationMenuIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface NavigationMenuIndicatorProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Active indicator dot color (default: dark/foreground, primary: brand color) */
+  color?: 'default' | 'primary'
+}
 
 const NavigationMenuIndicator = React.forwardRef<HTMLDivElement, NavigationMenuIndicatorProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, color = 'default', ...props }, ref) => {
     const { orientation } = useNavigationMenuContext()
 
     // Vertical: active indicator is built into NavigationMenuLink styling
@@ -612,7 +615,10 @@ const NavigationMenuIndicator = React.forwardRef<HTMLDivElement, NavigationMenuI
         )}
         {...props}
       >
-        <div className="relative h-full w-full rounded-full bg-primary" />
+        <div className={cn(
+          'relative h-full w-full rounded-full',
+          color === 'default' ? 'bg-foreground' : 'bg-primary'
+        )} />
       </NavigationMenuPrimitive.Indicator>
     )
   }

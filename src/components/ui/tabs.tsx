@@ -10,7 +10,7 @@ type TabsStyleContextValue = {
   variant?: 'line' | 'enclosed' | 'pill'
   size?: 'sm' | 'md' | 'default' | 'lg'
   fitted?: boolean
-  color?: 'primary' | 'foreground'
+  color?: 'default' | 'primary'
   radius?: 'none' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
 }
 const TabsStyleContext = React.createContext<TabsStyleContextValue>({})
@@ -44,7 +44,7 @@ export interface TabsListProps
     VariantProps<typeof tabsListVariants> {
   size?: 'sm' | 'md' | 'default' | 'lg'
   /** Indicator color for line variant */
-  color?: 'primary' | 'foreground'
+  color?: 'default' | 'primary'
   /** Top border-radius for enclosed variant, container radius for pill variant */
   radius?: 'none' | 'sm' | 'base' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
 }
@@ -55,7 +55,7 @@ const TabsList = React.forwardRef<
 >(({ className, variant, size, fitted, color, radius, ...props }, ref) => {
   const resolvedVariant = variant || 'line'
   return (
-    <TabsStyleContext.Provider value={{ variant: resolvedVariant, size: size || 'default', fitted: fitted ?? false, color: color || 'primary', radius: radius || 'md' }}>
+    <TabsStyleContext.Provider value={{ variant: resolvedVariant, size: size || 'default', fitted: fitted ?? false, color: color || 'default', radius: radius || 'md' }}>
       <TabsPrimitive.List
         ref={ref}
         className={cn(
@@ -147,8 +147,8 @@ export interface TabsTriggerProps
 
 // Line variant: active indicator color
 const lineColorClasses = {
+  default: 'data-[state=active]:border-foreground',
   primary: 'data-[state=active]:border-primary',
-  foreground: 'data-[state=active]:border-foreground',
 } as const
 
 // Enclosed variant: top border-radius
@@ -200,7 +200,7 @@ const TabsTrigger = React.forwardRef<
       className={cn(
         tabsTriggerVariants({ variant, size: resolvedSize, fitted }),
         triggerIconSizeClasses[resolvedSize],
-        variant === 'line' && lineColorClasses[color || 'primary'],
+        variant === 'line' && lineColorClasses[color || 'default'],
         variant === 'enclosed' && enclosedRadiusClasses[(radius || 'md') as keyof typeof enclosedRadiusClasses],
         variant === 'pill' && pillItemRadiusClasses[radius || 'md'],
         className

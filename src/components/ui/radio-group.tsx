@@ -6,13 +6,28 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { useFieldContext } from './field'
 
-// Context to pass size and weight from RadioGroup to RadioGroupItem
+// Color maps for checked state
+const radioColorMap = {
+  default: {
+    border: 'data-[state=checked]:border-foreground',
+    dot: 'bg-foreground',
+  },
+  primary: {
+    border: 'data-[state=checked]:border-primary',
+    dot: 'bg-primary',
+  },
+} as const
+
+export type RadioColor = keyof typeof radioColorMap
+
+// Context to pass size, weight, color from RadioGroup to RadioGroupItem
 type RadioGroupContextValue = {
   size: 'sm' | 'default' | 'lg'
   weight: 'thin' | 'bold'
+  color: RadioColor
   disabled?: boolean
 }
-const RadioGroupContext = React.createContext<RadioGroupContextValue>({ size: 'default', weight: 'bold' })
+const RadioGroupContext = React.createContext<RadioGroupContextValue>({ size: 'default', weight: 'bold', color: 'default' })
 
 // RadioGroup container
 const radioGroupVariants = cva('grid gap-3', {
@@ -31,17 +46,19 @@ export interface RadioGroupProps
   extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root> {
   size?: 'sm' | 'default' | 'lg'
   weight?: 'thin' | 'bold'
+  /** Checked state color */
+  color?: RadioColor
 }
 
 const RadioGroupRoot = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   RadioGroupProps
->(({ className, orientation, size = 'default', weight = 'bold', disabled, ...props }, ref) => {
+>(({ className, orientation, size = 'default', weight = 'bold', color = 'default', disabled, ...props }, ref) => {
   const fieldContext = useFieldContext()
   const resolvedDisabled = disabled ?? fieldContext?.disabled
 
   return (
-    <RadioGroupContext.Provider value={{ size, weight, disabled: resolvedDisabled }}>
+    <RadioGroupContext.Provider value={{ size, weight, color, disabled: resolvedDisabled }}>
       <RadioGroupPrimitive.Root
         ref={ref}
         className={cn(radioGroupVariants({ orientation }), className)}
@@ -61,7 +78,6 @@ const radioItemVariants = cva(
     'focus-visible:focus-ring',
     'disabled:cursor-not-allowed disabled:opacity-50',
     'hover:border-border-strong',
-    'data-[state=checked]:border-primary',
     // Transparent hit area expansion via ::after
     "after:absolute after:content-['']",
   ].join(' '),
@@ -114,7 +130,7 @@ const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   RadioGroupItemProps
 >(({ className, label, disabled, ...props }, ref) => {
-  const { size, weight, disabled: groupDisabled } = React.useContext(RadioGroupContext)
+  const { size, weight, color, disabled: groupDisabled } = React.useContext(RadioGroupContext)
   const resolvedDisabled = disabled ?? groupDisabled
   const itemId = React.useId()
 
@@ -125,12 +141,13 @@ const RadioGroupItem = React.forwardRef<
       disabled={resolvedDisabled}
       className={cn(
         radioItemVariants({ size, weight }),
+        radioColorMap[color].border,
         className
       )}
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center animate-radio-enter">
-        <div className={cn('rounded-full bg-primary', dotSizes[size])} />
+        <div className={cn('rounded-full', radioColorMap[color].dot, dotSizes[size])} />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   )

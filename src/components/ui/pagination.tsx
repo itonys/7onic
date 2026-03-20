@@ -141,7 +141,7 @@ export function usePagination({
 
 export type PaginationSize = 'xs' | 'sm' | 'default' | 'lg' | 'xl'
 export type PaginationVariant = 'default' | 'outline' | 'ghost'
-export type PaginationColor = 'primary' | 'foreground'
+export type PaginationColor = 'default' | 'primary'
 export type PaginationRadius = 'sm' | 'base' | 'md' | 'lg' | 'xl' | 'full'
 
 type PaginationContextValue = {
@@ -202,40 +202,40 @@ const paginationItemVariants = cva(
 
 // Active color maps
 const activeColorMap = {
+  default: 'bg-foreground text-background',
   primary: 'bg-primary text-primary-foreground',
-  foreground: 'bg-foreground text-background',
 } as const
 
 const ghostActiveColorMap = {
+  default: 'bg-background-muted text-foreground font-bold',
   primary: 'bg-background-muted text-primary',
-  foreground: 'bg-background-muted text-foreground font-bold',
 } as const
 
 function getItemClasses(variant: PaginationVariant, color: PaginationColor, isActive: boolean, disabled: boolean) {
   if (disabled) {
     return variant === 'outline'
       ? 'border border-border text-disabled-foreground pointer-events-none'
-      : 'text-disabled-foreground pointer-events-none'
+      : 'border border-transparent text-disabled-foreground pointer-events-none'
   }
   if (isActive) {
     switch (variant) {
       case 'outline':
-        return `border border-primary ${activeColorMap[color]}`
+        return `border ${color === 'default' ? 'border-foreground' : 'border-primary'} ${activeColorMap[color]}`
       case 'ghost':
-        return ghostActiveColorMap[color]
+        return `border border-transparent ${ghostActiveColorMap[color]}`
       case 'default':
       default:
-        return activeColorMap[color]
+        return `border border-transparent ${activeColorMap[color]}`
     }
   }
   switch (variant) {
     case 'outline':
       return 'border border-border text-text-muted hover:bg-background-muted hover:text-foreground'
     case 'ghost':
-      return 'text-text-muted hover:bg-background-muted hover:text-foreground'
+      return 'border border-transparent text-text-muted hover:bg-background-muted hover:text-foreground'
     case 'default':
     default:
-      return 'text-text-muted hover:bg-background-muted hover:text-foreground'
+      return 'border border-transparent text-text-muted hover:bg-background-muted hover:text-foreground'
   }
 }
 
@@ -283,7 +283,7 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
     boundaries = 1,
     size = 'default',
     variant = 'default',
-    color = 'primary',
+    color = 'default',
     radius = 'md',
     disabled = false,
     withControls = true,

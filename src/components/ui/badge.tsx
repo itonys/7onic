@@ -9,8 +9,8 @@ import { cn } from '@/lib/utils'
 // Uses semantic tokens (*.tint, text-text-*) for v4 dark mode compatibility
 const colorMap = {
   default: {
-    solid: 'bg-secondary text-secondary-foreground',
-    subtle: 'bg-secondary-tint text-foreground',
+    solid: 'bg-foreground text-background',
+    subtle: 'bg-background-muted text-foreground',
     outline: 'border-border text-foreground',
   },
   primary: {

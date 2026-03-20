@@ -1491,6 +1491,14 @@
         },
         "type": "composition",
         "$extensions": { "animationType": "spin" }
+      },
+      "progress-stripe": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.linear}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "progress-stripe" }
       }
     },
     "componentSize": {

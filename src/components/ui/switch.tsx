@@ -58,10 +58,11 @@ const labelSizes = {
 }
 
 export type SwitchLabelPosition = 'start' | 'end' | 'top' | 'bottom'
-export type SwitchColor = 'primary' | 'success' | 'warning' | 'error'
+export type SwitchColor = 'default' | 'primary' | 'success' | 'warning' | 'error'
 
 // Checked track color per color variant
 const checkedTrackColors: Record<SwitchColor, string> = {
+  default: 'data-[state=checked]:bg-foreground',
   primary: 'data-[state=checked]:bg-primary',
   success: 'data-[state=checked]:bg-success',
   warning: 'data-[state=checked]:bg-warning',
@@ -70,6 +71,7 @@ const checkedTrackColors: Record<SwitchColor, string> = {
 
 // Checked icon color per color variant
 const checkedIconColors: Record<SwitchColor, string> = {
+  default: 'text-foreground',
   primary: 'text-primary',
   success: 'text-success',
   warning: 'text-warning',
@@ -98,7 +100,7 @@ export interface SwitchProps
 const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitive.Root>,
   SwitchProps
->(({ className, size, label, labelPosition = 'end', startLabel, endLabel, checkedIcon, uncheckedIcon, color = 'primary', disabled, id, ...props }, ref) => {
+>(({ className, size, label, labelPosition = 'end', startLabel, endLabel, checkedIcon, uncheckedIcon, color = 'default', disabled, id, ...props }, ref) => {
   const fieldContext = useFieldContext()
   const resolvedSize = size || 'default'
   const resolvedDisabled = disabled ?? fieldContext?.disabled
@@ -115,7 +117,8 @@ const Switch = React.forwardRef<
     >
       <SwitchPrimitive.Thumb
         className={cn(
-          'group/thumb pointer-events-none flex items-center justify-center rounded-full bg-primary-foreground shadow-sm ring-0',
+          'group/thumb pointer-events-none flex items-center justify-center rounded-full shadow-sm ring-0',
+          color === 'default' ? 'bg-background' : 'bg-primary-foreground',
           'transition-transform duration-normal ease-out',
           'data-[state=unchecked]:translate-x-0',
           thumbSizes[resolvedSize],

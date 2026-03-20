@@ -580,6 +580,10 @@ const tokens = {
     "spin": {
       "duration": "1000ms",
       "easing": "linear"
+    },
+    "progress-stripe": {
+      "duration": "1000ms",
+      "easing": "linear"
     }
   },
   "typography": {

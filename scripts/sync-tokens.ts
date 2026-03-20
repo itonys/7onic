@@ -632,7 +632,7 @@ function warnUnknownThemeCategories(themeColor: Record<string, Record<string, To
  */
 interface AnimationToken {
   name: string
-  type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin'
+  type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin' | 'progress-stripe'
   opacity: string         // raw value e.g. "0" (empty if not used)
   scale: string           // raw value e.g. "0.75" (empty if not used)
   translateX: string      // raw value e.g. "100%" or "8" in px (empty if not used)
@@ -671,8 +671,8 @@ function readAnimationTokens(tokens: FigmaTokens): AnimationToken[] | null {
 
     // Special types
     const animationType = ext?.animationType as string | undefined
-    if (animationType === 'spin') {
-      result.push({ name, type: 'spin', opacity: '', scale: '', translateX: '', translateXNegative: false, translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
+    if (animationType === 'spin' || animationType === 'progress-stripe') {
+      result.push({ name, type: animationType, opacity: '', scale: '', translateX: '', translateXNegative: false, translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
       continue
     }
 
@@ -749,6 +749,24 @@ function generateAnimationCss(a: AnimationToken, format: 'css' | 'v4'): string {
     lines.push(`}`)
     return lines.join('\n')
   }
+
+  // Progress stripe (diagonal stripe movement)
+  if (a.type === 'progress-stripe') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  from { background-position: 1rem 0; }`)
+    lines.push(`  to { background-position: 0 0; }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
 
   // Height-based animations
   if (a.type === 'height-expand' || a.type === 'height-collapse') {
@@ -2405,6 +2423,16 @@ function generateV3Preset(tokens: FigmaTokens): string {
         lines.push(`          from: { height: '${isExpand ? '0' : `var(${a.heightVar})`}' },`)
         lines.push(`          to: { height: '${isExpand ? `var(${a.heightVar})` : '0'}' },`)
         lines.push(`        },`)
+      } else if (a.type === 'spin') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          from: { 'transform': 'rotate(0deg)' },`)
+        lines.push(`          to: { 'transform': 'rotate(360deg)' },`)
+        lines.push(`        },`)
+      } else if (a.type === 'progress-stripe') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          from: { 'background-position': '1rem 0' },`)
+        lines.push(`          to: { 'background-position': '0 0' },`)
+        lines.push(`        },`)
       } else {
         const isEnter = a.type === 'enter'
         const fromProps: string[] = []
@@ -2425,10 +2453,11 @@ function generateV3Preset(tokens: FigmaTokens): string {
   lines.push(`      },`)
   lines.push(``)
 
+  const infiniteTypes = new Set(['spin', 'progress-stripe'])
   lines.push(`      animation: {`)
   if (v3Anim) {
     for (const a of v3Anim) {
-      const infinite = a.type === 'spin' ? ' infinite' : ''
+      const infinite = infiniteTypes.has(a.type) ? ' infinite' : ''
       lines.push(`        '${a.name}': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}',`)
     }
   }
@@ -2469,7 +2498,7 @@ function generateV3Preset(tokens: FigmaTokens): string {
     lines.push(`    function({ addUtilities }) {`)
     lines.push(`      addUtilities({`)
     for (const a of v3Anim) {
-      const infinite = a.type === 'spin' ? ' infinite' : ''
+      const infinite = infiniteTypes.has(a.type) ? ' infinite' : ''
       lines.push(`        '.animate-${a.name}': { 'animation': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}' },`)
     }
     lines.push(`      })`)

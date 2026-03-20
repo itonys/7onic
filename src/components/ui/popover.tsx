@@ -32,7 +32,7 @@ const ANIMATION_CLASSES: Record<PopoverSide, string> = {
 
 // ─── Content variants ────────────────────────────────────────
 const popoverContentVariants = cva(
-  'relative z-popover font-normal select-none w-72 max-w-[calc(100vw-16px)] outline-none',
+  'relative z-popover font-normal select-none w-auto max-w-[calc(100vw-16px)] outline-none',
   {
     variants: {
       variant: {

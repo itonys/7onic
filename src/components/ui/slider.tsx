@@ -43,9 +43,29 @@ const contentSizes = {
   lg: 'text-base',
 }
 
+// Color maps for range and thumb
+const sliderColorMap = {
+  default: {
+    range: 'bg-foreground',
+    thumb: 'bg-background border-foreground',
+    thumbHover: 'hover:shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-text)_16%,transparent)] hover:border-foreground',
+    thumbActive: 'active:shadow-[0_0_0_6px_color-mix(in_srgb,var(--color-text)_16%,transparent)]',
+  },
+  primary: {
+    range: 'bg-primary',
+    thumb: 'bg-primary-foreground border-primary',
+    thumbHover: 'hover:shadow-primary-glow hover:border-primary-hover',
+    thumbActive: 'active:shadow-[0_0_0_6px_color-mix(in_srgb,var(--color-primary)_16%,transparent)]',
+  },
+} as const
+
+export type SliderColor = keyof typeof sliderColorMap
+
 export interface SliderProps
   extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>,
     VariantProps<typeof sliderVariants> {
+  /** Track and thumb color */
+  color?: SliderColor
   /** Tooltip display mode: auto (hover/drag), always, never */
   showTooltip?: 'auto' | 'always' | 'never'
   /** Custom formatter for tooltip value */
@@ -59,7 +79,7 @@ export interface SliderProps
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, size, value, defaultValue, onValueChange, showTooltip = 'never', formatLabel, startContent, endContent, orientation, ...props }, ref) => {
+>(({ className, size, color = 'default', value, defaultValue, onValueChange, showTooltip = 'never', formatLabel, startContent, endContent, orientation, ...props }, ref) => {
   const resolvedSize = size || 'default'
   const thumbCount = value?.length ?? defaultValue?.length ?? 1
   const hasTooltip = showTooltip !== 'never'
@@ -103,7 +123,7 @@ const Slider = React.forwardRef<
       >
         <SliderPrimitive.Range
           className={cn(
-            'absolute bg-primary rounded-full',
+            'absolute rounded-full', sliderColorMap[color].range,
             isVertical
               ? 'w-full transition-[top,bottom] duration-fast ease-out'
               : 'h-full transition-[left,right] duration-fast ease-out'
@@ -114,12 +134,12 @@ const Slider = React.forwardRef<
         <SliderPrimitive.Thumb
           key={i}
           className={cn(
-            'group/thumb block rounded-full bg-primary-foreground border-2 border-primary shadow-sm',
+            'group/thumb block rounded-full border-2 shadow-sm', sliderColorMap[color].thumb,
             isVertical
               ? 'transition-[top,box-shadow,border-color] duration-fast ease-out'
               : 'transition-[left,box-shadow,border-color] duration-fast ease-out',
-            'hover:shadow-primary-glow hover:border-primary-hover',
-            'active:shadow-[0_0_0_6px_color-mix(in_srgb,var(--color-primary)_16%,transparent)]',
+            sliderColorMap[color].thumbHover,
+            sliderColorMap[color].thumbActive,
             'focus-visible:focus-ring',
             'disabled:pointer-events-none disabled:opacity-50',
             thumbSizes[resolvedSize]

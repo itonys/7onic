@@ -6,14 +6,22 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { useButtonGroup } from './button-group'
 
+// Solid color maps (applied when variant="solid")
+const solidColorMap = {
+  default: 'bg-foreground text-background hover:bg-foreground/90 active:bg-foreground/80',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active',
+  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover active:bg-secondary-active',
+  destructive: 'bg-error text-error-foreground hover:bg-error-hover active:bg-error-active',
+} as const
+
+export type ButtonColor = keyof typeof solidColorMap
+
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap transition-all duration-micro focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active font-semibold',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover active:bg-secondary-active font-semibold',
-        destructive: 'bg-error text-error-foreground hover:bg-error-hover active:bg-error-active font-semibold',
+        solid: 'font-semibold',
         outline: 'border border-border bg-background text-foreground hover:bg-background-muted hover:border-border-strong font-normal',
         ghost: 'text-foreground hover:bg-background-muted font-normal',
         link: 'text-text-link underline-offset-4 hover:underline font-normal',
@@ -43,7 +51,7 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: 'solid',
       size: 'default',
       radius: 'default',
       fullWidth: false,
@@ -54,6 +62,8 @@ const buttonVariants = cva(
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
+  /** Solid variant color */
+  color?: ButtonColor
   asChild?: boolean
   loading?: boolean
   leftIcon?: React.ReactNode
@@ -67,6 +77,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({
     className,
     variant: variantProp,
+    color: colorProp,
     size: sizeProp,
     radius: radiusProp,
     fullWidth,
@@ -85,7 +96,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const groupContext = useButtonGroup()
 
     // Use context values as fallback, individual props take precedence
-    const variant = variantProp ?? groupContext?.variant
+    const variant = variantProp ?? groupContext?.variant ?? 'solid'
+    const color = colorProp ?? 'default'
     const size = sizeProp ?? groupContext?.size
     const radius = radiusProp ?? groupContext?.radius
     const disabled = disabledProp ?? groupContext?.disabled
@@ -115,7 +127,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, radius, fullWidth }), pressEffect !== false && 'active:scale-pressed', fontWeightClass, selectedStyles, className)}
+        className={cn(buttonVariants({ variant, size, radius, fullWidth }), variant === 'solid' && solidColorMap[color], pressEffect !== false && 'active:scale-pressed', fontWeightClass, selectedStyles, className)}
         ref={ref}
         disabled={disabled || loading}
         aria-busy={loading || undefined}

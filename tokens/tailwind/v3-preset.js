@@ -517,8 +517,12 @@ module.exports = {
           to: { 'opacity': '0', 'transform': 'translateY(100%)' },
         },
         'spin': {
-          from: {  },
-          to: {  },
+          from: { 'transform': 'rotate(0deg)' },
+          to: { 'transform': 'rotate(360deg)' },
+        },
+        'progress-stripe': {
+          from: { 'background-position': '1rem 0' },
+          to: { 'background-position': '0 0' },
         },
       },
 
@@ -570,6 +574,7 @@ module.exports = {
         'toast-slide-in-bottom': 'toast-slide-in-bottom var(--duration-slow) var(--easing-ease-out)',
         'toast-slide-out-bottom': 'toast-slide-out-bottom var(--duration-normal) var(--easing-ease-out)',
         'spin': 'spin var(--duration-spin) var(--easing-linear) infinite',
+        'progress-stripe': 'progress-stripe var(--duration-spin) var(--easing-linear) infinite',
       },
     },
   },
@@ -651,6 +656,7 @@ module.exports = {
         '.animate-toast-slide-in-bottom': { 'animation': 'toast-slide-in-bottom var(--duration-slow) var(--easing-ease-out)' },
         '.animate-toast-slide-out-bottom': { 'animation': 'toast-slide-out-bottom var(--duration-normal) var(--easing-ease-out)' },
         '.animate-spin': { 'animation': 'spin var(--duration-spin) var(--easing-linear) infinite' },
+        '.animate-progress-stripe': { 'animation': 'progress-stripe var(--duration-spin) var(--easing-linear) infinite' },
       })
     },
   ],

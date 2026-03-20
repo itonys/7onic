@@ -864,3 +864,11 @@
 .animate-spin {
   animation: spin var(--duration-spin) var(--easing-linear) infinite;
 }
+
+@keyframes progress-stripe {
+  from { background-position: 1rem 0; }
+  to { background-position: 0 0; }
+}
+.animate-progress-stripe {
+  animation: progress-stripe var(--duration-spin) var(--easing-linear) infinite;
+}

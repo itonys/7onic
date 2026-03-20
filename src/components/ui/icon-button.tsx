@@ -6,17 +6,25 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { useButtonGroup } from './button-group'
 
+import { type ButtonColor } from './button'
+
+// Solid color maps (same as Button)
+const solidColorMap = {
+  default: 'bg-foreground text-background hover:bg-foreground/90 active:bg-foreground/80',
+  primary: 'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active',
+  secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover active:bg-secondary-active',
+  destructive: 'bg-error text-error-foreground hover:bg-error-hover active:bg-error-active',
+} as const
+
 const iconButtonVariants = cva(
   'inline-flex items-center justify-center transition-all duration-micro focus-visible:focus-ring disabled:pointer-events-none disabled:opacity-50',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active',
-        secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary-hover active:bg-secondary-active',
-        destructive: 'bg-error text-error-foreground hover:bg-error-hover active:bg-error-active',
+        solid: '',
         outline: 'border border-border bg-background text-foreground hover:bg-background-muted hover:border-border-strong',
         ghost: 'text-foreground hover:bg-background-muted',
-        subtle: 'text-text-muted hover:text-foreground hover:bg-background-muted',
+        subtle: 'text-text-muted hover:text-foreground',
       },
       size: {
         xs: 'h-7 w-7',      // 28px - spacing.7
@@ -38,7 +46,7 @@ const iconButtonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: 'default',
+      variant: 'solid',
       size: 'default',
       radius: 'default',
     },
@@ -48,17 +56,20 @@ const iconButtonVariants = cva(
 export interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof iconButtonVariants> {
+  /** Solid variant color */
+  color?: ButtonColor
   asChild?: boolean
   loading?: boolean
   pressEffect?: boolean
 }
 
 const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ className, variant: variantProp, size: sizeProp, radius: radiusProp, asChild = false, loading, pressEffect, children, disabled: disabledProp, ...props }, ref) => {
+  ({ className, variant: variantProp, color: colorProp, size: sizeProp, radius: radiusProp, asChild = false, loading, pressEffect, children, disabled: disabledProp, ...props }, ref) => {
     const groupContext = useButtonGroup()
 
     // Priority: direct prop > ButtonGroup context > variant default
-    const variant = variantProp ?? groupContext?.variant
+    const variant = variantProp ?? groupContext?.variant ?? 'solid'
+    const color = colorProp ?? 'default'
     const size = sizeProp ?? groupContext?.size
     const radius = radiusProp ?? groupContext?.radius
     const disabled = disabledProp ?? groupContext?.disabled
@@ -77,7 +88,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 
     return (
       <Comp
-        className={cn(iconButtonVariants({ variant, size, radius }), pressEffect !== false && 'active:scale-pressed', className)}
+        className={cn(iconButtonVariants({ variant, size, radius }), variant === 'solid' && solidColorMap[color], pressEffect !== false && 'active:scale-pressed', className)}
         ref={ref}
         disabled={disabled || loading}
         aria-busy={loading || undefined}

@@ -117,6 +117,7 @@ export declare const animation: {
   'toast-slide-in-bottom': { translateY: string; opacity: string; duration: string; easing: string };
   'toast-slide-out-bottom': { translateY: string; opacity: string; duration: string; easing: string };
   'spin': { duration: string; easing: string };
+  'progress-stripe': { duration: string; easing: string };
 };
 
 export declare const typography: {

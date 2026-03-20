@@ -6,6 +6,14 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { useFieldContext } from './field'
 
+// Color maps for checked/indeterminate state
+const checkboxColorMap = {
+  default: 'data-[state=checked]:bg-foreground data-[state=checked]:border-foreground data-[state=checked]:text-background data-[state=indeterminate]:bg-foreground data-[state=indeterminate]:border-foreground data-[state=indeterminate]:text-background',
+  primary: 'data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-primary-foreground data-[state=indeterminate]:bg-primary data-[state=indeterminate]:border-primary data-[state=indeterminate]:text-primary-foreground',
+} as const
+
+export type CheckboxColor = keyof typeof checkboxColorMap
+
 // Checkbox box variants
 const checkboxVariants = cva(
   [
@@ -13,8 +21,6 @@ const checkboxVariants = cva(
     'focus-visible:focus-ring',
     'disabled:cursor-not-allowed disabled:opacity-50',
     'hover:border-border-strong',
-    'data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-primary-foreground',
-    'data-[state=indeterminate]:bg-primary data-[state=indeterminate]:border-primary data-[state=indeterminate]:text-primary-foreground',
     // Transparent hit area expansion via ::after
     "after:absolute after:content-['']",
   ].join(' '),
@@ -67,6 +73,8 @@ const gapSizes = {
 export interface CheckboxProps
   extends Omit<React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>, 'children'>,
     VariantProps<typeof checkboxVariants> {
+  /** Checked state color */
+  color?: CheckboxColor
   label?: string
   radius?: 'none' | 'sm' | 'md'
 }
@@ -74,7 +82,7 @@ export interface CheckboxProps
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   CheckboxProps
->(({ className, size, radius, weight, label, disabled, id, ...props }, ref) => {
+>(({ className, size, radius, weight, color = 'default', label, disabled, id, ...props }, ref) => {
   const fieldContext = useFieldContext()
   const resolvedSize = size || 'default'
   const resolvedDisabled = disabled ?? fieldContext?.disabled
@@ -88,6 +96,7 @@ const Checkbox = React.forwardRef<
       disabled={resolvedDisabled}
       className={cn(
         checkboxVariants({ size, radius, weight }),
+        checkboxColorMap[color],
         className
       )}
       {...props}
