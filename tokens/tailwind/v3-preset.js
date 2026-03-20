@@ -484,6 +484,38 @@ module.exports = {
           from: { 'opacity': '1', 'transform': 'translateX(0)' },
           to: { 'opacity': '0', 'transform': 'translateX(4px)' },
         },
+        'toast-slide-in-right': {
+          from: { 'opacity': '0', 'transform': 'translateX(100%)' },
+          to: { 'opacity': '1', 'transform': 'translateX(0)' },
+        },
+        'toast-slide-out-right': {
+          from: { 'opacity': '1', 'transform': 'translateX(0)' },
+          to: { 'opacity': '0', 'transform': 'translateX(100%)' },
+        },
+        'toast-slide-in-left': {
+          from: { 'opacity': '0', 'transform': 'translateX(-100%)' },
+          to: { 'opacity': '1', 'transform': 'translateX(0)' },
+        },
+        'toast-slide-out-left': {
+          from: { 'opacity': '1', 'transform': 'translateX(0)' },
+          to: { 'opacity': '0', 'transform': 'translateX(-100%)' },
+        },
+        'toast-slide-in-top': {
+          from: { 'opacity': '0', 'transform': 'translateY(-100%)' },
+          to: { 'opacity': '1', 'transform': 'translateY(0)' },
+        },
+        'toast-slide-out-top': {
+          from: { 'opacity': '1', 'transform': 'translateY(0)' },
+          to: { 'opacity': '0', 'transform': 'translateY(-100%)' },
+        },
+        'toast-slide-in-bottom': {
+          from: { 'opacity': '0', 'transform': 'translateY(100%)' },
+          to: { 'opacity': '1', 'transform': 'translateY(0)' },
+        },
+        'toast-slide-out-bottom': {
+          from: { 'opacity': '1', 'transform': 'translateY(0)' },
+          to: { 'opacity': '0', 'transform': 'translateY(100%)' },
+        },
         'spin': {
           from: {  },
           to: {  },
@@ -529,14 +561,23 @@ module.exports = {
         'popover-right-exit': 'popover-right-exit var(--duration-fast) var(--easing-ease-out)',
         'popover-left-enter': 'popover-left-enter var(--duration-normal) var(--easing-ease-out)',
         'popover-left-exit': 'popover-left-exit var(--duration-fast) var(--easing-ease-out)',
+        'toast-slide-in-right': 'toast-slide-in-right var(--duration-slow) var(--easing-ease-out)',
+        'toast-slide-out-right': 'toast-slide-out-right var(--duration-normal) var(--easing-ease-out)',
+        'toast-slide-in-left': 'toast-slide-in-left var(--duration-slow) var(--easing-ease-out)',
+        'toast-slide-out-left': 'toast-slide-out-left var(--duration-normal) var(--easing-ease-out)',
+        'toast-slide-in-top': 'toast-slide-in-top var(--duration-slow) var(--easing-ease-out)',
+        'toast-slide-out-top': 'toast-slide-out-top var(--duration-normal) var(--easing-ease-out)',
+        'toast-slide-in-bottom': 'toast-slide-in-bottom var(--duration-slow) var(--easing-ease-out)',
+        'toast-slide-out-bottom': 'toast-slide-out-bottom var(--duration-normal) var(--easing-ease-out)',
         'spin': 'spin var(--duration-spin) var(--easing-linear) infinite',
       },
     },
   },
   plugins: [
-    // Icon size utilities (icon-xs, icon-sm, icon-md, icon-lg, icon-xl)
+    // Icon size utilities
     function({ addUtilities }) {
       addUtilities({
+        '.icon-2xs': { width: 'var(--icon-size-2xs)', height: 'var(--icon-size-2xs)' },
         '.icon-xs': { width: 'var(--icon-size-xs)', height: 'var(--icon-size-xs)' },
         '.icon-sm': { width: 'var(--icon-size-sm)', height: 'var(--icon-size-sm)' },
         '.icon-md': { width: 'var(--icon-size-md)', height: 'var(--icon-size-md)' },
@@ -601,6 +642,14 @@ module.exports = {
         '.animate-popover-right-exit': { 'animation': 'popover-right-exit var(--duration-fast) var(--easing-ease-out)' },
         '.animate-popover-left-enter': { 'animation': 'popover-left-enter var(--duration-normal) var(--easing-ease-out)' },
         '.animate-popover-left-exit': { 'animation': 'popover-left-exit var(--duration-fast) var(--easing-ease-out)' },
+        '.animate-toast-slide-in-right': { 'animation': 'toast-slide-in-right var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-toast-slide-out-right': { 'animation': 'toast-slide-out-right var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-toast-slide-in-left': { 'animation': 'toast-slide-in-left var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-toast-slide-out-left': { 'animation': 'toast-slide-out-left var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-toast-slide-in-top': { 'animation': 'toast-slide-in-top var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-toast-slide-out-top': { 'animation': 'toast-slide-out-top var(--duration-normal) var(--easing-ease-out)' },
+        '.animate-toast-slide-in-bottom': { 'animation': 'toast-slide-in-bottom var(--duration-slow) var(--easing-ease-out)' },
+        '.animate-toast-slide-out-bottom': { 'animation': 'toast-slide-out-bottom var(--duration-normal) var(--easing-ease-out)' },
         '.animate-spin': { 'animation': 'spin var(--duration-spin) var(--easing-linear) infinite' },
       })
     },

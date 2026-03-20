@@ -567,7 +567,7 @@ const KNOWN_ORDERS = {
   fontSize: ['2xs', 'xs', 'sm', 'md', 'base', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl'],
   borderRadius: ['none', 'sm', 'base', 'md', 'lg', 'xl', '2xl', '3xl', 'full'],
   shadow: ['xs', 'sm', 'md', 'lg', 'xl', 'primary-glow'],
-  iconSize: ['xs', 'sm', 'md', 'lg', 'xl'],
+  iconSize: ['2xs', 'xs', 'sm', 'md', 'lg', 'xl'],
   zIndex: ['0', '10', '20', '30', '40', '50', 'sticky', 'dropdown', 'overlay', 'modal', 'popover', 'tooltip', 'toast'],
   duration: ['instant', 'fast', 'micro', 'normal', 'slow', 'slower', 'slowest'],
   easing: ['linear', 'ease', 'easeIn', 'easeOut', 'easeInOut'],
@@ -2439,10 +2439,10 @@ function generateV3Preset(tokens: FigmaTokens): string {
 
   // --- plugins ---
   lines.push(`  plugins: [`)
-  lines.push(`    // Icon size utilities (icon-xs, icon-sm, icon-md, icon-lg, icon-xl)`)
+  lines.push(`    // Icon size utilities`)
   lines.push(`    function({ addUtilities }) {`)
   lines.push(`      addUtilities({`)
-  for (const name of ['xs', 'sm', 'md', 'lg', 'xl']) {
+  for (const name of KNOWN_ORDERS.iconSize) {
     lines.push(`        '.icon-${name}': { width: 'var(--icon-size-${name})', height: 'var(--icon-size-${name})' },`)
   }
   lines.push(`      })`)

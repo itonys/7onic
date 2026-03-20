@@ -216,6 +216,7 @@ const tokens = {
     "spin": "1000ms"
   },
   "iconSize": {
+    "2xs": "0.75rem",
     "xs": "0.875rem",
     "sm": "1rem",
     "md": "1.25rem",
@@ -527,6 +528,54 @@ const tokens = {
       "easing": "ease-out",
       "opacity": "0",
       "translateX": "4"
+    },
+    "toast-slide-in-right": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "100%"
+    },
+    "toast-slide-out-right": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "100%"
+    },
+    "toast-slide-in-left": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "100%"
+    },
+    "toast-slide-out-left": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateX": "100%"
+    },
+    "toast-slide-in-top": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "100%"
+    },
+    "toast-slide-out-top": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "100%"
+    },
+    "toast-slide-in-bottom": {
+      "duration": "300ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "100%"
+    },
+    "toast-slide-out-bottom": {
+      "duration": "200ms",
+      "easing": "ease-out",
+      "opacity": "0",
+      "translateY": "100%"
     },
     "spin": {
       "duration": "1000ms",

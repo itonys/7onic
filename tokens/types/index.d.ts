@@ -31,7 +31,7 @@ export declare const zIndex: Record<'0' | '10' | '20' | '30' | '40' | '50' | 'st
 
 export declare const duration: Record<'instant' | 'fast' | 'micro' | 'normal' | 'slow' | 'slower' | 'slowest', string>;
 
-export declare const iconSize: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', string>;
+export declare const iconSize: Record<'2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl', string>;
 
 export declare const opacity: Record<'0' | '5' | '10' | '15' | '20' | '25' | '30' | '35' | '40' | '45' | '50' | '55' | '60' | '65' | '70' | '75' | '80' | '85' | '90' | '95' | '100', string>;
 
@@ -108,6 +108,14 @@ export declare const animation: {
   'popover-right-exit': { translateX: string; opacity: string; duration: string; easing: string };
   'popover-left-enter': { translateX: string; opacity: string; duration: string; easing: string };
   'popover-left-exit': { translateX: string; opacity: string; duration: string; easing: string };
+  'toast-slide-in-right': { translateX: string; opacity: string; duration: string; easing: string };
+  'toast-slide-out-right': { translateX: string; opacity: string; duration: string; easing: string };
+  'toast-slide-in-left': { translateX: string; opacity: string; duration: string; easing: string };
+  'toast-slide-out-left': { translateX: string; opacity: string; duration: string; easing: string };
+  'toast-slide-in-top': { translateY: string; opacity: string; duration: string; easing: string };
+  'toast-slide-out-top': { translateY: string; opacity: string; duration: string; easing: string };
+  'toast-slide-in-bottom': { translateY: string; opacity: string; duration: string; easing: string };
+  'toast-slide-out-bottom': { translateY: string; opacity: string; duration: string; easing: string };
   'spin': { duration: string; easing: string };
 };
 

@@ -66,8 +66,8 @@ const badgeVariants = cva(
 
 // Icon sizes per badge size
 const badgeIconSizes = {
-  sm: 'icon-xs',       // 14px
-  default: 'icon-xs',  // 14px
+  sm: 'icon-2xs',      // 12px
+  default: 'icon-2xs', // 12px
   lg: 'icon-xs',       // 14px
 } as const
 

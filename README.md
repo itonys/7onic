@@ -148,7 +148,8 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
 | **Layout** | Tabs, Accordion, Divider | Ready |
 | **Overlay** | Modal, Drawer, Tooltip, Popover | Ready |
-| **Feedback** | Alert, Toast, Progress, Skeleton, Spinner | Planned |
+| **Feedback** | Alert, Toast | Ready |
+| | Progress, Skeleton, Spinner | Planned |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | Ready |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
 
@@ -173,12 +174,12 @@ All components follow these patterns:
 | **Duration** | 8 values (0–1000ms) | `instant`, `fast`, `micro`, `normal`, `slow`, `slower`, `slowest`, `spin` |
 | **Easing** | 5 functions | `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out` |
 | **Z-Index** | 13 layers | `0` through `toast`(3000) |
-| **Icon Sizes** | 5 sizes (14–32px) | `xs`, `sm`, `md`, `lg`, `xl` |
+| **Icon Sizes** | 6 sizes (12–32px) | `2xs`, `xs`, `sm`, `md`, `lg`, `xl` |
 | **Opacity** | 21 values (0–1) | `0`, `5`, `10`, `15`...`95`, `100` |
 | **Breakpoints** | 5 widths | `sm`(640) through `2xl`(1536) |
 | **Border Width** | 5 values | `0`, `1`, `2`, `4`, `8` |
 | **Scale** | 4 values | `50`(0.5), `75`(0.75), `95`(0.95), `pressed`(0.98) |
-| **Animation** | 39 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `drawer-*` (8), `nav-viewport-*`, `accordion-*`, `collapsible-*`, `tooltip-*` (8), `popover-*` (8), `spin` |
+| **Animation** | 47 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `drawer-*` (8), `nav-viewport-*`, `accordion-*`, `collapsible-*`, `tooltip-*` (8), `popover-*` (8), `toast-*` (8), `spin` |
 
 ---
 
@@ -254,7 +255,7 @@ The documentation site includes:
 - [x] RGB channel variables for v3 semantic opacity modifier support (`bg-primary/50`)
 - [x] Light/dark theme
 - [x] Documentation site with interactive playgrounds
-- [x] Core components — Forms (14), Data Display (4), Layout (3), Overlay (4), Navigation (3), Charts (5)
+- [x] Core components — Forms (14), Data Display (4), Layout (3), Overlay (4), Feedback (2), Navigation (3), Charts (5)
 - [x] npm package distribution setup
 - [x] Namespace compound exports — `<Card.Header>` style with backward-compatible named exports
 - [ ] Theme Customizer (live color preview)
