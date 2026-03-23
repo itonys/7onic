@@ -31,8 +31,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-react:
-    if: inputs.package == 'both' || inputs.package == 'react-only'
     needs: publish-tokens
+    if: always() && (inputs.package == 'both' || inputs.package == 'react-only') && (needs.publish-tokens.result == 'success' || needs.publish-tokens.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
