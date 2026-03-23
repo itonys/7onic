@@ -273,6 +273,7 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [x] 38 components with namespace compound exports
 - [x] Documentation site with interactive playgrounds
 - [x] Chart components included (Bar, Line, Area, Pie, MetricCard)
+- [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [ ] npm package distribution
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI (shadcn-style)

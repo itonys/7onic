@@ -33,7 +33,7 @@
     "sync-tokens": "tsx scripts/run-sync.ts",
     "build:cli": "node scripts/build-cli.js",
     "verify:docs": "tsx scripts/verify-docs.ts",
-    "prepublishOnly": "npm run build:lib"
+    "prepublishOnly": "npm run verify:docs && npm run build:lib"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
