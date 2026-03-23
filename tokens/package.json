@@ -2,7 +2,16 @@
   "name": "@7onic-ui/tokens",
   "version": "0.1.0",
   "description": "Design tokens for 7onic Design System — CSS variables, Tailwind presets, JS, TypeScript",
+  "author": "7onic",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itonys/7onic.git",
+    "directory": "tokens"
+  },
+  "bugs": {
+    "url": "https://github.com/itonys/7onic/issues"
+  },
   "main": "./js/index.js",
   "module": "./js/index.mjs",
   "types": "./types/index.d.ts",
@@ -43,5 +52,11 @@
     "tailwindcss",
     "design-system",
     "7onic"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": [
+    "*.css"
   ]
 }
