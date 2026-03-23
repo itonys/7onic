@@ -1,7 +1,5 @@
 # 7onic Design System
 
-> 🚧 **Coming soon — releasing April 2026**
-
 Bridging the gap between design and code — down to zero.
 
 A design system combining beauty, consistency, and developer experience. Designed by a designer, built for developers.
@@ -16,7 +14,6 @@ A design system combining beauty, consistency, and developer experience. Designe
 - **Dark Mode Built-in** — Light/dark themes with system preference detection
 - **Radix UI Primitives** — Accessible, keyboard-navigable components out of the box
 - **Tailwind v3/v4 Dual Support** — Both versions supported via presets
-- **AI-Optimized Development** — CLAUDE.md + consistent patterns enable AI to generate components accurately
 - **Chart Components** — 5 chart types (Bar, Line, Area, Pie, MetricCard) with design token integration
 - **Tokens-only Distribution** — Use CSS variables without Tailwind or React
 - **Zero Runtime CSS** — No CSS-in-JS runtime overhead. Pure Tailwind classes
@@ -35,7 +32,8 @@ npm install @7onic-ui/react @7onic-ui/tokens
 // Standalone components
 import { Button } from '@7onic-ui/react'
 
-<Button variant="primary">Get Started</Button>
+<Button>Get Started</Button>
+<Button variant="solid" color="primary">Primary</Button>
 
 // Compound components — namespace (recommended)
 import { Card } from '@7onic-ui/react'
@@ -49,13 +47,6 @@ import { Card } from '@7onic-ui/react'
 
 // Compound components — named exports (also supported)
 import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
-
-<Card>
-  <CardHeader>
-    <CardTitle>Settings</CardTitle>
-  </CardHeader>
-  <CardContent>...</CardContent>
-</Card>
 ```
 
 #### Tailwind v4
@@ -139,20 +130,73 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 
 ---
 
+## Package Structure
+
+### `@7onic-ui/react` — Component Library
+
+| File | Format | Description |
+|------|--------|-------------|
+| `dist/index.js` | CJS | CommonJS for Node.js / require() |
+| `dist/index.mjs` | ESM | ES Modules for bundlers / import |
+| `dist/index.d.ts` | Types | TypeScript definitions |
+
+```ts
+import { Button, Card, Modal } from '@7onic-ui/react'
+```
+
+### `@7onic-ui/tokens` — Design Tokens
+
+**CSS Variables** — Use with any framework or vanilla CSS
+
+| File | Description |
+|------|-------------|
+| `css/all.css` | All-in-one bundle (variables + light + dark) ⭐ |
+| `css/variables.css` | Primitive tokens only |
+| `css/themes/light.css` | Light theme semantics |
+| `css/themes/dark.css` | Dark theme semantics |
+
+**Tailwind Presets** — Drop-in presets for v3 and v4
+
+| File | Description |
+|------|-------------|
+| `tailwind/v4.css` | All-in-one Tailwind v4 (theme + variables) ⭐ |
+| `tailwind/v3-preset.js` | Tailwind v3 preset for `tailwind.config.js` |
+| `tailwind/v4-theme.css` | Tailwind v4 `@theme` definitions |
+
+**JavaScript / TypeScript / JSON**
+
+| File | Description |
+|------|-------------|
+| `js/index.js` | CJS export |
+| `js/index.mjs` | ESM export |
+| `types/index.d.ts` | TypeScript definitions |
+| `json/tokens.json` | Flat JSON for custom tooling |
+
+**CLI**
+
+| File | Description |
+|------|-------------|
+| `cli/sync.js` | `npx sync-tokens` — regenerate all files from source |
+| `figma-tokens.json` | **SSOT** — the only file you edit |
+
+> All 9 distribution files + 2 convenience bundles are auto-generated from `figma-tokens.json` via `npx sync-tokens`.
+
+---
+
 ## Components
 
-| Category | Components | Status |
-|----------|-----------|--------|
-| **Forms** | Button, IconButton, ButtonGroup, Input, Textarea, Select, Dropdown, Checkbox, Radio, Switch, Toggle, ToggleGroup, Segmented, Slider | Ready |
-| **Data Display** | Avatar, Badge, Card, Table | Ready |
-| **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
-| **Layout** | Tabs, Accordion, Divider | Ready |
-| **Overlay** | Modal, Drawer, Tooltip, Popover | Ready |
-| **Feedback** | Alert, Toast, Progress, Spinner, Skeleton | Ready |
-| **Navigation** | Breadcrumb, NavigationMenu, Pagination | Ready |
-| **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
+| Category | Components | Count |
+|----------|-----------|:-----:|
+| **Forms** | Button, IconButton, ButtonGroup, Input, Textarea, Select, Dropdown, Checkbox, Radio, Switch, Toggle, ToggleGroup, Segmented, Slider | 14 |
+| **Data Display** | Avatar, Badge, Card, Table | 4 |
+| **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | 5 |
+| **Layout** | Tabs, Accordion, Divider | 3 |
+| **Overlay** | Modal, Drawer, Tooltip, Popover | 4 |
+| **Feedback** | Alert, Toast, Progress, Spinner, Skeleton | 5 |
+| **Navigation** | Breadcrumb, NavigationMenu, Pagination | 3 |
 
-All components follow these patterns:
+**38 components** ready. All follow these patterns:
+
 - CVA (class-variance-authority) for variant management
 - Controlled & uncontrolled modes
 - `forwardRef` for ref forwarding
@@ -165,69 +209,43 @@ All components follow these patterns:
 
 | Token | Values | Description |
 |-------|--------|-------------|
-| **Colors** | Semantic color system | Brand, status, text, background, border |
-| **Typography** | 11 sizes (11px–72px) | CJK-optimized with `md`(14px) for UI, `base`(16px) for body |
-| **Spacing** | 0–96px | 2px increments (0–12px), 4px increments (12px+) |
+| **Colors** | Semantic system | Brand, status, text, background, border |
+| **Typography** | 11 sizes (11–72px) | CJK-optimized: `md`(14px) for UI, `base`(16px) for body |
+| **Spacing** | 18 values (0–96px) | 2px steps (0–12px), 4px steps (12px+) |
 | **Radius** | 9 values (0–9999px) | `none` through `full` |
-| **Shadows** | 6 primitives | `xs` through `xl`, plus `primary-glow` |
-| **Duration** | 8 values (0–1000ms) | `instant`, `fast`, `micro`, `normal`, `slow`, `slower`, `slowest`, `spin` |
+| **Shadows** | 6 primitives | `xs` through `xl` + `primary-glow` |
+| **Duration** | 8 values (0–1000ms) | `instant` through `spin` |
 | **Easing** | 5 functions | `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out` |
 | **Z-Index** | 13 layers | `0` through `toast`(3000) |
-| **Icon Sizes** | 6 sizes (12–32px) | `2xs`, `xs`, `sm`, `md`, `lg`, `xl` |
-| **Opacity** | 21 values (0–1) | `0`, `5`, `10`, `15`...`95`, `100` |
+| **Icon Sizes** | 6 sizes (12–32px) | `2xs` through `xl` |
+| **Opacity** | 21 values (0–1) | 5% increments |
+| **Animation** | 54 named (1:1) | Component enter/exit, spin, skeleton, progress |
 | **Breakpoints** | 5 widths | `sm`(640) through `2xl`(1536) |
 | **Border Width** | 5 values | `0`, `1`, `2`, `4`, `8` |
-| **Scale** | 4 values | `50`(0.5), `75`(0.75), `95`(0.95), `pressed`(0.98) |
-| **Animation** | 47 named (1:1) | `checkbox-enter`, `radio-enter`, `fade-in/out`, `modal-*`, `drawer-*` (8), `nav-viewport-*`, `accordion-*`, `collapsible-*`, `tooltip-*` (8), `popover-*` (8), `toast-*` (8), `spin` |
+| **Scale** | 4 values | `50`, `75`, `95`, `pressed`(0.98) |
 
 ---
 
 ## Token Pipeline
 
 ```
-figma-tokens.json               ← Single Source of Truth
+figma-tokens.json                    ← SSOT (only file you edit)
     │
     │  npx sync-tokens
     │
-    ├── css/variables.css        ← CSS Variables (all primitives)
-    ├── css/themes/light.css     ← Light theme semantics
-    ├── css/themes/dark.css      ← Dark theme semantics
-    ├── css/all.css              ← CSS bundle (variables + light + dark)
-    ├── tailwind/v3-preset.js    ← Tailwind v3 preset
-    ├── tailwind/v4-theme.css    ← Tailwind v4 theme
-    ├── tailwind/v4.css          ← Tailwind v4 bundle (theme + variables)
-    ├── js/index.js + .mjs       ← JavaScript/ESM export
-    ├── types/index.d.ts         ← TypeScript definitions
-    └── json/tokens.json         ← JSON distribution
-
-All above files are distributed to users via npm.
+    ├── css/variables.css            ← CSS variables (all primitives)
+    ├── css/themes/light.css         ← Light theme semantics
+    ├── css/themes/dark.css          ← Dark theme semantics
+    ├── css/all.css                  ← Bundle (variables + light + dark)
+    ├── tailwind/v3-preset.js        ← Tailwind v3 preset
+    ├── tailwind/v4-theme.css        ← Tailwind v4 theme
+    ├── tailwind/v4.css              ← Bundle (theme + variables)
+    ├── js/index.js + .mjs           ← JavaScript / ESM
+    ├── types/index.d.ts             ← TypeScript definitions
+    └── json/tokens.json             ← Flat JSON
 ```
 
----
-
-## Token Distribution
-
-| Format | File | Use Case |
-|--------|------|----------|
-| **CSS Variables** | `css/variables.css` | Any project, no Tailwind needed |
-| **CSS Bundle** | `css/all.css` | All-in-one CSS (variables + light + dark) |
-| **Tailwind v3 Preset** | `tailwind/v3-preset.js` | Tailwind v3 projects |
-| **Tailwind v4 Theme** | `tailwind/v4-theme.css` | Tailwind v4 projects |
-| **Tailwind v4 Bundle** | `tailwind/v4.css` | All-in-one Tailwind v4 (theme + variables) |
-| **JSON** | `json/tokens.json` | Flat JSON for custom tooling |
-| **Figma Tokens** | `figma-tokens.json` | Figma Token Studio sync |
-| **JavaScript** | `js/index.js` / `index.mjs` | CSS-in-JS, styled-components |
-| **TypeScript** | `types/index.d.ts` | Type definitions |
-
----
-
-## Documentation
-
-The documentation site includes:
-
-- **Design Tokens** — Colors, typography, spacing, shadows, radius, z-index, duration, easing, opacity, breakpoints, border-width, icon-sizes, scale, animation
-- **Components** — Interactive playground, props table, code examples
-- **Guidelines** — Accessibility, icons, Tailwind v3/v4 versions
+CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking changes are auto-detected with diff visualization and backward-compatible aliases.
 
 ---
 
@@ -248,17 +266,16 @@ The documentation site includes:
 
 ## Roadmap
 
-- [x] Design token system (14 categories)
-- [x] Token sync script (`npx sync-tokens`)
-- [x] Tailwind v3/v4 dual preset generation
-- [x] RGB channel variables for v3 semantic opacity modifier support (`bg-primary/50`)
-- [x] Light/dark theme
+- [x] Design token system (14 categories, 54 animations)
+- [x] Token sync script with breaking change detection
+- [x] Tailwind v3/v4 dual preset + RGB channel opacity support
+- [x] Light/dark theme with OS auto-detection
+- [x] 38 components with namespace compound exports
 - [x] Documentation site with interactive playgrounds
-- [x] Core components — Forms (14), Data Display (4), Layout (3), Overlay (4), Feedback (5), Navigation (3), Charts (5)
-- [x] npm package distribution setup
-- [x] Namespace compound exports — `<Card.Header>` style with backward-compatible named exports
+- [x] Chart components (Bar, Line, Area, Pie, MetricCard)
+- [ ] npm package distribution
 - [ ] Theme Customizer (live color preview)
-- [ ] `npx 7onic add` CLI
+- [ ] `npx 7onic add` CLI (shadcn-style)
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
 
