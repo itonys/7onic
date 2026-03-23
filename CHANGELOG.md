@@ -12,7 +12,7 @@ Initial release of 7onic Design System.
 
 ### @7onic-ui/react
 
-#### Components (43)
+#### Components (38)
 - **Form**: Button, IconButton, ButtonGroup, Toggle, ToggleGroup, Segmented, Checkbox, RadioGroup, Switch, Slider, Input, Textarea, Select, Dropdown
 - **Data Display**: Avatar, Badge, Card, Table
 - **Chart**: BarChart, LineChart, AreaChart, PieChart, MetricCard

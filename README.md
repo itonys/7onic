@@ -195,7 +195,7 @@ import { Button, Card, Modal } from '@7onic-ui/react'
 | **Feedback** | Alert, Toast, Progress, Spinner, Skeleton | 5 |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | 3 |
 
-**43 components** ready. All follow these patterns:
+**38 components** ready. All follow these patterns:
 
 - CVA (class-variance-authority) for variant management
 - Controlled & uncontrolled modes
@@ -270,7 +270,7 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [x] Token sync script with breaking change detection
 - [x] Tailwind v3/v4 dual preset + RGB channel opacity support
 - [x] Light/dark theme with OS auto-detection
-- [x] 43 components with namespace compound exports
+- [x] 38 components with namespace compound exports
 - [x] Documentation site with interactive playgrounds
 - [x] Chart components included (Bar, Line, Area, Pie, MetricCard)
 - [ ] npm package distribution

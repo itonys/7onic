@@ -5,7 +5,7 @@
   "sideEffects": [
     "*.css"
   ],
-  "description": "B2B SaaS AI-focused React component design system",
+  "description": "React component library with automated design token pipeline — from Figma to code",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
