@@ -584,6 +584,30 @@ const tokens = {
     "progress-stripe": {
       "duration": "1000ms",
       "easing": "linear"
+    },
+    "spinner-orbit": {
+      "duration": "1000ms",
+      "easing": "linear"
+    },
+    "spinner-dot": {
+      "duration": "1000ms",
+      "easing": "ease-in-out"
+    },
+    "spinner-bar": {
+      "duration": "1000ms",
+      "easing": "ease-in-out"
+    },
+    "spinner-morph": {
+      "duration": "1000ms",
+      "easing": "ease-in-out"
+    },
+    "skeleton-pulse": {
+      "duration": "1000ms",
+      "easing": "ease-in-out"
+    },
+    "skeleton-wave": {
+      "duration": "1000ms",
+      "easing": "linear"
     }
   },
   "typography": {

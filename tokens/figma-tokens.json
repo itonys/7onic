@@ -1499,6 +1499,54 @@
         },
         "type": "composition",
         "$extensions": { "animationType": "progress-stripe" }
+      },
+      "spinner-orbit": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.linear}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "spinner-orbit" }
+      },
+      "spinner-dot": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.easeInOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "spinner-dot" }
+      },
+      "spinner-bar": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.easeInOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "spinner-bar" }
+      },
+      "spinner-morph": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.easeInOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "spinner-morph" }
+      },
+      "skeleton-pulse": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.easeInOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "skeleton-pulse" }
+      },
+      "skeleton-wave": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.linear}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "skeleton-wave" }
       }
     },
     "componentSize": {

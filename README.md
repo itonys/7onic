@@ -148,8 +148,7 @@ import { colors, spacing, typography } from '@7onic-ui/tokens'
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | Ready |
 | **Layout** | Tabs, Accordion, Divider | Ready |
 | **Overlay** | Modal, Drawer, Tooltip, Popover | Ready |
-| **Feedback** | Alert, Toast, Progress | Ready |
-| | Skeleton, Spinner | Planned |
+| **Feedback** | Alert, Toast, Progress, Spinner, Skeleton | Ready |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | Ready |
 | **AI Components** | ChatMessage, ChatInput, TypingIndicator, QuickReply | Planned |
 
@@ -255,7 +254,7 @@ The documentation site includes:
 - [x] RGB channel variables for v3 semantic opacity modifier support (`bg-primary/50`)
 - [x] Light/dark theme
 - [x] Documentation site with interactive playgrounds
-- [x] Core components — Forms (14), Data Display (4), Layout (3), Overlay (4), Feedback (2), Navigation (3), Charts (5)
+- [x] Core components — Forms (14), Data Display (4), Layout (3), Overlay (4), Feedback (5), Navigation (3), Charts (5)
 - [x] npm package distribution setup
 - [x] Namespace compound exports — `<Card.Header>` style with backward-compatible named exports
 - [ ] Theme Customizer (live color preview)

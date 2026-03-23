@@ -524,6 +524,32 @@ module.exports = {
           from: { 'background-position': '1rem 0' },
           to: { 'background-position': '0 0' },
         },
+        'spinner-orbit': {
+          from: { 'transform': 'rotateY(0deg)' },
+          to: { 'transform': 'rotateY(360deg)' },
+        },
+        'spinner-dot': {
+          '0%, 100%': { 'opacity': '0.2' },
+          '50%': { 'opacity': '1' },
+        },
+        'spinner-bar': {
+          '0%, 100%': { 'transform': 'scaleY(0.4)' },
+          '50%': { 'transform': 'scaleY(1)' },
+        },
+        'spinner-morph': {
+          '0%, 100%': { 'border-radius': '50%', 'transform': 'rotateY(0deg) rotate(0deg)' },
+          '25%': { 'border-radius': '30% 70% 70% 30% / 30% 30% 70% 70%', 'transform': 'rotateY(90deg) rotate(90deg)' },
+          '50%': { 'border-radius': '50%', 'transform': 'rotateY(180deg) rotate(180deg)' },
+          '75%': { 'border-radius': '70% 30% 30% 70% / 70% 70% 30% 30%', 'transform': 'rotateY(270deg) rotate(270deg)' },
+        },
+        'skeleton-pulse': {
+          '0%, 100%': { 'opacity': '1' },
+          '50%': { 'opacity': '0.4' },
+        },
+        'skeleton-wave': {
+          '0%': { 'transform': 'translateX(-100%)' },
+          '100%': { 'transform': 'translateX(100%)' },
+        },
       },
 
       animation: {
@@ -575,6 +601,12 @@ module.exports = {
         'toast-slide-out-bottom': 'toast-slide-out-bottom var(--duration-normal) var(--easing-ease-out)',
         'spin': 'spin var(--duration-spin) var(--easing-linear) infinite',
         'progress-stripe': 'progress-stripe var(--duration-spin) var(--easing-linear) infinite',
+        'spinner-orbit': 'spinner-orbit var(--duration-spin) var(--easing-linear) infinite',
+        'spinner-dot': 'spinner-dot var(--duration-spin) var(--easing-ease-in-out) infinite',
+        'spinner-bar': 'spinner-bar var(--duration-spin) var(--easing-ease-in-out) infinite',
+        'spinner-morph': 'spinner-morph var(--duration-spin) var(--easing-ease-in-out) infinite',
+        'skeleton-pulse': 'skeleton-pulse var(--duration-spin) var(--easing-ease-in-out) infinite',
+        'skeleton-wave': 'skeleton-wave var(--duration-spin) var(--easing-linear) infinite',
       },
     },
   },
@@ -657,6 +689,12 @@ module.exports = {
         '.animate-toast-slide-out-bottom': { 'animation': 'toast-slide-out-bottom var(--duration-normal) var(--easing-ease-out)' },
         '.animate-spin': { 'animation': 'spin var(--duration-spin) var(--easing-linear) infinite' },
         '.animate-progress-stripe': { 'animation': 'progress-stripe var(--duration-spin) var(--easing-linear) infinite' },
+        '.animate-spinner-orbit': { 'animation': 'spinner-orbit var(--duration-spin) var(--easing-linear) infinite' },
+        '.animate-spinner-dot': { 'animation': 'spinner-dot var(--duration-spin) var(--easing-ease-in-out) infinite' },
+        '.animate-spinner-bar': { 'animation': 'spinner-bar var(--duration-spin) var(--easing-ease-in-out) infinite' },
+        '.animate-spinner-morph': { 'animation': 'spinner-morph var(--duration-spin) var(--easing-ease-in-out) infinite' },
+        '.animate-skeleton-pulse': { 'animation': 'skeleton-pulse var(--duration-spin) var(--easing-ease-in-out) infinite' },
+        '.animate-skeleton-wave': { 'animation': 'skeleton-wave var(--duration-spin) var(--easing-linear) infinite' },
       })
     },
   ],

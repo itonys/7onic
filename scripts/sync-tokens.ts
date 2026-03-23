@@ -632,7 +632,7 @@ function warnUnknownThemeCategories(themeColor: Record<string, Record<string, To
  */
 interface AnimationToken {
   name: string
-  type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin' | 'progress-stripe'
+  type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin' | 'progress-stripe' | 'spinner-orbit' | 'spinner-dot' | 'spinner-bar' | 'spinner-morph' | 'skeleton-pulse' | 'skeleton-wave'
   opacity: string         // raw value e.g. "0" (empty if not used)
   scale: string           // raw value e.g. "0.75" (empty if not used)
   translateX: string      // raw value e.g. "100%" or "8" in px (empty if not used)
@@ -671,8 +671,8 @@ function readAnimationTokens(tokens: FigmaTokens): AnimationToken[] | null {
 
     // Special types
     const animationType = ext?.animationType as string | undefined
-    if (animationType === 'spin' || animationType === 'progress-stripe') {
-      result.push({ name, type: animationType, opacity: '', scale: '', translateX: '', translateXNegative: false, translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
+    if (animationType === 'spin' || animationType === 'progress-stripe' || animationType === 'spinner-orbit' || animationType === 'spinner-dot' || animationType === 'spinner-bar' || animationType === 'spinner-morph' || animationType === 'skeleton-pulse' || animationType === 'skeleton-wave') {
+      result.push({ name, type: animationType as AnimationToken['type'], opacity: '', scale: '', translateX: '', translateXNegative: false, translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
       continue
     }
 
@@ -738,6 +738,110 @@ function generateAnimationCss(a: AnimationToken, format: 'css' | 'v4'): string {
     lines.push(`@keyframes ${a.name} {`)
     lines.push(`  from { transform: rotate(0deg); }`)
     lines.push(`  to { transform: rotate(360deg); }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Spinner orbit (3D Y-axis rotation)
+  if (a.type === 'spinner-orbit') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  from { transform: rotateY(0deg); }`)
+    lines.push(`  to { transform: rotateY(360deg); }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Spinner dot (opacity pulse for staggered dots)
+  if (a.type === 'spinner-dot') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  0%, 100% { opacity: 0.2; }`)
+    lines.push(`  50% { opacity: 1; }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Spinner bar (scaleY pulse for staggered bars)
+  if (a.type === 'spinner-bar') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  0%, 100% { transform: scaleY(0.4); }`)
+    lines.push(`  50% { transform: scaleY(1); }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Spinner morph (organic shape morph + rotation)
+  if (a.type === 'spinner-morph') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  0%, 100% { border-radius: 50%; transform: rotateY(0deg) rotate(0deg); }`)
+    lines.push(`  25% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotateY(90deg) rotate(90deg); }`)
+    lines.push(`  50% { border-radius: 50%; transform: rotateY(180deg) rotate(180deg); }`)
+    lines.push(`  75% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; transform: rotateY(270deg) rotate(270deg); }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Skeleton pulse (opacity fade)
+  if (a.type === 'skeleton-pulse') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  0%, 100% { opacity: 1; }`)
+    lines.push(`  50% { opacity: 0.4; }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Skeleton wave (shimmer gradient sweep)
+  if (a.type === 'skeleton-wave') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  0% { transform: translateX(-100%); }`)
+    lines.push(`  100% { transform: translateX(100%); }`)
     lines.push(`}`)
 
     if (format === 'v4') {
@@ -2433,6 +2537,38 @@ function generateV3Preset(tokens: FigmaTokens): string {
         lines.push(`          from: { 'background-position': '1rem 0' },`)
         lines.push(`          to: { 'background-position': '0 0' },`)
         lines.push(`        },`)
+      } else if (a.type === 'spinner-orbit') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          from: { 'transform': 'rotateY(0deg)' },`)
+        lines.push(`          to: { 'transform': 'rotateY(360deg)' },`)
+        lines.push(`        },`)
+      } else if (a.type === 'spinner-dot') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          '0%, 100%': { 'opacity': '0.2' },`)
+        lines.push(`          '50%': { 'opacity': '1' },`)
+        lines.push(`        },`)
+      } else if (a.type === 'spinner-bar') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          '0%, 100%': { 'transform': 'scaleY(0.4)' },`)
+        lines.push(`          '50%': { 'transform': 'scaleY(1)' },`)
+        lines.push(`        },`)
+      } else if (a.type === 'spinner-morph') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          '0%, 100%': { 'border-radius': '50%', 'transform': 'rotateY(0deg) rotate(0deg)' },`)
+        lines.push(`          '25%': { 'border-radius': '30% 70% 70% 30% / 30% 30% 70% 70%', 'transform': 'rotateY(90deg) rotate(90deg)' },`)
+        lines.push(`          '50%': { 'border-radius': '50%', 'transform': 'rotateY(180deg) rotate(180deg)' },`)
+        lines.push(`          '75%': { 'border-radius': '70% 30% 30% 70% / 70% 70% 30% 30%', 'transform': 'rotateY(270deg) rotate(270deg)' },`)
+        lines.push(`        },`)
+      } else if (a.type === 'skeleton-pulse') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          '0%, 100%': { 'opacity': '1' },`)
+        lines.push(`          '50%': { 'opacity': '0.4' },`)
+        lines.push(`        },`)
+      } else if (a.type === 'skeleton-wave') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          '0%': { 'transform': 'translateX(-100%)' },`)
+        lines.push(`          '100%': { 'transform': 'translateX(100%)' },`)
+        lines.push(`        },`)
       } else {
         const isEnter = a.type === 'enter'
         const fromProps: string[] = []
@@ -2453,7 +2589,7 @@ function generateV3Preset(tokens: FigmaTokens): string {
   lines.push(`      },`)
   lines.push(``)
 
-  const infiniteTypes = new Set(['spin', 'progress-stripe'])
+  const infiniteTypes = new Set(['spin', 'progress-stripe', 'spinner-orbit', 'spinner-dot', 'spinner-bar', 'spinner-morph', 'skeleton-pulse', 'skeleton-wave'])
   lines.push(`      animation: {`)
   if (v3Anim) {
     for (const a of v3Anim) {

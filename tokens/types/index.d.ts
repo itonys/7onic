@@ -118,6 +118,12 @@ export declare const animation: {
   'toast-slide-out-bottom': { translateY: string; opacity: string; duration: string; easing: string };
   'spin': { duration: string; easing: string };
   'progress-stripe': { duration: string; easing: string };
+  'spinner-orbit': { duration: string; easing: string };
+  'spinner-dot': { duration: string; easing: string };
+  'spinner-bar': { duration: string; easing: string };
+  'spinner-morph': { duration: string; easing: string };
+  'skeleton-pulse': { duration: string; easing: string };
+  'skeleton-wave': { duration: string; easing: string };
 };
 
 export declare const typography: {
