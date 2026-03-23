@@ -12,16 +12,14 @@ Initial release of 7onic Design System.
 
 ### @7onic-ui/react
 
-#### Components (38)
+#### Components (43)
 - **Form**: Button, IconButton, ButtonGroup, Toggle, ToggleGroup, Segmented, Checkbox, RadioGroup, Switch, Slider, Input, Textarea, Select, Dropdown
 - **Data Display**: Avatar, Badge, Card, Table
+- **Chart**: BarChart, LineChart, AreaChart, PieChart, MetricCard
 - **Layout**: Divider
 - **Overlay**: Modal, AlertModal, Drawer, Tooltip, Popover
 - **Feedback**: Alert, Toast, Progress, Spinner, Skeleton
 - **Navigation**: Breadcrumb, NavigationMenu, Pagination, Tabs, Accordion
-
-#### Charts (5)
-- BarChart, LineChart, AreaChart, PieChart, MetricCard
 
 #### Features
 - Namespace Export pattern for 22 compound components (`Card.Header`, `Modal.Content`, etc.)
