@@ -22,7 +22,7 @@ const iconButtonVariants = cva(
     variants: {
       variant: {
         solid: '',
-        outline: 'border border-border bg-background text-foreground hover:bg-background-muted hover:border-border-strong',
+        outline: 'border border-border bg-background text-foreground hover:bg-background-muted',
         ghost: 'text-foreground hover:bg-background-muted',
         subtle: 'text-text-muted hover:text-foreground',
       },

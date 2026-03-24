@@ -22,7 +22,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         solid: 'font-semibold',
-        outline: 'border border-border bg-background text-foreground hover:bg-background-muted hover:border-border-strong font-normal',
+        outline: 'border border-border bg-background text-foreground hover:bg-background-muted font-normal',
         ghost: 'text-foreground hover:bg-background-muted font-normal',
         link: 'text-text-link underline-offset-4 hover:underline font-normal',
       },

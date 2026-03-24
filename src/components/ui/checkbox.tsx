@@ -17,10 +17,9 @@ export type CheckboxColor = keyof typeof checkboxColorMap
 // Checkbox box variants
 const checkboxVariants = cva(
   [
-    'peer relative shrink-0 border-border transition-all duration-micro ease-out',
+    'peer relative shrink-0 border-border hover:border-border-strong transition-all duration-micro ease-out',
     'focus-visible:focus-ring',
     'disabled:cursor-not-allowed disabled:opacity-50',
-    'hover:border-border-strong',
     // Transparent hit area expansion via ::after
     "after:absolute after:content-['']",
   ].join(' '),

@@ -161,11 +161,10 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        'flex w-full items-center justify-between bg-background text-foreground',
+        'flex w-full items-center justify-between bg-background text-foreground hover:bg-background-muted',
         'border border-border',
         triggerRadiusMap[radius],
         'transition-colors duration-micro',
-        'hover:border-border-strong',
         'focus-visible:shadow-[0_0_0_2px_var(--color-focus-ring)] focus:[outline:2px_solid_transparent]',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'placeholder:text-text-subtle',

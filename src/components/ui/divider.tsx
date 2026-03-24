@@ -19,7 +19,7 @@ const dividerVariants = cva('shrink-0', {
       dotted: 'border-dotted',
     },
     color: {
-      default: 'border-border',
+      default: 'border-border/60',
       muted: 'border-border-subtle',
       strong: 'border-border-strong',
     },
@@ -88,7 +88,7 @@ const Divider = React.forwardRef<
   const lineClass = cn(
     'flex-1',
     variant === 'dashed' ? 'border-dashed' : variant === 'dotted' ? 'border-dotted' : 'border-solid',
-    color === 'muted' ? 'border-border-subtle' : color === 'strong' ? 'border-border-strong' : 'border-border',
+    color === 'muted' ? 'border-border-subtle' : color === 'strong' ? 'border-border-strong' : 'border-border/60',
     'border-t'
   )
 
