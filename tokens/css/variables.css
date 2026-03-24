@@ -28,20 +28,20 @@
   --color-gray-100-rgb: 244 244 245;
   --color-gray-200: #E4E4E6;
   --color-gray-200-rgb: 228 228 230;
-  --color-gray-300: #D4D4D4;
-  --color-gray-300-rgb: 212 212 212;
-  --color-gray-400: #9A9A9A;
-  --color-gray-400-rgb: 154 154 154;
-  --color-gray-500: #6B6B6B;
-  --color-gray-500-rgb: 107 107 107;
-  --color-gray-600: #4A4A4A;
-  --color-gray-600-rgb: 74 74 74;
-  --color-gray-700: #3C3C3C;
-  --color-gray-700-rgb: 60 60 60;
-  --color-gray-800: #2D2D2D;
-  --color-gray-800-rgb: 45 45 45;
-  --color-gray-900: #212121;
-  --color-gray-900-rgb: 33 33 33;
+  --color-gray-300: #D4D4D5;
+  --color-gray-300-rgb: 212 212 213;
+  --color-gray-400: #9A9A9B;
+  --color-gray-400-rgb: 154 154 155;
+  --color-gray-500: #6B6B6C;
+  --color-gray-500-rgb: 107 107 108;
+  --color-gray-600: #4A4A4B;
+  --color-gray-600-rgb: 74 74 75;
+  --color-gray-700: #3A3A3E;
+  --color-gray-700-rgb: 58 58 62;
+  --color-gray-800: #2D2D31;
+  --color-gray-800-rgb: 45 45 49;
+  --color-gray-900: #222225;
+  --color-gray-900-rgb: 34 34 37;
 
   /* Primary */
   --color-primary-50: #DBF8FB;
@@ -66,26 +66,26 @@
   --color-primary-900-rgb: 6 46 50;
 
   /* Secondary */
-  --color-secondary-50: #F8FAFC;
-  --color-secondary-50-rgb: 248 250 252;
-  --color-secondary-100: #F1F5F9;
-  --color-secondary-100-rgb: 241 245 249;
-  --color-secondary-200: #E2E8F0;
-  --color-secondary-200-rgb: 226 232 240;
-  --color-secondary-300: #CBD5E1;
-  --color-secondary-300-rgb: 203 213 225;
-  --color-secondary-400: #94A3B8;
-  --color-secondary-400-rgb: 148 163 184;
-  --color-secondary-500: #64748B;
-  --color-secondary-500-rgb: 100 116 139;
-  --color-secondary-600: #475569;
-  --color-secondary-600-rgb: 71 85 105;
-  --color-secondary-700: #334155;
-  --color-secondary-700-rgb: 51 65 85;
-  --color-secondary-800: #1E293B;
-  --color-secondary-800-rgb: 30 41 59;
-  --color-secondary-900: #0F172A;
-  --color-secondary-900-rgb: 15 23 42;
+  --color-secondary-50: #F5F5FB;
+  --color-secondary-50-rgb: 245 245 251;
+  --color-secondary-100: #EBEBF5;
+  --color-secondary-100-rgb: 235 235 245;
+  --color-secondary-200: #D9D9E9;
+  --color-secondary-200-rgb: 217 217 233;
+  --color-secondary-300: #BCBCD2;
+  --color-secondary-300-rgb: 188 188 210;
+  --color-secondary-400: #8F8FA9;
+  --color-secondary-400-rgb: 143 143 169;
+  --color-secondary-500: #69697F;
+  --color-secondary-500-rgb: 105 105 127;
+  --color-secondary-600: #4E4E60;
+  --color-secondary-600-rgb: 78 78 96;
+  --color-secondary-700: #3B3B4A;
+  --color-secondary-700-rgb: 59 59 74;
+  --color-secondary-800: #2F2F3B;
+  --color-secondary-800-rgb: 47 47 59;
+  --color-secondary-900: #23232D;
+  --color-secondary-900-rgb: 35 35 45;
 
   /* Blue */
   --color-blue-50: #EFF6FF;

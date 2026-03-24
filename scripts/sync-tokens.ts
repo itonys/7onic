@@ -928,7 +928,7 @@ function generateAnimationCss(a: AnimationToken, format: 'css' | 'v4'): string {
   return lines.join('\n')
 }
 
-/** Convert 6-digit hex color to space-separated RGB channels: "#F4F4F5" → "244 244 245" */
+/** Convert 6-digit hex color to space-separated RGB channels: "#F4F4F6" → "244 244 246" */
 function hexToRgb(hex: string): string | null {
   const match = hex.replace('#', '').match(/^([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i)
   if (!match) return null
