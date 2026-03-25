@@ -16,7 +16,6 @@ One JSON, every format. AI-optimized design system with Figma-synced token pipel
 - **Charts Included** — Bar, Line, Area, Pie, MetricCard with design token integration
 - **Tokens-only Distribution** — Use CSS variables without Tailwind or React
 - **Zero Runtime CSS** — No CSS-in-JS runtime overhead. Pure Tailwind classes
-- **Full SEO** — Per-page metadata, Open Graph images, JSON-LD structured data, sitemap
 
 ---
 
@@ -274,8 +273,6 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [x] Documentation site with interactive playgrounds
 - [x] Chart components included (Bar, Line, Area, Pie, MetricCard)
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
-- [x] Vercel deployment with auto-deploy on push
-- [x] SEO — per-page metadata, OG images, JSON-LD, sitemap, robots
 - [ ] npm package distribution (April 2026)
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI (shadcn-style)
