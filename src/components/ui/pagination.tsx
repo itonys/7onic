@@ -214,8 +214,8 @@ const ghostActiveColorMap = {
 function getItemClasses(variant: PaginationVariant, color: PaginationColor, isActive: boolean, disabled: boolean) {
   if (disabled) {
     return variant === 'outline'
-      ? 'border border-border text-disabled-foreground pointer-events-none'
-      : 'border border-transparent text-disabled-foreground pointer-events-none'
+      ? 'border border-border text-disabled-foreground pointer-events-none opacity-50'
+      : 'border border-transparent text-disabled-foreground pointer-events-none opacity-50'
   }
   if (isActive) {
     switch (variant) {

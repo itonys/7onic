@@ -167,7 +167,7 @@ const SelectTrigger = React.forwardRef<
         'transition-colors duration-micro',
         'focus-visible:shadow-[0_0_0_2px_var(--color-focus-ring)] focus:[outline:2px_solid_transparent]',
         'disabled:cursor-not-allowed disabled:opacity-50',
-        'placeholder:text-text-subtle',
+        'data-[placeholder]:text-foreground/30',
         triggerSizeMap[size],
         className
       )}
@@ -231,7 +231,7 @@ const SelectContent = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content> & {
     flush?: boolean
   }
->(({ className, children, position = 'popper', flush = false, onCloseAutoFocus, ...props }, ref) => {
+>(({ className, children, position = 'popper', sideOffset = 1, flush = false, onCloseAutoFocus, ...props }, ref) => {
   const { size, radius } = React.useContext(SelectRootContext)
   const itemSize = itemSizeFromTrigger[size]
   const contentRadius = contentRadiusFromRoot[radius]
@@ -253,6 +253,7 @@ const SelectContent = React.forwardRef<
             className
           )}
           position={position}
+          sideOffset={sideOffset}
           {...props}
         >
           <SelectScrollUpButton />
