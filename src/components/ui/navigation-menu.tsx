@@ -319,7 +319,7 @@ const NavigationMenuTrigger = React.forwardRef<HTMLButtonElement, NavigationMenu
         >
           {icon && <span className={cn('shrink-0 mr-2', s.icon)}>{icon}</span>}
           {children}
-          <span className={cn('shrink-0 ml-1 text-text-subtle', s.icon)}>
+          <span className={cn('shrink-0 ml-1 text-text-subtle transition-transform duration-fast group-data-[state=open]:rotate-180', s.icon)}>
             {chevronIcon ?? <ChevronDownIcon className="size-full" />}
           </span>
         </NavigationMenuPrimitive.Trigger>
