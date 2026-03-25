@@ -17,8 +17,8 @@
     --color-background-rgb: 34 34 37;
     --color-background-paper: var(--color-gray-800);
     --color-background-paper-rgb: 45 45 49;
-    --color-background-elevated: var(--color-gray-700);
-    --color-background-elevated-rgb: 58 58 62;
+    --color-background-elevated: var(--color-gray-600);
+    --color-background-elevated-rgb: 74 74 75;
     --color-background-muted: var(--color-gray-700);
     --color-background-muted-rgb: 58 58 62;
 
@@ -162,8 +162,8 @@
   --color-background-rgb: 34 34 37;
   --color-background-paper: var(--color-gray-800);
   --color-background-paper-rgb: 45 45 49;
-  --color-background-elevated: var(--color-gray-700);
-  --color-background-elevated-rgb: 58 58 62;
+  --color-background-elevated: var(--color-gray-600);
+  --color-background-elevated-rgb: 74 74 75;
   --color-background-muted: var(--color-gray-700);
   --color-background-muted-rgb: 58 58 62;
 

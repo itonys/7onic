@@ -2121,7 +2121,7 @@
           "type": "color"
         },
         "elevated": {
-          "value": "{primitive.color.gray.700}",
+          "value": "{primitive.color.gray.600}",
           "type": "color"
         },
         "muted": {
