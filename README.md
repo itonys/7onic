@@ -1,22 +1,22 @@
 # 7onic Design System
 
-Bridging the gap between design and code — down to zero.
-
-A design system combining beauty, consistency, and developer experience. Designed by a designer, built for developers.
+One JSON, every format. AI-optimized design system with Figma-synced token pipeline — accessible React components on Radix UI, and the ecosystem's only Tailwind v3+v4 dual support.
 
 ---
 
 ## Features
 
-- **Figma Token Sync** — Single source of truth. Change a token, everything updates automatically
+- **Figma-Synced Token Pipeline** — Single source of truth. One JSON powers CSS, Tailwind, JS, and TypeScript
+- **Only Tailwind v3+v4 Dual Support** — The ecosystem's only design system supporting both versions
+- **AI-Optimized Components** — Structured for AI coding tools (Claude, Copilot) with predictable patterns
 - **Namespace + Named Exports** — Both `<Card.Header>` and `<CardHeader>` work. Use whichever you prefer
 - **100% TypeScript** — Full type safety with IntelliSense support
 - **Dark Mode Built-in** — Light/dark themes with system preference detection
 - **Radix UI Primitives** — Accessible, keyboard-navigable components out of the box
-- **Tailwind v3/v4 Dual Support** — Both versions supported via presets
 - **Charts Included** — Bar, Line, Area, Pie, MetricCard with design token integration
 - **Tokens-only Distribution** — Use CSS variables without Tailwind or React
 - **Zero Runtime CSS** — No CSS-in-JS runtime overhead. Pure Tailwind classes
+- **Full SEO** — Per-page metadata, Open Graph images, JSON-LD structured data, sitemap
 
 ---
 
@@ -274,7 +274,9 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [x] Documentation site with interactive playgrounds
 - [x] Chart components included (Bar, Line, Area, Pie, MetricCard)
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
-- [ ] npm package distribution
+- [x] Vercel deployment with auto-deploy on push
+- [x] SEO — per-page metadata, OG images, JSON-LD, sitemap, robots
+- [ ] npm package distribution (April 2026)
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI (shadcn-style)
 - [ ] Figma UI Kit
@@ -289,5 +291,5 @@ MIT
 ---
 
 <p align="center">
-  <strong>Bridging the gap between design and code — down to zero.</strong>
+  <strong>One JSON, every format — from Figma to production.</strong>
 </p>
