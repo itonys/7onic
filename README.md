@@ -288,6 +288,8 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [ ] `npx 7onic add` CLI (shadcn-style)
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
+- [ ] AI integration guide — `llms.txt` hosting + tool-specific rule files (Claude / Cursor / Copilot)
+- [ ] `/7onic-demo` Claude Code skill — build a full service with zero hardcoding, guided setup
 
 ---
 
