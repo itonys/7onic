@@ -482,7 +482,7 @@ function ChartLegendContent({
                   }}
                 />
               )}
-              {itemConfig?.label}
+              <span className="text-foreground">{itemConfig?.label}</span>
             </div>
           )
         })}

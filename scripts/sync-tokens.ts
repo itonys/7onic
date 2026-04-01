@@ -1283,6 +1283,19 @@ function generateVariablesCss(tokens: FigmaTokens): string {
   lines.push(`}`)
   lines.push(``)
 
+  // --- Base body styles ---
+  lines.push(`/* ========================================`)
+  lines.push(`   Base Styles`)
+  lines.push(`   Auto-applied — no manual setup needed.`)
+  lines.push(`   Override with your own body styles if needed.`)
+  lines.push(`   ======================================== */`)
+  lines.push(``)
+  lines.push(`body {`)
+  lines.push(`  background-color: var(--color-background);`)
+  lines.push(`  color: var(--color-text);`)
+  lines.push(`}`)
+  lines.push(``)
+
   // --- Component Animations (from semantic.animation) ---
   // Each token generates: @keyframes {name} + .animate-{name} (1:1 mapping)
   const animTokens = readAnimationTokens(tokens)

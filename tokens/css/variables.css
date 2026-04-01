@@ -484,6 +484,17 @@
 }
 
 /* ========================================
+   Base Styles
+   Auto-applied — no manual setup needed.
+   Override with your own body styles if needed.
+   ======================================== */
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* ========================================
    Component Animations
    Generated from semantic.animation in figma-tokens.json
    Token name = keyframe name = class name (1:1)
