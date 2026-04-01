@@ -86,7 +86,7 @@ module.exports = {
 <body class="bg-background text-foreground">
 ```
 
----
+<br>
 
 ### Tokens Only
 
