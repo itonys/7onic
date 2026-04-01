@@ -1,8 +1,6 @@
-# 7onic Design System
+# [7onic Design System](https://7onic.design)
 
 > **🚀 First npm release coming April 2026**
-
-**https://7onic.design**
 
 One JSON, every format. AI-optimized design system with Figma-synced token pipeline — accessible React components on Radix UI, and the ecosystem's only Tailwind v3+v4 dual support.
 
