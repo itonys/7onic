@@ -135,7 +135,7 @@ export function generateOGImage(
               background: `${categoryColor}0a`,
               color: categoryColor,
               fontSize: 13,
-              fontWeight: 500,
+              fontWeight: 600,
               marginBottom: 20,
             }}
           >
@@ -208,10 +208,10 @@ export function generateOGImage(
               right: 40,
               fontSize: 13,
               color: '#52525b',
-              fontWeight: 500,
+              fontWeight: 400,
             }}
           >
-            7onic.vercel.app
+            7onic.design
           </div>
         </div>
       </div>
