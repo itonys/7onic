@@ -1,0 +1,1672 @@
+{
+  "nav": {
+    "designTokens": "Design Tokens",
+    "components": "Components",
+    "patterns": "Patterns",
+    "templates": "Templates"
+  },
+  "sidebar": {
+    "gettingStarted": "Getting Started",
+    "forms": "Forms",
+    "dataDisplay": "Data Display",
+    "layout": "Layout",
+    "overlay": "Overlay",
+    "feedback": "Feedback",
+    "navigation": "Navigation",
+    "aiComponents": "AI Components",
+    "charts": "Charts",
+    "designTokens": "Design Tokens",
+    "designGuide": "Design Guide"
+  },
+  "common": {
+    "menu": "Menu",
+    "closeMenu": "Close menu",
+    "openSidebar": "Open sidebar",
+    "closeSidebar": "Close sidebar",
+    "lightMode": "Switch to light mode",
+    "darkMode": "Switch to dark mode",
+    "tabs": {
+      "design": "Design",
+      "code": "Code"
+    },
+    "toc": "On this page",
+    "tableHeaders": {
+      "size": "Size",
+      "preview": "Preview",
+      "gap": "Gap",
+      "item": "Item",
+      "feature": "Feature"
+    }
+  },
+  "search": {
+    "placeholder": "Search components, tokens...",
+    "short": "Search...",
+    "noResults": "No results found.",
+    "navigate": "Navigate",
+    "select": "Select",
+    "items": {
+      "colors": "Color palette",
+      "typography": "Typography",
+      "spacing": "Spacing & gaps",
+      "shadows": "Shadows",
+      "radius": "Border radius",
+      "border-width": "Border width",
+      "breakpoints": "Breakpoints",
+      "z-index": "Layer order",
+      "opacity": "Opacity",
+      "icon-sizes": "Icon sizes",
+      "duration": "Animation duration",
+      "easing": "Easing curves",
+      "scale": "Scale transform",
+      "animation": "Animations",
+      "button": "Button",
+      "icon-button": "Icon button",
+      "button-group": "Button group",
+      "input": "Text input",
+      "textarea": "Text area",
+      "select": "Select",
+      "dropdown": "Dropdown menu",
+      "checkbox": "Checkbox",
+      "radio": "Radio",
+      "switch": "Switch",
+      "toggle": "Toggle",
+      "toggle-group": "Toggle group",
+      "segmented": "Segmented",
+      "slider": "Slider",
+      "avatar": "Avatar",
+      "badge": "Badge",
+      "card": "Card",
+      "table": "Table",
+      "tabs": "Tabs",
+      "accordion": "Accordion",
+      "divider": "Divider",
+      "modal": "Modal dialog",
+      "drawer": "Drawer panel",
+      "tooltip": "Tooltip",
+      "popover": "Popover",
+      "alert": "Alert",
+      "toast": "Toast notification",
+      "progress": "Progress bar",
+      "spinner": "Loading spinner",
+      "skeleton": "Loading placeholder",
+      "breadcrumb": "Breadcrumb",
+      "pagination": "Pagination",
+      "navigation-menu": "Navigation menu",
+      "line-chart": "Line chart",
+      "area-chart": "Area chart",
+      "bar-chart": "Bar chart",
+      "pie-chart": "Pie chart",
+      "metric-card": "Metric card",
+      "icons": "Icons",
+      "accessibility": "Accessibility",
+      "tailwind-versions": "Tailwind v3 / v4"
+    }
+  },
+  "pages": {
+    "components": {
+      "description": "Sizes, states, and styles — all designed. Pixel-perfect UI, ready to use.",
+      "stats": {
+        "components": "Components",
+        "accessible": "Accessible",
+        "categories": "Categories"
+      },
+      "categories": {
+        "form": "Interactive input and action controls",
+        "dataDisplay": "Components for displaying and organizing data",
+        "layout": "Layout elements for structuring content",
+        "overlay": "UI elements that layer on top of the page",
+        "feedback": "Feedback and status information",
+        "navigation": "Navigation for page transitions and in-page movement",
+        "ai": "For AI-powered apps and chatbots",
+        "charts": "Visualize data with charts and metrics"
+      },
+      "quickStart": "to install, then import any component to start building. TypeScript, Tailwind CSS, and Radix UI included."
+    },
+    "install": {
+      "description": "How to install and use {name} UI components in your project.",
+      "tailwindRequired": {
+        "title": "Tailwind required:",
+        "body": "Tailwind v3 or v4 is required. After installing, configure the imports below."
+      },
+      "noConfig": "No config needed",
+      "individualImport": "Individual imports",
+      "v4Note": "The @source directive adds component Tailwind classes to the scan target. Adjust the path to match your project structure.",
+      "cssPreset": "CSS + Preset",
+      "v3Note": "The preset uses theme.extend, so your existing Tailwind classes are preserved. Semantic color opacity modifiers (bg-primary/50 etc.) are also supported in v3 via RGB channel variables.",
+      "bodyStyle": "To apply design token background and text colors to the entire page, add classes to the body element.",
+      "nextjsNote": "When using as a client component, add 'use client' at the top of your file.",
+      "fontsTitle": "Fonts Setup Guide",
+      "fontsDesc": "Font installation and multi-language configuration",
+      "fontsNote": "Components use the token {code}. Configure fonts in Design Tokens > Installation > Fonts.",
+      "usageDesc": "How to import and use components. Two import styles are supported: Namespace and Named.",
+      "recommended": "Recommended",
+      "namespaceNote": "Import only the root component and access sub-components via dot notation.",
+      "compat": "Compat",
+      "namedExportNote": "Traditional Named Exports are still supported. Existing code will continue to work.",
+      "standaloneNote": "Standalone components (Button, Input, Badge, etc.) only need a single import — no Namespace required.",
+      "package": "Package",
+      "version": "Version",
+      "required": "Required (install together)",
+      "contentsDesc": "Composed of two packages. Components and tokens can be managed separately.",
+      "reactDesc": "UI component library — dist/ distribution",
+      "typeDefs": "TypeScript type definitions",
+      "tokensDesc": "Design tokens — CSS variables, Tailwind presets, JS, CLI",
+      "syncDesc": "→ npx sync-tokens auto-generates all files",
+      "customizeTitle": "Customize your design",
+      "customizeDesc": "Changes to tokens are automatically reflected in component styles."
+    },
+    "theming": {
+      "description": "{name} uses a CSS variable-based theme system with automatic Light / Dark switching and brand color customization.",
+      "howItWorksSubtitle": "Three layers ensure design consistency.",
+      "tokenChangeNote": "Change a token in one place, and all referencing components update automatically.",
+      "darkModeDesc": "Switch themes and all components respond automatically.",
+      "viewCode": "View code",
+      "darkClassNote": "Simply toggle the dark class on <html> and all CSS variables switch automatically.",
+      "customizingDesc": "Change the primary color and all components update automatically.",
+      "customizeNote": "Customize by overriding CSS variables or using Token Sync for batch changes.",
+      "colorRefDesc": "Semantic color variable reference. References switch automatically between Light / Dark themes.",
+      "hoverActiveNote": "* Each category also has hover and active variants available."
+    },
+    "button": {
+      "description": "Buttons are the most fundamental interactive elements for users to perform actions. Trigger operations with clicks or taps — used for form submission, navigation, and more.",
+      "props": {
+        "variant": "Button style. Font weight: solid=600, outline/ghost/link=400",
+        "color": "Color for solid variant (default=dark, primary=brand, secondary=secondary, destructive=error). Ignored for non-solid",
+        "size": "Button height and padding",
+        "radius": "Border radius size (6px)",
+        "fullWidth": "Display at 100% width",
+        "loading": "Loading state",
+        "disabled": "Disabled state",
+        "leftIcon": "Left icon",
+        "rightIcon": "Right icon",
+        "fontWeight": "Override font weight. Defaults to variant default (solid=600, outline/ghost/link=400). Priority: direct prop > ButtonGroup context > variant default",
+        "selected": "Selected state (outline/ghost only). outline=bg-background-muted, ghost=font-semibold. No effect on other variants",
+        "pressEffect": "Press effect (active:scale-pressed). Defaults to true. Set false to disable",
+        "asChild": "Render as Slot"
+      },
+      "variants": {
+        "solid": { "desc": "Solid fill — the most visually prominent option", "usage": "Submit, Save, Purchase" },
+        "outline": { "desc": "Neutral — blends with the background", "usage": "View details, Edit" },
+        "ghost": { "desc": "Minimal — no background fill, ideal for toolbars", "usage": "Toolbar, Nav" },
+        "link": { "desc": "Text link style — for inline actions", "usage": "See more, Details" }
+      },
+      "colors": {
+        "default": { "desc": "Dark — the most versatile CTA", "usage": "Submit, Save" },
+        "primary": { "desc": "Brand color — for brand-emphasis actions", "usage": "Sign up" },
+        "secondary": { "desc": "Supplementary — pairs with a primary action", "usage": "Cancel, Back" },
+        "destructive": { "desc": "Destructive — for deletes and irreversible actions", "usage": "Delete, Reset" }
+      },
+      "sizes": {
+        "height": "Height",
+        "padding": "H-Padding",
+        "icon": "Icon",
+        "font": "Font"
+      },
+      "touchTargetNote": "Touch target: WCAG 2.5.8 requires a minimum 24px touch area. Even the smallest xs (28px) meets the WCAG standard.",
+      "demo": {
+        "search": "Search",
+        "continue": "Continue",
+        "searchAction": "Search",
+        "submit": "Submit",
+        "dashboard": "Dashboard"
+      },
+      "features": {
+        "asChild": "Next.js Link integration",
+        "formSubmit": "Form submit"
+      },
+      "anatomy": {
+        "container": "Outer frame · border-radius · background",
+        "icon": "Left/right placement · optional",
+        "label": "Text label · required",
+        "gap": "Gap between elements"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "One primary button per page",
+        "do2": "Action-oriented labels (\"Submit\", \"Save\")",
+        "do3": "Show loading state for async operations",
+        "do4": "Ensure sufficient touch area (WCAG 2.5.8: 24px+)",
+        "dont": "Avoid",
+        "dont1": "Don't place multiple primary buttons side by side",
+        "dont2": "Avoid vague labels like \"Click here\"",
+        "dont3": "Don't disable buttons without reason",
+        "dont4": "Don't use destructive for safe operations"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "focusMove": "Move focus",
+        "activate": "Activate button",
+        "wcag": "WCAG 2.2 Compliance",
+        "contrast": "Contrast ratio 4.5:1 or higher",
+        "focusIndicator": "Focus indicator",
+        "disabled": "Native disabled attribute",
+        "ariaBusy": "aria-busy (auto-applied during loading)",
+        "ariaHidden": "aria-hidden (auto-applied to icons)",
+        "ariaPressed": "aria-pressed (auto-applied when selected)"
+      },
+      "related": {
+        "iconButton": "Icon-only square button",
+        "buttonGroup": "Group of action buttons",
+        "toggle": "Standalone on/off toggle",
+        "spinner": "Used for loading display inside buttons."
+      },
+      "code": {
+        "tailwindDesc": "How to apply styles for your environment"
+      },
+      "tips": {
+        "title": "Tips for using Button effectively",
+        "variant": "Set style with variant, override with className.",
+        "loading": "loading={true} automatically sets disabled state and shows a spinner.",
+        "asChild": "Use asChild to wrap other elements like Next.js Link.",
+        "icons": "Create icon buttons with leftIcon/rightIcon. Icon size adjusts automatically."
+      }
+    },
+    "iconButton": {
+      "description": "IconButton is a square button that displays only an icon. Used in toolbars, navigation, and compact UIs.",
+      "props": {
+        "variant": "Button style",
+        "color": "Color for solid variant. Ignored for non-solid",
+        "size": "Button size (28/32/36/40/48px)",
+        "radius": "Border radius size (6px)",
+        "loading": "Loading state",
+        "disabled": "Disabled state",
+        "pressEffect": "Press effect (active:scale-pressed). Defaults to true. Set false to disable",
+        "asChild": "Render as Slot",
+        "ariaLabel": "Accessibility label (required)"
+      },
+      "variants": {
+        "solid": { "desc": "Solid fill — the most visually prominent option", "usage": "Add, Submit" },
+        "outline": { "desc": "Neutral — blends with the background", "usage": "Info, Details" },
+        "ghost": { "desc": "Minimal — no background fill, ideal for toolbars", "usage": "Toolbar" },
+        "subtle": { "desc": "Subtle — revealed on hover, great for headers and nav", "usage": "Header, Nav" }
+      },
+      "colors": {
+        "default": { "desc": "Dark — the most versatile CTA", "usage": "Add, Submit" },
+        "primary": { "desc": "Brand color — for brand-emphasis actions", "usage": "Favorite" },
+        "secondary": { "desc": "Supplementary — pairs with a primary action", "usage": "Settings, Edit" },
+        "destructive": { "desc": "Destructive — for deletes and irreversible actions", "usage": "Delete, Close" }
+      },
+      "sizes": {
+        "size": "Size",
+        "width": "Width",
+        "height": "Height",
+        "icon": "Icon"
+      },
+      "touchTargetNote": "Touch target: WCAG 2.5.8 requires a minimum 24px touch area. Even the smallest xs (28px) meets the WCAG standard.",
+      "features": {
+        "toolbar": "Toolbar",
+        "toolbarDesc": "Multiple icon buttons",
+        "fabDesc": "Floating action",
+        "asChild": "Next.js Link integration"
+      },
+      "anatomy": {
+        "container": "Square (1:1) · border-radius",
+        "icon": "Center-aligned · required"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Always set aria-label",
+        "do2": "Use icons with clear meaning",
+        "do3": "Use together with tooltips",
+        "do4": "Use 48px+ on mobile",
+        "dont": "Avoid",
+        "dont1": "Don't use without aria-label",
+        "dont2": "Don't use ambiguous icons alone",
+        "dont3": "Don't overuse instead of text buttons",
+        "dont4": "Don't use sizes that are too small"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "focusMove": "Move focus",
+        "activate": "Activate button",
+        "wcag": "WCAG 2.2 Compliance",
+        "contrast": "Contrast ratio 4.5:1 or higher",
+        "focusIndicator": "Focus indicator",
+        "ariaLabel": "aria-label support (required)",
+        "ariaBusy": "aria-busy (auto-applied during loading)"
+      },
+      "related": {
+        "button": "General button with text",
+        "buttonGroup": "Group of action buttons",
+        "toggle": "Standalone on/off toggle"
+      },
+      "code": {
+        "tailwindDesc": "How to apply styles for your environment"
+      },
+      "tips": {
+        "title": "Tips for using IconButton effectively",
+        "ariaLabel": "Always specify aria-label for icon-only buttons. Required for screen readers.",
+        "subtle": "The subtle variant is ideal for auxiliary icons in headers and navigation.",
+        "iconSize": "Icon size auto-adjusts based on size. No need to set size classes on child <svg>.",
+        "loading": "The loading prop shows a spinner and automatically sets disabled state."
+      }
+    },
+    "buttonGroup": {
+      "description": "ButtonGroup is a container component that visually groups related buttons. Used for toolbars, filters, action groups, and presenting multiple choices as a single unit.",
+      "usageGuide": "Specify variant and size on ButtonGroup, and they auto-inherit to child Button/IconButtons. Individual overrides are also possible.",
+      "props": {
+        "variant": "Child Button variant (inherited via Context)",
+        "size": "Child Button size (inherited via Context)",
+        "radius": "Child Button border radius (inherited via Context)",
+        "fontWeight": "Child Button font weight (inherited via Context)",
+        "disabled": "Disable all buttons (inherited via Context)",
+        "orientation": "Button layout direction",
+        "attached": "Whether to visually join buttons together"
+      },
+      "variants": {
+        "outline": { "desc": "Neutral — blends with the background", "usage": "Toolbar, Filter" },
+        "ghost": { "desc": "Minimal — ideal for compact UI and navigation", "usage": "Nav, Toolbar" }
+      },
+      "sizesDesc": "ButtonGroup inherits Button size via Context. Same size rules as Button apply.",
+      "sizes": { "height": "Height", "padding": "H-Padding", "icon": "Icon", "font": "Font" },
+      "touchTargetNote": "Touch target: WCAG 2.5.8 requires a minimum 24px touch area. Even the smallest xs (28px) meets the WCAG standard.",
+      "demo": { "editActions": "Edit Actions", "undoRedo": "Undo / Redo", "zoomControl": "Zoom Control", "short": "Short", "longText": "Long text" },
+      "orientation": {
+        "horizontalTitle": "Horizontal (Default)",
+        "horizontalDesc": "Arrange buttons horizontally. Ideal for toolbars and action groups.",
+        "horizontalUsage": "Toolbar, Nav",
+        "verticalDesc": "Arrange buttons vertically. Ideal for sidebars and dropdown menus.",
+        "verticalUsage": "Sidebar, Menu"
+      },
+      "customization": {
+        "desc": "All buttons use default values based on the design system spacing rules. Use the group's className to batch-customize all buttons.",
+        "paddingTitle": "Change Horizontal Padding",
+        "equalWidthTitle": "Equalize Button Width",
+        "note": "Default values are designed to maintain component consistency. Use customization when needed for UI implementation."
+      },
+      "anatomy": { "container": "Group container", "edgeRadius": "Edge radius preserved", "divider": "Divider between buttons" },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Only group related actions",
+        "do2": "Specify variant/size on ButtonGroup (inherits to children)",
+        "do3": "Aim for 3-5 buttons",
+        "do4": "Set aria-label for icon-only groups",
+        "dont": "Avoid",
+        "dont1": "Don't mix different sized buttons",
+        "dont2": "Don't group unrelated actions",
+        "dont3": "Don't cram 6+ buttons",
+        "dont4": "Don't mix destructive buttons with others"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "moveBetween": "Move between buttons",
+        "activate": "Activate button",
+        "aria": "ARIA Attributes",
+        "roleGroup": "role=\"group\" auto-applied",
+        "semanticGrouping": "Semantic grouping",
+        "ariaLabelRecommended": "aria-label recommended",
+        "focusVisible": "Focus visibility support"
+      },
+      "comparison": {
+        "desc": "They look similar but differ in purpose and behavior. Choose the appropriate component.",
+        "feature": "Feature",
+        "purpose": "Purpose",
+        "stateManagement": "State management",
+        "selectionMode": "Selection mode",
+        "valueManagement": "Value management",
+        "useCase": "Use case",
+        "bg": {
+          "purpose": "Grouping action buttons",
+          "state": "Manual (selected prop)",
+          "selection": "Manual control only",
+          "value": "None",
+          "useCase": "Toolbar, Action groups"
+        },
+        "tg": {
+          "purpose": "On/off state management",
+          "state": "Auto (Radix managed)",
+          "selection": "single / multiple",
+          "value": "value / onValueChange",
+          "useCase": "Text alignment, Format"
+        },
+        "guideline": "Selection guide: Use ToggleGroup when you want automatic state management. Use ButtonGroup when clicking triggers a specific action (API calls, etc.)."
+      },
+      "related": {
+        "toggleGroup": "Group multiple toggles",
+        "button": "General button with text",
+        "iconButton": "Icon-only square button",
+        "segmented": "Pill-style exclusive selection control",
+        "toggle": "Standalone on/off toggle"
+      },
+      "code": { "tailwindDesc": "How to apply styles for your environment" },
+      "tips": {
+        "title": "Tips for using ButtonGroup effectively",
+        "attached": "In attached mode, buttons connect as one control. Default is true.",
+        "variant": "Specifying variant on the group auto-applies to child buttons. outline and ghost are supported.",
+        "orientation": "orientation=\"vertical\" switches to vertical layout. Ideal for menus and sidebars."
+      }
+    },
+    "input": {
+      "description": "Input is a basic form element for collecting text data from users. Supports various text input types including email, password, and search.",
+      "props": {
+        "variant": "Input visual style",
+        "size": "Input height (36/40/44/48/56px) - Input-specific scale",
+        "radius": "Border radius size (6px)",
+        "leftIcon": "Left icon",
+        "rightIcon": "Right icon",
+        "focusRing": "Show custom focus ring. Keyboard-only focus ring shown even when false",
+        "error": "Error state (red border)",
+        "disabled": "Disabled state",
+        "placeholder": "Placeholder text",
+        "type": "Input type (text, email, password, etc.). HTML default: text"
+      },
+      "fieldProps": {
+        "error": "Error state. Auto-propagates to Field.Error and Input",
+        "disabled": "Disabled state. Auto-propagates to Field.Label and Input",
+        "gap": "Gap between child elements (0 / 4 / 6 / 8 / 12px)"
+      },
+      "labelProps": {
+        "required": "Show required mark (*) at end of label"
+      },
+      "variants": {
+        "default": { "desc": "Standard border — for general form inputs", "usage": "General forms" },
+        "filled": { "desc": "Filled background — for high-emphasis inputs", "usage": "Search bar, Primary input" }
+      },
+      "sizes": {
+        "height": "Height",
+        "padding": "H-Padding",
+        "font": "Font",
+        "icon": "Icon",
+        "usage": "Usage",
+        "notes": {
+          "compact": "Compact",
+          "small": "Small",
+          "standard": "Standard",
+          "standardRecommended": "Standard (Recommended)",
+          "spacious": "Spacious",
+          "large": "Large"
+        }
+      },
+      "touchTargetNote": "Touch target: WCAG 2.5.8 requires a minimum 24px touch area. Even the smallest xs (36px) meets the WCAG standard.",
+      "iosSafariNote": "iOS Safari: Font size 16px+ prevents auto-zoom on iOS Safari. Sizes default and above use 16px font and 16px icons.",
+      "demo": {
+        "search": "Search...",
+        "email": "Email address",
+        "password": "Password",
+        "normal": "Normal",
+        "emailLabel": "Email",
+        "error": "Error",
+        "required": "This field is required",
+        "disabled": "Disabled"
+      },
+      "focusStatesTitle": "Focus States",
+      "focusStatesDesc": "focusRing: false (default): Border change only on click, focus ring auto-shown on keyboard Tab. focusRing: true: Always show focus ring.",
+      "anatomy": {
+        "field": "Field wrapper",
+        "label": "Label",
+        "input": "Text input",
+        "leftIcon": "Left icon (optional)",
+        "rightIcon": "Right icon (optional)",
+        "helper": "Helper text (optional)"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Always add a label (or aria-label)",
+        "do2": "Use appropriate input type (email, tel, etc.)",
+        "do3": "Show clear feedback on error",
+        "do4": "Ensure sufficient touch area (WCAG 2.5.8: 24px+)",
+        "dont": "Avoid",
+        "dont1": "Don't use placeholder as a label substitute",
+        "dont2": "Don't disable autocomplete unnecessarily",
+        "dont3": "Ensure errors aren't indicated by color alone",
+        "dont4": "Clearly state input restrictions upfront"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "focusMove": "Move focus",
+        "formSubmit": "Submit form",
+        "cancelInput": "Cancel input",
+        "wcag": "WCAG 2.2 Compliance",
+        "focusIndicator": "Focus indicator",
+        "ariaInvalid": "aria-invalid (on error)",
+        "autocomplete": "autocomplete support",
+        "contrast": "Contrast ratio 4.5:1 or higher"
+      },
+      "related": {
+        "button": "Form submit button",
+        "select": "Selection list input",
+        "textarea": "Multi-line text input"
+      },
+      "code": { "tailwindDesc": "How to apply styles for your environment" },
+      "tips": {
+        "title": "Tips for using Input effectively",
+        "icons": "Create icon inputs with leftIcon/rightIcon. Icon container is pointer-events-none, so place clickable elements separately.",
+        "filled": "The filled variant is a borderless background style. Ideal for reducing visual noise in forms.",
+        "focusRing": "focusRing={false} hides the focus ring, showing only border changes.",
+        "error": "The error prop shows error state. Integrating with Field component also auto-displays error messages."
+      }
+    },
+    "textarea": {
+      "description": "Textarea is a form element for entering multiple lines of text. Used for comments, descriptions, messages, and other long-form input.",
+      "props": {
+        "variant": "Textarea visual style",
+        "size": "Padding and font size (compact: for tight spaces)",
+        "radius": "Border radius size (6px)",
+        "resize": "Resize direction",
+        "rows": "Number of visible rows",
+        "focusRing": "Show custom focus ring. Keyboard-only focus ring shown even when false",
+        "error": "Error state (red border)",
+        "disabled": "Disabled state",
+        "placeholder": "Placeholder text"
+      },
+      "fieldProps": {
+        "error": "Error state. Auto-propagates to Field.Error and Textarea",
+        "disabled": "Disabled state. Auto-propagates to Field.Label and Textarea",
+        "gap": "Gap between child elements (0 / 4 / 6 / 8 / 12px)"
+      },
+      "labelProps": { "required": "Show required mark (*) at end of label" },
+      "variants": {
+        "default": { "desc": "Standard border — for general form inputs", "usage": "General forms" },
+        "filled": { "desc": "Filled background — for high-emphasis inputs", "usage": "In-card forms" }
+      },
+      "sizesDesc": "Textarea height is controlled by the rows attribute. The size property only adjusts padding and font size.",
+      "sizes": {
+        "padding": "Padding",
+        "font": "Font",
+        "usage": "Usage",
+        "notes": {
+          "compact": "For tight spaces",
+          "standardRecommended": "Standard (Recommended)"
+        }
+      },
+      "resize": {
+        "none": "No resize — for fixed-height layouts",
+        "vertical": "Vertical only — the most common option",
+        "horizontal": "Horizontal only — for special cases",
+        "both": "Both directions — when full flexibility is needed"
+      },
+      "demo": {
+        "normal": "Normal",
+        "comment": "Comment",
+        "commentPlaceholder": "Enter a comment...",
+        "error": "Error",
+        "feedback": "Feedback",
+        "feedbackPlaceholder": "Enter feedback...",
+        "required": "This field is required",
+        "disabled": "Disabled",
+        "notes": "Notes",
+        "cannotEdit": "Cannot edit"
+      },
+      "focusStatesTitle": "Focus States",
+      "focusStatesDesc": "focusRing: false (default): Border change only on click, focus ring auto-shown on keyboard Tab. focusRing: true: Always show focus ring.",
+      "features": {
+        "charCount": "Character count",
+        "charCountDesc": "Validation",
+        "autoSize": "Auto size",
+        "autoSizeDesc": "Expands with content",
+        "formSubmit": "Form submit",
+        "formSubmitDesc": "Submit with Enter"
+      },
+      "anatomy": {
+        "field": "Field wrapper",
+        "label": "Label",
+        "textarea": "Text input area",
+        "charCount": "Character count (optional)"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Set initial height with appropriate rows attribute",
+        "do2": "Show counter when character limit exists",
+        "do3": "Set resize=\"none\" when resize is not needed",
+        "do4": "Show input examples in placeholder",
+        "dont": "Avoid",
+        "dont1": "Don't use Textarea for short text (use Input)",
+        "dont2": "Don't set extremely small rows",
+        "dont3": "Don't truncate without disclosing character limits upfront",
+        "dont4": "Don't use without a label"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "focusMove": "Move focus",
+        "newLine": "New line",
+        "blur": "Remove focus",
+        "wcag": "WCAG 2.2 Compliance",
+        "focusIndicator": "Focus indicator",
+        "ariaInvalid": "aria-invalid (on error)",
+        "ariaDescribedby": "aria-describedby support",
+        "contrast": "Contrast ratio 4.5:1 or higher"
+      },
+      "related": {
+        "input": "Single-line text input",
+        "button": "Form submit button",
+        "select": "Selection list input"
+      },
+      "code": { "tailwindDesc": "How to apply styles for your environment" },
+      "tips": {
+        "title": "Tips for using Textarea effectively",
+        "resize": "Control resize direction with the resize prop. Default is vertical. Set to none for fixed size.",
+        "filled": "Same filled variant as Input. Borderless background style.",
+        "rows": "Set initial rows with the rows prop. Combine with resize=\"none\" for fixed height.",
+        "error": "The error prop shows error state. Can be integrated with the Field component."
+      }
+    },
+    "select": {
+      "description": "Select is a form control for choosing a single value from a dropdown list. It features an accessible implementation with keyboard navigation and screen reader support, and also supports native form submission.",
+      "rootProps": {
+        "size": "Trigger height and font size. Auto-propagates to Content",
+        "radius": "Border radius size (6px). Applied directly to Trigger, auto-mapped to Content",
+        "value": "Selected value for controlled mode",
+        "defaultValue": "Initial value for uncontrolled mode",
+        "onValueChange": "Callback when value changes",
+        "name": "Name for form submission",
+        "required": "Mark as required field",
+        "disabled": "Disable the entire select",
+        "open": "Open state for controlled mode",
+        "onOpenChange": "Callback when open state changes"
+      },
+      "triggerProps": {
+        "disabled": "Disable the trigger button",
+        "asChild": "Render child element as trigger"
+      },
+      "contentProps": {
+        "position": "Dropdown positioning method",
+        "flush": "Display items full-width (no padding)",
+        "side": "Dropdown display direction (popper only)",
+        "sideOffset": "Distance from trigger (px)"
+      },
+      "itemProps": {
+        "value": "Item value (required)",
+        "disabled": "Make item unselectable",
+        "textValue": "Text value for typeahead"
+      },
+      "variants": {
+        "basic": { "desc": "The simplest select — a single-choice list", "usage": "Category selection" },
+        "grouped": { "desc": "Organize related items with groups and labels.", "usage": "Country, region" },
+        "placeholder": { "desc": "Show placeholder when nothing is selected.", "usage": "Initial guidance" },
+        "flush": { "desc": "Full-width items — no border radius, edge-to-edge", "usage": "Dense lists" },
+        "disabledItems": { "desc": "Make some items unselectable.", "usage": "Unavailable options" }
+      },
+      "sizes": {
+        "height": "Height",
+        "font": "Font",
+        "preview": "Preview"
+      },
+      "structure": {
+        "trigger": "Trigger button",
+        "value": "Selected value display",
+        "content": "Dropdown panel (flush support)",
+        "item": "Selection item",
+        "group": "Item group",
+        "label": "Group label",
+        "separator": "Divider"
+      },
+      "recipes": {
+        "grouped": "Classify items by group",
+        "form": "Form submission support"
+      },
+      "customization": {
+        "desc": "to customize the style of triggers and content.",
+        "width": "Change width",
+        "fullWidth": "Full-width trigger",
+        "tip": "Each sub-component accepts className, allowing you to override styles with Tailwind classes."
+      },
+      "anatomy": {
+        "root": "Component root",
+        "trigger": "Button to open select",
+        "value": "Selected value display",
+        "chevron": "Open/close icon",
+        "content": "Dropdown panel",
+        "item": "Selection item",
+        "separator": "Divider"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Use when there are 5 or more options",
+        "do2": "Use Group to classify when there are many options",
+        "do3": "Guide selection with placeholder",
+        "do4": "Set name and required in forms",
+        "dont": "Avoid",
+        "dont1": "Consider Radio for 3 or fewer options",
+        "dont2": "Use Dropdown for executing actions",
+        "dont3": "Consider alternative UI for multi-select needs",
+        "dont4": "Don't leave both placeholder and initial value empty"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "enterDesc": "Open/close select / select item",
+        "spaceDesc": "Open/close select / select item",
+        "arrowDesc": "Navigate between items",
+        "homeDesc": "Move to first item",
+        "endDesc": "Move to last item",
+        "escDesc": "Close select",
+        "aria": "ARIA Attributes",
+        "listbox": "Auto-applied to Content",
+        "option": "Auto-applied to Item",
+        "expanded": "Trigger state management",
+        "typeahead": "Character search via typeahead"
+      },
+      "vsDropdown": {
+        "desc": "They look similar but serve different purposes. Choose the right component for your use case.",
+        "feature": "Feature",
+        "purpose": { "label": "Purpose", "select": "Value selection", "dropdown": "Action execution" },
+        "form": { "label": "Form integration", "select": "name / value submission", "dropdown": "None" },
+        "afterSelect": { "label": "After selection", "select": "Value reflected in trigger", "dropdown": "Menu just closes" },
+        "itemTypes": { "label": "Item types", "select": "Single selection items", "dropdown": "Item, Checkbox, Radio, Sub" },
+        "useCase": { "label": "Use cases", "select": "Country, category, sort order", "dropdown": "Context menu, account actions" },
+        "guide": "Select is appropriate when users choose a value to submit in a form. When clicking triggers an action (edit, delete, share, etc.), use",
+        "guideLink": "Dropdown",
+        "guideSuffix": "instead.",
+        "guideLabel": "Selection guide:"
+      },
+      "related": {
+        "input": "Text input form control",
+        "dropdown": "Menu for executing actions",
+        "radio": "Choose one from a few options"
+      },
+      "code": {
+        "tailwindDesc": "How to apply styles for your environment"
+      },
+      "tips": {
+        "title": "Tips for using Select effectively",
+        "size": "Set size on the Select root. It auto-propagates to both Trigger and Content, and Content item sizes are auto-mapped to 3 levels (sm/md/lg). Same 5-level scale as Input, so heights align in forms.",
+        "placeholder": "Use Select.Value's placeholder to show guidance text when nothing is selected. Once a value is selected, the placeholder is replaced with the selected value.",
+        "position": "\"item-aligned\" overlays the selected item on the trigger. \"popper\" displays below the trigger like Dropdown.",
+        "nameRequired": "Setting name and required on the Select root auto-generates a hidden input, sending the value through normal form submission.",
+        "radius": "Set radius on the Select root. Applied directly to Trigger and auto-mapped to Content (none–default→md, lg→lg, xl–full→xl). Item border radius is auto-calculated from Content proportionally. Same 9-level scale as Input.",
+        "flush": "Setting flush on Select.Content displays items full-width to Content edges. Content horizontal padding is removed and item padding is auto-adjusted. Same API as Dropdown.",
+        "controlled": "Use defaultValue for uncontrolled mode, value + onValueChange for controlled mode."
+      }
+    },
+    "dropdown": {
+      "description": "Dropdown is a floating menu that appears when a trigger element is clicked. It supports action lists, checkboxes, radio selection, and submenus.",
+      "contentProps": {
+        "size": "Menu item size",
+        "radius": "Content and item border radius (Item auto-calculated)",
+        "flush": "Display items full-width (no inner padding)",
+        "side": "Menu display direction",
+        "sideOffset": "Distance from trigger (px)",
+        "align": "Alignment relative to trigger",
+        "alignOffset": "Alignment offset (px)",
+        "loop": "Keyboard navigation loop"
+      },
+      "itemProps": {
+        "disabled": "Disabled state",
+        "onSelect": "Callback on selection",
+        "inset": "Add left padding (for icon alignment)"
+      },
+      "checkboxItemProps": {
+        "checked": "Checked state (controlled mode)",
+        "onCheckedChange": "Callback on check change",
+        "disabled": "Disabled state"
+      },
+      "radioItemProps": {
+        "value": "Radio value (required)",
+        "disabled": "Disabled state"
+      },
+      "variants": {
+        "basic": { "desc": "The simplest menu — a flat list of actions", "usage": "Context menu" },
+        "group": { "desc": "Organize related actions with labels and groups.", "usage": "Account menu" },
+        "checkbox": { "desc": "Toggle multiple items ON/OFF with checkboxes.", "usage": "Display settings, filters" },
+        "radio": { "desc": "Exclusive single selection with radio.", "usage": "Density, theme" },
+        "submenu": { "desc": "Hierarchical actions with nested submenus.", "usage": "Share, export" }
+      },
+      "sizes": {
+        "padding": "Padding",
+        "itemFont": "Item Font",
+        "preview": "Preview"
+      },
+      "structure": {
+        "trigger": "Trigger element",
+        "content": "Menu panel (radius, flush, size)",
+        "item": "Menu item (inset support)",
+        "checkboxItem": "Checkbox item",
+        "radioGroup": "Radio selection group",
+        "radioItem": "Radio item",
+        "label": "Group label",
+        "separator": "Divider",
+        "group": "Item group",
+        "sub": "Submenu root",
+        "subTrigger": "Submenu trigger",
+        "subContent": "Submenu panel",
+        "shortcut": "Shortcut hint"
+      },
+      "recipes": {
+        "shortcuts": "With keyboard shortcuts",
+        "complex": "Group + Checkbox + Submenu"
+      },
+      "customization": {
+        "desc": " to customize the style of content and items.",
+        "width": "Change width",
+        "danger": "Highlight dangerous actions",
+        "tip": "Each sub-component accepts className, allowing you to override styles with Tailwind classes."
+      },
+      "anatomy": {
+        "root": "Component root",
+        "trigger": "Button to open menu",
+        "content": "Floating panel",
+        "item": "Menu item",
+        "icon": "Optional icon",
+        "separator": "Divider"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Use when there are 3 or more actions",
+        "do2": "Group related actions together",
+        "do3": "Visually distinguish destructive actions",
+        "do4": "Show shortcut keys when available",
+        "dont": "Avoid",
+        "dont1": "Don't exceed 10 menu items",
+        "dont2": "Use Nav for navigation purposes",
+        "dont3": "Don't nest submenus more than 2 levels",
+        "dont4": "Avoid long menus on mobile"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "enterDesc": "Open/close menu / select item",
+        "spaceDesc": "Open/close menu / select item",
+        "arrowDesc": "Navigate between items",
+        "rightDesc": "Open submenu",
+        "leftDesc": "Close submenu",
+        "escDesc": "Close menu",
+        "aria": "ARIA Attributes",
+        "menu": "Auto-applied to Content",
+        "menuitem": "Auto-applied to Item",
+        "expanded": "Trigger state management",
+        "focusIndicator": "Focus indicator"
+      },
+      "vsSelect": {
+        "desc": "They look similar but serve different purposes. Choose the right component for your use case.",
+        "feature": "Feature",
+        "purpose": { "label": "Purpose", "dropdown": "Action execution", "select": "Value selection" },
+        "form": { "label": "Form integration", "dropdown": "None", "select": "name / value submission" },
+        "afterSelect": { "label": "After selection", "dropdown": "Menu just closes", "select": "Value reflected in trigger" },
+        "itemTypes": { "label": "Item types", "dropdown": "Item, Checkbox, Radio, Sub", "select": "Single selection items" },
+        "useCase": { "label": "Use cases", "dropdown": "Context menu, account actions", "select": "Country, category, sort order" },
+        "guide": "When users choose a value to submit in a form, use",
+        "guideLink": "Select",
+        "guideSuffix": "instead. Dropdown is appropriate when clicking triggers an action (edit, delete, share, etc.).",
+        "guideLabel": "Selection guide:"
+      },
+      "related": {
+        "button": "Button used as trigger",
+        "iconButton": "Icon-only trigger button",
+        "select": "Single selection for forms",
+        "avatar": "Profile menu via avatar click"
+      },
+      "code": {
+        "tailwindDesc": "How to apply styles for your environment"
+      },
+      "tips": {
+        "title": "Tips for using Dropdown effectively",
+        "asChild": "Trigger renders as a Button by default. Use asChild to make any element the trigger.",
+        "sideAlign": "Control menu position. Default is side=\"bottom\" and align=\"center\". Position auto-adjusts at screen edges.",
+        "onSelect": "Each Item's onSelect is called on selection and automatically closes the menu. Use event.preventDefault() to prevent closing.",
+        "radius": "Choose Content border radius from \"md\" (default), \"lg\", or \"xl\". Item border radius is auto-calculated from Content proportionally (67–75%).",
+        "inset": "Adding inset to MenuItem, Label, or SubTrigger adds left padding matching CheckboxItem/RadioItem indicator area, aligning items vertically."
+      }
+    },
+    "checkbox": {
+      "description": "Checkbox is a form control for toggling options on and off. Use it standalone or group multiple checkboxes together.",
+      "props": {
+        "checked": "Checked state for controlled mode",
+        "defaultChecked": "Initial checked state for uncontrolled mode",
+        "onCheckedChange": "Callback on state change",
+        "size": "Checkbox size (14/16/20px)",
+        "radius": "Border radius (none: 0px / sm: 2px / md: 4px)",
+        "weight": "Border thickness (thin: 1px / bold: 2px)",
+        "color": "Fill color for checked/indeterminate state",
+        "label": "Checkbox label text",
+        "disabled": "Disabled state",
+        "required": "Required field",
+        "name": "Form name attribute",
+        "value": "Form value attribute"
+      },
+      "sizes": {
+        "box": "Box",
+        "icon": "Icon",
+        "font": "Font",
+        "click": "Click",
+        "clickArea": "Click Area",
+        "preview": "Preview"
+      },
+      "features": {
+        "withFieldDesc": "Combine with the Field component to automatically inherit disabled state."
+      },
+      "recipes": {
+        "controlled": "Manage state externally",
+        "indeterminate": "Select all / partial"
+      },
+      "anatomy": {
+        "root": "Flex container",
+        "box": "Checkbox body",
+        "checkmark": "Shown when checked",
+        "label": "Option text"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Use with clear labels",
+        "do2": "Use for multi-select scenarios",
+        "do3": "Use indeterminate for group select-all",
+        "do4": "Combine with Field for required items",
+        "dont": "Avoid",
+        "dont1": "Don't use Checkbox for exclusive selection (use Radio)",
+        "dont2": "Use Switch for immediate-effect toggles",
+        "dont3": "Don't use without a label",
+        "dont4": "Consider Select for too many options"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "spaceDesc": "Toggle check",
+        "tabDesc": "Move focus",
+        "aria": "ARIA Attributes",
+        "checkbox": "Auto-applied",
+        "ariaChecked": "true/false/mixed",
+        "focusIndicator": "Focus indicator",
+        "labelClick": "expands click area"
+      },
+      "related": {
+        "radio": "Exclusive selection (pick one)",
+        "switch": "Immediate-effect on/off toggle",
+        "toggle": "Standalone on/off toggle",
+        "table": "Table row selection checkbox"
+      },
+      "code": { "tailwindDesc": "How to apply styles for your environment" },
+      "tips": {
+        "title": "Tips for using Checkbox effectively",
+        "label": "The label prop automatically associates the label. Recommended for accessibility.",
+        "size": "3 sizes: sm(14px)/default(16px)/lg(20px). Label, icon, and gap auto-adjust.",
+        "radius": "3 options: none(0px)/sm(2px)/md(4px). Default is sm.",
+        "weight": "Change border thickness with thin(1px)/bold(2px). Default is bold.",
+        "indeterminate": "For parent-child checkbox patterns, use Radix's indeterminate state."
+      }
+    },
+    "radio": {
+      "description": "Radio is a form control for selecting exactly one option from multiple choices. Group with RadioGroup to provide exclusive selection.",
+      "groupProps": {
+        "value": "Selected value for controlled mode",
+        "defaultValue": "Initial value for uncontrolled mode",
+        "onValueChange": "Callback on selection change",
+        "size": "Radio button size (14/16/20px)",
+        "color": "Border and dot color when checked",
+        "weight": "Border thickness (thin: 1px / bold: 2px)",
+        "orientation": "Item layout direction",
+        "disabled": "Disabled state",
+        "required": "Required field",
+        "name": "Form name attribute",
+        "loop": "Keyboard navigation loop"
+      },
+      "itemProps": {
+        "value": "This item's value (required)",
+        "label": "Radio button label text",
+        "disabled": "Individual disabled state"
+      },
+      "sizes": {
+        "circle": "Circle",
+        "dot": "Dot",
+        "font": "Font",
+        "click": "Click",
+        "clickArea": "Click Area",
+        "preview": "Preview"
+      },
+      "structure": { "item": "Radio item (label prop support)" },
+      "features": { "withFieldDesc": "Combine with the Field component to automatically inherit disabled state." },
+      "recipes": {
+        "controlled": "Manage state externally",
+        "itemDisabled": "Disable specific options only"
+      },
+      "anatomy": {
+        "root": "RadioGroup container",
+        "circle": "Outer ring",
+        "innerDot": "Shown when selected",
+        "label": "Option text"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Use for exclusive selection (pick one only)",
+        "do2": "Use for 2–5 options",
+        "do3": "Set a default value",
+        "do4": "Add clear labels to each item",
+        "dont": "Avoid",
+        "dont1": "Use Checkbox for multi-select",
+        "dont2": "Consider Select for too many options",
+        "dont3": "Use Segmented for tab-like switching",
+        "dont4": "Don't use without labels"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "arrowVDesc": "Move to previous/next item",
+        "arrowHDesc": "Move to previous/next item",
+        "spaceDesc": "Select",
+        "tabDesc": "Move between groups",
+        "aria": "ARIA Attributes",
+        "radiogroup": "Auto-applied",
+        "ariaChecked": "Auto-managed",
+        "focusIndicator": "Focus indicator",
+        "rovingFocus": "Roving focus support"
+      },
+      "related": {
+        "checkbox": "On/off toggle for forms",
+        "segmented": "Pill-style exclusive selection",
+        "toggleGroup": "Group multiple Toggles"
+      },
+      "code": { "tailwindDesc": "How to apply styles for your environment" },
+      "tips": {
+        "title": "Tips for using RadioGroup effectively",
+        "orientation": "Use orientation=\"horizontal\" to switch to horizontal layout. Choose based on your form layout.",
+        "label": "Each RadioGroup.Item gets an automatically associated label via the label prop.",
+        "size": "3 sizes: sm(14px)/default(16px)/lg(20px). Dot and label sizes auto-adjust.",
+        "weight": "Change border thickness with thin(1px)/bold(2px). Default is bold."
+      }
+    },
+    "switch": {
+      "description": "Switch is a toggle control for instantly switching settings on and off. Use when changes take immediate effect.",
+      "props": {
+        "checked": "On/off state for controlled mode",
+        "defaultChecked": "Initial state for uncontrolled mode",
+        "onCheckedChange": "Callback on state change",
+        "size": "Switch size",
+        "label": "Switch label text",
+        "labelPosition": "Label placement position",
+        "startLabel": "Left-side label (sides layout)",
+        "endLabel": "Right-side label (sides layout)",
+        "color": "Track and icon color when checked",
+        "checkedIcon": "Icon displayed in thumb when checked",
+        "uncheckedIcon": "Icon displayed in thumb when unchecked",
+        "disabled": "Disabled state",
+        "required": "Required field",
+        "name": "Form name attribute",
+        "value": "Form value attribute. Radix default: \"on\""
+      },
+      "sizes": {
+        "track": "Track",
+        "thumb": "Thumb",
+        "travel": "Travel",
+        "font": "Font",
+        "preview": "Preview"
+      },
+      "features": {
+        "labelDesc": "Use the label prop to attach a label to the switch.",
+        "labelPositionDesc": "Change label placement with labelPosition prop. Default is end (right side).",
+        "iconsDesc": "Display icons inside the thumb with checkedIcon / uncheckedIcon props. Auto-hidden at sm size."
+      },
+      "anatomy": {
+        "track": "Switch outer track",
+        "thumb": "Sliding knob",
+        "label": "Text label (optional)"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Use for settings with immediate effect",
+        "do2": "Use with clear labels",
+        "do3": "Use for on/off toggles in settings",
+        "do4": "Choose default state carefully",
+        "dont": "Avoid",
+        "dont1": "Use Checkbox when form submission is needed",
+        "dont2": "Use Checkbox for multi-select scenarios",
+        "dont3": "Don't use without a label",
+        "dont4": "Avoid negative labels (use \"Enable\" not \"Disable\")"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "spaceDesc": "Toggle on/off",
+        "tabDesc": "Move focus",
+        "aria": "ARIA Attributes",
+        "roleSwitch": "Auto-applied",
+        "ariaChecked": "Auto-managed",
+        "focusIndicator": "Focus indicator",
+        "labelClick": "expands click area"
+      },
+      "related": {
+        "toggle": "Standalone on/off toggle",
+        "checkbox": "On/off toggle for forms",
+        "radio": "Exclusive selection control"
+      },
+      "code": { "tailwindDesc": "How to apply styles for your environment" },
+      "tips": {
+        "title": "Tips for using Switch effectively",
+        "label": "The label prop auto-associates the label. Recommended for accessibility.",
+        "size": "Track and thumb sizes managed via CSS variables. 3 sizes: sm/default/lg. Label font auto-adjusts: sm(12px)/default(14px)/lg(16px).",
+        "labelPosition": "4 positions: start/end/top/bottom. For settings lists, start (label left, switch right) is common.",
+        "sideLabels": "Place labels on both sides of the switch. Useful for Off/On toggle displays.",
+        "color": "Set track background and icon color together when checked. 5 colors: default(dark)/primary/success/warning/error.",
+        "icons": "Display icons in thumb. Auto-hidden at sm size (12px thumb). Icon sizes: default(10px), lg(14px).",
+        "controlled": "Use defaultChecked for uncontrolled mode, checked + onCheckedChange for controlled mode."
+      }
+    },
+    "toggle": {
+      "description": "Toggle is a button that switches between on/off states. Use standalone or group with ToggleGroup.",
+      "props": {
+        "pressed": "On/off state for controlled mode",
+        "defaultPressed": "Initial state for uncontrolled mode",
+        "onPressedChange": "Callback on state change",
+        "variant": "Visual style. ghost/outline-ghost have no background change (icon color only)",
+        "size": "Toggle size (28/32/36/40/48px)",
+        "radius": "Border radius (6px)",
+        "fontWeight": "Font weight. normal=400, semibold=600",
+        "iconOnly": "Icon-only mode. Square layout with IconButton sizing rules",
+        "pressEffect": "Press effect (active:scale-pressed). Defaults to true. Set false to disable",
+        "disabled": "Disabled state",
+        "asChild": "Render as Slot"
+      },
+      "variants": {
+        "default": "Background changes on press — ideal for toolbars and compact UI",
+        "outline": "Bordered style — state is clearly visible",
+        "ghost": "No background change — state shown through icon color only, ideal for like buttons",
+        "outlineGhost": "Border + icon-only state — clear boundary with minimal visual change"
+      },
+      "sizes": {
+        "size": "Size",
+        "icon": "Icon",
+        "preview": "Preview",
+        "height": "Height",
+        "hPadding": "H Padding",
+        "font": "Font"
+      },
+      "anatomy": {
+        "root": "Toggle button body",
+        "icon": "Optional",
+        "label": "Optional"
+      },
+      "bestPractices": {
+        "do": "Recommended",
+        "do1": "Visually indicate clear on/off states",
+        "do2": "Describe purpose with aria-label",
+        "do3": "Use for immediate-effect actions",
+        "do4": "Group multiple toggles with ToggleGroup",
+        "dont": "Avoid",
+        "dont1": "Don't use for form items that need submission",
+        "dont2": "Don't use icons with unclear state indication",
+        "dont3": "Don't use without aria-label",
+        "dont4": "Use Segmented for exclusive selection"
+      },
+      "a11y": {
+        "keyboard": "Keyboard",
+        "spaceDesc": "Toggle",
+        "enterDesc": "Toggle",
+        "aria": "ARIA Attributes",
+        "ariaPressed": "Auto-applied",
+        "dataState": "on/off",
+        "focusIndicator": "Focus indicator",
+        "ariaLabel": "Recommended"
+      },
+      "related": {
+        "toggleGroup": "Group multiple Toggles",
+        "button": "Single-action button",
+        "segmented": "Pill-style exclusive selection"
+      },
+      "code": { "tailwindDesc": "How to apply styles for your environment" },
+      "tips": {
+        "title": "Tips for using Toggle effectively",
+        "controlled": "Use pressed + onPressedChange for controlled mode. Use defaultPressed for uncontrolled.",
+        "variant": "default changes background, outline adds border, ghost changes text color only. Choose based on use case.",
+        "iconOnly": "Icon-only uses square layout. Always specify aria-label.",
+        "dataState": "For CSS customization, use data-[state=on] selector to change on-state styles."
+      }
+    },
+    "toggleGroup": {
+      "description": "ToggleGroup groups multiple Toggles together to manage on/off state. Supports both single and multiple selection modes.",
+      "groupProps": {
+        "type": "Single or multiple selection mode",
+        "value": "Selected value in controlled mode",
+        "defaultValue": "Initial selected value in uncontrolled mode",
+        "onValueChange": "Callback fired on selection change",
+        "variant": "Visual style of items",
+        "size": "Item size (28/32/36/40/48px)",
+        "radius": "Border radius size (6px)",
+        "fontWeight": "Font weight applied to all items. Can be overridden per item via fontWeight",
+        "orientation": "Layout direction",
+        "disabled": "Disables all items"
+      },
+      "itemProps": {
+        "value": "Unique value for this item",
+        "disabled": "Disables this individual item",
+        "variant": "Overrides variant for this item",
+        "size": "Overrides size for this item",
+        "radius": "Overrides radius for this item",
+        "fontWeight": "Overrides font weight for this item"
+      },
+      "types": {
+        "singleDesc": "Only one item can be selected at a time. Use for mutually exclusive choices like text alignment.",
+        "multipleDesc": "Multiple items can be selected simultaneously. Use for options that can be applied at the same time, like text formatting."
+      },
+      "variants": {
+        "defaultDesc": "No border — best for toolbars and compact UIs",
+        "outlineDesc": "Bordered and attached — use when grouping needs to be visually clear"
+      },
+      "sizes": {
+        "height": "Height",
+        "hPadding": "H. Padding",
+        "icon": "Icon",
+        "font": "Font",
+        "preview": "Preview"
+      },
+      "features": {
+        "useCases": {
+          "gridListLabel": "Grid / List view toggle",
+          "gridListDesc": "Finder, Dropbox, e-commerce product listings",
+          "rowColLabel": "Row / Column layout",
+          "rowColDesc": "Figma, Framer, Flexbox direction toggle",
+          "cardDetailDesc": "Gmail, Notion, task management apps"
+        },
+        "states": {
+          "defaultDesc": "Normal state. Selected item is highlighted.",
+          "disabledAllDesc": "All items are disabled.",
+          "disabledItem": "Individual Disabled",
+          "disabledItemDesc": "Only specific items are disabled.",
+          "multipleSelect": "Multiple Selection",
+          "multipleSelectDesc": "Multiple items can be selected simultaneously."
+        },
+        "orientation": {
+          "horizontal": "Horizontal (Default)"
+        }
+      },
+      "customization": {
+        "descBefore": "All items use default values based on the design system spacing rules. Use the group's ",
+        "descAfter": " to customize all items at once.",
+        "paddingTitle": "Change horizontal padding",
+        "iconWidthTitle": "Change Icon Only width",
+        "tip": "Default values are designed to maintain component consistency. Use customization only when required for your UI implementation."
+      },
+      "componentStructure": {
+        "itemDesc": "Toggle item"
+      },
+      "anatomy": {
+        "rootDesc": "Group container",
+        "itemDesc": "Individual toggle button",
+        "activeDesc": "Currently selected item"
+      },
+      "bestPractices": {
+        "doTitle": "Do",
+        "do1": "Use type=\"single\" for single selection",
+        "do2": "Use type=\"multiple\" for multiple selection",
+        "do3": "Set aria-label on each item",
+        "do4": "Group related options together",
+        "dontTitle": "Don't",
+        "dont1": "Don't include more than 5 items",
+        "dont2": "Don't mix unrelated options",
+        "dont3": "Don't use for navigation (→ use Tabs)",
+        "dont4": "Don't use instead of Segmented for single selection"
+      },
+      "a11y": {
+        "keyboardTitle": "Keyboard",
+        "tabDesc": "Move focus to the group",
+        "spaceDesc": "Toggle item on/off",
+        "enterDesc": "Toggle item on/off",
+        "arrowDesc": "Move between items",
+        "ariaTitle": "ARIA",
+        "ariaGroup": "Auto-applied",
+        "ariaPressed": "Auto-applied",
+        "ariaOrientation": "Auto-applied",
+        "ariaLabel": "Recommended"
+      },
+      "vsButtonGroup": {
+        "intro": "They look similar but differ in purpose and behavior. Choose the appropriate component.",
+        "feature": "Feature",
+        "row1Label": "Purpose",
+        "row1a": "Manage on/off state",
+        "row1b": "Group action buttons",
+        "row2Label": "State management",
+        "row2a": "Automatic (Radix-managed)",
+        "row2b": "Manual (selected prop)",
+        "row3Label": "Selection mode",
+        "row3a": "single / multiple",
+        "row3b": "Manual control only",
+        "row4Label": "Value management",
+        "row4a": "value / onValueChange",
+        "row4b": "None",
+        "row5Label": "Use case",
+        "row5a": "Text alignment, formatting",
+        "row5b": "Pagination, toolbars",
+        "tip": "Use ToggleGroup when you need to retain state (selected/unselected), and ButtonGroup when you want to trigger an action on click."
+      },
+      "related": {
+        "toggleDesc": "Standalone on/off toggle",
+        "segmentedDesc": "Pill-style exclusive selection control",
+        "buttonGroupDesc": "Group of action buttons"
+      },
+      "tailwindDesc": "How to apply styles for your environment",
+      "tips": {
+        "intro": "Tips for using ToggleGroup effectively",
+        "type": "`type=\"single\"` for single selection, `type=\"multiple\"` for multiple selection.",
+        "attached": "Items are automatically joined. Horizontally on left/right, vertically on top/bottom.",
+        "variant": "Two variants: `default` and `outline`. Unified across the entire group.",
+        "orientation": "`orientation=\"vertical\"` switches to vertical layout. Great for sidebar navigation."
+      }
+    },
+    "slider": {
+      "description": "Slider is an input control for selecting a value within a specified range. Supports both single value selection and range selection.",
+      "props": {
+        "value": "Value in controlled mode (array)",
+        "defaultValue": "Initial value in uncontrolled mode (array)",
+        "onValueChange": "Callback when value changes (fires during drag)",
+        "onValueCommit": "Callback when drag is complete",
+        "color": "Color of the range and thumb",
+        "size": "Slider size",
+        "min": "Minimum value",
+        "max": "Maximum value",
+        "step": "Step value",
+        "minStepsBetweenThumbs": "Minimum steps between thumbs in range mode",
+        "showTooltip": "Tooltip display mode. auto shows on hover/drag",
+        "formatLabel": "Format function for tooltip value",
+        "startContent": "Content displayed on the left side of the slider (icon, label, etc.)",
+        "endContent": "Content displayed on the right side of the slider",
+        "disabled": "Disabled state",
+        "orientation": "Layout direction",
+        "inverted": "Invert the value direction",
+        "name": "Form name attribute"
+      },
+      "sizes": {
+        "track": "Track",
+        "thumb": "Thumb",
+        "trackHeight": "Track Height",
+        "preview": "Preview"
+      },
+      "features": {
+        "rangeDesc": "Pass two values to defaultValue to use as a range slider.",
+        "withValueDesc": "Pattern for displaying the value in controlled mode."
+      },
+      "customization": {
+        "desc": "Pass a ReactNode to startContent / endContent to freely customize styles.",
+        "withIconTitle": "With Icon",
+        "styledLabelTitle": "Styled Labels",
+        "iconTooltipTitle": "Icon + Tooltip",
+        "tip": "startContent / endContent accept any ReactNode — strings, icons, or custom components. Font size auto-adjusts to match the Slider size."
+      },
+      "anatomy": {
+        "track": "Full range of the slider",
+        "range": "Selected value range",
+        "thumb": "Draggable handle"
+      },
+      "bestPractices": {
+        "doTitle": "Do",
+        "do": {
+          "0": "Display the current value nearby",
+          "1": "Set an appropriate step value",
+          "2": "Use range mode for range selection",
+          "3": "Clearly define the min/max range"
+        },
+        "dontTitle": "Don't",
+        "dont": {
+          "0": "Use Input instead for precise value entry",
+          "1": "Avoid extremely small step values",
+          "2": "Don't use without showing the current value",
+          "3": "Avoid sliders that are too narrow on mobile"
+        }
+      },
+      "a11y": {
+        "keyboard": "Keyboard Navigation",
+        "leftRight": "Increase/decrease by 1 step",
+        "upDown": "Increase/decrease by 1 step",
+        "home": "Move to minimum value",
+        "end": "Move to maximum value",
+        "aria": "ARIA Attributes",
+        "ariaSlider": "auto-applied",
+        "ariaValue": "auto-managed",
+        "ariaFocus": "Focus indicator",
+        "ariaTouch": "Touch support"
+      },
+      "related": {
+        "input": "Precise value entry",
+        "switch": "On/off toggle",
+        "radio": "For selecting discrete values"
+      },
+      "tailwindDesc": "Style application methods for your environment",
+      "tipsDesc": "Tips for using Slider effectively",
+      "tips": {
+        "size": "Thumb size is managed via CSS variables. Track thickness changes with h-1/h-1.5/h-2.",
+        "step": "Use the step prop to set the value increment. Combine with min/max to control the range.",
+        "showTooltip": "\"auto\" shows on hover/drag, \"always\" shows at all times. Use formatLabel to customize the display format.",
+        "defaultValue": "Use defaultValue for uncontrolled mode, and value + onValueChange for controlled mode."
+      }
+    },
+    "segmented": {
+      "description": "Segmented is a pill-shaped control for exclusive single-selection. Ideal for filter and view switching.",
+      "props": {
+        "value": "Selected value in controlled mode",
+        "defaultValue": "Initial selected value in uncontrolled mode",
+        "onValueChange": "Callback when selection changes",
+        "variant": "Visual style variant (default: iOS-style, outline: bordered, underline: Stripe-style, ghost: Notion-style)",
+        "size": "Segment size (32/36/40/48px)",
+        "radius": "Border radius size (6px)",
+        "fontWeight": "Font weight applied to all items",
+        "disabled": "Disables all items"
+      },
+      "itemProps": {
+        "value": "Unique value for the item",
+        "disabled": "Disables this item individually",
+        "size": "Override size for this item",
+        "radius": "Override radius for this item",
+        "contentType": "Content type (icon: square, icon-text: with gap, text: standard)"
+      },
+      "demo": {
+        "day": "Day",
+        "week": "Week",
+        "month": "Month",
+        "year": "Year",
+        "prev": "Prev",
+        "play": "Play",
+        "all": "All",
+        "active": "Active",
+        "completed": "Done",
+        "day7": "7d",
+        "day30": "30d",
+        "day90": "90d",
+        "table": "Table",
+        "board": "Board",
+        "calendar": "Calendar",
+        "monthly": "Monthly",
+        "yearly": "Yearly",
+        "selected": "Selected",
+        "unselected": "Unselected",
+        "disabledA": "Disabled A",
+        "disabledB": "Disabled B",
+        "enabled": "Enabled",
+        "disabledItem": "Disabled"
+      },
+      "variants": {
+        "defaultDesc": "Muted container with selected item elevated by white background and shadow — iOS/Apple style",
+        "outlineDesc": "Bordered container with selected item on a grey background — clean border style",
+        "underlineDesc": "Selection shown by underline only — minimal tab style, similar to Stripe/GitHub",
+        "ghostDesc": "Transparent container with selected item showing a background — Notion/Figma style"
+      },
+      "sizes": {
+        "height": "Height",
+        "hPadding": "H. Padding",
+        "font": "Font",
+        "preview": "Preview",
+        "iconOnlyTitle": "Icon Only (Square)",
+        "containerHeight": "Container Height",
+        "item": "Item",
+        "itemSize": "Item Size",
+        "icon": "Icon"
+      },
+      "features": {
+        "useCases": {
+          "statusFilterLabel": "Status Filter",
+          "statusFilterDesc": "Notion, Linear, task management apps",
+          "dateFilterLabel": "Date Range Filter",
+          "dateFilterDesc": "Stripe, Google Analytics, dashboards",
+          "viewSwitchLabel": "View Switch",
+          "viewSwitchDesc": "Figma, Notion, project management tools",
+          "billingLabel": "Billing Cycle",
+          "billingDesc": "SaaS pricing pages, subscriptions"
+        },
+        "states": {
+          "defaultDesc": "Selected item is highlighted.",
+          "disabledDesc": "All items disabled.",
+          "partialTitle": "Partial Disabled",
+          "partialDesc": "Only specific items are disabled.",
+          "manyTitle": "Many Items",
+          "manyDesc": "Optimal for 2–5 items."
+        }
+      },
+      "componentStructure": {
+        "itemDesc": "Segment item"
+      },
+      "recipes": {
+        "dashboard": { "prop": "Dashboard", "desc": "Date filter + data binding" },
+        "tasks": { "prop": "Task Manager", "desc": "Filter with count badges" },
+        "pricing": { "prop": "Pricing Plan", "desc": "With discount badge" },
+        "form": { "prop": "Form Toggle", "desc": "Login / Sign up" }
+      },
+      "customization": {
+        "desc": "All items use default values based on the design system spacing rules. Customize all items at once using className on the group.",
+        "paddingTitle": "Change Horizontal Padding",
+        "iconWidthTitle": "Change Icon Only Width",
+        "tip": "Default values are designed to maintain component consistency. Use customization only when required for your UI."
+      },
+      "anatomy": {
+        "root": "Pill-shaped track (container)",
+        "item": "Individual segment (unselected)",
+        "indicator": "Sliding selection background"
+      },
+      "bestPractices": {
+        "doTitle": "Do",
+        "do": {
+          "0": "Use for 2–5 mutually exclusive options",
+          "1": "Use for view switching within the same content area",
+          "2": "Keep labels short and concise (1–2 words)",
+          "3": "Best for filter and sort switching"
+        },
+        "dontTitle": "Don't",
+        "dont": {
+          "0": "Don't use for 6 or more options",
+          "1": "Don't use for page navigation (→ Tabs)",
+          "2": "Don't use when multiple selection is needed (→ ToggleGroup)",
+          "3": "Don't use long label text"
+        }
+      },
+      "a11y": {
+        "keyboard": "Keyboard Navigation",
+        "tab": "Move focus to group",
+        "arrows": "Navigate and select between items",
+        "home": "Move to first item",
+        "end": "Move to last item",
+        "aria": "ARIA Attributes",
+        "ariaRadiogroup": "auto-applied",
+        "ariaRadio": "applied to each item",
+        "ariaChecked": "auto-updated",
+        "ariaFocus": "Focus indicator"
+      },
+      "vsTabs": {
+        "intro": "Similar appearance, but different purpose and structure. Choose the appropriate component.",
+        "feature": {
+          "purpose": "Purpose",
+          "structure": "Structure",
+          "result": "Result",
+          "placement": "Placement"
+        },
+        "segmented": {
+          "purpose": "Value selection (filter, switch)",
+          "structure": "Standalone component",
+          "result": "Data change within same area",
+          "placement": "Anywhere within content"
+        },
+        "tabs": {
+          "purpose": "Content navigation",
+          "structure": "TabList + TabPanel combination",
+          "result": "Panel switching",
+          "placement": "Top of page/section"
+        },
+        "tip": "Use Segmented when changing the view within the same content area. Use Tabs when switching between different content panels."
+      },
+      "related": {
+        "toggleGroup": "Group multiple toggles together",
+        "toggle": "Single on/off toggle",
+        "buttonGroup": "Group of action buttons"
+      },
+      "tailwindDesc": "Style application methods for your environment",
+      "tipsDesc": "Tips for using Segmented effectively",
+      "tips": {
+        "variant": "`default` switches background, `outline` adds a border, `underline` uses underline style, `ghost` has no background. Choose based on use case.",
+        "contentType": "Specifying `contentType` as `icon`/`icon-text`/`text` auto-adjusts padding and icon size.",
+        "fontWeight": "`fontWeight=\"semibold\"` makes the selected state text bold. Default is `normal`.",
+        "controlled": "Use `defaultValue` for uncontrolled mode, and `value` + `onValueChange` for controlled mode."
+      }
+    },
+    "avatar": {
+      "description": "Avatar is a component that visually represents a user or entity. Supports image, initials, and icon fallbacks, with status indicators and group display.",
+      "props": {
+        "size": "Avatar size (24/32/40/48/64/80px)",
+        "shape": "Shape (circle / rounded square)",
+        "status": "Status dot indicator",
+        "src": "Image URL",
+        "alt": "Alternative text for the image",
+        "onLoadingStatusChange": "Callback for loading status changes",
+        "fbSize": "For font size scaling",
+        "name": "Auto-generates initials and color from name. Overrides initials if children are provided",
+        "colorized": "Auto-applies color only (initials manual). name takes precedence if provided",
+        "colorVariant": "Color style: vivid (dark background + white text) / soft (light background + dark text)",
+        "delayMs": "Delay before showing fallback (ms)",
+        "max": "Maximum number shown. Excess displayed as \"+N\"",
+        "groupSize": "Child avatar size (applied to \"+N\" badge)",
+        "groupShape": "Child avatar shape (applied to \"+N\" badge)"
+      },
+      "sizes": {
+        "size": "Size",
+        "font": "Font",
+        "dot": "Dot",
+        "statusDot": "Status Dot",
+        "preview": "Preview"
+      },
+      "features": {
+        "fallbackDesc": "When an image fails to load, initials or an icon are shown as a fallback.",
+        "groupDesc": "Displays multiple avatars stacked together. Use max to limit the number shown."
+      },
+      "structure": {
+        "imageDesc": "Image",
+        "fallbackDesc": "Fallback (supports name and colorized)",
+        "groupDesc": "Group display (supports max)"
+      },
+      "customization": {
+        "desc": "Pass the name prop to auto-generate initials and a color.",
+        "card1Title": "name prop — Auto initials + color",
+        "card3Title": "CJK Support",
+        "card4Title": "Image + Fallback",
+        "withImage": "With image",
+        "withFallback": "Fallback",
+        "tip": "The same name always produces the same color (deterministic hash). Pass children to override auto-generated initials."
+      },
+      "anatomy": {
+        "containerDesc": "Circular container",
+        "contentDesc": "Image or fallback",
+        "statusDesc": "Status dot (optional)"
+      },
+      "bestPractices": {
+        "doTitle": "Do",
+        "dontTitle": "Don't",
+        "do": {
+          "0": "Always provide alt text",
+          "1": "Always pair Avatar.Image with a fallback",
+          "2": "Use consistent sizes within a group",
+          "3": "Use status only where it carries meaning"
+        },
+        "dont": {
+          "0": "Don't use image avatars without alt text",
+          "1": "Don't use Avatar.Image without a fallback",
+          "2": "Don't mix sizes within a group",
+          "3": "Don't use avatars for purely decorative purposes"
+        }
+      },
+      "a11y": {
+        "keyboardTitle": "Keyboard",
+        "tabDesc": "Move focus",
+        "ariaTitle": "ARIA / WCAG",
+        "roleImg": "Auto-applied by Radix",
+        "altText": "Describes image via alt text",
+        "fallbackAlt": "Fallback provides text alternative",
+        "statusDecorative": "Status dot is decorative (supplement with text)"
+      },
+      "related": {
+        "dropdownDesc": "Show a menu on avatar click",
+        "buttonDesc": "Combine buttons with avatars",
+        "tableDesc": "Display avatars in user lists"
+      },
+      "tailwindDesc": "Apply styles for your environment",
+      "tipsDesc": "Tips for using Avatar effectively",
+      "tips": {
+        "0": "Provide avatar images at a small size. 2x resolution (e.g. 160px image for 80px display) is ideal for Retina screens.",
+        "1": "Always use Avatar.Image and Avatar.Fallback together. The fallback is shown when the image fails to load.",
+        "2": "Pass size to Avatar.Fallback as well to auto-scale the font size. Match it to Avatar's size.",
+        "3desc": " auto-generates initials (JD) and a color. Pass children to override the initials.",
+        "4": "Use the max prop on Avatar.Group to limit display count. The rest appear as \"+N\"."
+      }
+    }
+  },
+  "footer": {
+    "product": "Product",
+    "resources": "Resources",
+    "tagline": "Design and code, unified.",
+    "tagline2": "Token-driven UI component library."
+  }
+}

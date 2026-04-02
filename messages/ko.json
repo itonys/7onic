@@ -1,0 +1,1672 @@
+{
+  "nav": {
+    "designTokens": "디자인 토큰",
+    "components": "컴포넌트",
+    "patterns": "패턴",
+    "templates": "템플릿"
+  },
+  "sidebar": {
+    "gettingStarted": "시작하기",
+    "forms": "폼",
+    "dataDisplay": "데이터 표시",
+    "layout": "레이아웃",
+    "overlay": "오버레이",
+    "feedback": "피드백",
+    "navigation": "네비게이션",
+    "aiComponents": "AI 컴포넌트",
+    "charts": "차트",
+    "designTokens": "디자인 토큰",
+    "designGuide": "디자인 가이드"
+  },
+  "common": {
+    "menu": "메뉴",
+    "closeMenu": "메뉴 닫기",
+    "openSidebar": "사이드바 열기",
+    "closeSidebar": "사이드바 닫기",
+    "lightMode": "라이트 모드로 전환",
+    "darkMode": "다크 모드로 전환",
+    "tabs": {
+      "design": "디자인",
+      "code": "코드"
+    },
+    "toc": "목차",
+    "tableHeaders": {
+      "size": "크기",
+      "preview": "미리보기",
+      "gap": "간격",
+      "item": "아이템",
+      "feature": "특징"
+    }
+  },
+  "search": {
+    "placeholder": "컴포넌트, 토큰 검색...",
+    "short": "검색...",
+    "noResults": "결과를 찾을 수 없습니다.",
+    "navigate": "이동",
+    "select": "선택",
+    "items": {
+      "colors": "컬러 팔레트",
+      "typography": "타이포그래피",
+      "spacing": "여백·간격",
+      "shadows": "그림자",
+      "radius": "모서리 둥글기",
+      "border-width": "보더 두께",
+      "breakpoints": "브레이크포인트",
+      "z-index": "레이어 순서",
+      "opacity": "투명도",
+      "icon-sizes": "아이콘 크기",
+      "duration": "애니메이션 시간",
+      "easing": "이징",
+      "scale": "스케일 변환",
+      "animation": "애니메이션",
+      "button": "버튼",
+      "icon-button": "아이콘 버튼",
+      "button-group": "버튼 그룹",
+      "input": "텍스트 입력",
+      "textarea": "텍스트 영역",
+      "select": "셀렉트",
+      "dropdown": "드롭다운",
+      "checkbox": "체크박스",
+      "radio": "라디오",
+      "switch": "스위치",
+      "toggle": "토글",
+      "toggle-group": "토글 그룹",
+      "segmented": "세그먼트",
+      "slider": "슬라이더",
+      "avatar": "아바타",
+      "badge": "뱃지",
+      "card": "카드",
+      "table": "테이블",
+      "tabs": "탭",
+      "accordion": "아코디언",
+      "divider": "구분선",
+      "modal": "모달",
+      "drawer": "드로어",
+      "tooltip": "툴팁",
+      "popover": "팝오버",
+      "alert": "알림",
+      "toast": "토스트 알림",
+      "progress": "진행률 표시",
+      "spinner": "로딩 스피너",
+      "skeleton": "로딩 플레이스홀더",
+      "breadcrumb": "브레드크럼",
+      "pagination": "페이지네이션",
+      "navigation-menu": "네비게이션 메뉴",
+      "line-chart": "라인 차트",
+      "area-chart": "에어리어 차트",
+      "bar-chart": "바 차트",
+      "pie-chart": "파이 차트",
+      "metric-card": "메트릭 카드",
+      "icons": "아이콘",
+      "accessibility": "접근성",
+      "tailwind-versions": "Tailwind v3 / v4"
+    }
+  },
+  "pages": {
+    "components": {
+      "description": "사이즈, 상태, 스타일 모두 설계 완료. 디자인 그대로의 UI를 바로 구현할 수 있습니다.",
+      "stats": {
+        "components": "컴포넌트",
+        "accessible": "접근성",
+        "categories": "카테고리"
+      },
+      "categories": {
+        "form": "인터랙티브 입력 및 조작 컨트롤",
+        "dataDisplay": "데이터 표시 및 정리 컴포넌트",
+        "layout": "콘텐츠를 구조화하는 레이아웃 요소",
+        "overlay": "페이지 위에 겹치는 UI 요소",
+        "feedback": "피드백과 상태 정보 제공",
+        "navigation": "화면 전환과 페이지 내 이동을 돕는 네비게이션",
+        "ai": "AI 탑재 앱과 챗봇용",
+        "charts": "데이터를 차트와 지표로 시각화"
+      },
+      "quickStart": "로 설치 후 컴포넌트를 import하여 바로 시작할 수 있습니다. TypeScript, Tailwind CSS, Radix UI 기반의 접근성 높은 컴포넌트가 준비되어 있습니다."
+    },
+    "install": {
+      "description": "{name} UI 컴포넌트를 프로젝트에 설치하고 사용하는 방법",
+      "tailwindRequired": {
+        "title": "Tailwind 필수:",
+        "body": "Tailwind v3 또는 v4가 필요합니다. 설치 후 아래 Import 설정을 진행해주세요."
+      },
+      "noConfig": "설정 파일 불필요",
+      "individualImport": "개별 임포트",
+      "v4Note": "@source 디렉티브로 컴포넌트 내 Tailwind 클래스를 스캔 대상에 추가합니다. 프로젝트 구조에 맞게 경로를 조정하세요.",
+      "cssPreset": "CSS + 프리셋",
+      "v3Note": "프리셋은 theme.extend를 사용하므로 기존 Tailwind 클래스가 그대로 유지됩니다. v3에서도 시맨틱 컬러의 opacity modifier(bg-primary/50 등)를 지원합니다. RGB 채널 변수를 사용하여 알파값을 적용합니다.",
+      "bodyStyle": "페이지 전체에 디자인 토큰의 배경색, 텍스트색을 적용하려면 body에 클래스를 추가하세요.",
+      "nextjsNote": "클라이언트 컴포넌트로 사용할 경우 파일 상단에 'use client'를 추가하세요.",
+      "fontsTitle": "Fonts Setup Guide",
+      "fontsDesc": "폰트 설치 및 다국어 설정",
+      "fontsNote": "컴포넌트는 토큰의 {code}를 사용합니다. Design Tokens > Installation > Fonts에서 설정하세요.",
+      "usageDesc": "컴포넌트의 임포트 및 사용 방법. Namespace와 Named 두 가지 방식을 지원합니다.",
+      "recommended": "권장",
+      "namespaceNote": "루트 컴포넌트만 임포트하고 서브 컴포넌트는 점 표기법으로 접근합니다.",
+      "compat": "호환",
+      "namedExportNote": "기존 Named Export도 계속 지원됩니다. 기존 코드가 그대로 동작합니다.",
+      "standaloneNote": "Standalone 컴포넌트(Button, Input, Badge 등)는 단독 임포트만으로 충분하며 Namespace가 필요 없습니다.",
+      "package": "패키지",
+      "version": "버전",
+      "required": "필수 (동시 설치)",
+      "contentsDesc": "두 개의 패키지로 구성되어 있습니다. 컴포넌트와 토큰을 별도로 관리할 수 있습니다.",
+      "reactDesc": "UI 컴포넌트 라이브러리 — dist/ 배포",
+      "typeDefs": "TypeScript 타입 정의",
+      "tokensDesc": "디자인 토큰 — CSS 변수, Tailwind 프리셋, JS, CLI",
+      "syncDesc": "→ npx sync-tokens로 전체 파일 자동 생성",
+      "customizeTitle": "디자인 커스터마이즈",
+      "customizeDesc": "토큰을 변경하면 컴포넌트 스타일에 자동 반영"
+    },
+    "theming": {
+      "description": "{name}은 CSS 변수 기반 테마 시스템을 채용. Light / Dark 자동 전환과 브랜드 컬러 커스터마이즈를 지원합니다.",
+      "howItWorksSubtitle": "세 가지 레이어가 디자인의 일관성을 보장합니다.",
+      "tokenChangeNote": "토큰을 한 곳만 변경하면 참조하는 모든 컴포넌트에 자동 반영됩니다.",
+      "darkModeDesc": "테마를 전환하면 모든 컴포넌트가 자동으로 연동됩니다.",
+      "viewCode": "코드 보기",
+      "darkClassNote": "<html>에 dark 클래스를 전환하는 것만으로 모든 CSS 변수가 자동으로 연동됩니다.",
+      "customizingDesc": "프라이머리 컬러를 변경하는 것만으로 모든 컴포넌트에 자동 반영됩니다.",
+      "customizeNote": "CSS 변수 오버라이드 또는 Token Sync로 일괄 커스터마이즈할 수 있습니다.",
+      "colorRefDesc": "시맨틱 컬러 변수 목록. Light / Dark 테마에 따라 참조 대상이 자동으로 전환됩니다.",
+      "hoverActiveNote": "※ 각 카테고리에는 hover, active 배리언트도 사용 가능합니다."
+    },
+    "button": {
+      "description": "버튼은 유저가 액션을 실행하기 위한 가장 기본적인 인터랙티브 요소입니다. 클릭, 탭으로 조작을 시작하며, 폼 제출이나 네비게이션 등 다양한 용도로 사용합니다.",
+      "props": {
+        "variant": "버튼 스타일. 폰트 두께: solid=600, outline/ghost/link=400",
+        "color": "solid 배리언트 색상 (default=다크, primary=브랜드, secondary=세컨더리, destructive=에러). solid 외에는 무시",
+        "size": "버튼 높이와 패딩",
+        "radius": "모서리 둥글기 크기 (6px)",
+        "fullWidth": "너비 100%로 표시",
+        "loading": "로딩 상태",
+        "disabled": "비활성 상태",
+        "leftIcon": "왼쪽 아이콘",
+        "rightIcon": "오른쪽 아이콘",
+        "fontWeight": "폰트 두께 오버라이드. 미지정 시 variant 기본값 (solid=600, outline/ghost/link=400). 우선순위: 직접 prop > ButtonGroup 컨텍스트 > variant 기본값",
+        "selected": "선택 상태 (outline/ghost만 대응). outline은 bg-background-muted, ghost는 font-semibold. 다른 variant에서는 효과 없음",
+        "pressEffect": "프레스 이펙트 (active:scale-pressed). 미지정 시 true로 동작. false로 비활성화",
+        "asChild": "Slot으로 렌더링"
+      },
+      "variants": {
+        "solid": { "desc": "가장 눈에 띄는 강조 스타일", "usage": "제출, 저장, 구매" },
+        "outline": { "desc": "배경과 어우러지는 중립 스타일", "usage": "상세 보기, 편집" },
+        "ghost": { "desc": "존재감을 최소화한 스타일, 툴바에 적합", "usage": "툴바, 네비" },
+        "link": { "desc": "인라인 액션용 텍스트 링크 스타일", "usage": "더 보기, 상세" }
+      },
+      "colors": {
+        "default": { "desc": "가장 범용적인 다크 CTA", "usage": "제출, 저장" },
+        "primary": { "desc": "브랜드 강조 액션에 사용", "usage": "회원가입" },
+        "secondary": { "desc": "프라이머리 옆에 배치하는 보조 액션", "usage": "취소, 뒤로" },
+        "destructive": { "desc": "삭제 등 되돌릴 수 없는 조작에 사용", "usage": "삭제, 리셋" }
+      },
+      "sizes": {
+        "height": "높이",
+        "padding": "좌우 패딩",
+        "icon": "아이콘",
+        "font": "폰트"
+      },
+      "touchTargetNote": "터치 타겟: WCAG 2.5.8 기준 최소 24px 터치 영역이 필요합니다. 가장 작은 xs(28px)도 WCAG 기준을 충족합니다.",
+      "demo": {
+        "search": "검색",
+        "continue": "계속",
+        "searchAction": "검색하기",
+        "submit": "제출",
+        "dashboard": "대시보드로"
+      },
+      "features": {
+        "asChild": "Next.js Link 연동",
+        "formSubmit": "폼 제출"
+      },
+      "anatomy": {
+        "container": "외곽 · border-radius · 배경색",
+        "icon": "좌우 배치 가능 · 선택사항",
+        "label": "텍스트 라벨 · 필수",
+        "gap": "요소 간 여백"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "페이지당 프라이머리 버튼 1개",
+        "do2": "액션 지향 라벨 (\"제출\", \"저장\")",
+        "do3": "비동기 작업에는 로딩 상태 표시",
+        "do4": "충분한 터치 영역 확보 (WCAG 2.5.8: 24px 이상)",
+        "dont": "피해야 할 것",
+        "dont1": "여러 프라이머리 버튼을 나란히 배치하지 않기",
+        "dont2": "\"여기를 클릭\"과 같은 모호한 라벨 피하기",
+        "dont3": "이유 없이 버튼을 비활성화하지 않기",
+        "dont4": "안전한 조작에 destructive 사용하지 않기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "focusMove": "포커스 이동",
+        "activate": "버튼 실행",
+        "wcag": "WCAG 2.2 준수",
+        "contrast": "대비율 4.5:1 이상",
+        "focusIndicator": "포커스 인디케이터",
+        "disabled": "네이티브 disabled 속성",
+        "ariaBusy": "aria-busy (로딩 시 자동 부여)",
+        "ariaHidden": "aria-hidden (아이콘에 자동 부여)",
+        "ariaPressed": "aria-pressed (선택 시 자동 부여)"
+      },
+      "related": {
+        "iconButton": "아이콘만의 정사각형 버튼",
+        "buttonGroup": "액션 버튼 그룹",
+        "toggle": "단독 온/오프 토글",
+        "spinner": "버튼 내 로딩 표시에 사용"
+      },
+      "code": {
+        "tailwindDesc": "환경에 맞는 스타일 적용 방법"
+      },
+      "tips": {
+        "title": "Button을 효과적으로 사용하기 위한 팁",
+        "variant": "스타일은 variant로 지정하고 className으로 오버라이드할 수 있습니다.",
+        "loading": "loading={true}로 자동으로 disabled 상태가 되고 스피너가 표시됩니다.",
+        "asChild": "Next.js의 Link 등 다른 요소를 래핑하려면 asChild를 사용합니다.",
+        "icons": "leftIcon/rightIcon으로 아이콘 버튼을 생성. 아이콘 크기는 자동 조정됩니다."
+      }
+    },
+    "iconButton": {
+      "description": "IconButton은 아이콘만 표시하는 정사각형 버튼입니다. 툴바, 네비게이션, 컴팩트한 UI에서 사용합니다.",
+      "props": {
+        "variant": "버튼 스타일",
+        "color": "solid 배리언트 색상. solid 외에는 무시",
+        "size": "버튼 크기 (28/32/36/40/48px)",
+        "radius": "모서리 둥글기 크기 (6px)",
+        "loading": "로딩 상태",
+        "disabled": "비활성 상태",
+        "pressEffect": "프레스 이펙트 (active:scale-pressed). 미지정 시 true로 동작. false로 비활성화",
+        "asChild": "Slot으로 렌더링",
+        "ariaLabel": "접근성 라벨 (필수)"
+      },
+      "variants": {
+        "solid": { "desc": "가장 눈에 띄는 강조 스타일", "usage": "추가, 제출" },
+        "outline": { "desc": "배경과 어우러지는 중립 스타일", "usage": "정보, 상세" },
+        "ghost": { "desc": "존재감을 최소화한 스타일, 툴바에 적합", "usage": "툴바" },
+        "subtle": { "desc": "헤더/사이드바에 어울리는 호버 강조 스타일", "usage": "헤더, 네비" }
+      },
+      "colors": {
+        "default": { "desc": "가장 범용적인 다크 CTA", "usage": "추가, 제출" },
+        "primary": { "desc": "브랜드 강조 액션에 사용", "usage": "즐겨찾기" },
+        "secondary": { "desc": "프라이머리 옆에 배치하는 보조 액션", "usage": "설정, 편집" },
+        "destructive": { "desc": "삭제 등 되돌릴 수 없는 조작에 사용", "usage": "삭제, 닫기" }
+      },
+      "sizes": {
+        "size": "크기",
+        "width": "너비",
+        "height": "높이",
+        "icon": "아이콘"
+      },
+      "touchTargetNote": "터치 타겟: WCAG 2.5.8 기준 최소 24px 터치 영역이 필요합니다. 가장 작은 xs(28px)도 WCAG 기준을 충족합니다.",
+      "features": {
+        "toolbar": "툴바",
+        "toolbarDesc": "여러 아이콘 버튼",
+        "fabDesc": "플로팅 액션",
+        "asChild": "Next.js Link 연동"
+      },
+      "anatomy": {
+        "container": "정사각형 (1:1) · border-radius",
+        "icon": "중앙 배치 · 필수"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "반드시 aria-label을 설정",
+        "do2": "의미가 명확한 아이콘 사용",
+        "do3": "툴팁과 함께 사용",
+        "do4": "모바일에서는 48px 이상 사용",
+        "dont": "피해야 할 것",
+        "dont1": "aria-label 없이 사용하지 않기",
+        "dont2": "모호한 아이콘을 단독으로 사용하지 않기",
+        "dont3": "텍스트 버튼 대신 남용하지 않기",
+        "dont4": "너무 작은 크기 사용하지 않기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "focusMove": "포커스 이동",
+        "activate": "버튼 실행",
+        "wcag": "WCAG 2.2 준수",
+        "contrast": "대비율 4.5:1 이상",
+        "focusIndicator": "포커스 인디케이터",
+        "ariaLabel": "aria-label 지원 (필수)",
+        "ariaBusy": "aria-busy (로딩 시 자동 부여)"
+      },
+      "related": {
+        "button": "텍스트가 있는 범용 버튼",
+        "buttonGroup": "액션 버튼 그룹",
+        "toggle": "단독 온/오프 토글"
+      },
+      "code": {
+        "tailwindDesc": "환경에 맞는 스타일 적용 방법"
+      },
+      "tips": {
+        "title": "IconButton을 효과적으로 사용하기 위한 팁",
+        "ariaLabel": "아이콘 전용 버튼에는 반드시 aria-label을 지정하세요. 스크린 리더를 위해 필수입니다.",
+        "subtle": "헤더나 네비게이션의 보조 아이콘에는 subtle 배리언트가 최적입니다.",
+        "iconSize": "아이콘 크기는 size에 연동하여 자동 조정됩니다. 자식 <svg>에 크기 클래스를 지정할 필요가 없습니다.",
+        "loading": "loading prop으로 스피너가 표시되고 자동으로 disabled 상태가 됩니다."
+      }
+    },
+    "buttonGroup": {
+      "description": "ButtonGroup은 관련된 버튼을 시각적으로 그룹화하는 컨테이너 컴포넌트입니다. 툴바, 필터, 액션 그룹 등 여러 선택지를 하나의 유닛으로 제시할 때 사용합니다.",
+      "usageGuide": "ButtonGroup에 variant, size를 지정하면 자식 Button·IconButton에 자동 상속됩니다. 개별 오버라이드도 가능합니다.",
+      "props": {
+        "variant": "자식 Button의 배리언트 (Context로 상속)",
+        "size": "자식 Button의 크기 (Context로 상속)",
+        "radius": "자식 Button의 모서리 둥글기 (Context로 상속)",
+        "fontWeight": "자식 Button의 폰트 두께 (Context로 상속)",
+        "disabled": "모든 버튼 비활성화 (Context로 상속)",
+        "orientation": "버튼 배치 방향",
+        "attached": "버튼끼리 결합하여 표시할지 여부"
+      },
+      "variants": {
+        "outline": { "desc": "배경과 어우러지는 중립 스타일", "usage": "툴바, 필터" },
+        "ghost": { "desc": "컴팩트 UI와 네비게이션에 적합한 배경 없는 스타일", "usage": "네비, 툴바" }
+      },
+      "sizesDesc": "ButtonGroup은 Button 크기를 Context로 상속합니다. Button과 동일한 크기 규칙이 적용됩니다.",
+      "sizes": { "height": "높이", "padding": "좌우 패딩", "icon": "아이콘", "font": "폰트" },
+      "touchTargetNote": "터치 타겟: WCAG 2.5.8 기준 최소 24px 터치 영역이 필요합니다. 가장 작은 xs(28px)도 WCAG 기준을 충족합니다.",
+      "demo": { "editActions": "편집 액션", "undoRedo": "실행 취소 / 다시 실행", "zoomControl": "줌 컨트롤", "short": "짧은", "longText": "긴 텍스트" },
+      "orientation": {
+        "horizontalTitle": "Horizontal (기본값)",
+        "horizontalDesc": "버튼을 수평으로 배치합니다. 툴바나 액션 그룹에 적합합니다.",
+        "horizontalUsage": "툴바, 네비",
+        "verticalDesc": "버튼을 수직으로 배치합니다. 사이드바나 드롭다운 메뉴에 적합합니다.",
+        "verticalUsage": "사이드바, 메뉴"
+      },
+      "customization": {
+        "desc": "모든 버튼은 디자인 시스템의 스페이싱 규칙에 기반한 기본값을 사용합니다. 그룹의 className으로 모든 버튼을 일괄 커스터마이즈할 수 있습니다.",
+        "paddingTitle": "좌우 패딩 변경",
+        "equalWidthTitle": "버튼 너비 균등화",
+        "note": "기본값은 컴포넌트의 일관성을 유지하도록 설계되어 있습니다. UI 구현 시 커스터마이즈가 필요한 경우 활용하세요."
+      },
+      "anatomy": { "container": "그룹 컨테이너", "edgeRadius": "가장자리 둥글기 유지", "divider": "버튼 간 구분선" },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "관련된 액션만 그룹화",
+        "do2": "ButtonGroup에 variant/size 지정 (자식에 상속)",
+        "do3": "3~5개 버튼을 기준으로",
+        "do4": "아이콘 전용 그룹에는 aria-label 설정",
+        "dont": "피해야 할 것",
+        "dont1": "서로 다른 크기의 버튼을 섞지 않기",
+        "dont2": "관련 없는 액션을 그룹화하지 않기",
+        "dont3": "6개 이상의 버튼을 채우지 않기",
+        "dont4": "destructive 버튼을 다른 것과 섞지 않기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "moveBetween": "버튼 간 이동",
+        "activate": "버튼 실행",
+        "aria": "ARIA 속성",
+        "roleGroup": "role=\"group\" 자동 부여",
+        "semanticGrouping": "시맨틱 그루핑",
+        "ariaLabelRecommended": "aria-label 권장",
+        "focusVisible": "포커스 시각화 지원"
+      },
+      "comparison": {
+        "desc": "비슷한 외형이지만 용도와 동작이 다릅니다. 적절한 컴포넌트를 선택하세요.",
+        "feature": "특징",
+        "purpose": "용도",
+        "stateManagement": "상태 관리",
+        "selectionMode": "선택 모드",
+        "valueManagement": "value 관리",
+        "useCase": "유스케이스",
+        "bg": {
+          "purpose": "액션 버튼 그룹화",
+          "state": "수동 (selected prop)",
+          "selection": "수동 제어만",
+          "value": "없음",
+          "useCase": "툴바, 액션 그룹"
+        },
+        "tg": {
+          "purpose": "온/오프 상태 관리",
+          "state": "자동 (Radix 관리)",
+          "selection": "single / multiple",
+          "value": "value / onValueChange",
+          "useCase": "텍스트 정렬, 포맷"
+        },
+        "guideline": "선택 기준: 선택 상태를 자동으로 관리하고 싶다면 ToggleGroup을 사용하세요. 클릭 시 특정 액션(API 호출 등)을 실행하는 경우 ButtonGroup이 적합합니다."
+      },
+      "related": {
+        "toggleGroup": "여러 Toggle 그룹화",
+        "button": "텍스트가 있는 범용 버튼",
+        "iconButton": "아이콘만의 정사각형 버튼",
+        "segmented": "필 스타일 배타적 선택 컨트롤",
+        "toggle": "단독 온/오프 토글"
+      },
+      "code": { "tailwindDesc": "환경에 맞는 스타일 적용 방법" },
+      "tips": {
+        "title": "ButtonGroup을 효과적으로 사용하기 위한 팁",
+        "attached": "attached 모드에서 버튼이 하나의 컨트롤처럼 연결됩니다. 기본값은 true입니다.",
+        "variant": "그룹 전체의 variant를 지정하면 자식 버튼에 자동 적용됩니다. outline과 ghost를 지원합니다.",
+        "orientation": "orientation=\"vertical\"로 세로 배치가 됩니다. 메뉴나 사이드바에 최적입니다."
+      }
+    },
+    "input": {
+      "description": "Input은 유저로부터 텍스트 데이터를 수집하기 위한 기본 폼 요소입니다. 이메일, 비밀번호, 검색 등 다양한 종류의 텍스트 입력을 지원합니다.",
+      "props": {
+        "variant": "인풋 시각 스타일",
+        "size": "인풋 높이 (36/40/44/48/56px) - Input 전용 스케일",
+        "radius": "모서리 둥글기 크기 (6px)",
+        "leftIcon": "왼쪽 아이콘",
+        "rightIcon": "오른쪽 아이콘",
+        "focusRing": "커스텀 포커스 링 표시. false여도 키보드 조작 시 자동 표시",
+        "error": "에러 상태 (빨간 보더)",
+        "disabled": "비활성 상태",
+        "placeholder": "플레이스홀더 텍스트",
+        "type": "인풋 타입 (text, email, password 등). HTML 기본값: text"
+      },
+      "fieldProps": {
+        "error": "에러 상태. Field.Error와 Input에 자동 전파",
+        "disabled": "비활성 상태. Field.Label과 Input에 자동 전파",
+        "gap": "자식 요소 간 간격 (0 / 4 / 6 / 8 / 12px)"
+      },
+      "labelProps": {
+        "required": "필수 마크(*)를 라벨 끝에 표시"
+      },
+      "variants": {
+        "default": { "desc": "일반 폼에 쓰는 기본 보더 스타일", "usage": "일반 폼" },
+        "filled": { "desc": "돋보여야 할 입력란에 쓰는 배경 강조 스타일", "usage": "검색 바, 주요 입력" }
+      },
+      "sizes": {
+        "height": "높이",
+        "padding": "좌우 패딩",
+        "font": "폰트",
+        "icon": "아이콘",
+        "usage": "용도",
+        "notes": {
+          "compact": "컴팩트",
+          "small": "작은",
+          "standard": "표준",
+          "standardRecommended": "표준 (권장)",
+          "spacious": "여유",
+          "large": "큰"
+        }
+      },
+      "touchTargetNote": "터치 타겟: WCAG 2.5.8 기준 최소 24px 터치 영역이 필요합니다. 가장 작은 xs(36px)도 WCAG 기준을 충족합니다.",
+      "iosSafariNote": "iOS Safari 대응: 폰트 크기 16px 이상에서 iOS Safari의 자동 줌을 방지할 수 있습니다. default 이상 크기는 16px 폰트·16px 아이콘을 사용합니다.",
+      "demo": {
+        "search": "검색...",
+        "email": "이메일 주소",
+        "password": "비밀번호",
+        "normal": "정상",
+        "emailLabel": "이메일",
+        "error": "에러",
+        "required": "필수 항목입니다",
+        "disabled": "비활성"
+      },
+      "focusStatesTitle": "포커스 상태",
+      "focusStatesDesc": "focusRing: false(기본값): 클릭 시 보더 변화만, 키보드 Tab 시 포커스 링 자동 표시. focusRing: true: 항상 포커스 링 표시.",
+      "anatomy": {
+        "field": "Field 래퍼",
+        "label": "라벨",
+        "input": "텍스트 입력",
+        "leftIcon": "왼쪽 아이콘 (선택)",
+        "rightIcon": "오른쪽 아이콘 (선택)",
+        "helper": "보조 텍스트 (선택)"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "반드시 라벨을 붙이기 (또는 aria-label)",
+        "do2": "적절한 input type 사용 (email, tel 등)",
+        "do3": "에러 시 명확한 피드백 표시",
+        "do4": "충분한 터치 영역 확보 (WCAG 2.5.8: 24px 이상)",
+        "dont": "피해야 할 것",
+        "dont1": "플레이스홀더를 라벨 대용으로 사용하지 않기",
+        "dont2": "불필요한 autocomplete를 끄지 않기",
+        "dont3": "에러 표시가 색상만으로 되지 않도록 하기",
+        "dont4": "입력 제한을 둘 경우 사전에 명시하기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "focusMove": "포커스 이동",
+        "formSubmit": "폼 제출",
+        "cancelInput": "입력 취소",
+        "wcag": "WCAG 2.2 준수",
+        "focusIndicator": "포커스 인디케이터",
+        "ariaInvalid": "aria-invalid (에러 시)",
+        "autocomplete": "autocomplete 지원",
+        "contrast": "대비율 4.5:1 이상"
+      },
+      "related": {
+        "button": "폼 제출 버튼",
+        "select": "선택 리스트 입력",
+        "textarea": "여러 줄 텍스트 입력"
+      },
+      "code": { "tailwindDesc": "환경에 맞는 스타일 적용 방법" },
+      "tips": {
+        "title": "Input을 효과적으로 사용하기 위한 팁",
+        "icons": "leftIcon/rightIcon으로 아이콘 입력을 생성. 아이콘 컨테이너는 pointer-events-none이므로 클릭 가능한 요소는 별도 배치하세요.",
+        "filled": "filled 배리언트는 보더 없는 배경색 스타일로, 폼의 시각적 노이즈를 줄이고 싶을 때 적합합니다.",
+        "focusRing": "focusRing={false}로 포커스 링을 숨기고 보더 변경만 표시할 수 있습니다.",
+        "error": "error prop으로 에러 상태를 표시. Field 컴포넌트와 통합하면 에러 메시지도 자동 표시됩니다."
+      }
+    },
+    "textarea": {
+      "description": "Textarea는 여러 줄의 텍스트를 입력하기 위한 폼 요소입니다. 댓글, 설명, 메시지 등 긴 텍스트 입력에 사용합니다.",
+      "props": {
+        "variant": "텍스트 영역 시각 스타일",
+        "size": "패딩과 폰트 크기 (compact: 좁은 공간용)",
+        "radius": "모서리 둥글기 크기 (6px)",
+        "resize": "리사이즈 방향",
+        "rows": "표시 행 수",
+        "focusRing": "커스텀 포커스 링 표시. false여도 키보드 조작 시 자동 표시",
+        "error": "에러 상태 (빨간 보더)",
+        "disabled": "비활성 상태",
+        "placeholder": "플레이스홀더 텍스트"
+      },
+      "fieldProps": {
+        "error": "에러 상태. Field.Error와 Textarea에 자동 전파",
+        "disabled": "비활성 상태. Field.Label과 Textarea에 자동 전파",
+        "gap": "자식 요소 간 간격 (0 / 4 / 6 / 8 / 12px)"
+      },
+      "labelProps": { "required": "필수 마크(*)를 라벨 끝에 표시" },
+      "variants": {
+        "default": { "desc": "일반 폼에 쓰는 기본 보더 스타일", "usage": "일반 폼" },
+        "filled": { "desc": "돋보여야 할 입력란에 쓰는 배경 강조 스타일", "usage": "카드 내 폼" }
+      },
+      "sizesDesc": "Textarea 높이는 rows 속성으로 제어합니다. size 프로퍼티는 패딩과 폰트 크기만 조정합니다.",
+      "sizes": {
+        "padding": "패딩",
+        "font": "폰트",
+        "usage": "용도",
+        "notes": {
+          "compact": "좁은 공간용",
+          "standardRecommended": "표준 (권장)"
+        }
+      },
+      "resize": {
+        "none": "크기 고정이 필요할 때 사용",
+        "vertical": "세로 방향만 허용, 가장 일반적인 옵션",
+        "horizontal": "가로 방향만 허용, 특수한 경우에 사용",
+        "both": "상하좌우 모두 허용, 자유도가 필요할 때"
+      },
+      "demo": {
+        "normal": "정상",
+        "comment": "댓글",
+        "commentPlaceholder": "댓글을 입력...",
+        "error": "에러",
+        "feedback": "피드백",
+        "feedbackPlaceholder": "피드백을 입력...",
+        "required": "필수 항목입니다",
+        "disabled": "비활성",
+        "notes": "비고",
+        "cannotEdit": "편집할 수 없습니다"
+      },
+      "focusStatesTitle": "포커스 상태",
+      "focusStatesDesc": "focusRing: false(기본값): 클릭 시 보더 변화만, 키보드 Tab 시 포커스 링 자동 표시. focusRing: true: 항상 포커스 링 표시.",
+      "features": {
+        "charCount": "글자 수 카운트",
+        "charCountDesc": "밸리데이션",
+        "autoSize": "자동 크기",
+        "autoSizeDesc": "내용에 맞춰 확장",
+        "formSubmit": "폼 제출",
+        "formSubmitDesc": "엔터로 제출"
+      },
+      "anatomy": {
+        "field": "Field 래퍼",
+        "label": "라벨",
+        "textarea": "텍스트 입력 영역",
+        "charCount": "글자 수 (선택)"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "적절한 rows 속성으로 초기 높이 설정",
+        "do2": "글자 수 제한이 있을 경우 카운터 표시",
+        "do3": "리사이즈가 불필요하면 resize=\"none\" 설정",
+        "do4": "플레이스홀더로 입력 예시 표시",
+        "dont": "피해야 할 것",
+        "dont1": "짧은 텍스트에 Textarea 사용하지 않기 (→ Input)",
+        "dont2": "극단적으로 작은 rows 설정하지 않기",
+        "dont3": "글자 수 제한을 사전에 명시하지 않고 잘라내지 않기",
+        "dont4": "라벨 없이 사용하지 않기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "focusMove": "포커스 이동",
+        "newLine": "줄바꿈",
+        "blur": "포커스 해제",
+        "wcag": "WCAG 2.2 준수",
+        "focusIndicator": "포커스 인디케이터",
+        "ariaInvalid": "aria-invalid (에러 시)",
+        "ariaDescribedby": "aria-describedby 지원",
+        "contrast": "대비율 4.5:1 이상"
+      },
+      "related": {
+        "input": "단일 줄 텍스트 입력",
+        "button": "폼 제출 버튼",
+        "select": "선택 리스트 입력"
+      },
+      "code": { "tailwindDesc": "환경에 맞는 스타일 적용 방법" },
+      "tips": {
+        "title": "Textarea를 효과적으로 사용하기 위한 팁",
+        "resize": "resize prop으로 리사이즈 방향을 제어. 기본값은 vertical. none으로 하면 고정 크기가 됩니다.",
+        "filled": "Input과 동일한 filled 배리언트. 보더 없는 배경색 스타일입니다.",
+        "rows": "rows prop으로 초기 행 수를 지정. resize=\"none\"과 조합하면 고정 높이가 됩니다.",
+        "error": "error prop으로 에러 상태를 표시. Field 컴포넌트와 통합 가능합니다."
+      }
+    },
+    "select": {
+      "description": "Select는 드롭다운 목록에서 하나의 값을 선택하는 폼 컨트롤입니다. 키보드 조작과 스크린 리더를 지원하는 접근성 높은 구현으로, 네이티브 폼 제출도 지원합니다.",
+      "rootProps": {
+        "size": "Trigger의 높이와 폰트 크기. Content에 자동 전파",
+        "radius": "모서리 둥글기 (6px). Trigger에 직접 적용, Content에 자동 매핑",
+        "value": "제어 모드의 선택값",
+        "defaultValue": "비제어 모드의 초기값",
+        "onValueChange": "값 변경 시 콜백",
+        "name": "폼 제출용 이름",
+        "required": "필수 필드 지정",
+        "disabled": "전체 비활성화",
+        "open": "제어 모드의 열림/닫힘 상태",
+        "onOpenChange": "열림/닫힘 상태 변경 시 콜백"
+      },
+      "triggerProps": {
+        "disabled": "트리거 버튼 비활성화",
+        "asChild": "자식 요소를 트리거로 렌더링"
+      },
+      "contentProps": {
+        "position": "드롭다운 배치 방식",
+        "flush": "아이템을 전체 너비로 표시 (패딩 없음)",
+        "side": "드롭다운 표시 방향 (popper 전용)",
+        "sideOffset": "트리거와의 거리 (px)"
+      },
+      "itemProps": {
+        "value": "아이템 값 (필수)",
+        "disabled": "아이템 선택 불가",
+        "textValue": "타입어헤드용 텍스트 값"
+      },
+      "variants": {
+        "basic": { "desc": "단일 선택 목록으로 구성된 기본 셀렉트", "usage": "카테고리 선택" },
+        "grouped": { "desc": "그룹과 라벨로 관련 항목을 분류", "usage": "국가, 지역 분류" },
+        "placeholder": { "desc": "아무것도 선택하지 않은 상태에서 플레이스홀더 표시", "usage": "초기 상태 안내" },
+        "flush": { "desc": "모서리 없이 전체 너비를 채우는 고밀도 스타일", "usage": "고밀도 목록" },
+        "disabledItems": { "desc": "일부 아이템을 선택 불가로 설정", "usage": "사용 불가 옵션" }
+      },
+      "sizes": {
+        "height": "높이",
+        "font": "폰트",
+        "preview": "미리보기"
+      },
+      "structure": {
+        "trigger": "트리거 버튼",
+        "value": "선택값 표시",
+        "content": "드롭다운 패널 (flush 지원)",
+        "item": "선택 아이템",
+        "group": "아이템 그룹",
+        "label": "그룹 라벨",
+        "separator": "구분선"
+      },
+      "recipes": {
+        "grouped": "그룹으로 항목 분류",
+        "form": "폼 제출 지원"
+      },
+      "customization": {
+        "desc": "으로 트리거와 콘텐츠의 스타일을 커스터마이즈할 수 있습니다.",
+        "width": "너비 변경",
+        "fullWidth": "전체 너비 트리거",
+        "tip": "각 서브 컴포넌트는 className을 받아 Tailwind 클래스로 스타일을 오버라이드할 수 있습니다."
+      },
+      "anatomy": {
+        "root": "컴포넌트 루트",
+        "trigger": "셀렉트를 여는 버튼",
+        "value": "선택값 표시",
+        "chevron": "열림/닫힘 아이콘",
+        "content": "드롭다운 패널",
+        "item": "선택 아이템",
+        "separator": "구분선"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "선택지가 5개 이상일 때 사용",
+        "do2": "선택지가 많을 때 Group으로 분류",
+        "do3": "placeholder로 선택 내용을 안내",
+        "do4": "폼 안에서는 name과 required를 설정",
+        "dont": "지양",
+        "dont1": "선택지가 3개 이하면 Radio 검토",
+        "dont2": "액션 실행에는 Dropdown을 사용",
+        "dont3": "다중 선택이 필요하면 다른 UI 검토",
+        "dont4": "placeholder 없이 초기값도 미설정하지 않기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "enterDesc": "셀렉트 열기/닫기 / 아이템 선택",
+        "spaceDesc": "셀렉트 열기/닫기 / 아이템 선택",
+        "arrowDesc": "아이템 간 이동",
+        "homeDesc": "첫 번째 아이템으로 이동",
+        "endDesc": "마지막 아이템으로 이동",
+        "escDesc": "셀렉트 닫기",
+        "aria": "ARIA 속성",
+        "listbox": "Content에 자동 부여",
+        "option": "Item에 자동 부여",
+        "expanded": "Trigger 상태 관리",
+        "typeahead": "타입어헤드 문자 검색"
+      },
+      "vsDropdown": {
+        "desc": "외관은 비슷하지만 용도와 동작이 다릅니다. 적절한 컴포넌트를 선택하세요.",
+        "feature": "특징",
+        "purpose": { "label": "용도", "select": "값 선택", "dropdown": "액션 실행" },
+        "form": { "label": "폼 연동", "select": "name / value 제출 가능", "dropdown": "없음" },
+        "afterSelect": { "label": "선택 후 표시", "select": "선택값이 트리거에 반영", "dropdown": "메뉴만 닫힘" },
+        "itemTypes": { "label": "아이템 종류", "select": "단일 선택 아이템", "dropdown": "Item, Checkbox, Radio, Sub" },
+        "useCase": { "label": "사용 사례", "select": "국가, 카테고리, 정렬 순서", "dropdown": "컨텍스트 메뉴, 계정 작업" },
+        "guide": "사용자가 값을 선택해 폼에 제출할 때는 Select가 적합합니다. 클릭 시 액션(편집, 삭제, 공유 등)을 실행할 때는",
+        "guideLink": "Dropdown",
+        "guideSuffix": "을 사용하세요.",
+        "guideLabel": "선택 기준:"
+      },
+      "related": {
+        "input": "텍스트 입력 폼 컨트롤",
+        "dropdown": "액션 실행용 메뉴",
+        "radio": "소수의 선택지에서 하나를 선택"
+      },
+      "code": {
+        "tailwindDesc": "환경에 맞는 스타일 적용 방법"
+      },
+      "tips": {
+        "title": "Select를 효과적으로 사용하기 위한 팁",
+        "size": "size는 Select 루트에 설정합니다. Trigger와 Content 모두에 자동 전파되며, Content 아이템 크기는 3단계(sm/md/lg)로 자동 매핑됩니다. Input과 같은 5단계라 폼 안에서 높이가 맞습니다.",
+        "placeholder": "Select.Value의 placeholder로 미선택 시 안내 텍스트를 표시할 수 있습니다. 값을 선택하면 placeholder가 선택값으로 바뀝니다.",
+        "position": "\"item-aligned\"는 선택 중인 아이템을 트리거에 겹쳐 표시. \"popper\"는 Dropdown처럼 트리거 아래에 표시합니다.",
+        "nameRequired": "Select 루트에 name과 required를 설정하면 숨김 input이 자동 생성되어 일반 폼 제출로 값이 전송됩니다.",
+        "radius": "radius는 Select 루트에 설정합니다. Trigger에 직접 적용되고 Content에는 자동 매핑됩니다(none~default→md, lg→lg, xl~full→xl). Item 모서리는 Content에서 비율 기반으로 자동 계산됩니다. Input과 같은 9단계입니다.",
+        "flush": "Select.Content에 flush를 설정하면 아이템이 Content 끝까지 전체 너비로 표시됩니다. Content 수평 패딩이 제거되고 아이템 패딩이 자동 보정됩니다. Dropdown과 같은 API입니다.",
+        "controlled": "defaultValue로 비제어 모드, value + onValueChange로 제어 모드로 사용할 수 있습니다."
+      }
+    },
+    "dropdown": {
+      "description": "Dropdown은 트리거 요소를 클릭하면 표시되는 플로팅 메뉴입니다. 액션 목록, 체크박스, 라디오 선택, 서브메뉴를 지원합니다.",
+      "contentProps": {
+        "size": "메뉴 아이템 크기",
+        "radius": "콘텐츠와 아이템 모서리 둥글기 (Item은 자동 계산)",
+        "flush": "아이템을 전체 너비로 표시 (내부 패딩 없음)",
+        "side": "메뉴 표시 방향",
+        "sideOffset": "트리거와의 거리 (px)",
+        "align": "트리거 기준 정렬",
+        "alignOffset": "정렬 오프셋 (px)",
+        "loop": "키보드 내비게이션 루프"
+      },
+      "itemProps": {
+        "disabled": "비활성 상태",
+        "onSelect": "선택 시 콜백",
+        "inset": "왼쪽 여백 추가 (아이콘 정렬용)"
+      },
+      "checkboxItemProps": {
+        "checked": "체크 상태 (제어 모드)",
+        "onCheckedChange": "체크 변경 시 콜백",
+        "disabled": "비활성 상태"
+      },
+      "radioItemProps": {
+        "value": "라디오 값 (필수)",
+        "disabled": "비활성 상태"
+      },
+      "variants": {
+        "basic": { "desc": "액션 목록을 표시하는 가장 단순한 메뉴", "usage": "컨텍스트 메뉴" },
+        "group": { "desc": "라벨과 그룹으로 관련 액션을 분류", "usage": "계정 메뉴" },
+        "checkbox": { "desc": "체크박스로 여러 항목을 ON/OFF로 전환", "usage": "표시 설정, 필터" },
+        "radio": { "desc": "라디오로 하나만 배타적으로 선택", "usage": "밀도, 테마 선택" },
+        "submenu": { "desc": "중첩 서브메뉴로 계층 구조 액션 구성", "usage": "공유, 내보내기" }
+      },
+      "sizes": {
+        "padding": "패딩",
+        "itemFont": "아이템 폰트",
+        "preview": "미리보기"
+      },
+      "structure": {
+        "trigger": "트리거 요소",
+        "content": "메뉴 패널 (radius·flush·size)",
+        "item": "메뉴 아이템 (inset 지원)",
+        "checkboxItem": "체크박스 아이템",
+        "radioGroup": "라디오 선택 그룹",
+        "radioItem": "라디오 아이템",
+        "label": "그룹 라벨",
+        "separator": "구분선",
+        "group": "아이템 그룹",
+        "sub": "서브메뉴 루트",
+        "subTrigger": "서브메뉴 트리거",
+        "subContent": "서브메뉴 패널",
+        "shortcut": "단축키 힌트"
+      },
+      "recipes": {
+        "shortcuts": "키보드 단축키 포함",
+        "complex": "그룹 + 체크 + 서브메뉴"
+      },
+      "customization": {
+        "desc": "으로 콘텐츠와 아이템의 스타일을 커스터마이즈할 수 있습니다.",
+        "width": "너비 변경",
+        "danger": "위험 액션 강조",
+        "tip": "각 서브 컴포넌트는 className을 받아 Tailwind 클래스로 스타일을 오버라이드할 수 있습니다."
+      },
+      "anatomy": {
+        "root": "컴포넌트 루트",
+        "trigger": "메뉴를 여는 버튼",
+        "content": "플로팅 패널",
+        "item": "메뉴 아이템",
+        "icon": "옵션 아이콘",
+        "separator": "구분선"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "액션이 3개 이상일 때 사용",
+        "do2": "관련 액션은 Group으로 묶기",
+        "do3": "파괴적 액션은 시각적으로 구분",
+        "do4": "단축키가 있으면 표시",
+        "dont": "지양",
+        "dont1": "메뉴 항목을 10개 이상 두지 않기",
+        "dont2": "내비게이션 용도에는 Nav 사용",
+        "dont3": "서브메뉴를 2단계 이상 중첩하지 않기",
+        "dont4": "모바일에서 긴 메뉴 피하기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "enterDesc": "메뉴 열기/닫기 / 아이템 선택",
+        "spaceDesc": "메뉴 열기/닫기 / 아이템 선택",
+        "arrowDesc": "아이템 간 이동",
+        "rightDesc": "서브메뉴 열기",
+        "leftDesc": "서브메뉴 닫기",
+        "escDesc": "메뉴 닫기",
+        "aria": "ARIA 속성",
+        "menu": "Content에 자동 부여",
+        "menuitem": "Item에 자동 부여",
+        "expanded": "Trigger 상태 관리",
+        "focusIndicator": "포커스 인디케이터"
+      },
+      "vsSelect": {
+        "desc": "외관은 비슷하지만 용도와 동작이 다릅니다. 적절한 컴포넌트를 선택하세요.",
+        "feature": "특징",
+        "purpose": { "label": "용도", "dropdown": "액션 실행", "select": "값 선택" },
+        "form": { "label": "폼 연동", "dropdown": "없음", "select": "name / value 제출 가능" },
+        "afterSelect": { "label": "선택 후 표시", "dropdown": "메뉴만 닫힘", "select": "선택값이 트리거에 반영" },
+        "itemTypes": { "label": "아이템 종류", "dropdown": "Item, Checkbox, Radio, Sub", "select": "단일 선택 아이템" },
+        "useCase": { "label": "사용 사례", "dropdown": "컨텍스트 메뉴, 계정 작업", "select": "국가, 카테고리, 정렬 순서" },
+        "guide": "사용자가 값을 선택해 폼에 제출할 때는",
+        "guideLink": "Select",
+        "guideSuffix": "를 사용하세요. 클릭 시 액션(편집, 삭제, 공유 등)을 실행할 때는 Dropdown이 적합합니다.",
+        "guideLabel": "선택 기준:"
+      },
+      "related": {
+        "button": "트리거로 사용하는 버튼",
+        "iconButton": "아이콘 전용 트리거 버튼",
+        "select": "폼용 단일 선택",
+        "avatar": "아바타 클릭으로 프로필 메뉴"
+      },
+      "code": {
+        "tailwindDesc": "환경에 맞는 스타일 적용 방법"
+      },
+      "tips": {
+        "title": "Dropdown을 효과적으로 사용하기 위한 팁",
+        "asChild": "Trigger는 기본적으로 Button으로 렌더링됩니다. asChild로 임의의 요소를 트리거로 만들 수 있습니다.",
+        "sideAlign": "메뉴 표시 위치를 제어합니다. 기본값은 side=\"bottom\"·align=\"center\"입니다. 화면 가장자리에서 자동으로 위치를 조정합니다.",
+        "onSelect": "각 Item의 onSelect는 아이템 선택 시 호출되며 메뉴를 자동으로 닫습니다. event.preventDefault()로 닫기를 방지할 수 있습니다.",
+        "radius": "Content 모서리를 \"md\"(기본)·\"lg\"·\"xl\"에서 선택할 수 있습니다. Item 모서리는 Content에서 비율 기반으로 자동 계산됩니다(67~75%).",
+        "inset": "MenuItem·Label·SubTrigger에 inset을 붙이면 CheckboxItem/RadioItem 인디케이터 영역만큼 왼쪽 패딩이 추가되어 세로로 정렬됩니다."
+      }
+    },
+    "checkbox": {
+      "description": "Checkbox는 사용자가 옵션을 켜고 끌 수 있는 폼 컨트롤입니다. 단독으로 사용하거나 여러 개를 묶어 그룹으로 사용합니다.",
+      "props": {
+        "checked": "제어 모드의 체크 상태",
+        "defaultChecked": "비제어 모드의 초기 체크 상태",
+        "onCheckedChange": "상태 변경 시 콜백",
+        "size": "체크박스 크기 (14/16/20px)",
+        "radius": "모서리 둥글기 (none: 0px / sm: 2px / md: 4px)",
+        "weight": "보더 두께 (thin: 1px / bold: 2px)",
+        "color": "체크/미확정 상태의 채움 색상",
+        "label": "체크박스 라벨 텍스트",
+        "disabled": "비활성 상태",
+        "required": "필수 필드",
+        "name": "폼 name 속성",
+        "value": "폼 value 속성"
+      },
+      "sizes": {
+        "box": "박스",
+        "icon": "아이콘",
+        "font": "폰트",
+        "click": "클릭",
+        "clickArea": "클릭 영역",
+        "preview": "미리보기"
+      },
+      "features": {
+        "withFieldDesc": "Field 컴포넌트와 조합하면 disabled 상태를 자동으로 상속합니다."
+      },
+      "recipes": {
+        "controlled": "상태를 외부에서 관리",
+        "indeterminate": "전체 선택 / 부분 선택"
+      },
+      "anatomy": {
+        "root": "플렉스 컨테이너",
+        "box": "체크박스 본체",
+        "checkmark": "체크 시 표시",
+        "label": "옵션 텍스트"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "명확한 라벨과 함께 사용",
+        "do2": "다중 선택이 필요할 때 사용",
+        "do3": "그룹 전체 선택에 indeterminate 사용",
+        "do4": "필수 항목에는 Field와 조합",
+        "dont": "지양",
+        "dont1": "배타적 선택에 Checkbox 사용 금지 (Radio 사용)",
+        "dont2": "즉시 효과가 나는 전환에는 Switch 사용",
+        "dont3": "라벨 없이 사용하지 않기",
+        "dont4": "선택지가 너무 많으면 Select 검토"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "spaceDesc": "체크 전환",
+        "tabDesc": "포커스 이동",
+        "aria": "ARIA 속성",
+        "checkbox": "자동 부여",
+        "ariaChecked": "true/false/mixed",
+        "focusIndicator": "포커스 인디케이터",
+        "labelClick": "으로 클릭 영역 확대"
+      },
+      "related": {
+        "radio": "배타적 선택 (하나만 선택)",
+        "switch": "즉시 효과가 나는 ON/OFF 전환",
+        "toggle": "단독 ON/OFF 토글",
+        "table": "테이블 행 선택 체크박스"
+      },
+      "code": { "tailwindDesc": "환경에 맞는 스타일 적용 방법" },
+      "tips": {
+        "title": "Checkbox를 효과적으로 사용하기 위한 팁",
+        "label": "label prop으로 자동으로 라벨이 연결됩니다. 접근성을 위해 권장합니다.",
+        "size": "sm(14px)/default(16px)/lg(20px) 3가지 크기. 라벨, 아이콘, Gap도 자동 조정됩니다.",
+        "radius": "none(0px)/sm(2px)/md(4px) 3가지. 기본값은 sm입니다.",
+        "weight": "thin(1px)/bold(2px)로 보더 두께를 변경할 수 있습니다. 기본값은 bold입니다.",
+        "indeterminate": "부모-자식 체크박스 패턴에서 Radix의 indeterminate 상태를 사용할 수 있습니다."
+      }
+    },
+    "radio": {
+      "description": "Radio는 여러 선택지에서 하나만 선택하는 폼 컨트롤입니다. RadioGroup으로 그룹화하여 배타적 선택을 제공합니다.",
+      "groupProps": {
+        "value": "제어 모드의 선택값",
+        "defaultValue": "비제어 모드의 초기값",
+        "onValueChange": "선택 변경 시 콜백",
+        "size": "라디오 버튼 크기 (14/16/20px)",
+        "color": "체크 시 보더와 도트 색상",
+        "weight": "보더 두께 (thin: 1px / bold: 2px)",
+        "orientation": "아이템 배치 방향",
+        "disabled": "비활성 상태",
+        "required": "필수 필드",
+        "name": "폼 name 속성",
+        "loop": "키보드 내비게이션 루프"
+      },
+      "itemProps": {
+        "value": "이 아이템의 값 (필수)",
+        "label": "라디오 버튼 라벨 텍스트",
+        "disabled": "개별 비활성 상태"
+      },
+      "sizes": {
+        "circle": "서클",
+        "dot": "도트",
+        "font": "폰트",
+        "click": "클릭",
+        "clickArea": "클릭 영역",
+        "preview": "미리보기"
+      },
+      "structure": { "item": "라디오 아이템 (label prop 지원)" },
+      "features": { "withFieldDesc": "Field 컴포넌트와 조합하면 disabled 상태를 자동으로 상속합니다." },
+      "recipes": {
+        "controlled": "상태를 외부에서 관리",
+        "itemDisabled": "특정 옵션만 비활성화"
+      },
+      "anatomy": {
+        "root": "RadioGroup 컨테이너",
+        "circle": "외부 링",
+        "innerDot": "선택 시 표시",
+        "label": "옵션 텍스트"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "배타적 선택 (하나만 선택)에 사용",
+        "do2": "2~5개 선택지에 사용",
+        "do3": "기본값을 설정",
+        "do4": "각 항목에 명확한 라벨 붙이기",
+        "dont": "지양",
+        "dont1": "다중 선택에는 Checkbox 사용",
+        "dont2": "선택지가 너무 많으면 Select 검토",
+        "dont3": "탭 전환에는 Segmented 사용",
+        "dont4": "라벨 없이 사용하지 않기"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "arrowVDesc": "이전/다음 아이템으로 이동",
+        "arrowHDesc": "이전/다음 아이템으로 이동",
+        "spaceDesc": "선택",
+        "tabDesc": "그룹 간 이동",
+        "aria": "ARIA 속성",
+        "radiogroup": "자동 부여",
+        "ariaChecked": "자동 관리",
+        "focusIndicator": "포커스 인디케이터",
+        "rovingFocus": "로빙 포커스 지원"
+      },
+      "related": {
+        "checkbox": "폼용 ON/OFF 전환",
+        "segmented": "필 스타일 배타적 선택",
+        "toggleGroup": "여러 Toggle을 그룹화"
+      },
+      "code": { "tailwindDesc": "환경에 맞는 스타일 적용 방법" },
+      "tips": {
+        "title": "RadioGroup을 효과적으로 사용하기 위한 팁",
+        "orientation": "orientation=\"horizontal\"로 가로 배치로 변경할 수 있습니다. 폼 레이아웃에 맞게 사용하세요.",
+        "label": "각 RadioGroup.Item에 label prop으로 자동으로 라벨이 연결됩니다.",
+        "size": "sm(14px)/default(16px)/lg(20px) 3가지 크기. 도트와 라벨 크기도 자동 조정됩니다.",
+        "weight": "thin(1px)/bold(2px)로 보더 두께를 변경할 수 있습니다. 기본값은 bold입니다."
+      }
+    },
+    "switch": {
+      "description": "Switch는 설정의 ON/OFF를 즉시 전환하는 토글 컨트롤입니다. 변경이 즉시 반영될 때 사용합니다.",
+      "props": {
+        "checked": "제어 모드의 ON/OFF 상태",
+        "defaultChecked": "비제어 모드의 초기 상태",
+        "onCheckedChange": "상태 변경 시 콜백",
+        "size": "스위치 크기",
+        "label": "스위치 라벨 텍스트",
+        "labelPosition": "라벨 배치 위치",
+        "startLabel": "스위치 왼쪽 라벨 (sides 배치)",
+        "endLabel": "스위치 오른쪽 라벨 (sides 배치)",
+        "color": "체크 시 트랙 색상과 아이콘 색상",
+        "checkedIcon": "체크 시 썸 안에 표시할 아이콘",
+        "uncheckedIcon": "미체크 시 썸 안에 표시할 아이콘",
+        "disabled": "비활성 상태",
+        "required": "필수 필드",
+        "name": "폼 name 속성",
+        "value": "폼 value 속성. Radix 기본값: \"on\""
+      },
+      "sizes": {
+        "track": "트랙",
+        "thumb": "썸",
+        "travel": "이동 거리",
+        "font": "폰트",
+        "preview": "미리보기"
+      },
+      "features": {
+        "labelDesc": "label prop을 사용하여 스위치에 라벨을 부여할 수 있습니다.",
+        "labelPositionDesc": "labelPosition prop으로 라벨 배치를 변경할 수 있습니다. 기본값은 end(오른쪽)입니다.",
+        "iconsDesc": "checkedIcon / uncheckedIcon prop으로 썸 안에 아이콘을 표시할 수 있습니다. sm 크기에서는 자동으로 숨겨집니다."
+      },
+      "anatomy": {
+        "track": "스위치 외곽 트랙",
+        "thumb": "슬라이드하는 손잡이",
+        "label": "텍스트 라벨 (선택)"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "즉시 효과가 반영되는 설정에 사용",
+        "do2": "명확한 라벨과 함께 사용",
+        "do3": "설정 화면의 ON/OFF 전환에 사용",
+        "do4": "기본 상태를 신중하게 선택",
+        "dont": "지양",
+        "dont1": "폼 제출이 필요하면 Checkbox 사용",
+        "dont2": "다중 선택 상황에서는 Checkbox 사용",
+        "dont3": "라벨 없이 사용하지 않기",
+        "dont4": "부정형 라벨 피하기 (\"비활성화\" 대신 \"활성화\")"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "spaceDesc": "ON/OFF 전환",
+        "tabDesc": "포커스 이동",
+        "aria": "ARIA 속성",
+        "roleSwitch": "자동 부여",
+        "ariaChecked": "자동 관리",
+        "focusIndicator": "포커스 인디케이터",
+        "labelClick": "으로 클릭 영역 확대"
+      },
+      "related": {
+        "toggle": "단독 ON/OFF 토글",
+        "checkbox": "폼용 ON/OFF 전환",
+        "radio": "배타적 선택 컨트롤"
+      },
+      "code": { "tailwindDesc": "환경에 맞는 스타일 적용 방법" },
+      "tips": {
+        "title": "Switch를 효과적으로 사용하기 위한 팁",
+        "label": "label prop으로 라벨이 자동 연결됩니다. 접근성을 위해 권장합니다.",
+        "size": "트랙과 썸 크기는 CSS 변수로 관리. sm/default/lg 3가지 크기. 라벨 폰트는 sm(12px)/default(14px)/lg(16px)으로 자동 조정됩니다.",
+        "labelPosition": "start/end/top/bottom 4가지 배치 지원. 설정 목록에서는 start(라벨 왼쪽·스위치 오른쪽)이 자주 사용됩니다.",
+        "sideLabels": "스위치 양쪽에 라벨 배치. Off/On 같은 전환 표시에 편리합니다.",
+        "color": "체크 시 트랙 배경색과 아이콘 색상을 일괄 설정. default(다크)/primary/success/warning/error 5가지 색상.",
+        "icons": "썸 안에 아이콘 표시. sm 크기(12px 썸)에서는 자동 숨김. default(10px), lg(14px) 아이콘 크기가 적용됩니다.",
+        "controlled": "비제어 모드에서는 defaultChecked, 제어 모드에서는 checked + onCheckedChange를 사용."
+      }
+    },
+    "toggle": {
+      "description": "Toggle은 ON/OFF 두 상태를 전환하는 버튼입니다. 단독으로 사용하거나 ToggleGroup으로 그룹화하여 사용합니다.",
+      "props": {
+        "pressed": "제어 모드의 ON/OFF 상태",
+        "defaultPressed": "비제어 모드의 초기 상태",
+        "onPressedChange": "상태 변경 시 콜백",
+        "variant": "시각 스타일. ghost/outline-ghost는 배경 변화 없음 (아이콘 색상만 변경)",
+        "size": "토글 크기 (28/32/36/40/48px)",
+        "radius": "모서리 둥글기 (6px)",
+        "fontWeight": "폰트 두께. normal=400, semibold=600",
+        "iconOnly": "아이콘 전용 모드. 정사각형으로 IconButton과 같은 크기 규칙 적용",
+        "pressEffect": "프레스 이펙트 (active:scale-pressed). 미지정 시 true로 동작. false로 비활성화",
+        "disabled": "비활성 상태",
+        "asChild": "Slot으로 렌더링"
+      },
+      "variants": {
+        "default": "누르면 배경이 변하는 심플한 스타일, 툴바에 적합",
+        "outline": "상태를 명확히 표시하는 테두리 스타일",
+        "ghost": "아이콘 색상으로만 상태를 표현, 좋아요 버튼 등에 적합",
+        "outlineGhost": "경계는 명확하되 아이콘 색상으로만 상태 표현"
+      },
+      "sizes": {
+        "size": "크기",
+        "icon": "아이콘",
+        "preview": "미리보기",
+        "height": "높이",
+        "hPadding": "가로 패딩",
+        "font": "폰트"
+      },
+      "anatomy": {
+        "root": "토글 버튼 본체",
+        "icon": "선택 사항",
+        "label": "선택 사항"
+      },
+      "bestPractices": {
+        "do": "권장",
+        "do1": "명확한 ON/OFF 상태를 시각적으로 표시",
+        "do2": "aria-label로 목적 설명",
+        "do3": "즉시 효과가 반영되는 조작에 사용",
+        "do4": "여러 토글은 ToggleGroup으로 그룹화",
+        "dont": "지양",
+        "dont1": "제출이 필요한 폼 항목에 사용하지 않기",
+        "dont2": "상태가 알기 어려운 아이콘 사용하지 않기",
+        "dont3": "aria-label 없이 사용하지 않기",
+        "dont4": "배타적 선택에는 Segmented 사용"
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "spaceDesc": "토글 전환",
+        "enterDesc": "토글 전환",
+        "aria": "ARIA 속성",
+        "ariaPressed": "자동 부여",
+        "dataState": "on/off",
+        "focusIndicator": "포커스 인디케이터",
+        "ariaLabel": "권장"
+      },
+      "related": {
+        "toggleGroup": "여러 Toggle을 그룹화",
+        "button": "단일 액션 버튼",
+        "segmented": "필 스타일 배타적 선택"
+      },
+      "code": { "tailwindDesc": "환경에 맞는 스타일 적용 방법" },
+      "tips": {
+        "title": "Toggle을 효과적으로 사용하기 위한 팁",
+        "controlled": "제어 모드에서는 pressed + onPressedChange를 사용. 비제어 모드에서는 defaultPressed.",
+        "variant": "default는 배경색 변화, outline은 보더 추가, ghost는 텍스트 색상만 변화. 용도에 맞게 사용하세요.",
+        "iconOnly": "아이콘 전용은 정사각형 레이아웃. aria-label을 반드시 지정하세요.",
+        "dataState": "CSS 커스터마이즈 시 data-[state=on] 셀렉터로 ON 상태의 스타일을 변경할 수 있습니다."
+      }
+    },
+    "toggleGroup": {
+      "description": "ToggleGroup은 여러 Toggle을 그룹화하여 온/오프 상태를 관리하는 컴포넌트입니다. 단일 선택과 다중 선택 모드를 모두 지원합니다.",
+      "groupProps": {
+        "type": "단일 선택 또는 다중 선택 모드",
+        "value": "제어 모드에서의 선택 값",
+        "defaultValue": "비제어 모드에서의 초기 선택 값",
+        "onValueChange": "선택 변경 시 호출되는 콜백",
+        "variant": "아이템의 시각적 스타일",
+        "size": "아이템 크기 (28/32/36/40/48px)",
+        "radius": "모서리 둥글기 크기 (6px)",
+        "fontWeight": "폰트 굵기. 모든 아이템에 적용. 개별 아이템의 fontWeight로 덮어쓸 수 있음",
+        "orientation": "레이아웃 방향",
+        "disabled": "모든 아이템 비활성화"
+      },
+      "itemProps": {
+        "value": "아이템의 고유 값",
+        "disabled": "해당 아이템만 비활성화",
+        "variant": "이 아이템의 variant 개별 재정의",
+        "size": "이 아이템의 size 개별 재정의",
+        "radius": "이 아이템의 radius 개별 재정의",
+        "fontWeight": "이 아이템의 fontWeight 개별 재정의"
+      },
+      "types": {
+        "singleDesc": "하나만 선택 가능, 텍스트 정렬 등 배타적 선택에 사용",
+        "multipleDesc": "여러 항목을 동시에 선택 가능, 텍스트 서식처럼 동시 적용하는 옵션에 사용"
+      },
+      "variants": {
+        "defaultDesc": "경계선 없는 심플한 스타일, 툴바에 적합",
+        "outlineDesc": "그룹감을 명확히 표현하는 테두리 연결 스타일"
+      },
+      "sizes": {
+        "height": "높이",
+        "hPadding": "가로 패딩",
+        "icon": "아이콘",
+        "font": "폰트",
+        "preview": "미리보기"
+      },
+      "features": {
+        "useCases": {
+          "gridListLabel": "Grid / List 보기 전환",
+          "gridListDesc": "Finder, Dropbox, 이커머스 상품 목록",
+          "rowColLabel": "Row / Column 레이아웃",
+          "rowColDesc": "Figma, Framer, Flexbox 방향 전환",
+          "cardDetailDesc": "Gmail, Notion, 작업 관리 앱"
+        },
+        "states": {
+          "defaultDesc": "기본 상태. 선택된 아이템이 강조 표시됩니다.",
+          "disabledAllDesc": "모든 아이템이 비활성화된 상태",
+          "disabledItem": "개별 Disabled",
+          "disabledItemDesc": "특정 아이템만 비활성화",
+          "multipleSelect": "다중 선택",
+          "multipleSelectDesc": "여러 아이템을 동시에 선택할 수 있습니다."
+        },
+        "orientation": {
+          "horizontal": "Horizontal (기본값)"
+        }
+      },
+      "customization": {
+        "descBefore": "모든 아이템은 디자인 시스템 간격 규칙 기반의 기본값을 사용합니다. 그룹의 ",
+        "descAfter": "으로 모든 아이템을 일괄 커스터마이즈할 수 있습니다.",
+        "paddingTitle": "가로 패딩 변경",
+        "iconWidthTitle": "Icon Only 너비 변경",
+        "tip": "기본값은 컴포넌트의 일관성을 유지하도록 설계되어 있습니다. UI 구현상 커스터마이즈가 필요한 경우에만 사용하세요."
+      },
+      "componentStructure": {
+        "itemDesc": "토글 아이템"
+      },
+      "anatomy": {
+        "rootDesc": "그룹 컨테이너",
+        "itemDesc": "개별 토글 버튼",
+        "activeDesc": "현재 선택된 아이템"
+      },
+      "bestPractices": {
+        "doTitle": "권장",
+        "do1": "단일 선택에는 type=\"single\" 사용",
+        "do2": "다중 선택에는 type=\"multiple\" 사용",
+        "do3": "각 아이템에 aria-label 설정",
+        "do4": "관련 옵션끼리 그룹화",
+        "dontTitle": "지양",
+        "dont1": "아이템을 5개 이상 포함하지 않기",
+        "dont2": "관련 없는 옵션 섞지 않기",
+        "dont3": "네비게이션에는 사용하지 않기 (→ Tabs)",
+        "dont4": "단일 선택에 Segmented 대신 사용하지 않기"
+      },
+      "a11y": {
+        "keyboardTitle": "키보드",
+        "tabDesc": "그룹으로 포커스 이동",
+        "spaceDesc": "아이템 온/오프 전환",
+        "enterDesc": "아이템 온/오프 전환",
+        "arrowDesc": "아이템 간 이동",
+        "ariaTitle": "ARIA",
+        "ariaGroup": "자동 적용",
+        "ariaPressed": "자동 적용",
+        "ariaOrientation": "자동 적용",
+        "ariaLabel": "권장"
+      },
+      "vsButtonGroup": {
+        "intro": "겉모습은 비슷하지만 용도와 동작이 다릅니다. 적절한 컴포넌트를 선택하세요.",
+        "feature": "특징",
+        "row1Label": "용도",
+        "row1a": "온/오프 상태 관리",
+        "row1b": "액션 버튼 그룹화",
+        "row2Label": "상태 관리",
+        "row2a": "자동 (Radix 관리)",
+        "row2b": "수동 (selected prop)",
+        "row3Label": "선택 모드",
+        "row3a": "single / multiple",
+        "row3b": "수동 제어만",
+        "row4Label": "값 관리",
+        "row4a": "value / onValueChange",
+        "row4b": "없음",
+        "row5Label": "사용 사례",
+        "row5a": "텍스트 정렬, 서식",
+        "row5b": "페이지네이션, 툴바",
+        "tip": "상태를 유지하고 싶을 때(선택/비선택)는 ToggleGroup, 클릭 시 액션을 실행하고 싶을 때는 ButtonGroup을 사용하세요."
+      },
+      "related": {
+        "toggleDesc": "단독 온/오프 토글",
+        "segmentedDesc": "필 형태의 배타적 선택 컨트롤",
+        "buttonGroupDesc": "액션 버튼 그룹"
+      },
+      "tailwindDesc": "환경에 맞는 스타일 적용 방법",
+      "tips": {
+        "intro": "ToggleGroup을 효과적으로 사용하기 위한 팁",
+        "type": "`type=\"single\"`으로 하나만 선택, `type=\"multiple\"`로 다중 선택 가능.",
+        "attached": "아이템은 자동으로 연결됩니다. 수평 시 좌우, 수직 시 상하로 결합.",
+        "variant": "두 가지 variant: `default`와 `outline`. 그룹 전체에 통일 적용.",
+        "orientation": "`orientation=\"vertical\"`로 세로 배치 전환 가능. 사이드바 네비게이션에 최적."
+      }
+    },
+    "slider": {
+      "description": "Slider는 지정된 범위 내에서 값을 선택하는 입력 컨트롤입니다. 단일 값 선택과 범위 선택을 모두 지원합니다.",
+      "props": {
+        "value": "제어 모드에서의 값 (배열)",
+        "defaultValue": "비제어 모드에서 초기값 (배열)",
+        "onValueChange": "값 변경 시 콜백 (드래그 중에도 발생)",
+        "onValueCommit": "드래그 완료 시 콜백",
+        "color": "Range와 Thumb의 색상",
+        "size": "슬라이더 크기",
+        "min": "최솟값",
+        "max": "최댓값",
+        "step": "스텝 값",
+        "minStepsBetweenThumbs": "Range 모드에서 Thumb 간 최소 스텝 수",
+        "showTooltip": "툴팁 표시 모드. auto는 호버/드래그 시 표시",
+        "formatLabel": "툴팁 값 포맷 함수",
+        "startContent": "슬라이더 왼쪽에 표시할 콘텐츠 (아이콘, 라벨 등)",
+        "endContent": "슬라이더 오른쪽에 표시할 콘텐츠",
+        "disabled": "비활성화 상태",
+        "orientation": "표시 방향",
+        "inverted": "값 방향 반전",
+        "name": "폼의 name 속성"
+      },
+      "sizes": {
+        "track": "트랙",
+        "thumb": "Thumb",
+        "trackHeight": "트랙 높이",
+        "preview": "미리보기"
+      },
+      "features": {
+        "rangeDesc": "defaultValue에 두 개의 값을 전달하면 범위 슬라이더로 동작합니다.",
+        "withValueDesc": "제어 모드에서 값을 표시하는 패턴입니다."
+      },
+      "customization": {
+        "desc": "startContent / endContent에 ReactNode를 전달하여 스타일을 자유롭게 커스터마이즈할 수 있습니다.",
+        "withIconTitle": "아이콘 포함",
+        "styledLabelTitle": "스타일 라벨",
+        "iconTooltipTitle": "아이콘 + 툴팁",
+        "tip": "startContent / endContent는 ReactNode를 받으므로 문자열, 아이콘, 커스텀 컴포넌트 등 무엇이든 전달할 수 있습니다. 폰트 크기는 Slider의 size에 맞춰 자동 조정됩니다."
+      },
+      "anatomy": {
+        "track": "슬라이더 전체 범위",
+        "range": "선택된 값의 범위",
+        "thumb": "드래그 가능한 핸들"
+      },
+      "bestPractices": {
+        "doTitle": "권장",
+        "do": {
+          "0": "현재 값을 가까이에 표시하기",
+          "1": "적절한 step 값 설정하기",
+          "2": "범위 선택에는 range 모드 사용하기",
+          "3": "min/max 범위를 명확하게 정의하기"
+        },
+        "dontTitle": "피해야 할 것",
+        "dont": {
+          "0": "정확한 값 입력에는 Input을 사용하기",
+          "1": "극단적으로 작은 step 값은 피하기",
+          "2": "값 표시 없이 사용하지 않기",
+          "3": "모바일에서 너무 좁은 슬라이더 피하기"
+        }
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "leftRight": "1스텝 증감",
+        "upDown": "1스텝 증감",
+        "home": "최솟값으로 이동",
+        "end": "최댓값으로 이동",
+        "aria": "ARIA 속성",
+        "ariaSlider": "자동 부여",
+        "ariaValue": "자동 관리",
+        "ariaFocus": "포커스 인디케이터",
+        "ariaTouch": "터치 조작 지원"
+      },
+      "related": {
+        "input": "정확한 값 입력",
+        "switch": "On/Off 전환",
+        "radio": "이산 값 선택"
+      },
+      "tailwindDesc": "환경에 맞는 스타일 적용 방법",
+      "tipsDesc": "Slider를 효과적으로 사용하기 위한 팁",
+      "tips": {
+        "size": "Thumb 크기는 CSS 변수로 관리됩니다. 트랙 두께는 h-1/h-1.5/h-2로 변화합니다.",
+        "step": "step prop으로 값의 증감폭을 지정합니다. min/max와 조합해 범위를 제어하세요.",
+        "showTooltip": "\"auto\"는 호버/드래그 시 표시, \"always\"는 항상 표시합니다. formatLabel로 포맷을 커스터마이즈할 수 있습니다.",
+        "defaultValue": "비제어 모드에서는 defaultValue, 제어 모드에서는 value + onValueChange를 사용하세요."
+      }
+    },
+    "segmented": {
+      "description": "Segmented는 단일 배타적 선택을 제공하는 pill형 컨트롤입니다. 필터 및 뷰 전환에 최적입니다.",
+      "props": {
+        "value": "제어 모드에서 선택된 값",
+        "defaultValue": "비제어 모드에서 초기 선택값",
+        "onValueChange": "선택 변경 시 콜백",
+        "variant": "스타일 변형 (default: iOS 스타일, outline: 테두리, underline: Stripe 스타일, ghost: Notion 스타일)",
+        "size": "세그먼트 크기 (32/36/40/48px)",
+        "radius": "모서리 둥글기 (6px)",
+        "fontWeight": "모든 아이템에 적용되는 폰트 굵기",
+        "disabled": "모든 아이템 비활성화"
+      },
+      "itemProps": {
+        "value": "아이템의 고유값",
+        "disabled": "개별 비활성화",
+        "size": "개별 크기 재정의",
+        "radius": "개별 모서리 재정의",
+        "contentType": "콘텐츠 유형 (icon: 정사각형, icon-text: 간격 포함, text: 기본)"
+      },
+      "demo": {
+        "day": "일",
+        "week": "주",
+        "month": "월",
+        "year": "년",
+        "prev": "이전",
+        "play": "재생",
+        "all": "전체",
+        "active": "활성",
+        "completed": "완료",
+        "day7": "7일",
+        "day30": "30일",
+        "day90": "90일",
+        "table": "테이블",
+        "board": "보드",
+        "calendar": "캘린더",
+        "monthly": "월간",
+        "yearly": "연간",
+        "selected": "선택됨",
+        "unselected": "미선택",
+        "disabledA": "비활성 A",
+        "disabledB": "비활성 B",
+        "enabled": "활성",
+        "disabledItem": "비활성"
+      },
+      "variants": {
+        "defaultDesc": "선택 아이템이 흰 배경과 그림자로 떠오르는 iOS/Apple 스타일",
+        "outlineDesc": "선택 아이템을 회색 배경으로 강조하는 깔끔한 테두리 스타일",
+        "underlineDesc": "밑줄로만 선택을 표시하는 Stripe/GitHub 스타일의 미니멀 탭",
+        "ghostDesc": "선택 아이템만 배경이 생기는 Notion/Figma 스타일"
+      },
+      "sizes": {
+        "height": "높이",
+        "hPadding": "가로 패딩",
+        "font": "폰트",
+        "preview": "미리보기",
+        "iconOnlyTitle": "Icon Only (정사각형)",
+        "containerHeight": "컨테이너 높이",
+        "item": "아이템",
+        "itemSize": "아이템 크기",
+        "icon": "아이콘"
+      },
+      "features": {
+        "useCases": {
+          "statusFilterLabel": "상태 필터",
+          "statusFilterDesc": "Notion, Linear, 태스크 관리 앱",
+          "dateFilterLabel": "기간 필터",
+          "dateFilterDesc": "Stripe, Google Analytics, 대시보드",
+          "viewSwitchLabel": "뷰 전환",
+          "viewSwitchDesc": "Figma, Notion, 프로젝트 관리 도구",
+          "billingLabel": "결제 주기",
+          "billingDesc": "SaaS 요금 페이지, 구독 서비스"
+        },
+        "states": {
+          "defaultDesc": "선택된 아이템이 하이라이트로 표시됩니다.",
+          "disabledDesc": "모든 아이템이 비활성화된 상태입니다.",
+          "partialTitle": "부분 Disabled",
+          "partialDesc": "특정 아이템만 비활성화됩니다.",
+          "manyTitle": "다수 아이템",
+          "manyDesc": "2~5개 아이템에 최적입니다."
+        }
+      },
+      "componentStructure": {
+        "itemDesc": "세그먼트 아이템"
+      },
+      "recipes": {
+        "dashboard": { "prop": "대시보드", "desc": "기간 필터 + 데이터 연동" },
+        "tasks": { "prop": "태스크 관리", "desc": "카운트 배지 포함 필터" },
+        "pricing": { "prop": "요금 플랜", "desc": "할인 배지 포함" },
+        "form": { "prop": "폼 전환", "desc": "로그인 / 회원가입" }
+      },
+      "customization": {
+        "desc": "모든 아이템은 디자인 시스템 스페이싱 규칙에 따른 기본값을 사용합니다. 그룹의 className으로 전체 아이템을 일괄 커스터마이즈할 수 있습니다.",
+        "paddingTitle": "가로 패딩 변경",
+        "iconWidthTitle": "Icon Only 너비 변경",
+        "tip": "기본값은 컴포넌트 일관성을 위해 설계되었습니다. UI 구현상 커스터마이즈가 필요한 경우에 활용하세요."
+      },
+      "anatomy": {
+        "root": "Pill형 트랙 (컨테이너)",
+        "item": "개별 세그먼트 (미선택)",
+        "indicator": "슬라이딩 선택 배경"
+      },
+      "bestPractices": {
+        "doTitle": "권장",
+        "do": {
+          "0": "2~5개의 배타적 옵션에 사용",
+          "1": "같은 콘텐츠 영역 내 뷰 전환에 사용",
+          "2": "라벨은 짧고 간결하게 (1~2단어)",
+          "3": "필터나 정렬 전환에 최적"
+        },
+        "dontTitle": "피해야 할 것",
+        "dont": {
+          "0": "6개 이상의 옵션에는 사용하지 않기",
+          "1": "페이지 네비게이션에는 사용하지 않기 (→ Tabs)",
+          "2": "다중 선택이 필요한 경우 사용하지 않기 (→ ToggleGroup)",
+          "3": "긴 라벨 텍스트 사용하지 않기"
+        }
+      },
+      "a11y": {
+        "keyboard": "키보드 조작",
+        "tab": "그룹에 포커스 이동",
+        "arrows": "아이템 간 이동 및 선택",
+        "home": "첫 번째 아이템으로 이동",
+        "end": "마지막 아이템으로 이동",
+        "aria": "ARIA 속성",
+        "ariaRadiogroup": "자동 부여",
+        "ariaRadio": "각 아이템에 부여",
+        "ariaChecked": "자동 업데이트",
+        "ariaFocus": "포커스 인디케이터"
+      },
+      "vsTabs": {
+        "intro": "비슷한 외관이지만 용도와 구조가 다릅니다. 적절한 컴포넌트를 선택하세요.",
+        "feature": {
+          "purpose": "용도",
+          "structure": "구조",
+          "result": "결과",
+          "placement": "배치"
+        },
+        "segmented": {
+          "purpose": "값 선택 (필터, 전환)",
+          "structure": "단독 컴포넌트",
+          "result": "같은 영역 내 데이터 변경",
+          "placement": "콘텐츠 내 어디서나"
+        },
+        "tabs": {
+          "purpose": "콘텐츠 네비게이션",
+          "structure": "TabList + TabPanel 조합",
+          "result": "패널 전환",
+          "placement": "페이지/섹션 상단"
+        },
+        "tip": "같은 콘텐츠 영역 내에서 뷰를 변경할 때는 Segmented, 다른 콘텐츠 패널을 전환할 때는 Tabs를 사용하세요."
+      },
+      "related": {
+        "toggleGroup": "여러 Toggle을 그룹화",
+        "toggle": "단독 on/off 토글",
+        "buttonGroup": "액션 버튼 그룹"
+      },
+      "tailwindDesc": "환경에 맞는 스타일 적용 방법",
+      "tipsDesc": "Segmented를 효과적으로 사용하기 위한 팁",
+      "tips": {
+        "variant": "`default`는 배경 전환, `outline`은 테두리 포함, `underline`은 밑줄 스타일, `ghost`는 배경 없음. 용도에 맞게 선택하세요.",
+        "contentType": "`contentType`을 `icon`/`icon-text`/`text`로 지정하면 패딩과 아이콘 크기가 자동 조정됩니다.",
+        "fontWeight": "`fontWeight=\"semibold\"`로 선택 상태 텍스트를 굵게 만들 수 있습니다. 기본값은 `normal`입니다.",
+        "controlled": "비제어 모드에서는 `defaultValue`, 제어 모드에서는 `value` + `onValueChange`를 사용하세요."
+      }
+    },
+    "avatar": {
+      "description": "Avatar는 사용자나 엔티티를 시각적으로 나타내는 컴포넌트입니다. 이미지, 이니셜, 아이콘 폴백을 지원하며 상태 표시와 그룹 표시도 지원합니다.",
+      "props": {
+        "size": "아바타 크기 (24/32/40/48/64/80px)",
+        "shape": "모양 (원형/둥근 정사각형)",
+        "status": "상태 점 표시",
+        "src": "이미지 URL",
+        "alt": "이미지 대체 텍스트",
+        "onLoadingStatusChange": "로딩 상태 변경 콜백",
+        "fbSize": "폰트 크기 스케일링용",
+        "name": "이름에서 이니셜+색상 자동 생성. children이 있으면 이니셜 덮어쓰기",
+        "colorized": "색상만 자동 적용 (이니셜은 수동). name이 있으면 name 우선",
+        "colorVariant": "색상 스타일: vivid (진한 배경+흰 글자) / soft (연한 배경+진한 글자)",
+        "delayMs": "폴백 표시 지연 시간 (ms)",
+        "max": "최대 표시 수. 초과분은 \"+N\"으로 표시",
+        "groupSize": "자식 아바타 크기 (\"+N\" 뱃지에 적용)",
+        "groupShape": "자식 아바타 모양 (\"+N\" 뱃지에 적용)"
+      },
+      "sizes": {
+        "size": "크기",
+        "font": "폰트",
+        "dot": "점",
+        "statusDot": "상태 점",
+        "preview": "미리보기"
+      },
+      "features": {
+        "fallbackDesc": "이미지를 불러오지 못할 경우 이니셜 또는 아이콘이 폴백으로 표시됩니다.",
+        "groupDesc": "여러 아바타를 겹쳐서 표시합니다. max로 표시 수를 제한할 수 있습니다."
+      },
+      "structure": {
+        "imageDesc": "이미지",
+        "fallbackDesc": "폴백 (name·colorized 지원)",
+        "groupDesc": "그룹 표시 (max 지원)"
+      },
+      "customization": {
+        "desc": "name prop만 전달하면 이니셜과 색상을 자동 생성합니다.",
+        "card1Title": "name prop — 이니셜 + 색상 자동 생성",
+        "card3Title": "CJK 지원",
+        "card4Title": "이미지 + 폴백",
+        "withImage": "이미지 있음",
+        "withFallback": "폴백",
+        "tip": "같은 name은 항상 같은 색상이 됩니다 (결정론적 해시). children을 전달하면 자동 이니셜을 덮어쓸 수 있습니다."
+      },
+      "anatomy": {
+        "containerDesc": "원형 컨테이너",
+        "contentDesc": "이미지 또는 폴백",
+        "statusDesc": "상태 점 (선택 사항)"
+      },
+      "bestPractices": {
+        "doTitle": "권장",
+        "dontTitle": "피해야 할 것",
+        "do": {
+          "0": "반드시 alt 텍스트를 설정하세요",
+          "1": "이미지에는 반드시 폴백을 준비하세요",
+          "2": "그룹에서는 일관된 크기를 사용하세요",
+          "3": "상태는 의미 있는 상황에서만 사용하세요"
+        },
+        "dont": {
+          "0": "alt 텍스트 없이 이미지 아바타를 사용하지 마세요",
+          "1": "폴백 없이 Avatar.Image를 사용하지 마세요",
+          "2": "그룹 내에서 크기를 혼용하지 마세요",
+          "3": "장식 목적으로만 아바타를 사용하지 마세요"
+        }
+      },
+      "a11y": {
+        "keyboardTitle": "키보드 조작",
+        "tabDesc": "포커스 이동",
+        "ariaTitle": "ARIA / WCAG",
+        "roleImg": "Radix 자동 적용",
+        "altText": "alt 텍스트로 이미지 설명",
+        "fallbackAlt": "폴백으로 텍스트 대체 제공",
+        "statusDecorative": "상태 점은 장식적 요소 (별도 텍스트로 보완 권장)"
+      },
+      "related": {
+        "dropdownDesc": "아바타 클릭으로 메뉴 표시",
+        "buttonDesc": "아바타가 포함된 버튼 조합",
+        "tableDesc": "사용자 목록의 아바타 표시"
+      },
+      "tailwindDesc": "환경에 맞는 스타일 적용 방법",
+      "tipsDesc": "Avatar를 효과적으로 사용하기 위한 팁",
+      "tips": {
+        "0": "아바타 이미지는 작은 크기로 제공하세요. 2배 크기(예: 80px 표시 시 160px 이미지)가 Retina 대응에 최적입니다.",
+        "1": "Avatar.Image + Avatar.Fallback은 반드시 세트로 사용하세요. 이미지를 불러오지 못할 경우 폴백이 표시됩니다.",
+        "2": "Avatar.Fallback에도 size를 전달하면 폰트 크기가 자동 조정됩니다. Avatar의 size와 일치시키세요.",
+        "3desc": "만으로 이니셜(JD)과 색상을 자동 생성합니다. children을 전달하면 이니셜을 덮어쓸 수 있습니다.",
+        "4": "대량의 아바타에는 max prop으로 표시 수를 제한하고, 나머지는 \"+N\"으로 표시합니다."
+      }
+    }
+  },
+  "footer": {
+    "product": "프로덕트",
+    "resources": "리소스",
+    "tagline": "디자인과 코드를 하나로.",
+    "tagline2": "토큰 기반 UI 컴포넌트 라이브러리"
+  }
+}

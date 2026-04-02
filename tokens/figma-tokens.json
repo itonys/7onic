@@ -318,12 +318,13 @@
     },
     "fontFamily": {
       "sans": {
-        "value": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "value": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "type": "fontFamilies",
         "$extensions": {
           "languages": {
             "en": "Inter",
-            "ja": "Noto Sans JP"
+            "ja": "Noto Sans JP",
+            "ko": "Noto Sans KR"
           },
           "weights": [
             "400",

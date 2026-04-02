@@ -278,7 +278,7 @@ const tokens = {
     "2xl": "1536px"
   },
   "fontFamily": {
-    "sans": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+    "sans": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
     "mono": "'Fira Code', 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace"
   },
   "componentSize": {
@@ -612,37 +612,37 @@ const tokens = {
   "typography": {
     "heading": {
       "1": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1.875rem",
         "fontWeight": "700",
         "lineHeight": "2.5rem"
       },
       "2": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1.5rem",
         "fontWeight": "700",
         "lineHeight": "2.125rem"
       },
       "3": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1.25rem",
         "fontWeight": "600",
         "lineHeight": "1.875rem"
       },
       "4": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1.125rem",
         "fontWeight": "600",
         "lineHeight": "1.75rem"
       },
       "5": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1rem",
         "fontWeight": "600",
         "lineHeight": "1.625rem"
       },
       "6": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.875rem",
         "fontWeight": "600",
         "lineHeight": "1.375rem"
@@ -650,37 +650,37 @@ const tokens = {
     },
     "body": {
       "lg": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1.125rem",
         "fontWeight": "400",
         "lineHeight": "1.75rem"
       },
       "default": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1rem",
         "fontWeight": "400",
         "lineHeight": "1.625rem"
       },
       "md": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.875rem",
         "fontWeight": "400",
         "lineHeight": "1.375rem"
       },
       "sm": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.8125rem",
         "fontWeight": "400",
         "lineHeight": "1.25rem"
       },
       "xs": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.75rem",
         "fontWeight": "400",
         "lineHeight": "1.125rem"
       },
       "2xs": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.6875rem",
         "fontWeight": "400",
         "lineHeight": "1rem"
@@ -688,38 +688,38 @@ const tokens = {
     },
     "label": {
       "lg": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "1rem",
         "fontWeight": "600",
         "lineHeight": "1.625rem"
       },
       "md": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.875rem",
         "fontWeight": "600",
         "lineHeight": "1.375rem"
       },
       "default": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.8125rem",
         "fontWeight": "600",
         "lineHeight": "1.25rem"
       },
       "sm": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.75rem",
         "fontWeight": "600",
         "lineHeight": "1.125rem"
       },
       "xs": {
-        "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+        "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
         "fontSize": "0.6875rem",
         "fontWeight": "600",
         "lineHeight": "1rem"
       }
     },
     "caption": {
-      "fontFamily": "Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif",
+      "fontFamily": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
       "fontSize": "0.75rem",
       "fontWeight": "400",
       "lineHeight": "1.125rem"

@@ -1,0 +1,1672 @@
+{
+  "nav": {
+    "designTokens": "デザイントークン",
+    "components": "コンポーネント",
+    "patterns": "パターン",
+    "templates": "テンプレート"
+  },
+  "sidebar": {
+    "gettingStarted": "はじめに",
+    "forms": "フォーム",
+    "dataDisplay": "データ表示",
+    "layout": "レイアウト",
+    "overlay": "オーバーレイ",
+    "feedback": "フィードバック",
+    "navigation": "ナビゲーション",
+    "aiComponents": "AIコンポーネント",
+    "charts": "チャート",
+    "designTokens": "デザイントークン",
+    "designGuide": "デザインガイド"
+  },
+  "common": {
+    "menu": "メニュー",
+    "closeMenu": "メニューを閉じる",
+    "openSidebar": "サイドバーを開く",
+    "closeSidebar": "サイドバーを隠す",
+    "lightMode": "ライトモードに切り替え",
+    "darkMode": "ダークモードに切り替え",
+    "tabs": {
+      "design": "デザイン",
+      "code": "コード"
+    },
+    "toc": "目次",
+    "tableHeaders": {
+      "size": "サイズ",
+      "preview": "プレビュー",
+      "gap": "ギャップ",
+      "item": "アイテム",
+      "feature": "特徴"
+    }
+  },
+  "search": {
+    "placeholder": "コンポーネント、トークンを検索…",
+    "short": "検索…",
+    "noResults": "結果が見つかりませんでした。",
+    "navigate": "移動",
+    "select": "選択",
+    "items": {
+      "colors": "カラーパレット",
+      "typography": "タイポグラフィ",
+      "spacing": "余白・間隔",
+      "shadows": "シャドウ",
+      "radius": "角丸",
+      "border-width": "ボーダー幅",
+      "breakpoints": "ブレイクポイント",
+      "z-index": "レイヤー順序",
+      "opacity": "透明度",
+      "icon-sizes": "アイコンサイズ",
+      "duration": "アニメーション時間",
+      "easing": "イージング",
+      "scale": "スケール変換",
+      "animation": "アニメーション",
+      "button": "ボタン",
+      "icon-button": "アイコンボタン",
+      "button-group": "ボタングループ",
+      "input": "テキスト入力",
+      "textarea": "テキストエリア",
+      "select": "セレクト",
+      "dropdown": "ドロップダウン",
+      "checkbox": "チェックボックス",
+      "radio": "ラジオ",
+      "switch": "スイッチ",
+      "toggle": "トグル",
+      "toggle-group": "トグルグループ",
+      "segmented": "セグメント",
+      "slider": "スライダー",
+      "avatar": "アバター",
+      "badge": "バッジ",
+      "card": "カード",
+      "table": "テーブル",
+      "tabs": "タブ",
+      "accordion": "アコーディオン",
+      "divider": "区切り線",
+      "modal": "モーダル",
+      "drawer": "ドロワー",
+      "tooltip": "ツールチップ",
+      "popover": "ポップオーバー",
+      "alert": "アラート通知",
+      "toast": "トースト通知",
+      "progress": "進捗バー・ローディング",
+      "spinner": "ローディングスピナー",
+      "skeleton": "ローディングプレースホルダー",
+      "breadcrumb": "パンくずリスト",
+      "pagination": "ページネーション",
+      "navigation-menu": "ナビゲーションメニュー",
+      "line-chart": "折れ線グラフ",
+      "area-chart": "エリアチャート",
+      "bar-chart": "棒グラフ",
+      "pie-chart": "円グラフ",
+      "metric-card": "メトリクスカード",
+      "icons": "アイコン",
+      "accessibility": "アクセシビリティ",
+      "tailwind-versions": "Tailwind v3 / v4"
+    }
+  },
+  "pages": {
+    "components": {
+      "description": "サイズも、状態も、スタイルも、すべて設計済み。デザイン通りのUIが、すぐに実現できます。",
+      "stats": {
+        "components": "コンポーネント",
+        "accessible": "アクセシブル",
+        "categories": "カテゴリー"
+      },
+      "categories": {
+        "form": "インタラクティブな入力・操作コントロール",
+        "dataDisplay": "データを表示・整理するためのコンポーネント",
+        "layout": "コンテンツを構造化・整理するためのレイアウト要素",
+        "overlay": "ページ上に重なるUI要素",
+        "feedback": "フィードバックとステータス情報を提供",
+        "navigation": "画面遷移やページ内移動を補助するナビゲーション",
+        "ai": "AI搭載アプリケーションとチャットボット用",
+        "charts": "データをグラフや指標で視覚的に表現"
+      },
+      "quickStart": "でインストールし、コンポーネントをインポートしてすぐに使い始められます。TypeScript、Tailwind CSS、Radix UIベースのアクセシブルなコンポーネントが揃っています。"
+    },
+    "install": {
+      "description": "{name} UIコンポーネントをプロジェクトにインストールして使う方法",
+      "tailwindRequired": {
+        "title": "Tailwind必須:",
+        "body": "Tailwind v3 または v4 が必要です。インストール後、下記のImport設定を行ってください。"
+      },
+      "noConfig": "設定ファイル不要",
+      "individualImport": "個別インポート",
+      "v4Note": "@source ディレクティブで、コンポーネント内のTailwindクラスをスキャン対象に追加します。パスはプロジェクト構造に合わせて調整してください。",
+      "cssPreset": "CSS + プリセット",
+      "v3Note": "プリセットは theme.extend を使用するため、既存のTailwindクラスはそのまま維持されます。※ v3でもセマンティックカラーの opacity modifier（bg-primary/50 等）に対応しています。RGB チャンネル変数を使用してアルファ値を適用します。",
+      "bodyStyle": "ページ全体にデザイントークンの背景色・テキスト色を適用するには、body にクラスを追加してください。",
+      "nextjsNote": "クライアントコンポーネントとして使用する場合は、ファイルの先頭に 'use client' を追加してください。",
+      "fontsTitle": "Fonts Setup Guide",
+      "fontsDesc": "フォントのインストールと多言語設定",
+      "fontsNote": "コンポーネントはトークンの {code} を使用します。Design Tokens > Installation > Fonts で設定できます。",
+      "usageDesc": "コンポーネントのインポートと使用方法。Namespace と Named の2つの方式をサポートしています。",
+      "recommended": "推奨",
+      "namespaceNote": "ルートコンポーネントのみインポートし、サブコンポーネントはドット記法でアクセスします。",
+      "compat": "互換",
+      "namedExportNote": "従来の Named Export も引き続きサポートしています。既存のコードはそのまま動作します。",
+      "standaloneNote": "Standalone コンポーネント（Button, Input, Badge など）は単体インポートのみで、Namespace は不要です。",
+      "package": "パッケージ",
+      "version": "バージョン",
+      "required": "必須（同時インストール）",
+      "contentsDesc": "2つのパッケージで構成されています。コンポーネントとトークンを別々に管理できます。",
+      "reactDesc": "UIコンポーネントライブラリ — dist/ 配布",
+      "typeDefs": "TypeScript 型定義",
+      "tokensDesc": "デザイントークン — CSS変数・Tailwindプリセット・JS・CLI",
+      "syncDesc": "→ npx sync-tokens で全ファイル自動生成",
+      "customizeTitle": "デザインをカスタマイズ",
+      "customizeDesc": "トークンを変更するとコンポーネントのスタイルに自動反映"
+    },
+    "theming": {
+      "description": "{name} はCSS変数ベースのテーマシステムを採用。Light / Dark の自動切替と、ブランドカラーのカスタマイズに対応しています。",
+      "howItWorksSubtitle": "3つのレイヤーがデザインの一貫性を保証します。",
+      "tokenChangeNote": "トークンを1箇所変更するだけで、参照するすべてのコンポーネントに自動反映されます。",
+      "darkModeDesc": "テーマを切り替えると、すべてのコンポーネントが自動で連動します。",
+      "viewCode": "コードを見る",
+      "darkClassNote": "<html> に dark クラスを切り替えるだけで、すべてのCSS変数が自動で連動します。",
+      "customizingDesc": "プライマリカラーを変更するだけで、すべてのコンポーネントに自動反映されます。",
+      "customizeNote": "CSS変数の上書き、またはToken Syncで一括カスタマイズできます。",
+      "colorRefDesc": "セマンティックカラー変数の一覧。Light / Dark テーマで参照先が自動的に切り替わります。",
+      "hoverActiveNote": "※ 各カテゴリは hover・active バリアントも利用可能です。"
+    },
+    "button": {
+      "description": "ボタンは、ユーザーがアクションを実行するための最も基本的なインタラクティブ要素です。クリック、タップで操作を開始し、フォーム送信やナビゲーションなど様々な用途に使用します。",
+      "props": {
+        "variant": "ボタンのスタイル。solid=600、outline/ghost/link=400のフォント太さ",
+        "color": "solidバリアントの色（default=ダーク、primary=ブランド、secondary=セカンダリ、destructive=エラー）。solid以外では無視",
+        "size": "ボタンの高さとパディング",
+        "radius": "角丸のサイズ (6px)",
+        "fullWidth": "幅100%で表示",
+        "loading": "ローディングStates",
+        "disabled": "無効States",
+        "leftIcon": "左側アイコン",
+        "rightIcon": "右側アイコン",
+        "fontWeight": "フォント太さの上書き。未指定時はvariantデフォルト（solid系=600, outline/ghost/link=400）。直接prop > ButtonGroupコンテキスト > variantデフォルトの優先順位",
+        "selected": "選択States（outline/ghostのみ対応）。outlineはbg-background-muted、ghostはfont-semibold。他のvariantでは効果なし",
+        "pressEffect": "プレスエフェクト（active:scale-pressed）。未指定時はtrueとして動作。falseで無効化",
+        "asChild": "Slotとしてレンダリング"
+      },
+      "variants": {
+        "solid": { "desc": "ソリッド背景。最も視覚的に目立つスタイル。", "usage": "送信、保存、購入" },
+        "outline": { "desc": "中立的なアクション。背景と調和させたい場合。", "usage": "詳細を見る、編集" },
+        "ghost": { "desc": "最小限の視覚的存在感。ツールバーなどに最適。", "usage": "ツールバー、ナビ" },
+        "link": { "desc": "テキストリンクスタイル。インラインアクションに。", "usage": "もっと見る、詳細" }
+      },
+      "colors": {
+        "default": { "desc": "ダークカラー。最も汎用的なCTA。", "usage": "送信、保存" },
+        "primary": { "desc": "ブランドカラー。ブランドを強調するアクション。", "usage": "サインアップ" },
+        "secondary": { "desc": "補助的なアクション。プライマリと並べて使用。", "usage": "キャンセル、戻る" },
+        "destructive": { "desc": "破壊的なアクション。削除や取消不能な操作に。", "usage": "削除、リセット" }
+      },
+      "sizes": {
+        "height": "高さ",
+        "padding": "横パディング",
+        "icon": "アイコン",
+        "font": "フォント"
+      },
+      "touchTargetNote": "タッチターゲット: WCAG 2.5.8基準では最小24pxのタッチ領域が必要です。最小のxs（28px）でもWCAG基準を満たしています。",
+      "demo": {
+        "search": "検索",
+        "continue": "続ける",
+        "searchAction": "検索する",
+        "submit": "送信",
+        "dashboard": "ダッシュボードへ"
+      },
+      "features": {
+        "asChild": "Next.js Link連携",
+        "formSubmit": "フォーム送信"
+      },
+      "anatomy": {
+        "container": "外枠 · border-radius · 背景色",
+        "icon": "左右に配置可能 · オプション",
+        "label": "テキストラベル · 必須",
+        "gap": "要素間の余白"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "1ページに1つのプライマリボタン",
+        "do2": "アクション指向のラベル（「送信」「保存」）",
+        "do3": "非同期操作にはローディングStatesを表示",
+        "do4": "十分なタッチ領域を確保（WCAG 2.5.8: 24px以上）",
+        "dont": "避けるべき",
+        "dont1": "複数のプライマリボタンを並べない",
+        "dont2": "「ここをクリック」のような曖昧なラベル",
+        "dont3": "理由なくボタンを無効化しない",
+        "dont4": "安全な操作に destructive を使わない"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "focusMove": "フォーカス移動",
+        "activate": "ボタン実行",
+        "wcag": "WCAG 2.2 準拠",
+        "contrast": "コントラスト比 4.5:1 以上",
+        "focusIndicator": "フォーカスインジケーター",
+        "disabled": "native disabled 属性",
+        "ariaBusy": "aria-busy (loading時に自動付与)",
+        "ariaHidden": "aria-hidden (アイコンに自動付与)",
+        "ariaPressed": "aria-pressed (selected時に自動付与)"
+      },
+      "related": {
+        "iconButton": "アイコンのみの正方形ボタン",
+        "buttonGroup": "アクションボタンのグループ",
+        "toggle": "単独のオン/オフトグル",
+        "spinner": "ボタン内のローディング表示に使用。"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Buttonを効果的に使うためのヒント",
+        "variant": "スタイルはvariantで指定し、classNameで上書き可能です。",
+        "loading": "loading={true}で自動的にdisabled Statesになり、スピナーが表示されます。",
+        "asChild": "Next.jsのLinkなど他の要素をラップするにはasChildを使います。",
+        "icons": "leftIcon/rightIconでアイコン付きボタンを作成。アイコンサイズは自動調整されます。"
+      }
+    },
+    "iconButton": {
+      "description": "IconButtonは、アイコンのみを表示する正方形のボタンです。ツールバー、ナビゲーション、コンパクトなUIで使用します。",
+      "props": {
+        "variant": "ボタンのスタイル",
+        "color": "solidバリアントの色。solid以外では無視",
+        "size": "ボタンのサイズ (28/32/36/40/48px)",
+        "radius": "角丸のサイズ (6px)",
+        "loading": "ローディングStates",
+        "disabled": "無効States",
+        "pressEffect": "プレスエフェクト（active:scale-pressed）。未指定時はtrueとして動作。falseで無効化",
+        "asChild": "Slotとしてレンダリング",
+        "ariaLabel": "アクセシビリティラベル（必須）"
+      },
+      "variants": {
+        "solid": { "desc": "ソリッド背景。最も視覚的に目立つスタイル。", "usage": "追加、送信" },
+        "outline": { "desc": "中立的なアクション。背景と調和させたい場合。", "usage": "情報、詳細" },
+        "ghost": { "desc": "最小限の視覚的存在感。ツールバーなどに最適。", "usage": "ツールバー" },
+        "subtle": { "desc": "控えめな存在感でホバー時に強調。ヘッダーやサイドバーに。", "usage": "ヘッダー、ナビ" }
+      },
+      "colors": {
+        "default": { "desc": "ダークカラー。最も汎用的なCTA。", "usage": "追加、送信" },
+        "primary": { "desc": "ブランドカラー。ブランドを強調するアクション。", "usage": "お気に入り" },
+        "secondary": { "desc": "補助的なアクション。プライマリと並べて使用。", "usage": "設定、編集" },
+        "destructive": { "desc": "破壊的なアクション。削除や取消不能な操作に。", "usage": "削除、閉じる" }
+      },
+      "sizes": {
+        "size": "サイズ",
+        "width": "幅",
+        "height": "高さ",
+        "icon": "アイコン"
+      },
+      "touchTargetNote": "タッチターゲット: WCAG 2.5.8基準では最小24pxのタッチ領域が必要です。最小のxs（28px）でもWCAG基準を満たしています。",
+      "features": {
+        "toolbar": "ツールバー",
+        "toolbarDesc": "複数のアイコンボタン",
+        "fabDesc": "フローティングアクション",
+        "asChild": "Next.js Link連携"
+      },
+      "anatomy": {
+        "container": "正方形 (1:1) · border-radius",
+        "icon": "中央配置 · 必須"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "必ずaria-labelを設定する",
+        "do2": "意味が明確なアイコンを使用",
+        "do3": "ツールチップを併用する",
+        "do4": "モバイルでは48px以上を使用",
+        "dont": "避けるべき",
+        "dont1": "aria-labelなしで使用しない",
+        "dont2": "曖昧なアイコンを単独で使用しない",
+        "dont3": "テキストボタンの代わりに多用しない",
+        "dont4": "小さすぎるサイズを使用しない"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "focusMove": "フォーカス移動",
+        "activate": "ボタン実行",
+        "wcag": "WCAG 2.2 準拠",
+        "contrast": "コントラスト比 4.5:1 以上",
+        "focusIndicator": "フォーカスインジケーター",
+        "ariaLabel": "aria-label サポート（必須）",
+        "ariaBusy": "aria-busy (loading時に自動付与)"
+      },
+      "related": {
+        "button": "テキスト付きの汎用ボタン",
+        "buttonGroup": "アクションボタンのグループ",
+        "toggle": "単独のオン/オフトグル"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "IconButtonを効果的に使うためのヒント",
+        "ariaLabel": "アイコンのみのボタンには必ずaria-labelを指定してください。スクリーンリーダーのために必須です。",
+        "subtle": "ヘッダーやナビゲーションの補助アイコンにはsubtleバリアントが最適です。",
+        "iconSize": "アイコンサイズはsizeに連動して自動調整されます。子要素の<svg>にサイズクラスを指定する必要はありません。",
+        "loading": "loadingプロップでスピナーが表示され、自動的にdisabled Statesになります。"
+      }
+    },
+    "buttonGroup": {
+      "description": "ButtonGroupは、関連するボタンを視覚的にグループ化するコンテナコンポーネントです。ツールバー、フィルター、アクショングループなど、複数の選択肢を1つのユニットとして提示する場合に使用します。",
+      "usageGuide": "ButtonGroupにvariant、sizeを指定すると、子Button・IconButtonに自動継承されます。個別にオーバーライドも可能です。",
+      "props": {
+        "variant": "子Buttonのバリアント（Contextで継承）",
+        "size": "子Buttonのサイズ（Contextで継承）",
+        "radius": "子Buttonの角丸（Contextで継承）",
+        "fontWeight": "子Buttonのフォント太さ（Contextで継承）",
+        "disabled": "全ボタンを無効化（Contextで継承）",
+        "orientation": "ボタンの配置方向",
+        "attached": "ボタン同士を結合して表示するかどうか"
+      },
+      "variants": {
+        "outline": { "desc": "中立的なアクション。背景と調和させたい場合に使用。", "usage": "ツールバー、フィルター" },
+        "ghost": { "desc": "最小限の視覚的存在感。コンパクトなUIやナビゲーションに最適。", "usage": "ナビ、ツールバー" }
+      },
+      "sizesDesc": "ButtonGroupはButtonのサイズをContextで継承します。以下はButtonと同じサイズ規則です。",
+      "sizes": { "height": "高さ", "padding": "横パディング", "icon": "アイコン", "font": "フォント" },
+      "touchTargetNote": "タッチターゲット: WCAG 2.5.8基準では最小24pxのタッチ領域が必要です。最小のxs（28px）でもWCAG基準を満たしています。",
+      "demo": { "editActions": "編集アクション", "undoRedo": "元に戻す/やり直し", "zoomControl": "ズームコントロール", "short": "短い", "longText": "長いテキスト" },
+      "orientation": {
+        "horizontalTitle": "Horizontal (デフォルト)",
+        "horizontalDesc": "ボタンを水平方向に並べます。ツールバーやアクショングループに最適。",
+        "horizontalUsage": "ツールバー、ナビ",
+        "verticalDesc": "ボタンを垂直方向に並べます。サイドバーやドロップダウンメニューに最適。",
+        "verticalUsage": "サイドバー、メニュー"
+      },
+      "customization": {
+        "desc": "すべてのボタンはデザインシステムのスペーシングルールに基づいたデフォルト値を使用します。グループのclassNameで全ボタンを一括カスタマイズできます。",
+        "paddingTitle": "横パディングの変更",
+        "equalWidthTitle": "ボタン幅の均等化",
+        "note": "デフォルト値はコンポーネントの一貫性を保つよう設計されています。UI実装上カスタマイズが必要な場合にご活用ください。"
+      },
+      "anatomy": { "container": "グループコンテナ", "edgeRadius": "端の角丸を維持", "divider": "ボタン間の区切り" },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "関連するアクションのみをグループ化",
+        "do2": "ButtonGroupにvariant/sizeを指定（子に継承）",
+        "do3": "3〜5個のボタンを目安に",
+        "do4": "アイコンのみのグループには aria-label を設定",
+        "dont": "避けるべき",
+        "dont1": "異なるサイズのボタンを混在させない",
+        "dont2": "無関係なアクションをグループ化しない",
+        "dont3": "6個以上のボタンを詰め込まない",
+        "dont4": "destructiveボタンを他と混在させない"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "moveBetween": "ボタン間を移動",
+        "activate": "ボタン実行",
+        "aria": "ARIA属性",
+        "roleGroup": "role=\"group\" 自動付与",
+        "semanticGrouping": "セマンティックなグルーピング",
+        "ariaLabelRecommended": "aria-label 推奨",
+        "focusVisible": "フォーカス可視化サポート"
+      },
+      "comparison": {
+        "desc": "似たような見た目ですが、用途と動作が異なります。適切なコンポーネントを選択してください。",
+        "feature": "特徴",
+        "purpose": "用途",
+        "stateManagement": "状態管理",
+        "selectionMode": "選択モード",
+        "valueManagement": "value管理",
+        "useCase": "ユースケース",
+        "bg": {
+          "purpose": "アクションボタンのグループ化",
+          "state": "手動 (selected prop)",
+          "selection": "手動制御のみ",
+          "value": "なし",
+          "useCase": "ツールバー、アクショングループ"
+        },
+        "tg": {
+          "purpose": "オン/オフ状態の管理",
+          "state": "自動 (Radix管理)",
+          "selection": "single / multiple",
+          "value": "value / onValueChange",
+          "useCase": "テキスト配置、フォーマット"
+        },
+        "guideline": "選択の目安: 選択状態を自動で管理したい場合は ToggleGroup を使用してください。クリック時に特定のアクション（API呼び出し等）を実行する場合は ButtonGroup が適切です。"
+      },
+      "related": {
+        "toggleGroup": "複数のToggleをグループ化",
+        "button": "テキスト付きの汎用ボタン",
+        "iconButton": "アイコンのみの正方形ボタン",
+        "segmented": "ピル型の排他的選択コントロール",
+        "toggle": "単独のオン/オフトグル"
+      },
+      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "tips": {
+        "title": "ButtonGroupを効果的に使うためのヒント",
+        "attached": "attachedモードでボタンが1つのコントロールのように連結されます。デフォルトはtrueです。",
+        "variant": "グループ全体のvariantを指定すると、子ボタンに自動適用されます。outlineとghostがサポートされています。",
+        "orientation": "orientation=\"vertical\"で縦並びになります。メニューやサイドバーに最適です。"
+      }
+    },
+    "input": {
+      "description": "Inputは、ユーザーからテキストデータを収集するための基本的なフォーム要素です。メール、パスワード、検索など、様々な種類のテキスト入力に対応します。",
+      "props": {
+        "variant": "インプットの視覚スタイル",
+        "size": "インプットの高さ (36/40/44/48/56px) - Input専用スケール",
+        "radius": "角丸のサイズ (6px)",
+        "leftIcon": "左側アイコン",
+        "rightIcon": "右側アイコン",
+        "focusRing": "カスタムフォーカスリング表示。falseでもキーボード操作時は自動表示",
+        "error": "エラーStates（赤いボーダー）",
+        "disabled": "無効States",
+        "placeholder": "プレースホルダーテキスト",
+        "type": "インプットタイプ (text, email, password, etc.)。HTMLデフォルト: text"
+      },
+      "fieldProps": {
+        "error": "エラー状態。Field.Error と Input に自動伝播",
+        "disabled": "無効状態。Field.Label と Input に自動伝播",
+        "gap": "子要素間の間隔 (0 / 4 / 6 / 8 / 12px)"
+      },
+      "labelProps": {
+        "required": "必須マーク（*）をラベル末尾に表示"
+      },
+      "variants": {
+        "default": { "desc": "標準的なボーダースタイル。フォームの一般的な入力欄に使用。", "usage": "一般的なフォーム" },
+        "filled": { "desc": "背景色付きスタイル。視覚的に目立たせたい入力欄に。", "usage": "検索バー、主要入力" }
+      },
+      "sizes": {
+        "height": "高さ",
+        "padding": "横パディング",
+        "font": "フォント",
+        "icon": "アイコン",
+        "usage": "用途",
+        "notes": {
+          "compact": "コンパクト",
+          "small": "小さめ",
+          "standard": "標準",
+          "standardRecommended": "標準（推奨）",
+          "spacious": "ゆったり",
+          "large": "大きめ"
+        }
+      },
+      "touchTargetNote": "タッチターゲット: WCAG 2.5.8基準では最小24pxのタッチ領域が必要です。最小のxs（36px）でもWCAG基準を満たしています。",
+      "iosSafariNote": "iOS Safari対応: フォントサイズ16px以上でiOS Safariの自動ズームを防止できます。default以上のサイズは16pxフォント・16pxアイコンを使用しています。",
+      "demo": {
+        "search": "検索...",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "normal": "通常",
+        "emailLabel": "メール",
+        "error": "エラー",
+        "required": "必須項目です",
+        "disabled": "無効"
+      },
+      "focusStatesTitle": "フォーカスStates",
+      "focusStatesDesc": "focusRing: false（デフォルト）: クリック時はボーダー変化のみ、キーボードTab時はフォーカスリング自動表示。focusRing: true: 常にフォーカスリングを表示。",
+      "anatomy": {
+        "field": "Field ラッパー",
+        "label": "ラベル",
+        "input": "テキスト入力",
+        "leftIcon": "左アイコン（任意）",
+        "rightIcon": "右アイコン（任意）",
+        "helper": "補助テキスト（任意）"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "ラベルを必ず付ける（または aria-label）",
+        "do2": "適切なinput typeを使用（email, tel等）",
+        "do3": "エラー時は明確なフィードバックを表示",
+        "do4": "十分なタッチ領域を確保（WCAG 2.5.8: 24px以上）",
+        "dont": "避けるべき",
+        "dont1": "プレースホルダーをラベル代わりにしない",
+        "dont2": "不要なautocompleteをオフにしない",
+        "dont3": "エラー表示が色のみにならないようにする",
+        "dont4": "入力制限を設ける場合は事前に明示する"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "focusMove": "フォーカス移動",
+        "formSubmit": "フォーム送信",
+        "cancelInput": "入力キャンセル",
+        "wcag": "WCAG 2.2 準拠",
+        "focusIndicator": "フォーカスインジケーター",
+        "ariaInvalid": "aria-invalid（エラー時）",
+        "autocomplete": "autocomplete サポート",
+        "contrast": "コントラスト比 4.5:1 以上"
+      },
+      "related": {
+        "button": "フォーム送信ボタン",
+        "select": "選択リスト入力",
+        "textarea": "複数行テキスト入力"
+      },
+      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "tips": {
+        "title": "Inputを効果的に使うためのヒント",
+        "icons": "leftIcon/rightIconでアイコン付き入力を作成。アイコンコンテナはpointer-events-noneのため、クリック可能な要素は別途配置してください。",
+        "filled": "filledバリアントはボーダーなしの背景色スタイル。フォームの視覚的ノイズを減らしたい場合に最適。",
+        "focusRing": "focusRing={false}でフォーカスリングを非表示にし、ボーダー変更のみにできます。",
+        "error": "errorプロップでエラーStatesを表示。Fieldコンポーネントと統合すればエラーメッセージも自動表示されます。"
+      }
+    },
+    "textarea": {
+      "description": "テキストエリアは、複数行のテキストを入力するためのフォーム要素です。コメント、説明、メッセージなど、長文の入力に使用します。",
+      "props": {
+        "variant": "テキストエリアの視覚スタイル",
+        "size": "パディングとフォントサイズ（compact: 狭いスペース用）",
+        "radius": "角丸のサイズ (6px)",
+        "resize": "リサイズ方向",
+        "rows": "表示行数",
+        "focusRing": "カスタムフォーカスリング表示。falseでもキーボード操作時は自動表示",
+        "error": "エラーStates（赤いボーダー）",
+        "disabled": "無効States",
+        "placeholder": "プレースホルダーテキスト"
+      },
+      "fieldProps": {
+        "error": "エラー状態。Field.Error と Textarea に自動伝播",
+        "disabled": "無効状態。Field.Label と Textarea に自動伝播",
+        "gap": "子要素間の間隔 (0 / 4 / 6 / 8 / 12px)"
+      },
+      "labelProps": { "required": "必須マーク（*）をラベル末尾に表示" },
+      "variants": {
+        "default": { "desc": "標準的なボーダースタイル。フォームの一般的な入力欄に使用。", "usage": "一般的なフォーム" },
+        "filled": { "desc": "背景色付きスタイル。視覚的に目立たせたい入力欄に。", "usage": "カード内フォーム" }
+      },
+      "sizesDesc": "Textareaの高さはrows属性で制御します。sizeプロパティはパディングとフォントサイズのみを調整します。",
+      "sizes": {
+        "padding": "パディング",
+        "font": "フォント",
+        "usage": "用途",
+        "notes": {
+          "compact": "狭いスペース用",
+          "standardRecommended": "標準（推奨）"
+        }
+      },
+      "resize": {
+        "none": "リサイズ不可。固定サイズが必要な場合。",
+        "vertical": "縦方向のみ。最も一般的なオプション。",
+        "horizontal": "横方向のみ。特殊なケース用。",
+        "both": "両方向。自由度が必要な場合。"
+      },
+      "demo": {
+        "normal": "通常",
+        "comment": "コメント",
+        "commentPlaceholder": "コメントを入力...",
+        "error": "エラー",
+        "feedback": "フィードバック",
+        "feedbackPlaceholder": "フィードバックを入力...",
+        "required": "必須項目です",
+        "disabled": "無効",
+        "notes": "備考",
+        "cannotEdit": "編集できません"
+      },
+      "focusStatesTitle": "フォーカスStates",
+      "focusStatesDesc": "focusRing: false（デフォルト）: クリック時はボーダー変化のみ、キーボードTab時はフォーカスリング自動表示。focusRing: true: 常にフォーカスリングを表示。",
+      "features": {
+        "charCount": "文字数カウント",
+        "charCountDesc": "バリデーション",
+        "autoSize": "Autoサイズ",
+        "autoSizeDesc": "内容に合わせて拡大",
+        "formSubmit": "フォーム送信",
+        "formSubmitDesc": "エンターで送信"
+      },
+      "anatomy": {
+        "field": "Field ラッパー",
+        "label": "ラベル",
+        "textarea": "テキスト入力エリア",
+        "charCount": "文字数（任意）"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "適切なrows属性で初期高さを設定",
+        "do2": "文字数制限がある場合はカウンターを表示",
+        "do3": "リサイズが不要な場合はresize=\"none\"を設定",
+        "do4": "プレースホルダーで入力例を示す",
+        "dont": "避けるべき",
+        "dont1": "短いテキストにTextareaを使用しない（→ Input）",
+        "dont2": "極端に小さいrowsを設定しない",
+        "dont3": "文字数制限を事前に明示せずに切り捨てない",
+        "dont4": "ラベルなしで使用しない"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "focusMove": "フォーカス移動",
+        "newLine": "改行",
+        "blur": "フォーカス解除",
+        "wcag": "WCAG 2.2 準拠",
+        "focusIndicator": "フォーカスインジケーター",
+        "ariaInvalid": "aria-invalid（エラー時）",
+        "ariaDescribedby": "aria-describedby サポート",
+        "contrast": "コントラスト比 4.5:1 以上"
+      },
+      "related": {
+        "input": "単一行テキスト入力",
+        "button": "フォーム送信ボタン",
+        "select": "選択リスト入力"
+      },
+      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "tips": {
+        "title": "Textareaを効果的に使うためのヒント",
+        "resize": "resizeプロップでリサイズ方向を制御。デフォルトはvertical。noneにすると固定サイズになります。",
+        "filled": "Inputと同じfilledバリアント。ボーダーなしの背景色スタイルです。",
+        "rows": "rowsプロップで初期行数を指定。resize=\"none\"と組み合わせると固定高さになります。",
+        "error": "errorプロップでエラーStatesを表示。Fieldコンポーネントと統合可能です。"
+      }
+    },
+    "select": {
+      "description": "Selectは、ドロップダウンリストからひとつの値を選択するフォームコントロールです。キーボード操作やスクリーンリーダーに対応したアクセシブルな実装で、ネイティブフォーム送信もサポートします。",
+      "rootProps": {
+        "size": "Triggerの高さとフォントサイズ。Contentに自動伝播",
+        "radius": "角丸のサイズ (6px)。Triggerに直接適用、Contentに自動マッピング",
+        "value": "制御モードの選択値",
+        "defaultValue": "非制御モードの初期値",
+        "onValueChange": "値が変更された時のコールバック",
+        "name": "フォーム送信用の名前",
+        "required": "必須フィールド指定",
+        "disabled": "全体を無効化",
+        "open": "制御モードの開閉状態",
+        "onOpenChange": "開閉状態が変更された時のコールバック"
+      },
+      "triggerProps": {
+        "disabled": "トリガーボタンを無効化",
+        "asChild": "子要素をトリガーとしてレンダリング"
+      },
+      "contentProps": {
+        "position": "ドロップダウンの配置方法",
+        "flush": "アイテムをフル幅で表示（パディングなし）",
+        "side": "ドロップダウンの表示方向（popper時のみ）",
+        "sideOffset": "トリガーからの距離（px）"
+      },
+      "itemProps": {
+        "value": "アイテムの値（必須）",
+        "disabled": "アイテムを選択不可に",
+        "textValue": "タイプアヘッド用のテキスト値"
+      },
+      "variants": {
+        "basic": { "desc": "最もシンプルなセレクト。単一選択リスト。", "usage": "カテゴリー選択" },
+        "grouped": { "desc": "グループとラベルで関連項目を整理。", "usage": "国選択、地域分類" },
+        "placeholder": { "desc": "未選択時にプレースホルダーを表示。", "usage": "初期状態の案内" },
+        "flush": { "desc": "アイテムをフル幅で表示。角丸なし、エッジまで広がる。", "usage": "高密度リスト" },
+        "disabledItems": { "desc": "一部のアイテムを選択不可に。", "usage": "利用不可なオプション" }
+      },
+      "sizes": {
+        "height": "高さ",
+        "font": "フォント",
+        "preview": "プレビュー"
+      },
+      "structure": {
+        "trigger": "トリガーボタン",
+        "value": "選択値の表示",
+        "content": "ドロップダウンパネル（flush対応）",
+        "item": "選択アイテム",
+        "group": "アイテムグループ",
+        "label": "グループラベル",
+        "separator": "区切り線"
+      },
+      "recipes": {
+        "grouped": "グループで項目を分類",
+        "form": "フォーム送信対応"
+      },
+      "customization": {
+        "desc": "でトリガーやコンテンツのスタイルをカスタマイズできます。",
+        "width": "幅の変更",
+        "fullWidth": "フル幅トリガー",
+        "tip": "各サブコンポーネントはclassNameを受け取り、Tailwindクラスでスタイルを上書きできます。"
+      },
+      "anatomy": {
+        "root": "コンポーネントルート",
+        "trigger": "セレクトを開くボタン",
+        "value": "選択値の表示",
+        "chevron": "開閉アイコン",
+        "content": "ドロップダウンパネル",
+        "item": "選択アイテム",
+        "separator": "区切り線"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "選択肢が5個以上ある場合に使用する",
+        "do2": "選択肢が多い場合はGroupで分類する",
+        "do3": "placeholderで選択内容を案内する",
+        "do4": "フォーム内ではnameとrequiredを設定する",
+        "dont": "避けるべき",
+        "dont1": "選択肢が3個以下ならRadioを検討",
+        "dont2": "アクション実行にはDropdownを使う",
+        "dont3": "複数選択が必要な場合は別UIを検討",
+        "dont4": "placeholderなしで初期値も未設定にしない"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "enterDesc": "セレクト開閉 / アイテム選択",
+        "spaceDesc": "セレクト開閉 / アイテム選択",
+        "arrowDesc": "アイテム間を移動",
+        "homeDesc": "最初のアイテムに移動",
+        "endDesc": "最後のアイテムに移動",
+        "escDesc": "セレクトを閉じる",
+        "aria": "ARIA属性",
+        "listbox": "Content自動付与",
+        "option": "Item自動付与",
+        "expanded": "Trigger状態管理",
+        "typeahead": "タイプアヘッドによる文字検索"
+      },
+      "vsDropdown": {
+        "desc": "見た目は似ていますが、用途と動作が異なります。適切なコンポーネントを選択してください。",
+        "feature": "特徴",
+        "purpose": { "label": "用途", "select": "値の選択", "dropdown": "アクションの実行" },
+        "form": { "label": "フォーム連携", "select": "name / value 送信可能", "dropdown": "なし" },
+        "afterSelect": { "label": "選択後の表示", "select": "選択値がトリガーに反映", "dropdown": "メニューが閉じるだけ" },
+        "itemTypes": { "label": "アイテム種類", "select": "単一選択アイテム", "dropdown": "Item, Checkbox, Radio, Sub" },
+        "useCase": { "label": "ユースケース", "select": "国選択、カテゴリー、ソート順", "dropdown": "コンテキストメニュー、アカウント操作" },
+        "guide": "ユーザーが値を選んでフォームに送信する場合は Select が適切です。クリック時にアクション（編集、削除、共有など）を実行する場合は",
+        "guideLink": "Dropdown",
+        "guideSuffix": "を使用してください。",
+        "guideLabel": "選択の目安："
+      },
+      "related": {
+        "input": "テキスト入力フォームコントロール",
+        "dropdown": "アクション実行用のメニュー",
+        "radio": "少数の選択肢から一つを選択"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Selectを効果的に使うためのヒント",
+        "size": "sizeはSelectルートに設定します。TriggerとContentの両方に自動伝播し、Contentのアイテムサイズは3段階（sm/md/lg）に自動マッピングされます。Inputと同じ5段階なのでフォーム内で高さが揃います。",
+        "placeholder": "Select.Valueのplaceholderで未選択時の案内テキストを表示できます。値が選択されるとplaceholderは選択値に置き換わります。",
+        "position": "\"item-aligned\"は選択中のアイテムをトリガーに重ねて表示。\"popper\"はDropdownのようにトリガーの下に表示します。",
+        "nameRequired": "Selectルートにnameとrequiredを設定すると、隠しinputが自動生成され、通常のフォーム送信で値が送られます。",
+        "radius": "radiusはSelectルートに設定します。Triggerに直接適用され、Contentには自動マッピングされます（none〜default→md, lg→lg, xl〜full→xl）。Itemの角丸はContentから比率ベースで自動計算されます。Inputと同じ9段階です。",
+        "flush": "Select.Contentにflushを設定すると、アイテムがContent端までフル幅で表示されます。Contentの水平パディングが削除され、アイテムのパディングが自動補正されます。Dropdownと同じAPIです。",
+        "controlled": "defaultValueで非制御モード、value+onValueChangeで制御モードとして使用できます。"
+      }
+    },
+    "dropdown": {
+      "description": "Dropdownは、トリガー要素をクリックすると表示されるフローティングメニューです。アクション一覧、チェックボックス、ラジオ選択、サブメニューをサポートします。",
+      "contentProps": {
+        "size": "メニューアイテムのサイズ",
+        "radius": "コンテンツとアイテムの角丸（Itemは自動計算）",
+        "flush": "アイテムをフル幅で表示（内側パディングなし）",
+        "side": "メニューの表示方向",
+        "sideOffset": "トリガーからの距離 (px)",
+        "align": "トリガーに対するアライメント",
+        "alignOffset": "アライメントのオフセット (px)",
+        "loop": "キーボードナビゲーションのループ"
+      },
+      "itemProps": {
+        "disabled": "無効状態",
+        "onSelect": "選択時のコールバック",
+        "inset": "左に余白を追加（アイコン揃え用）"
+      },
+      "checkboxItemProps": {
+        "checked": "チェック状態（制御モード）",
+        "onCheckedChange": "チェック変更時のコールバック",
+        "disabled": "無効状態"
+      },
+      "radioItemProps": {
+        "value": "ラジオの値（必須）",
+        "disabled": "無効状態"
+      },
+      "variants": {
+        "basic": { "desc": "最もシンプルなメニュー。アクション一覧を表示。", "usage": "コンテキストメニュー" },
+        "group": { "desc": "ラベルとグループで関連アクションを整理。", "usage": "アカウントメニュー" },
+        "checkbox": { "desc": "チェックボックスで複数項目のON/OFF切替。", "usage": "表示設定、フィルター" },
+        "radio": { "desc": "ラジオで排他的な単一選択。", "usage": "密度、テーマ選択" },
+        "submenu": { "desc": "ネストされたサブメニューで階層的なアクション。", "usage": "共有、エクスポート" }
+      },
+      "sizes": {
+        "padding": "パディング",
+        "itemFont": "アイテムフォント",
+        "preview": "プレビュー"
+      },
+      "structure": {
+        "trigger": "トリガー要素",
+        "content": "メニューパネル（radius・flush・size）",
+        "item": "メニューアイテム（inset対応）",
+        "checkboxItem": "チェックボックス付きアイテム",
+        "radioGroup": "ラジオ選択グループ",
+        "radioItem": "ラジオ付きアイテム",
+        "label": "グループラベル",
+        "separator": "区切り線",
+        "group": "アイテムグループ",
+        "sub": "サブメニュールート",
+        "subTrigger": "サブメニュートリガー",
+        "subContent": "サブメニューパネル",
+        "shortcut": "ショートカットヒント"
+      },
+      "recipes": {
+        "shortcuts": "キーボードショートカット付き",
+        "complex": "グループ+チェック+サブメニュー"
+      },
+      "customization": {
+        "desc": "でコンテンツやアイテムのスタイルをカスタマイズできます。",
+        "width": "幅の変更",
+        "danger": "危険アクションの強調",
+        "tip": "各サブコンポーネントはclassNameを受け取り、Tailwindクラスでスタイルを上書きできます。"
+      },
+      "anatomy": {
+        "root": "コンポーネントルート",
+        "trigger": "メニューを開くボタン",
+        "content": "フローティングパネル",
+        "item": "メニューアイテム",
+        "icon": "オプションアイコン",
+        "separator": "区切り線"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "アクションが3個以上ある場合に使用する",
+        "do2": "関連するアクションはGroupでまとめる",
+        "do3": "破壊的アクションは視覚的に区別する",
+        "do4": "ショートカットキーがあれば表示する",
+        "dont": "避けるべき",
+        "dont1": "メニュー項目を10個以上にしない",
+        "dont2": "ナビゲーション用途にはNavを使用",
+        "dont3": "サブメニューを2階層以上ネストしない",
+        "dont4": "モバイルでは長いメニューを避ける"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "enterDesc": "メニュー開閉 / アイテム選択",
+        "spaceDesc": "メニュー開閉 / アイテム選択",
+        "arrowDesc": "アイテム間を移動",
+        "rightDesc": "サブメニューを開く",
+        "leftDesc": "サブメニューを閉じる",
+        "escDesc": "メニューを閉じる",
+        "aria": "ARIA属性",
+        "menu": "Content自動付与",
+        "menuitem": "Item自動付与",
+        "expanded": "Trigger状態管理",
+        "focusIndicator": "フォーカスインジケーター"
+      },
+      "vsSelect": {
+        "desc": "見た目は似ていますが、用途と動作が異なります。適切なコンポーネントを選択してください。",
+        "feature": "特徴",
+        "purpose": { "label": "用途", "dropdown": "アクションの実行", "select": "値の選択" },
+        "form": { "label": "フォーム連携", "dropdown": "なし", "select": "name / value 送信可能" },
+        "afterSelect": { "label": "選択後の表示", "dropdown": "メニューが閉じるだけ", "select": "選択値がトリガーに反映" },
+        "itemTypes": { "label": "アイテム種類", "dropdown": "Item, Checkbox, Radio, Sub", "select": "単一選択アイテム" },
+        "useCase": { "label": "ユースケース", "dropdown": "コンテキストメニュー、アカウント操作", "select": "国選択、カテゴリー、ソート順" },
+        "guide": "ユーザーが値を選んでフォームに送信する場合は",
+        "guideLink": "Select",
+        "guideSuffix": "を使用してください。クリック時にアクション（編集、削除、共有など）を実行する場合は Dropdown が適切です。",
+        "guideLabel": "選択の目安："
+      },
+      "related": {
+        "button": "トリガーとして使用するボタン",
+        "iconButton": "アイコンのみのトリガーボタン",
+        "select": "フォーム向けの単一選択",
+        "avatar": "アバタークリックでプロフィールメニュー"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Dropdownを効果的に使うためのヒント",
+        "asChild": "TriggerはデフォルトでButtonとしてレンダリングされます。asChildで任意の要素をトリガーにできます。",
+        "sideAlign": "メニューの表示位置を制御します。デフォルトはside=\"bottom\"・align=\"center\"です。画面端では自動的に位置を調整します。",
+        "onSelect": "各ItemのonSelectはアイテム選択時に呼ばれ、メニューを自動的に閉じます。event.preventDefault()で閉じるのを防げます。",
+        "radius": "Contentの角丸を\"md\"（デフォルト）・\"lg\"・\"xl\"から選択できます。Itemの角丸はContentから比率ベースで自動計算されます（67〜75%）。",
+        "inset": "MenuItem・Label・SubTriggerにinsetを付けると、CheckboxItem/RadioItemのインジケーター領域分の左パディングが追加され、縦に揃います。"
+      }
+    },
+    "checkbox": {
+      "description": "Checkboxは、ユーザーがオプションのオン/オフを切り替えるためのフォームコントロールです。単独で使用するか、複数を並べてグループとして使用します。",
+      "props": {
+        "checked": "制御モードでのチェック状態",
+        "defaultChecked": "非制御モードでの初期チェック状態",
+        "onCheckedChange": "状態変更時のコールバック",
+        "size": "チェックボックスのサイズ (14/16/20px)",
+        "radius": "角丸 (none: 0px / sm: 2px / md: 4px)",
+        "weight": "ボーダーの太さ (thin: 1px / bold: 2px)",
+        "color": "チェック/未確定状態の塗り色",
+        "label": "チェックボックスのラベルテキスト",
+        "disabled": "無効状態",
+        "required": "必須フィールド",
+        "name": "フォームのname属性",
+        "value": "フォームのvalue属性"
+      },
+      "sizes": {
+        "box": "ボックス",
+        "icon": "アイコン",
+        "font": "フォント",
+        "click": "クリック",
+        "clickArea": "クリック領域",
+        "preview": "プレビュー"
+      },
+      "features": {
+        "withFieldDesc": "Fieldコンポーネントと組み合わせることで、disabled状態を自動的に継承します。"
+      },
+      "recipes": {
+        "controlled": "状態を外部管理",
+        "indeterminate": "全選択/一部選択"
+      },
+      "anatomy": {
+        "root": "フレックスコンテナ",
+        "box": "チェックボックス本体",
+        "checkmark": "チェック時に表示",
+        "label": "オプション"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "明確なラベルを付けて使用する",
+        "do2": "複数選択が必要な場合に使用する",
+        "do3": "グループの全選択にindeterminateを使用",
+        "do4": "必須項目にはFieldと組み合わせる",
+        "dont": "避けるべき",
+        "dont1": "排他的選択にCheckboxを使わない（Radioを使用）",
+        "dont2": "即座に効果が出る切替にはSwitchを使用",
+        "dont3": "ラベルなしで使用しない",
+        "dont4": "選択肢が多すぎる場合はSelectを検討"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "spaceDesc": "チェック切替",
+        "tabDesc": "フォーカス移動",
+        "aria": "ARIA属性",
+        "checkbox": "自動付与",
+        "ariaChecked": "true/false/mixed",
+        "focusIndicator": "フォーカスインジケーター",
+        "labelClick": "でクリック領域拡大"
+      },
+      "related": {
+        "radio": "排他的選択（一つだけ選択）",
+        "switch": "即座に効果が出るオン/オフ切替",
+        "toggle": "単独のオン/オフトグル",
+        "table": "テーブル行選択のチェックボックス"
+      },
+      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "tips": {
+        "title": "Checkboxを効果的に使うためのヒント",
+        "label": "labelプロップで自動的にラベルが関連付けられます。アクセシビリティのために推奨。",
+        "size": "sm(14px)/default(16px)/lg(20px)の3サイズ。ラベル・アイコン・Gapも自動調整されます。",
+        "radius": "none(0px)/sm(2px)/md(4px)の3種類。デフォルトはsm。",
+        "weight": "thin(1px)/bold(2px)でボーダーの太さを変更。デフォルトはbold。",
+        "indeterminate": "親子チェックボックスパターンでは、Radixのindeterminate状態が使えます。"
+      }
+    },
+    "radio": {
+      "description": "Radioは、複数の選択肢から一つだけを選択するためのフォームコントロールです。RadioGroupでグループ化し、排他的選択を提供します。",
+      "groupProps": {
+        "value": "制御モードでの選択値",
+        "defaultValue": "非制御モードでの初期値",
+        "onValueChange": "選択変更時のコールバック",
+        "size": "ラジオボタンのサイズ (14/16/20px)",
+        "color": "チェック時のボーダーとドットの色",
+        "weight": "ボーダーの太さ (thin: 1px / bold: 2px)",
+        "orientation": "アイテムの配置方向",
+        "disabled": "無効状態",
+        "required": "必須フィールド",
+        "name": "フォームのname属性",
+        "loop": "キーボードナビゲーションのループ"
+      },
+      "itemProps": {
+        "value": "このアイテムの値（必須）",
+        "label": "ラジオボタンのラベルテキスト",
+        "disabled": "個別の無効状態"
+      },
+      "sizes": {
+        "circle": "サークル",
+        "dot": "ドット",
+        "font": "フォント",
+        "click": "クリック",
+        "clickArea": "クリック領域",
+        "preview": "プレビュー"
+      },
+      "structure": { "item": "ラジオアイテム（label prop対応）" },
+      "features": { "withFieldDesc": "Fieldコンポーネントと組み合わせることで、disabled状態を自動的に継承します。" },
+      "recipes": {
+        "controlled": "状態を外部管理",
+        "itemDisabled": "特定のオプションのみ無効化"
+      },
+      "anatomy": {
+        "root": "RadioGroupコンテナ",
+        "circle": "外側のリング",
+        "innerDot": "選択時に表示",
+        "label": "オプション"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "排他的選択（一つだけ選択）に使用する",
+        "do2": "2〜5個の選択肢に使用する",
+        "do3": "デフォルト値を設定する",
+        "do4": "明確なラベルを各項目に付ける",
+        "dont": "避けるべき",
+        "dont1": "複数選択にはCheckboxを使用する",
+        "dont2": "選択肢が多すぎる場合はSelectを検討",
+        "dont3": "タブ的な切替にはSegmentedを使用",
+        "dont4": "ラベルなしで使用しない"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "arrowVDesc": "前後のアイテムに移動",
+        "arrowHDesc": "前後のアイテムに移動",
+        "spaceDesc": "選択",
+        "tabDesc": "グループ間移動",
+        "aria": "ARIA属性",
+        "radiogroup": "自動付与",
+        "ariaChecked": "自動管理",
+        "focusIndicator": "フォーカスインジケーター",
+        "rovingFocus": "ローヴィングフォーカス対応"
+      },
+      "related": {
+        "checkbox": "フォーム用のオン/オフ切替",
+        "segmented": "ピル型の排他的選択コントロール",
+        "toggleGroup": "複数のToggleをグループ化"
+      },
+      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "tips": {
+        "title": "RadioGroupを効果的に使うためのヒント",
+        "orientation": "orientation=\"horizontal\"で横並びに変更できます。フォームのレイアウトに合わせて使い分けてください。",
+        "label": "各RadioGroup.Itemにlabelプロップで自動的にラベルが関連付けられます。",
+        "size": "sm(14px)/default(16px)/lg(20px)の3サイズ。ドットとラベルのサイズも自動調整されます。",
+        "weight": "thin(1px)/bold(2px)でボーダーの太さを変更。デフォルトはbold。"
+      }
+    },
+    "switch": {
+      "description": "Switchは、設定のオン/オフを即座に切り替えるためのトグルコントロールです。変更が直ちに反映される場合に使用します。",
+      "props": {
+        "checked": "制御モードでのオン/オフ状態",
+        "defaultChecked": "非制御モードでの初期状態",
+        "onCheckedChange": "状態変更時のコールバック",
+        "size": "スイッチのサイズ",
+        "label": "スイッチのラベルテキスト",
+        "labelPosition": "ラベルの配置位置",
+        "startLabel": "スイッチ左側のラベル（sides配置）",
+        "endLabel": "スイッチ右側のラベル（sides配置）",
+        "color": "チェック時のトラック色とアイコン色",
+        "checkedIcon": "チェック時にサム内に表示するアイコン",
+        "uncheckedIcon": "未チェック時にサム内に表示するアイコン",
+        "disabled": "無効状態",
+        "required": "必須フィールド",
+        "name": "フォームのname属性",
+        "value": "フォームのvalue属性。Radixデフォルト: \"on\""
+      },
+      "sizes": {
+        "track": "トラック",
+        "thumb": "サム",
+        "travel": "移動距離",
+        "font": "フォント",
+        "preview": "プレビュー"
+      },
+      "features": {
+        "labelDesc": "labelプロップスを使って、スイッチにラベルを付与できます。",
+        "labelPositionDesc": "labelPositionプロップでラベルの配置を変更できます。デフォルトはend（右側）です。",
+        "iconsDesc": "checkedIcon / uncheckedIconプロップでサム内にアイコンを表示できます。smサイズでは自動的に非表示になります。"
+      },
+      "anatomy": {
+        "track": "スイッチの外枠トラック",
+        "thumb": "スライドするつまみ",
+        "label": "テキストラベル（任意）"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "即座に効果が反映される設定に使用する",
+        "do2": "明確なラベルをつけて使用する",
+        "do3": "設定画面のオン/オフ切替に使用する",
+        "do4": "デフォルト状態を慎重に選択する",
+        "dont": "避けるべき",
+        "dont1": "フォーム送信が必要な場合はCheckboxを使用",
+        "dont2": "複数選択の場面ではCheckboxを使用",
+        "dont3": "ラベルなしで使用しない",
+        "dont4": "否定形のラベルを避ける（「無効にする」ではなく「有効にする」）"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "spaceDesc": "オン/オフ切替",
+        "tabDesc": "フォーカス移動",
+        "aria": "ARIA属性",
+        "roleSwitch": "自動付与",
+        "ariaChecked": "自動管理",
+        "focusIndicator": "フォーカスインジケーター",
+        "labelClick": "でクリック領域拡大"
+      },
+      "related": {
+        "toggle": "単独のオン/オフトグル",
+        "checkbox": "フォーム用のオン/オフ切替",
+        "radio": "排他的選択コントロール"
+      },
+      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "tips": {
+        "title": "Switchを効果的に使うためのヒント",
+        "label": "labelプロップでラベルが自動関連付け。アクセシビリティのために推奨です。",
+        "size": "トラックとサムのサイズはCSS変数で管理。sm/default/lgの3サイズ。ラベルフォントはsm(12px)/default(14px)/lg(16px)で自動調整されます。",
+        "labelPosition": "start/end/top/bottomの4つの配置をサポート。設定リストではstart（ラベル左・スイッチ右）がよく使われます。",
+        "sideLabels": "スイッチの両側にラベルを配置。Off/Onのような切替表示に便利です。",
+        "color": "チェック時のトラック背景色とアイコン色を一括設定。default(ダーク)/primary/success/warning/errorの5色。",
+        "icons": "サム内にアイコンを表示。smサイズ（12pxサム）では自動非表示。default(10px)、lg(14px)のアイコンサイズが適用されます。",
+        "controlled": "非制御モードではdefaultChecked、制御モードではchecked+onCheckedChangeを使用。"
+      }
+    },
+    "toggle": {
+      "description": "Toggleは、オン/オフの2つの状態を切り替えるボタンです。単独で使用するか、ToggleGroupでグループ化して使用します。",
+      "props": {
+        "pressed": "制御モードでのオン/オフ状態",
+        "defaultPressed": "非制御モードでの初期状態",
+        "onPressedChange": "状態変更時のコールバック",
+        "variant": "トグルの視覚スタイル。ghost/outline-ghostは背景変化なし（アイコン色のみ変更用）",
+        "size": "トグルのサイズ (28/32/36/40/48px)",
+        "radius": "角丸のサイズ (6px)",
+        "fontWeight": "フォント太さ。normal=400、semibold=600",
+        "iconOnly": "アイコンのみモード。正方形でIconButtonと同じサイズ規則を適用",
+        "pressEffect": "プレスエフェクト（active:scale-pressed）。未指定時はtrueとして動作。falseで無効化",
+        "disabled": "無効状態",
+        "asChild": "Slotとしてレンダリング"
+      },
+      "variants": {
+        "default": "背景変化ありのシンプルなスタイル。ツールバーやコンパクトなUIに最適。",
+        "outline": "ボーダー付きのスタイル。状態が明確に見える必要がある場合に使用。",
+        "ghost": "背景変化なし。アイコンの色/塗りつぶしのみで状態を表現。いいねボタン等に最適。",
+        "outlineGhost": "ボーダーあり + 背景変化なし。ボーダーで境界を明確にしつつ、アイコン色のみで状態表現。"
+      },
+      "sizes": {
+        "size": "サイズ",
+        "icon": "アイコン",
+        "preview": "プレビュー",
+        "height": "高さ",
+        "hPadding": "横パディング",
+        "font": "フォント"
+      },
+      "anatomy": {
+        "root": "トグルボタン本体",
+        "icon": "オプション",
+        "label": "オプション"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "do1": "明確なオン/オフ状態を視覚的に示す",
+        "do2": "aria-labelで目的を説明する",
+        "do3": "即時に効果が反映される操作に使用",
+        "do4": "複数のトグルはToggleGroupでグループ化",
+        "dont": "避けるべき",
+        "dont1": "送信が必要なフォーム項目に使用しない",
+        "dont2": "状態が分かりにくいアイコンを使用しない",
+        "dont3": "aria-labelなしで使用しない",
+        "dont4": "排他的選択にはSegmentedを使用"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "spaceDesc": "トグル切替",
+        "enterDesc": "トグル切替",
+        "aria": "ARIA属性",
+        "ariaPressed": "自動付与",
+        "dataState": "on/off",
+        "focusIndicator": "フォーカスインジケーター",
+        "ariaLabel": "推奨"
+      },
+      "related": {
+        "toggleGroup": "複数のToggleをグループ化",
+        "button": "単発アクション用ボタン",
+        "segmented": "ピル型の排他的選択コントロール"
+      },
+      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "tips": {
+        "title": "Toggleを効果的に使うためのヒント",
+        "controlled": "制御モードではpressed+onPressedChangeを使用。非制御モードではdefaultPressed。",
+        "variant": "defaultは背景色変化、outlineはボーダー付き、ghostはテキスト色のみ変化。用途で使い分けてください。",
+        "iconOnly": "アイコンのみの場合は正方形レイアウトに。aria-labelを必ず指定してください。",
+        "dataState": "CSSカスタマイズ時はdata-[state=on]セレクタでオン状態のスタイルを変更できます。"
+      }
+    },
+    "toggleGroup": {
+      "description": "ToggleGroupは、複数のToggleをグループ化してオン/オフを管理するコンポーネントです。単一選択または複数選択モードをサポートします。",
+      "groupProps": {
+        "type": "単一選択 or 複数選択モード",
+        "value": "制御モードでの選択値",
+        "defaultValue": "非制御モードでの初期選択値",
+        "onValueChange": "選択変更時のコールバック",
+        "variant": "アイテムの視覚スタイル",
+        "size": "アイテムのサイズ (28/32/36/40/48px)",
+        "radius": "角丸のサイズ (6px)",
+        "fontWeight": "フォント太さ。全アイテムに適用。個別ItemのfontWeightで上書き可能",
+        "orientation": "レイアウト方向",
+        "disabled": "全アイテム無効States"
+      },
+      "itemProps": {
+        "value": "アイテムの一意な値",
+        "disabled": "個別の無効States",
+        "variant": "個別のスタイル上書き",
+        "size": "個別のサイズ上書き",
+        "radius": "個別の角丸上書き",
+        "fontWeight": "個別のフォント太さ上書き"
+      },
+      "types": {
+        "singleDesc": "1つだけ選択可能。テキストの配置など排他的な選択に使用。",
+        "multipleDesc": "複数選択可能。テキストの書式設定など同時適用可能なオプションに使用。"
+      },
+      "variants": {
+        "defaultDesc": "境界線なしのシンプルなスタイル。ツールバーやコンパクトなUIに最適。",
+        "outlineDesc": "ボーダー付きでアタッチされたスタイル。明確なグループ感が必要な場合に使用。"
+      },
+      "sizes": {
+        "height": "高さ",
+        "hPadding": "横パディング",
+        "icon": "アイコン",
+        "font": "フォント",
+        "preview": "プレビュー"
+      },
+      "features": {
+        "useCases": {
+          "gridListLabel": "Grid / List 表示切替",
+          "gridListDesc": "Finder, Dropbox, ECサイトの商品一覧",
+          "rowColLabel": "Row / Column レイアウト",
+          "rowColDesc": "Figma, Framer, Flexbox方向切替",
+          "cardDetailDesc": "Gmail, Notion, タスク管理アプリ"
+        },
+        "states": {
+          "defaultDesc": "通常States。選択されたアイテムはハイライト表示。",
+          "disabledAllDesc": "全アイテムが無効化されたStates。",
+          "disabledItem": "個別 Disabled",
+          "disabledItemDesc": "特定のアイテムのみ無効化。",
+          "multipleSelect": "Multiple 選択",
+          "multipleSelectDesc": "複数のアイテムを同時に選択可能。"
+        },
+        "orientation": {
+          "horizontal": "Horizontal (デフォルト)"
+        }
+      },
+      "customization": {
+        "descBefore": "すべてのアイテムはデザインシステムのスペーシングルールに基づいたデフォルト値を使用します。グループの",
+        "descAfter": "で全アイテムを一括カスタマイズできます。",
+        "paddingTitle": "横パディングの変更",
+        "iconWidthTitle": "Icon Onlyの幅変更",
+        "tip": "デフォルト値はコンポーネントの一貫性を保つよう設計されています。UI実装上カスタマイズが必要な場合にご活用ください。"
+      },
+      "componentStructure": {
+        "itemDesc": "トグルアイテム"
+      },
+      "anatomy": {
+        "rootDesc": "グループコンテナ",
+        "itemDesc": "個別トグルボタン",
+        "activeDesc": "選択中のアイテム"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "単一選択には type=\"single\" を使用",
+        "do2": "複数選択には type=\"multiple\" を使用",
+        "do3": "各アイテムに aria-label を設定",
+        "do4": "関連するオプションをグループ化",
+        "dontTitle": "避けるべき",
+        "dont1": "5つ以上のアイテムを含めない",
+        "dont2": "無関係なオプションを混在させない",
+        "dont3": "ナビゲーションには使用しない（→ Tabs）",
+        "dont4": "単一選択でSegmentedの代わりに使わない"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "tabDesc": "グループにフォーカス移動",
+        "spaceDesc": "アイテムのオン/オフ切替",
+        "enterDesc": "アイテムのオン/オフ切替",
+        "arrowDesc": "アイテム間を移動",
+        "ariaTitle": "ARIA属性",
+        "ariaGroup": "自動付与",
+        "ariaPressed": "自動付与",
+        "ariaOrientation": "自動付与",
+        "ariaLabel": "推奨"
+      },
+      "vsButtonGroup": {
+        "intro": "似たような見た目ですが、用途と動作が異なります。適切なコンポーネントを選択してください。",
+        "feature": "特徴",
+        "row1Label": "用途",
+        "row1a": "オン/オフStatesの管理",
+        "row1b": "アクションボタンのグループ化",
+        "row2Label": "States管理",
+        "row2a": "自動 (Radix管理)",
+        "row2b": "手動 (selected prop)",
+        "row3Label": "選択モード",
+        "row3a": "single / multiple",
+        "row3b": "手動制御のみ",
+        "row4Label": "value管理",
+        "row4a": "value / onValueChange",
+        "row4b": "なし",
+        "row5Label": "ユースケース",
+        "row5a": "テキスト配置、フォーマット",
+        "row5b": "ページネーション、ツールバー",
+        "tip": "Statesを保持したい（選択/非選択）場合は ToggleGroup、クリック時にアクションを実行したい場合は ButtonGroup を使用します。"
+      },
+      "related": {
+        "toggleDesc": "単独のオン/オフトグル",
+        "segmentedDesc": "ピル型の排他的選択コントロール",
+        "buttonGroupDesc": "アクションボタンのグループ"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "intro": "ToggleGroupを効果的に使うためのヒント",
+        "type": "`type=\"single\"`で1つだけ選択、`type=\"multiple\"`で複数選択可能。",
+        "attached": "アイテムは自動的に連結されます。水平時は左右、垂直時は上下に結合。",
+        "variant": "`default`と`outline`の2バリアント。グループ全体で統一されます。",
+        "orientation": "`orientation=\"vertical\"`で縦並びに変更可能。サイドバーのナビゲーションに最適です。"
+      }
+    },
+    "slider": {
+      "description": "Sliderは、指定された範囲内から値を選択するための入力コントロールです。単一値の選択とレンジ（範囲）選択の両方をサポートしています。",
+      "props": {
+        "value": "制御モードでの値（配列）",
+        "defaultValue": "非制御モードでの初期値（配列）",
+        "onValueChange": "値変更時のコールバック（ドラッグ中も発火）",
+        "onValueCommit": "ドラッグ完了時のコールバック",
+        "color": "レンジとサムの色",
+        "size": "スライダーのサイズ",
+        "min": "最小値",
+        "max": "最大値",
+        "step": "ステップ値",
+        "minStepsBetweenThumbs": "レンジモードでのサム間の最小ステップ数",
+        "showTooltip": "ツールチップ表示モード。autoはホバー/ドラッグ時に表示",
+        "formatLabel": "ツールチップの値フォーマット関数",
+        "startContent": "スライダーの左側に表示するコンテンツ（アイコン、ラベル等）",
+        "endContent": "スライダーの右側に表示するコンテンツ",
+        "disabled": "無効States",
+        "orientation": "表示方向",
+        "inverted": "値の方向を反転",
+        "name": "フォームのname属性"
+      },
+      "sizes": {
+        "track": "トラック",
+        "thumb": "サム",
+        "trackHeight": "トラック高さ",
+        "preview": "プレビュー"
+      },
+      "features": {
+        "rangeDesc": "defaultValueに2つの値を渡すことで、レンジスライダーとして動作します。",
+        "withValueDesc": "制御モードで値を表示するパターンです。"
+      },
+      "customization": {
+        "desc": "startContent / endContent にReactNodeを渡して、スタイルを自由にカスタマイズできます。",
+        "withIconTitle": "アイコン付き",
+        "styledLabelTitle": "スタイル付きラベル",
+        "iconTooltipTitle": "アイコン + ツールチップ",
+        "tip": "startContent / endContent はReactNodeなので、文字列・アイコン・カスタムコンポーネントなど何でも渡せます。フォントサイズはSliderのsizeに合わせて自動調整されます。"
+      },
+      "anatomy": {
+        "track": "スライダー全体の範囲",
+        "range": "選択された値の範囲",
+        "thumb": "ドラッグ可能なつまみ"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do": {
+          "0": "現在の値を近くに表示する",
+          "1": "適切なstep値を設定する",
+          "2": "範囲選択にはレンジモードを使用する",
+          "3": "min/maxの範囲を明確にする"
+        },
+        "dontTitle": "避けるべき",
+        "dont": {
+          "0": "正確な値の入力にはInputを使用する",
+          "1": "極端に小さいstep値を避ける",
+          "2": "値の表示なしで使用しない",
+          "3": "モバイルで幅が狭すぎるスライダーを避ける"
+        }
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "leftRight": "1ステップ増減",
+        "upDown": "1ステップ増減",
+        "home": "最小値に移動",
+        "end": "最大値に移動",
+        "aria": "ARIA属性",
+        "ariaSlider": "自動付与",
+        "ariaValue": "自動管理",
+        "ariaFocus": "フォーカスインジケーター",
+        "ariaTouch": "タッチ操作対応"
+      },
+      "related": {
+        "input": "正確な値の入力",
+        "switch": "オン/オフの切替",
+        "radio": "離散値の選択に"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tipsDesc": "Sliderを効果的に使うためのヒント",
+      "tips": {
+        "size": "サムのサイズはCSS変数で管理。トラックの太さはh-1/h-1.5/h-2で変化します。",
+        "step": "stepプロップで値の刻み幅を指定。min/maxと組み合わせて範囲を制御。",
+        "showTooltip": "\"auto\"でホバー/ドラッグ時に表示、\"always\"で常時表示。formatLabelで表示フォーマットをカスタマイズ可能。",
+        "defaultValue": "非制御モードではdefaultValue、制御モードではvalue+onValueChangeを使用。"
+      }
+    },
+    "segmented": {
+      "description": "Segmentedは、排他的な単一選択を提供するピル型のコントロールです。タブやフィルターの切り替えに最適です。",
+      "props": {
+        "value": "制御モードでの選択値",
+        "defaultValue": "非制御モードでの初期選択値",
+        "onValueChange": "選択変更時のコールバック",
+        "variant": "スタイルバリアント（default: iOS風, outline: ボーダー風, underline: Stripe風, ghost: Notion風）",
+        "size": "セグメントのサイズ (32/36/40/48px)",
+        "radius": "角丸のサイズ (6px)",
+        "fontWeight": "フォントの太さ（全variantでnormalがデフォルト）",
+        "disabled": "全アイテム無効States"
+      },
+      "itemProps": {
+        "value": "アイテムの一意な値",
+        "disabled": "個別の無効States",
+        "size": "個別のサイズ上書き",
+        "radius": "個別の角丸上書き",
+        "contentType": "コンテンツタイプ（icon: 正方形、icon-text: gap付き、text: 標準）"
+      },
+      "demo": {
+        "day": "日",
+        "week": "週",
+        "month": "月",
+        "year": "年",
+        "prev": "前へ",
+        "play": "再生",
+        "all": "すべて",
+        "active": "有効",
+        "completed": "完了",
+        "day7": "7日",
+        "day30": "30日",
+        "day90": "90日",
+        "table": "テーブル",
+        "board": "ボード",
+        "calendar": "カレンダー",
+        "monthly": "月払い",
+        "yearly": "年払い",
+        "selected": "選択",
+        "unselected": "未選択",
+        "disabledA": "無効A",
+        "disabledB": "無効B",
+        "enabled": "有効",
+        "disabledItem": "無効"
+      },
+      "variants": {
+        "defaultDesc": "塗り背景コンテナ（bg-background-muted）に、選択されたアイテムが白背景+シャドウで浮き上がるスタイル。iOS/Apple風。",
+        "outlineDesc": "枠線付きコンテナに、選択されたアイテムがグレー背景で表示。クリーンなボーダースタイル。",
+        "underlineDesc": "下線のみで選択を表示。Stripe/GitHub風のミニマルタブスタイル。",
+        "ghostDesc": "透明コンテナに、選択されたアイテムのみ背景を表示。Notion/Figma風。"
+      },
+      "sizes": {
+        "height": "高さ",
+        "hPadding": "横パディング",
+        "font": "フォント",
+        "preview": "プレビュー",
+        "iconOnlyTitle": "Icon Only (正方形)",
+        "containerHeight": "コンテナ高さ",
+        "item": "アイテム",
+        "itemSize": "アイテムサイズ",
+        "icon": "アイコン"
+      },
+      "features": {
+        "useCases": {
+          "statusFilterLabel": "Statesフィルター",
+          "statusFilterDesc": "Notion, Linear, タスク管理アプリ",
+          "dateFilterLabel": "期間フィルター",
+          "dateFilterDesc": "Stripe, Google Analytics, ダッシュボード",
+          "viewSwitchLabel": "ビュー切替",
+          "viewSwitchDesc": "Figma, Notion, プロジェクト管理ツール",
+          "billingLabel": "課金サイクル",
+          "billingDesc": "SaaS料金ページ、サブスクリプション"
+        },
+        "states": {
+          "defaultDesc": "選択されたアイテムはハイライト表示。",
+          "disabledDesc": "全アイテムが無効化されたStates。",
+          "partialTitle": "個別 Disabled",
+          "partialDesc": "特定のアイテムのみ無効化。",
+          "manyTitle": "多数のアイテム",
+          "manyDesc": "2〜5個のアイテムに最適。"
+        }
+      },
+      "componentStructure": {
+        "itemDesc": "セグメントアイテム"
+      },
+      "recipes": {
+        "dashboard": { "prop": "ダッシュボード", "desc": "期間フィルター + データ連動" },
+        "tasks": { "prop": "タスク管理", "desc": "カウント付きフィルター" },
+        "pricing": { "prop": "料金プラン", "desc": "割引バッジ付き" },
+        "form": { "prop": "フォーム切替", "desc": "ログイン/新規登録" }
+      },
+      "customization": {
+        "desc": "すべてのアイテムはデザインシステムのスペーシングルールに基づいたデフォルト値を使用します。グループのclassNameで全アイテムを一括カスタマイズできます。",
+        "paddingTitle": "横パディングの変更",
+        "iconWidthTitle": "Icon Onlyの幅変更",
+        "tip": "デフォルト値はコンポーネントの一貫性を保つよう設計されています。UI実装上カスタマイズが必要な場合にご活用ください。"
+      },
+      "anatomy": {
+        "root": "ピル型トラック（コンテナ）",
+        "item": "個別セグメント（未選択）",
+        "indicator": "スライドする選択背景"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do": {
+          "0": "2〜5個の排他的なオプションに使用",
+          "1": "同じコンテンツエリア内のビュー切替に使用",
+          "2": "ラベルは短く簡潔に（1〜2語）",
+          "3": "フィルターやソートの切り替えに最適"
+        },
+        "dontTitle": "避けるべき",
+        "dont": {
+          "0": "6個以上のオプションには使用しない",
+          "1": "ページナビゲーションには使用しない（→ Tabs）",
+          "2": "複数選択が必要な場合は使用しない（→ ToggleGroup）",
+          "3": "長いラベルテキストを使用しない"
+        }
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "tab": "グループにフォーカス移動",
+        "arrows": "アイテム間を移動・選択",
+        "home": "最初のアイテムへ移動",
+        "end": "最後のアイテムへ移動",
+        "aria": "ARIA属性",
+        "ariaRadiogroup": "自動付与",
+        "ariaRadio": "各アイテムに付与",
+        "ariaChecked": "自動更新",
+        "ariaFocus": "フォーカスインジケーター"
+      },
+      "vsTabs": {
+        "intro": "似たような見た目ですが、用途と構造が異なります。適切なコンポーネントを選択してください。",
+        "feature": {
+          "purpose": "用途",
+          "structure": "構造",
+          "result": "結果",
+          "placement": "配置"
+        },
+        "segmented": {
+          "purpose": "値の選択（フィルター、切替）",
+          "structure": "単独コンポーネント",
+          "result": "同じエリア内のデータ変更",
+          "placement": "コンテンツ内、どこでも"
+        },
+        "tabs": {
+          "purpose": "コンテンツナビゲーション",
+          "structure": "TabList + TabPanel の組み合わせ",
+          "result": "パネルの切替表示",
+          "placement": "ページ/セクションの上部"
+        },
+        "tip": "使い分けのポイント：Segmentedは「同じコンテンツエリア内で表示を変える」場合に使用。Tabsは「異なるコンテンツパネルを切り替える」場合に使用します。"
+      },
+      "related": {
+        "toggleGroup": "複数のToggleをグループ化",
+        "toggle": "単独のオン/オフトグル",
+        "buttonGroup": "アクションボタンのグループ"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tipsDesc": "Segmentedを効果的に使うためのヒント",
+      "tips": {
+        "variant": "`default`は背景切替、`outline`はボーダー付き、`underline`は下線スタイル、`ghost`は背景なし。用途に合わせて選択。",
+        "contentType": "`contentType`を`icon`/`icon-text`/`text`で指定するとパディングとアイコンサイズが自動調整されます。",
+        "fontWeight": "`fontWeight=\"semibold\"`で選択Statesのテキストを太くできます。デフォルトは`normal`。",
+        "controlled": "非制御モードでは`defaultValue`、制御モードでは`value`+`onValueChange`を使用。"
+      }
+    },
+    "avatar": {
+      "description": "Avatarは、ユーザーやエンティティを視覚的に表すコンポーネントです。画像、イニシャル、アイコンのフォールバックをサポートし、ステータス表示やグループ表示にも対応します。",
+      "props": {
+        "size": "アバターのサイズ (24/32/40/48/64/80px)",
+        "shape": "形状 (円形/角丸正方形)",
+        "status": "ステータスドットの表示",
+        "src": "画像のURL",
+        "alt": "画像の代替テキスト",
+        "onLoadingStatusChange": "読み込み状態の変更コールバック",
+        "fbSize": "フォントサイズのスケーリング用",
+        "name": "名前からイニシャル+カラーを自動生成。childrenがある場合はイニシャルを上書き",
+        "colorized": "カラーのみ自動適用（イニシャルは手動）。nameがある場合はnameが優先",
+        "colorVariant": "カラースタイル: vivid (濃い背景+白文字) / soft (淡い背景+濃い文字)",
+        "delayMs": "フォールバック表示の遅延時間 (ms)",
+        "max": "最大表示数。超過分は \"+N\" で表示",
+        "groupSize": "子アバターのサイズ (\"+N\" バッジに適用)",
+        "groupShape": "子アバターの形状 (\"+N\" バッジに適用)"
+      },
+      "sizes": {
+        "size": "サイズ",
+        "font": "フォント",
+        "dot": "ドット",
+        "statusDot": "ステータスドット",
+        "preview": "プレビュー"
+      },
+      "features": {
+        "fallbackDesc": "画像が読み込めない場合、イニシャルまたはアイコンがフォールバックとして表示されます。",
+        "groupDesc": "複数のアバターを重ねて表示します。maxで表示数を制限できます。"
+      },
+      "structure": {
+        "imageDesc": "画像",
+        "fallbackDesc": "フォールバック（name・colorized対応）",
+        "groupDesc": "グループ表示（max対応）"
+      },
+      "customization": {
+        "desc": "name propを渡すだけで、イニシャルとカラーを自動生成できます。",
+        "card1Title": "name prop — イニシャル + カラー自動生成",
+        "card3Title": "CJK 対応",
+        "card4Title": "画像 + フォールバック",
+        "withImage": "画像あり",
+        "withFallback": "フォールバック",
+        "tip": "同じnameは常に同じ色になります（決定的ハッシュ）。childrenを渡すと自動イニシャルを上書きできます。"
+      },
+      "anatomy": {
+        "containerDesc": "円形コンテナ",
+        "contentDesc": "画像またはフォールバック",
+        "statusDesc": "ステータスドット（任意）"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "do": {
+          "0": "必ずaltテキストを設定する",
+          "1": "画像にはフォールバックを必ず用意する",
+          "2": "グループでは一貫したサイズを使用する",
+          "3": "ステータスは意味のある場面でのみ使用する"
+        },
+        "dont": {
+          "0": "altテキストなしで画像アバターを使用しない",
+          "1": "フォールバックなしでAvatar.Imageを使用しない",
+          "2": "グループ内でサイズを混在させない",
+          "3": "装飾目的のみにアバターを使用しない"
+        }
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "tabDesc": "フォーカス移動",
+        "ariaTitle": "ARIA / WCAG",
+        "roleImg": "Radix自動付与",
+        "altText": "テキストで画像説明",
+        "fallbackAlt": "フォールバックでテキスト代替を提供",
+        "statusDecorative": "ステータスドットは装飾的 (別途テキストで補完推奨)"
+      },
+      "related": {
+        "dropdownDesc": "アバタークリックでメニュー表示",
+        "buttonDesc": "アバター付きボタンの組み合わせ",
+        "tableDesc": "ユーザーリストのアバター表示"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tipsDesc": "Avatarを効果的に使うためのヒント",
+      "tips": {
+        "0": "アバター画像は小さいサイズで提供してください。2xサイズ（例: 80px表示なら160px画像）がRetina対応に最適です。",
+        "1": "Avatar.Image + Avatar.Fallbackを必ずセットで使用します。画像が読み込めない場合にフォールバックが表示されます。",
+        "2": "Avatar.Fallbackにもsizeを渡すとフォントサイズが自動調整されます。Avatarのsizeと一致させてください。",
+        "3desc": "だけでイニシャル(JD)とカラーを自動生成。childrenを渡すとイニシャルを上書きできます。",
+        "4": "大量のアバターにはmaxプロップで表示数を制限し、残りは「+N」で表示します。"
+      }
+    }
+  },
+  "footer": {
+    "product": "プロダクト",
+    "resources": "リソース",
+    "tagline": "デザインとコードをひとつに。",
+    "tagline2": "トークン駆動のUIコンポーネントライブラリ。"
+  }
+}

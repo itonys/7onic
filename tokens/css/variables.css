@@ -200,7 +200,7 @@
   /* ========================================
      Font Family
      ======================================== */
-  --font-family-sans: Inter, 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-family-sans: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
   --font-family-mono: 'Fira Code', 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
 
   /* ========================================
