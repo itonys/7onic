@@ -133,7 +133,7 @@
       "v4Note": "@source 디렉티브로 컴포넌트 내 Tailwind 클래스를 스캔 대상에 추가합니다. 프로젝트 구조에 맞게 경로를 조정하세요.",
       "cssPreset": "CSS + 프리셋",
       "v3Note": "프리셋은 theme.extend를 사용하므로 기존 Tailwind 클래스가 그대로 유지됩니다. v3에서도 시맨틱 컬러의 opacity modifier(bg-primary/50 등)를 지원합니다. RGB 채널 변수를 사용하여 알파값을 적용합니다.",
-      "bodyStyle": "페이지 전체에 디자인 토큰의 배경색, 텍스트색을 적용하려면 body에 클래스를 추가하세요.",
+      "bodyStyle": "body 요소에 추가하세요. 라이트/다크 모드 모두에서 배경색과 텍스트색이 올바르게 적용됩니다.",
       "nextjsNote": "클라이언트 컴포넌트로 사용할 경우 파일 상단에 'use client'를 추가하세요.",
       "fontsTitle": "Fonts Setup Guide",
       "fontsDesc": "폰트 설치 및 다국어 설정",

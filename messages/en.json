@@ -133,7 +133,7 @@
       "v4Note": "The @source directive adds component Tailwind classes to the scan target. Adjust the path to match your project structure.",
       "cssPreset": "CSS + Preset",
       "v3Note": "The preset uses theme.extend, so your existing Tailwind classes are preserved. Semantic color opacity modifiers (bg-primary/50 etc.) are also supported in v3 via RGB channel variables.",
-      "bodyStyle": "To apply design token background and text colors to the entire page, add classes to the body element.",
+      "bodyStyle": "Add to your body element. Ensures correct background and text color across light and dark modes.",
       "nextjsNote": "When using as a client component, add 'use client' at the top of your file.",
       "fontsTitle": "Fonts Setup Guide",
       "fontsDesc": "Font installation and multi-language configuration",

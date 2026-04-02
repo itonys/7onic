@@ -133,7 +133,7 @@
       "v4Note": "@source ディレクティブで、コンポーネント内のTailwindクラスをスキャン対象に追加します。パスはプロジェクト構造に合わせて調整してください。",
       "cssPreset": "CSS + プリセット",
       "v3Note": "プリセットは theme.extend を使用するため、既存のTailwindクラスはそのまま維持されます。※ v3でもセマンティックカラーの opacity modifier（bg-primary/50 等）に対応しています。RGB チャンネル変数を使用してアルファ値を適用します。",
-      "bodyStyle": "ページ全体にデザイントークンの背景色・テキスト色を適用するには、body にクラスを追加してください。",
+      "bodyStyle": "body 要素に追加してください。ライト・ダークモード両方で背景色とテキスト色が正しく適用されます。",
       "nextjsNote": "クライアントコンポーネントとして使用する場合は、ファイルの先頭に 'use client' を追加してください。",
       "fontsTitle": "Fonts Setup Guide",
       "fontsDesc": "フォントのインストールと多言語設定",
