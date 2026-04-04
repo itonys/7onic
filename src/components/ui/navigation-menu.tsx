@@ -373,8 +373,7 @@ export interface NavigationMenuContentProps extends React.HTMLAttributes<HTMLDiv
 
 const NavigationMenuContent = React.forwardRef<HTMLDivElement, NavigationMenuContentProps>(
   ({ className, children, ...props }, ref) => {
-    const { orientation, size, collapsed, radius } = useNavigationMenuContext()
-    const s = navigationMenuSizeMap[size]
+    const { orientation, collapsed, radius } = useNavigationMenuContext()
 
     if (orientation === 'horizontal') {
       return (
@@ -442,6 +441,7 @@ const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLin
 
     if (orientation === 'horizontal') {
       // Exclude onSelect to avoid React vs Radix type conflict
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const { onSelect, ...radixSafeProps } = props as any
 
       // Content-level links (inside dropdown): block style with hover bg

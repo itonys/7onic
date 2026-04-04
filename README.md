@@ -284,7 +284,8 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [x] Documentation site with interactive playgrounds
 - [x] Chart components included (Bar, Line, Area, Pie, MetricCard)
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
-- [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl, in progress)
+- [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
+- [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
 - [ ] npm package distribution (April 2026)
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI (shadcn-style)

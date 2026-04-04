@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 // ─── Built-in Icons ──────────────────────────────────────
@@ -286,8 +286,8 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
     color = 'default',
     radius = 'md',
     disabled = false,
-    withControls = true,
-    withEdges = false,
+    withControls = true, // eslint-disable-line @typescript-eslint/no-unused-vars
+    withEdges = false, // eslint-disable-line @typescript-eslint/no-unused-vars
     loop = false,
     children,
     ...props

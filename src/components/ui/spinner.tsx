@@ -333,7 +333,6 @@ function OrbitSpinner({ size, color, speed }: {
   const diameter = ORBIT_SIZES[size]
   const stroke = ORBIT_STROKE[size]
   const r = (RING_VIEWBOX - stroke * 2) / 2
-  const circumference = 2 * Math.PI * r
 
   return (
     <div

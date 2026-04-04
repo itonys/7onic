@@ -27,5 +27,11 @@ jobs:
       - name: Build component library
         run: npm run build:lib
 
+      - name: Verify i18n message files
+        run: npm run verify:i18n
+
+      - name: Verify component quality
+        run: npm run verify:components
+
       - name: Build documentation site
         run: npm run build

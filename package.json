@@ -33,6 +33,9 @@
     "sync-tokens": "tsx scripts/run-sync.ts",
     "build:cli": "node scripts/build-cli.js",
     "verify:docs": "tsx scripts/verify-docs.ts",
+    "verify:i18n": "tsx scripts/verify-i18n.ts",
+    "verify:i18n:html": "tsx scripts/verify-i18n-html.ts",
+    "verify:components": "tsx scripts/verify-components.ts",
     "prepublishOnly": "npm run verify:docs && npm run build:lib"
   },
   "dependencies": {

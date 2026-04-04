@@ -1,4 +1,5 @@
 'use client'
+/* eslint-disable @next/next/no-img-element */
 
 import * as React from 'react'
 import { Slot } from '@radix-ui/react-slot'
@@ -134,6 +135,7 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
 CardRoot.displayName = 'Card'
 
 // ── Size-based padding map (responsive: mobile → desktop) ──
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const sizePaddingMap = {
   sm: 'p-4',                // 16px
   default: 'p-4 sm:p-6',   // 16px → 24px

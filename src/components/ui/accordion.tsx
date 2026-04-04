@@ -57,6 +57,8 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionProps>(
   ({ className, variant = 'default', size = 'default', iconPosition = 'right', type = 'single', collapsible = true, defaultValue, value, onValueChange, disabled, ...props }, ref) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Radix single/multiple union type conflict
+    const restProps = props as any
     const sharedClassName = cn(accordionVariants({ variant }), className)
 
     const radixProps = type === 'multiple'
@@ -78,12 +80,11 @@ const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionProps>(
 
     return (
       <AccordionStyleContext.Provider value={{ variant, size, iconPosition }}>
-        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <AccordionPrimitive.Root
+          <AccordionPrimitive.Root
           ref={ref}
           className={sharedClassName}
           {...radixProps}
-          {...(props as any)}
+          {...restProps}
         />
       </AccordionStyleContext.Provider>
     )

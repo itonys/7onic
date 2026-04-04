@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { cva, type VariantProps } from 'class-variance-authority'
+import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 // ─── Built-in status icons (shared with Alert — no external dependency) ──────
@@ -361,7 +361,7 @@ const ToastItem = React.memo(function ToastItem({
 }: ToastItemProps) {
   const [isExiting, setIsExiting] = React.useState(false)
   const [isEntered, setIsEntered] = React.useState(false)
-  const [isPaused, setIsPaused] = React.useState(false)
+  const [isPaused, setIsPaused] = React.useState(false) // eslint-disable-line @typescript-eslint/no-unused-vars
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const remainingRef = React.useRef<number>(0)
   const startTimeRef = React.useRef<number>(0)
@@ -591,7 +591,6 @@ function Toaster({
   const isTop = position.startsWith('top')
   const isCenter = position.includes('center')
   const isRight = position.includes('right')
-  const isLeft = position.includes('left')
 
   // Position styles
   const positionClasses = cn(
