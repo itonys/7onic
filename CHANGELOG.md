@@ -6,7 +6,7 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
-## [0.1.0] — Unreleased
+## [0.1.0] — 2026-04-04
 
 Initial release of 7onic Design System.
 
