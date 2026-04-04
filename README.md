@@ -1,6 +1,6 @@
 # [7onic Design System](https://7onic.design)
 
-> **🚀 First npm release coming April 2026**
+> **🚀 Now available on npm — `npm install @7onic-ui/react @7onic-ui/tokens`**
 
 One JSON, every format. AI-optimized design system with Figma-synced token pipeline — accessible React components on Radix UI, and the ecosystem's only Tailwind v3+v4 dual support.
 
@@ -286,7 +286,7 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [ ] npm package distribution (April 2026)
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.1.0
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI (shadcn-style)
 - [ ] Figma UI Kit
