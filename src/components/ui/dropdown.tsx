@@ -161,6 +161,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
         flush && flushIndicatorItemPaddingMap[size],
         'transition-colors duration-fast',
         'focus:bg-background-muted',
+        'data-[state=checked]:text-foreground data-[state=checked]:font-semibold',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className
       )}
@@ -196,6 +197,7 @@ const DropdownMenuRadioItem = React.forwardRef<
         flush && flushIndicatorItemPaddingMap[size],
         'transition-colors duration-fast',
         'focus:bg-background-muted',
+        'data-[state=checked]:text-foreground data-[state=checked]:font-semibold',
         'data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         className
       )}

@@ -18,6 +18,7 @@ One JSON, every format. AI-optimized design system with Figma-synced token pipel
 - **Charts Included** — Bar, Line, Area, Pie, MetricCard with design token integration
 - **Tokens-only Distribution** — Use CSS variables without Tailwind or React
 - **Zero Runtime CSS** — No CSS-in-JS runtime overhead. Pure Tailwind classes
+- **Multilingual** — English, Japanese, Korean with automatic locale detection
 
 ---
 

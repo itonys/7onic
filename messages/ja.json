@@ -31,9 +31,9 @@
     },
     "toc": "目次",
     "tableHeaders": {
-      "size": "サイズ",
+      "size": "Size",
       "preview": "プレビュー",
-      "gap": "ギャップ",
+      "gap": "Gap",
       "item": "アイテム",
       "feature": "特徴"
     }
@@ -175,26 +175,50 @@
         "size": "ボタンの高さとパディング",
         "radius": "角丸のサイズ (6px)",
         "fullWidth": "幅100%で表示",
-        "loading": "ローディングStates",
-        "disabled": "無効States",
+        "loading": "ローディング状態",
+        "disabled": "無効状態",
         "leftIcon": "左側アイコン",
         "rightIcon": "右側アイコン",
         "fontWeight": "フォント太さの上書き。未指定時はvariantデフォルト（solid系=600, outline/ghost/link=400）。直接prop > ButtonGroupコンテキスト > variantデフォルトの優先順位",
-        "selected": "選択States（outline/ghostのみ対応）。outlineはbg-background-muted、ghostはfont-semibold。他のvariantでは効果なし",
+        "selected": "選択状態（outline/ghostのみ対応）。outlineはbg-background-muted、ghostはfont-semibold。他のvariantでは効果なし",
         "pressEffect": "プレスエフェクト（active:scale-pressed）。未指定時はtrueとして動作。falseで無効化",
         "asChild": "Slotとしてレンダリング"
       },
       "variants": {
-        "solid": { "desc": "ソリッド背景。最も視覚的に目立つスタイル。", "usage": "送信、保存、購入" },
-        "outline": { "desc": "中立的なアクション。背景と調和させたい場合。", "usage": "詳細を見る、編集" },
-        "ghost": { "desc": "最小限の視覚的存在感。ツールバーなどに最適。", "usage": "ツールバー、ナビ" },
-        "link": { "desc": "テキストリンクスタイル。インラインアクションに。", "usage": "もっと見る、詳細" }
+        "solid": {
+          "desc": "ソリッド背景。最も視覚的に目立つスタイル。",
+          "usage": "送信、保存、購入"
+        },
+        "outline": {
+          "desc": "中立的なアクション。背景と調和させたい場合。",
+          "usage": "詳細を見る、編集"
+        },
+        "ghost": {
+          "desc": "最小限の視覚的存在感。ツールバーなどに最適。",
+          "usage": "ツールバー、ナビ"
+        },
+        "link": {
+          "desc": "テキストリンクスタイル。インラインアクションに。",
+          "usage": "もっと見る、詳細"
+        }
       },
       "colors": {
-        "default": { "desc": "ダークカラー。最も汎用的なCTA。", "usage": "送信、保存" },
-        "primary": { "desc": "ブランドカラー。ブランドを強調するアクション。", "usage": "サインアップ" },
-        "secondary": { "desc": "補助的なアクション。プライマリと並べて使用。", "usage": "キャンセル、戻る" },
-        "destructive": { "desc": "破壊的なアクション。削除や取消不能な操作に。", "usage": "削除、リセット" }
+        "default": {
+          "desc": "ダークカラー。最も汎用的なCTA。",
+          "usage": "送信、保存"
+        },
+        "primary": {
+          "desc": "ブランドカラー。ブランドを強調するアクション。",
+          "usage": "サインアップ"
+        },
+        "secondary": {
+          "desc": "補助的なアクション。プライマリと並べて使用。",
+          "usage": "キャンセル、戻る"
+        },
+        "destructive": {
+          "desc": "破壊的なアクション。削除や取消不能な操作に。",
+          "usage": "削除、リセット"
+        }
       },
       "sizes": {
         "height": "高さ",
@@ -224,7 +248,7 @@
         "do": "推奨",
         "do1": "1ページに1つのプライマリボタン",
         "do2": "アクション指向のラベル（「送信」「保存」）",
-        "do3": "非同期操作にはローディングStatesを表示",
+        "do3": "非同期操作にはローディング状態を表示",
         "do4": "十分なタッチ領域を確保（WCAG 2.5.8: 24px以上）",
         "dont": "避けるべき",
         "dont1": "複数のプライマリボタンを並べない",
@@ -248,15 +272,15 @@
         "iconButton": "アイコンのみの正方形ボタン",
         "buttonGroup": "アクションボタンのグループ",
         "toggle": "単独のオン/オフトグル",
-        "spinner": "ボタン内のローディング表示に使用。"
+        "spinner": "ボタン内のローディング表示に使用"
       },
       "code": {
         "tailwindDesc": "環境に合わせたスタイル適用方法"
       },
       "tips": {
-        "title": "Buttonを効果的に使うためのヒント",
+        "title": "Button 実践ガイド",
         "variant": "スタイルはvariantで指定し、classNameで上書き可能です。",
-        "loading": "loading={true}で自動的にdisabled Statesになり、スピナーが表示されます。",
+        "loading": "loading='{true}'で自動的にdisabled状態になり、スピナーが表示されます。",
         "asChild": "Next.jsのLinkなど他の要素をラップするにはasChildを使います。",
         "icons": "leftIcon/rightIconでアイコン付きボタンを作成。アイコンサイズは自動調整されます。"
       }
@@ -268,23 +292,47 @@
         "color": "solidバリアントの色。solid以外では無視",
         "size": "ボタンのサイズ (28/32/36/40/48px)",
         "radius": "角丸のサイズ (6px)",
-        "loading": "ローディングStates",
-        "disabled": "無効States",
+        "loading": "ローディング状態",
+        "disabled": "無効状態",
         "pressEffect": "プレスエフェクト（active:scale-pressed）。未指定時はtrueとして動作。falseで無効化",
         "asChild": "Slotとしてレンダリング",
         "ariaLabel": "アクセシビリティラベル（必須）"
       },
       "variants": {
-        "solid": { "desc": "ソリッド背景。最も視覚的に目立つスタイル。", "usage": "追加、送信" },
-        "outline": { "desc": "中立的なアクション。背景と調和させたい場合。", "usage": "情報、詳細" },
-        "ghost": { "desc": "最小限の視覚的存在感。ツールバーなどに最適。", "usage": "ツールバー" },
-        "subtle": { "desc": "控えめな存在感でホバー時に強調。ヘッダーやサイドバーに。", "usage": "ヘッダー、ナビ" }
+        "solid": {
+          "desc": "ソリッド背景。最も視覚的に目立つスタイル。",
+          "usage": "追加、送信"
+        },
+        "outline": {
+          "desc": "中立的なアクション。背景と調和させたい場合。",
+          "usage": "情報、詳細"
+        },
+        "ghost": {
+          "desc": "最小限の視覚的存在感。ツールバーなどに最適。",
+          "usage": "ツールバー"
+        },
+        "subtle": {
+          "desc": "控えめな存在感でホバー時に強調。ヘッダーやサイドバーに。",
+          "usage": "ヘッダー、ナビ"
+        }
       },
       "colors": {
-        "default": { "desc": "ダークカラー。最も汎用的なCTA。", "usage": "追加、送信" },
-        "primary": { "desc": "ブランドカラー。ブランドを強調するアクション。", "usage": "お気に入り" },
-        "secondary": { "desc": "補助的なアクション。プライマリと並べて使用。", "usage": "設定、編集" },
-        "destructive": { "desc": "破壊的なアクション。削除や取消不能な操作に。", "usage": "削除、閉じる" }
+        "default": {
+          "desc": "ダークカラー。最も汎用的なCTA。",
+          "usage": "追加、送信"
+        },
+        "primary": {
+          "desc": "ブランドカラー。ブランドを強調するアクション。",
+          "usage": "お気に入り"
+        },
+        "secondary": {
+          "desc": "補助的なアクション。プライマリと並べて使用。",
+          "usage": "設定、編集"
+        },
+        "destructive": {
+          "desc": "破壊的なアクション。削除や取消不能な操作に。",
+          "usage": "削除、閉じる"
+        }
       },
       "sizes": {
         "size": "サイズ",
@@ -334,11 +382,11 @@
         "tailwindDesc": "環境に合わせたスタイル適用方法"
       },
       "tips": {
-        "title": "IconButtonを効果的に使うためのヒント",
+        "title": "IconButton 実践ガイド",
         "ariaLabel": "アイコンのみのボタンには必ずaria-labelを指定してください。スクリーンリーダーのために必須です。",
         "subtle": "ヘッダーやナビゲーションの補助アイコンにはsubtleバリアントが最適です。",
         "iconSize": "アイコンサイズはsizeに連動して自動調整されます。子要素の<svg>にサイズクラスを指定する必要はありません。",
-        "loading": "loadingプロップでスピナーが表示され、自動的にdisabled Statesになります。"
+        "loading": "loadingプロップでスピナーが表示され、自動的にdisabled状態になります。"
       }
     },
     "buttonGroup": {
@@ -354,13 +402,30 @@
         "attached": "ボタン同士を結合して表示するかどうか"
       },
       "variants": {
-        "outline": { "desc": "中立的なアクション。背景と調和させたい場合に使用。", "usage": "ツールバー、フィルター" },
-        "ghost": { "desc": "最小限の視覚的存在感。コンパクトなUIやナビゲーションに最適。", "usage": "ナビ、ツールバー" }
+        "outline": {
+          "desc": "中立的なアクション。背景と調和させたい場合に使用。",
+          "usage": "ツールバー、フィルター"
+        },
+        "ghost": {
+          "desc": "最小限の視覚的存在感。コンパクトなUIやナビゲーションに最適。",
+          "usage": "ナビ、ツールバー"
+        }
       },
       "sizesDesc": "ButtonGroupはButtonのサイズをContextで継承します。以下はButtonと同じサイズ規則です。",
-      "sizes": { "height": "高さ", "padding": "横パディング", "icon": "アイコン", "font": "フォント" },
+      "sizes": {
+        "height": "高さ",
+        "padding": "横パディング",
+        "icon": "アイコン",
+        "font": "フォント"
+      },
       "touchTargetNote": "タッチターゲット: WCAG 2.5.8基準では最小24pxのタッチ領域が必要です。最小のxs（28px）でもWCAG基準を満たしています。",
-      "demo": { "editActions": "編集アクション", "undoRedo": "元に戻す/やり直し", "zoomControl": "ズームコントロール", "short": "短い", "longText": "長いテキスト" },
+      "demo": {
+        "editActions": "編集アクション",
+        "undoRedo": "元に戻す/やり直し",
+        "zoomControl": "ズームコントロール",
+        "short": "短い",
+        "longText": "長いテキスト"
+      },
       "orientation": {
         "horizontalTitle": "Horizontal (デフォルト)",
         "horizontalDesc": "ボタンを水平方向に並べます。ツールバーやアクショングループに最適。",
@@ -374,7 +439,11 @@
         "equalWidthTitle": "ボタン幅の均等化",
         "note": "デフォルト値はコンポーネントの一貫性を保つよう設計されています。UI実装上カスタマイズが必要な場合にご活用ください。"
       },
-      "anatomy": { "container": "グループコンテナ", "edgeRadius": "端の角丸を維持", "divider": "ボタン間の区切り" },
+      "anatomy": {
+        "container": "グループコンテナ",
+        "edgeRadius": "端の角丸を維持",
+        "divider": "ボタン間の区切り"
+      },
       "bestPractices": {
         "do": "推奨",
         "do1": "関連するアクションのみをグループ化",
@@ -428,9 +497,11 @@
         "segmented": "ピル型の排他的選択コントロール",
         "toggle": "単独のオン/オフトグル"
       },
-      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
       "tips": {
-        "title": "ButtonGroupを効果的に使うためのヒント",
+        "title": "ButtonGroup 実践ガイド",
         "attached": "attachedモードでボタンが1つのコントロールのように連結されます。デフォルトはtrueです。",
         "variant": "グループ全体のvariantを指定すると、子ボタンに自動適用されます。outlineとghostがサポートされています。",
         "orientation": "orientation=\"vertical\"で縦並びになります。メニューやサイドバーに最適です。"
@@ -445,8 +516,8 @@
         "leftIcon": "左側アイコン",
         "rightIcon": "右側アイコン",
         "focusRing": "カスタムフォーカスリング表示。falseでもキーボード操作時は自動表示",
-        "error": "エラーStates（赤いボーダー）",
-        "disabled": "無効States",
+        "error": "エラー状態（赤いボーダー）",
+        "disabled": "無効状態",
         "placeholder": "プレースホルダーテキスト",
         "type": "インプットタイプ (text, email, password, etc.)。HTMLデフォルト: text"
       },
@@ -459,8 +530,14 @@
         "required": "必須マーク（*）をラベル末尾に表示"
       },
       "variants": {
-        "default": { "desc": "標準的なボーダースタイル。フォームの一般的な入力欄に使用。", "usage": "一般的なフォーム" },
-        "filled": { "desc": "背景色付きスタイル。視覚的に目立たせたい入力欄に。", "usage": "検索バー、主要入力" }
+        "default": {
+          "desc": "標準的なボーダースタイル。フォームの一般的な入力欄に使用。",
+          "usage": "一般的なフォーム"
+        },
+        "filled": {
+          "desc": "背景色付きスタイル。視覚的に目立たせたい入力欄に。",
+          "usage": "検索バー、主要入力"
+        }
       },
       "sizes": {
         "height": "高さ",
@@ -489,7 +566,7 @@
         "required": "必須項目です",
         "disabled": "無効"
       },
-      "focusStatesTitle": "フォーカスStates",
+      "focusStatesTitle": "フォーカス状態",
       "focusStatesDesc": "focusRing: false（デフォルト）: クリック時はボーダー変化のみ、キーボードTab時はフォーカスリング自動表示。focusRing: true: 常にフォーカスリングを表示。",
       "anatomy": {
         "field": "Field ラッパー",
@@ -527,13 +604,15 @@
         "select": "選択リスト入力",
         "textarea": "複数行テキスト入力"
       },
-      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
       "tips": {
-        "title": "Inputを効果的に使うためのヒント",
+        "title": "Input 実践ガイド",
         "icons": "leftIcon/rightIconでアイコン付き入力を作成。アイコンコンテナはpointer-events-noneのため、クリック可能な要素は別途配置してください。",
         "filled": "filledバリアントはボーダーなしの背景色スタイル。フォームの視覚的ノイズを減らしたい場合に最適。",
-        "focusRing": "focusRing={false}でフォーカスリングを非表示にし、ボーダー変更のみにできます。",
-        "error": "errorプロップでエラーStatesを表示。Fieldコンポーネントと統合すればエラーメッセージも自動表示されます。"
+        "focusRing": "focusRing='{false}'でフォーカスリングを非表示にし、ボーダー変更のみにできます。",
+        "error": "errorプロップでエラー状態を表示。Fieldコンポーネントと統合すればエラーメッセージも自動表示されます。"
       }
     },
     "textarea": {
@@ -545,8 +624,8 @@
         "resize": "リサイズ方向",
         "rows": "表示行数",
         "focusRing": "カスタムフォーカスリング表示。falseでもキーボード操作時は自動表示",
-        "error": "エラーStates（赤いボーダー）",
-        "disabled": "無効States",
+        "error": "エラー状態（赤いボーダー）",
+        "disabled": "無効状態",
         "placeholder": "プレースホルダーテキスト"
       },
       "fieldProps": {
@@ -554,10 +633,18 @@
         "disabled": "無効状態。Field.Label と Textarea に自動伝播",
         "gap": "子要素間の間隔 (0 / 4 / 6 / 8 / 12px)"
       },
-      "labelProps": { "required": "必須マーク（*）をラベル末尾に表示" },
+      "labelProps": {
+        "required": "必須マーク（*）をラベル末尾に表示"
+      },
       "variants": {
-        "default": { "desc": "標準的なボーダースタイル。フォームの一般的な入力欄に使用。", "usage": "一般的なフォーム" },
-        "filled": { "desc": "背景色付きスタイル。視覚的に目立たせたい入力欄に。", "usage": "カード内フォーム" }
+        "default": {
+          "desc": "標準的なボーダースタイル。フォームの一般的な入力欄に使用。",
+          "usage": "一般的なフォーム"
+        },
+        "filled": {
+          "desc": "背景色付きスタイル。視覚的に目立たせたい入力欄に。",
+          "usage": "カード内フォーム"
+        }
       },
       "sizesDesc": "Textareaの高さはrows属性で制御します。sizeプロパティはパディングとフォントサイズのみを調整します。",
       "sizes": {
@@ -587,7 +674,7 @@
         "notes": "備考",
         "cannotEdit": "編集できません"
       },
-      "focusStatesTitle": "フォーカスStates",
+      "focusStatesTitle": "フォーカス状態",
       "focusStatesDesc": "focusRing: false（デフォルト）: クリック時はボーダー変化のみ、キーボードTab時はフォーカスリング自動表示。focusRing: true: 常にフォーカスリングを表示。",
       "features": {
         "charCount": "文字数カウント",
@@ -631,13 +718,15 @@
         "button": "フォーム送信ボタン",
         "select": "選択リスト入力"
       },
-      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
       "tips": {
-        "title": "Textareaを効果的に使うためのヒント",
+        "title": "Textarea 実践ガイド",
         "resize": "resizeプロップでリサイズ方向を制御。デフォルトはvertical。noneにすると固定サイズになります。",
         "filled": "Inputと同じfilledバリアント。ボーダーなしの背景色スタイルです。",
         "rows": "rowsプロップで初期行数を指定。resize=\"none\"と組み合わせると固定高さになります。",
-        "error": "errorプロップでエラーStatesを表示。Fieldコンポーネントと統合可能です。"
+        "error": "errorプロップでエラー状態を表示。Fieldコンポーネントと統合可能です。"
       }
     },
     "select": {
@@ -670,11 +759,26 @@
         "textValue": "タイプアヘッド用のテキスト値"
       },
       "variants": {
-        "basic": { "desc": "最もシンプルなセレクト。単一選択リスト。", "usage": "カテゴリー選択" },
-        "grouped": { "desc": "グループとラベルで関連項目を整理。", "usage": "国選択、地域分類" },
-        "placeholder": { "desc": "未選択時にプレースホルダーを表示。", "usage": "初期状態の案内" },
-        "flush": { "desc": "アイテムをフル幅で表示。角丸なし、エッジまで広がる。", "usage": "高密度リスト" },
-        "disabledItems": { "desc": "一部のアイテムを選択不可に。", "usage": "利用不可なオプション" }
+        "basic": {
+          "desc": "最もシンプルなセレクト。単一選択リスト。",
+          "usage": "カテゴリー選択"
+        },
+        "grouped": {
+          "desc": "グループとラベルで関連項目を整理。",
+          "usage": "国選択、地域分類"
+        },
+        "placeholder": {
+          "desc": "未選択時にプレースホルダーを表示。",
+          "usage": "初期状態の案内"
+        },
+        "flush": {
+          "desc": "アイテムをフル幅で表示。角丸なし、エッジまで広がる。",
+          "usage": "高密度リスト"
+        },
+        "disabledItems": {
+          "desc": "一部のアイテムを選択不可に。",
+          "usage": "利用不可なオプション"
+        }
       },
       "sizes": {
         "height": "高さ",
@@ -738,11 +842,31 @@
       "vsDropdown": {
         "desc": "見た目は似ていますが、用途と動作が異なります。適切なコンポーネントを選択してください。",
         "feature": "特徴",
-        "purpose": { "label": "用途", "select": "値の選択", "dropdown": "アクションの実行" },
-        "form": { "label": "フォーム連携", "select": "name / value 送信可能", "dropdown": "なし" },
-        "afterSelect": { "label": "選択後の表示", "select": "選択値がトリガーに反映", "dropdown": "メニューが閉じるだけ" },
-        "itemTypes": { "label": "アイテム種類", "select": "単一選択アイテム", "dropdown": "Item, Checkbox, Radio, Sub" },
-        "useCase": { "label": "ユースケース", "select": "国選択、カテゴリー、ソート順", "dropdown": "コンテキストメニュー、アカウント操作" },
+        "purpose": {
+          "label": "用途",
+          "select": "値の選択",
+          "dropdown": "アクションの実行"
+        },
+        "form": {
+          "label": "フォーム連携",
+          "select": "name / value 送信可能",
+          "dropdown": "なし"
+        },
+        "afterSelect": {
+          "label": "選択後の表示",
+          "select": "選択値がトリガーに反映",
+          "dropdown": "メニューが閉じるだけ"
+        },
+        "itemTypes": {
+          "label": "アイテム種類",
+          "select": "単一選択アイテム",
+          "dropdown": "Item, Checkbox, Radio, Sub"
+        },
+        "useCase": {
+          "label": "ユースケース",
+          "select": "国選択、カテゴリー、ソート順",
+          "dropdown": "コンテキストメニュー、アカウント操作"
+        },
         "guide": "ユーザーが値を選んでフォームに送信する場合は Select が適切です。クリック時にアクション（編集、削除、共有など）を実行する場合は",
         "guideLink": "Dropdown",
         "guideSuffix": "を使用してください。",
@@ -757,7 +881,7 @@
         "tailwindDesc": "環境に合わせたスタイル適用方法"
       },
       "tips": {
-        "title": "Selectを効果的に使うためのヒント",
+        "title": "Select 実践ガイド",
         "size": "sizeはSelectルートに設定します。TriggerとContentの両方に自動伝播し、Contentのアイテムサイズは3段階（sm/md/lg）に自動マッピングされます。Inputと同じ5段階なのでフォーム内で高さが揃います。",
         "placeholder": "Select.Valueのplaceholderで未選択時の案内テキストを表示できます。値が選択されるとplaceholderは選択値に置き換わります。",
         "position": "\"item-aligned\"は選択中のアイテムをトリガーに重ねて表示。\"popper\"はDropdownのようにトリガーの下に表示します。",
@@ -794,11 +918,26 @@
         "disabled": "無効状態"
       },
       "variants": {
-        "basic": { "desc": "最もシンプルなメニュー。アクション一覧を表示。", "usage": "コンテキストメニュー" },
-        "group": { "desc": "ラベルとグループで関連アクションを整理。", "usage": "アカウントメニュー" },
-        "checkbox": { "desc": "チェックボックスで複数項目のON/OFF切替。", "usage": "表示設定、フィルター" },
-        "radio": { "desc": "ラジオで排他的な単一選択。", "usage": "密度、テーマ選択" },
-        "submenu": { "desc": "ネストされたサブメニューで階層的なアクション。", "usage": "共有、エクスポート" }
+        "basic": {
+          "desc": "最もシンプルなメニュー。アクション一覧を表示。",
+          "usage": "コンテキストメニュー"
+        },
+        "group": {
+          "desc": "ラベルとグループで関連アクションを整理。",
+          "usage": "アカウントメニュー"
+        },
+        "checkbox": {
+          "desc": "チェックボックスで複数項目のON/OFF切替。",
+          "usage": "表示設定、フィルター"
+        },
+        "radio": {
+          "desc": "ラジオで排他的な単一選択。",
+          "usage": "密度、テーマ選択"
+        },
+        "submenu": {
+          "desc": "ネストされたサブメニューで階層的なアクション。",
+          "usage": "共有、エクスポート"
+        }
       },
       "sizes": {
         "padding": "パディング",
@@ -867,11 +1006,31 @@
       "vsSelect": {
         "desc": "見た目は似ていますが、用途と動作が異なります。適切なコンポーネントを選択してください。",
         "feature": "特徴",
-        "purpose": { "label": "用途", "dropdown": "アクションの実行", "select": "値の選択" },
-        "form": { "label": "フォーム連携", "dropdown": "なし", "select": "name / value 送信可能" },
-        "afterSelect": { "label": "選択後の表示", "dropdown": "メニューが閉じるだけ", "select": "選択値がトリガーに反映" },
-        "itemTypes": { "label": "アイテム種類", "dropdown": "Item, Checkbox, Radio, Sub", "select": "単一選択アイテム" },
-        "useCase": { "label": "ユースケース", "dropdown": "コンテキストメニュー、アカウント操作", "select": "国選択、カテゴリー、ソート順" },
+        "purpose": {
+          "label": "用途",
+          "dropdown": "アクションの実行",
+          "select": "値の選択"
+        },
+        "form": {
+          "label": "フォーム連携",
+          "dropdown": "なし",
+          "select": "name / value 送信可能"
+        },
+        "afterSelect": {
+          "label": "選択後の表示",
+          "dropdown": "メニューが閉じるだけ",
+          "select": "選択値がトリガーに反映"
+        },
+        "itemTypes": {
+          "label": "アイテム種類",
+          "dropdown": "Item, Checkbox, Radio, Sub",
+          "select": "単一選択アイテム"
+        },
+        "useCase": {
+          "label": "ユースケース",
+          "dropdown": "コンテキストメニュー、アカウント操作",
+          "select": "国選択、カテゴリー、ソート順"
+        },
         "guide": "ユーザーが値を選んでフォームに送信する場合は",
         "guideLink": "Select",
         "guideSuffix": "を使用してください。クリック時にアクション（編集、削除、共有など）を実行する場合は Dropdown が適切です。",
@@ -887,12 +1046,13 @@
         "tailwindDesc": "環境に合わせたスタイル適用方法"
       },
       "tips": {
-        "title": "Dropdownを効果的に使うためのヒント",
+        "title": "Dropdown 実践ガイド",
         "asChild": "TriggerはデフォルトでButtonとしてレンダリングされます。asChildで任意の要素をトリガーにできます。",
         "sideAlign": "メニューの表示位置を制御します。デフォルトはside=\"bottom\"・align=\"center\"です。画面端では自動的に位置を調整します。",
         "onSelect": "各ItemのonSelectはアイテム選択時に呼ばれ、メニューを自動的に閉じます。event.preventDefault()で閉じるのを防げます。",
         "radius": "Contentの角丸を\"md\"（デフォルト）・\"lg\"・\"xl\"から選択できます。Itemの角丸はContentから比率ベースで自動計算されます（67〜75%）。",
-        "inset": "MenuItem・Label・SubTriggerにinsetを付けると、CheckboxItem/RadioItemのインジケーター領域分の左パディングが追加され、縦に揃います。"
+        "inset": "MenuItem・Label・SubTriggerにinsetを付けると、CheckboxItem/RadioItemのインジケーター領域分の左パディングが追加され、縦に揃います。",
+        "pressEffect": "Buttonをトリガーに使う場合はpressEffect='{false}'を設定してください。スケールアニメーションがドロップダウンの位置をずらす原因になります。"
       }
     },
     "checkbox": {
@@ -960,9 +1120,11 @@
         "toggle": "単独のオン/オフトグル",
         "table": "テーブル行選択のチェックボックス"
       },
-      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
       "tips": {
-        "title": "Checkboxを効果的に使うためのヒント",
+        "title": "Checkbox 実践ガイド",
         "label": "labelプロップで自動的にラベルが関連付けられます。アクセシビリティのために推奨。",
         "size": "sm(14px)/default(16px)/lg(20px)の3サイズ。ラベル・アイコン・Gapも自動調整されます。",
         "radius": "none(0px)/sm(2px)/md(4px)の3種類。デフォルトはsm。",
@@ -998,8 +1160,12 @@
         "clickArea": "クリック領域",
         "preview": "プレビュー"
       },
-      "structure": { "item": "ラジオアイテム（label prop対応）" },
-      "features": { "withFieldDesc": "Fieldコンポーネントと組み合わせることで、disabled状態を自動的に継承します。" },
+      "structure": {
+        "item": "ラジオアイテム（label prop対応）"
+      },
+      "features": {
+        "withFieldDesc": "Fieldコンポーネントと組み合わせることで、disabled状態を自動的に継承します。"
+      },
       "recipes": {
         "controlled": "状態を外部管理",
         "itemDisabled": "特定のオプションのみ無効化"
@@ -1039,9 +1205,11 @@
         "segmented": "ピル型の排他的選択コントロール",
         "toggleGroup": "複数のToggleをグループ化"
       },
-      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
       "tips": {
-        "title": "RadioGroupを効果的に使うためのヒント",
+        "title": "RadioGroup 実践ガイド",
         "orientation": "orientation=\"horizontal\"で横並びに変更できます。フォームのレイアウトに合わせて使い分けてください。",
         "label": "各RadioGroup.Itemにlabelプロップで自動的にラベルが関連付けられます。",
         "size": "sm(14px)/default(16px)/lg(20px)の3サイズ。ドットとラベルのサイズも自動調整されます。",
@@ -1075,7 +1243,7 @@
         "preview": "プレビュー"
       },
       "features": {
-        "labelDesc": "labelプロップスを使って、スイッチにラベルを付与できます。",
+        "labelDesc": "labelプロップを使って、スイッチにラベルを付与できます。",
         "labelPositionDesc": "labelPositionプロップでラベルの配置を変更できます。デフォルトはend（右側）です。",
         "iconsDesc": "checkedIcon / uncheckedIconプロップでサム内にアイコンを表示できます。smサイズでは自動的に非表示になります。"
       },
@@ -1111,9 +1279,11 @@
         "checkbox": "フォーム用のオン/オフ切替",
         "radio": "排他的選択コントロール"
       },
-      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
       "tips": {
-        "title": "Switchを効果的に使うためのヒント",
+        "title": "Switch 実践ガイド",
         "label": "labelプロップでラベルが自動関連付け。アクセシビリティのために推奨です。",
         "size": "トラックとサムのサイズはCSS変数で管理。sm/default/lgの3サイズ。ラベルフォントはsm(12px)/default(14px)/lg(16px)で自動調整されます。",
         "labelPosition": "start/end/top/bottomの4つの配置をサポート。設定リストではstart（ラベル左・スイッチ右）がよく使われます。",
@@ -1184,9 +1354,11 @@
         "button": "単発アクション用ボタン",
         "segmented": "ピル型の排他的選択コントロール"
       },
-      "code": { "tailwindDesc": "環境に合わせたスタイル適用方法" },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
       "tips": {
-        "title": "Toggleを効果的に使うためのヒント",
+        "title": "Toggle 実践ガイド",
         "controlled": "制御モードではpressed+onPressedChangeを使用。非制御モードではdefaultPressed。",
         "variant": "defaultは背景色変化、outlineはボーダー付き、ghostはテキスト色のみ変化。用途で使い分けてください。",
         "iconOnly": "アイコンのみの場合は正方形レイアウトに。aria-labelを必ず指定してください。",
@@ -1205,11 +1377,11 @@
         "radius": "角丸のサイズ (6px)",
         "fontWeight": "フォント太さ。全アイテムに適用。個別ItemのfontWeightで上書き可能",
         "orientation": "レイアウト方向",
-        "disabled": "全アイテム無効States"
+        "disabled": "全アイテム無効状態"
       },
       "itemProps": {
         "value": "アイテムの一意な値",
-        "disabled": "個別の無効States",
+        "disabled": "個別の無効状態",
         "variant": "個別のスタイル上書き",
         "size": "個別のサイズ上書き",
         "radius": "個別の角丸上書き",
@@ -1239,8 +1411,8 @@
           "cardDetailDesc": "Gmail, Notion, タスク管理アプリ"
         },
         "states": {
-          "defaultDesc": "通常States。選択されたアイテムはハイライト表示。",
-          "disabledAllDesc": "全アイテムが無効化されたStates。",
+          "defaultDesc": "通常状態。選択されたアイテムはハイライト表示。",
+          "disabledAllDesc": "全アイテムが無効化された状態。",
           "disabledItem": "個別 Disabled",
           "disabledItemDesc": "特定のアイテムのみ無効化。",
           "multipleSelect": "Multiple 選択",
@@ -1293,9 +1465,9 @@
         "intro": "似たような見た目ですが、用途と動作が異なります。適切なコンポーネントを選択してください。",
         "feature": "特徴",
         "row1Label": "用途",
-        "row1a": "オン/オフStatesの管理",
+        "row1a": "オン/オフ状態の管理",
         "row1b": "アクションボタンのグループ化",
-        "row2Label": "States管理",
+        "row2Label": "状態管理",
         "row2a": "自動 (Radix管理)",
         "row2b": "手動 (selected prop)",
         "row3Label": "選択モード",
@@ -1307,7 +1479,7 @@
         "row5Label": "ユースケース",
         "row5a": "テキスト配置、フォーマット",
         "row5b": "ページネーション、ツールバー",
-        "tip": "Statesを保持したい（選択/非選択）場合は ToggleGroup、クリック時にアクションを実行したい場合は ButtonGroup を使用します。"
+        "tip": "状態を保持したい（選択/非選択）場合は ToggleGroup、クリック時にアクションを実行したい場合は ButtonGroup を使用します。"
       },
       "related": {
         "toggleDesc": "単独のオン/オフトグル",
@@ -1316,7 +1488,7 @@
       },
       "tailwindDesc": "環境に合わせたスタイル適用方法",
       "tips": {
-        "intro": "ToggleGroupを効果的に使うためのヒント",
+        "intro": "ToggleGroup 実践ガイド",
         "type": "`type=\"single\"`で1つだけ選択、`type=\"multiple\"`で複数選択可能。",
         "attached": "アイテムは自動的に連結されます。水平時は左右、垂直時は上下に結合。",
         "variant": "`default`と`outline`の2バリアント。グループ全体で統一されます。",
@@ -1340,7 +1512,7 @@
         "formatLabel": "ツールチップの値フォーマット関数",
         "startContent": "スライダーの左側に表示するコンテンツ（アイコン、ラベル等）",
         "endContent": "スライダーの右側に表示するコンテンツ",
-        "disabled": "無効States",
+        "disabled": "無効状態",
         "orientation": "表示方向",
         "inverted": "値の方向を反転",
         "name": "フォームのname属性"
@@ -1401,7 +1573,7 @@
         "radio": "離散値の選択に"
       },
       "tailwindDesc": "環境に合わせたスタイル適用方法",
-      "tipsDesc": "Sliderを効果的に使うためのヒント",
+      "tipsDesc": "Slider 実践ガイド",
       "tips": {
         "size": "サムのサイズはCSS変数で管理。トラックの太さはh-1/h-1.5/h-2で変化します。",
         "step": "stepプロップで値の刻み幅を指定。min/maxと組み合わせて範囲を制御。",
@@ -1419,11 +1591,11 @@
         "size": "セグメントのサイズ (32/36/40/48px)",
         "radius": "角丸のサイズ (6px)",
         "fontWeight": "フォントの太さ（全variantでnormalがデフォルト）",
-        "disabled": "全アイテム無効States"
+        "disabled": "全アイテム無効状態"
       },
       "itemProps": {
         "value": "アイテムの一意な値",
-        "disabled": "個別の無効States",
+        "disabled": "個別の無効状態",
         "size": "個別のサイズ上書き",
         "radius": "個別の角丸上書き",
         "contentType": "コンテンツタイプ（icon: 正方形、icon-text: gap付き、text: 標準）"
@@ -1472,7 +1644,7 @@
       },
       "features": {
         "useCases": {
-          "statusFilterLabel": "Statesフィルター",
+          "statusFilterLabel": "ステータスフィルター",
           "statusFilterDesc": "Notion, Linear, タスク管理アプリ",
           "dateFilterLabel": "期間フィルター",
           "dateFilterDesc": "Stripe, Google Analytics, ダッシュボード",
@@ -1483,7 +1655,7 @@
         },
         "states": {
           "defaultDesc": "選択されたアイテムはハイライト表示。",
-          "disabledDesc": "全アイテムが無効化されたStates。",
+          "disabledDesc": "全アイテムが無効化された状態。",
           "partialTitle": "個別 Disabled",
           "partialDesc": "特定のアイテムのみ無効化。",
           "manyTitle": "多数のアイテム",
@@ -1494,10 +1666,22 @@
         "itemDesc": "セグメントアイテム"
       },
       "recipes": {
-        "dashboard": { "prop": "ダッシュボード", "desc": "期間フィルター + データ連動" },
-        "tasks": { "prop": "タスク管理", "desc": "カウント付きフィルター" },
-        "pricing": { "prop": "料金プラン", "desc": "割引バッジ付き" },
-        "form": { "prop": "フォーム切替", "desc": "ログイン/新規登録" }
+        "dashboard": {
+          "prop": "ダッシュボード",
+          "desc": "期間フィルター + データ連動"
+        },
+        "tasks": {
+          "prop": "タスク管理",
+          "desc": "カウント付きフィルター"
+        },
+        "pricing": {
+          "prop": "料金プラン",
+          "desc": "割引バッジ付き"
+        },
+        "form": {
+          "prop": "フォーム切替",
+          "desc": "ログイン/新規登録"
+        }
       },
       "customization": {
         "desc": "すべてのアイテムはデザインシステムのスペーシングルールに基づいたデフォルト値を使用します。グループのclassNameで全アイテムを一括カスタマイズできます。",
@@ -1566,11 +1750,11 @@
         "buttonGroup": "アクションボタンのグループ"
       },
       "tailwindDesc": "環境に合わせたスタイル適用方法",
-      "tipsDesc": "Segmentedを効果的に使うためのヒント",
+      "tipsDesc": "Segmented 実践ガイド",
       "tips": {
         "variant": "`default`は背景切替、`outline`はボーダー付き、`underline`は下線スタイル、`ghost`は背景なし。用途に合わせて選択。",
         "contentType": "`contentType`を`icon`/`icon-text`/`text`で指定するとパディングとアイコンサイズが自動調整されます。",
-        "fontWeight": "`fontWeight=\"semibold\"`で選択Statesのテキストを太くできます。デフォルトは`normal`。",
+        "fontWeight": "`fontWeight=\"semibold\"`で選択状態のテキストを太くできます。デフォルトは`normal`。",
         "controlled": "非制御モードでは`defaultValue`、制御モードでは`value`+`onValueChange`を使用。"
       }
     },
@@ -1653,14 +1837,3747 @@
         "tableDesc": "ユーザーリストのアバター表示"
       },
       "tailwindDesc": "環境に合わせたスタイル適用方法",
-      "tipsDesc": "Avatarを効果的に使うためのヒント",
+      "tipsDesc": "Avatar 実践ガイド",
       "tips": {
         "0": "アバター画像は小さいサイズで提供してください。2xサイズ（例: 80px表示なら160px画像）がRetina対応に最適です。",
         "1": "Avatar.Image + Avatar.Fallbackを必ずセットで使用します。画像が読み込めない場合にフォールバックが表示されます。",
         "2": "Avatar.Fallbackにもsizeを渡すとフォントサイズが自動調整されます。Avatarのsizeと一致させてください。",
-        "3desc": "だけでイニシャル(JD)とカラーを自動生成。childrenを渡すとイニシャルを上書きできます。",
-        "4": "大量のアバターにはmaxプロップで表示数を制限し、残りは「+N」で表示します。"
+        "4": "大量のアバターにはmaxプロップで表示数を制限し、残りは「+N」で表示します。",
+        "3desc": "だけでイニシャル(JD)とカラーを自動生成。childrenを渡すとイニシャルを上書きできます。"
       }
+    },
+    "badge": {
+      "description": "Badgeは、ステータス、カテゴリ、カウントなどの補助情報を表示するためのインラインラベルコンポーネントです。6つのセマンティックカラーと3つのバリアントを組み合わせて、多様なコンテキストに対応します。",
+      "colors": {
+        "description": "6つのセマンティックカラーを3つのバリアントと自由に組み合わせられます。"
+      },
+      "sizes": {
+        "heightMin": "高さ / 最小幅",
+        "height": "高さ",
+        "font": "フォント",
+        "paddingX": "横パディング",
+        "minWidth": "最小幅",
+        "text": "テキスト",
+        "count": "カウント"
+      },
+      "anatomy": {
+        "container": "ピル型コンテナ",
+        "dot": "ドット（オプション）",
+        "icon": "アイコン（オプション）",
+        "label": "テキストラベル",
+        "remove": "削除ボタン（オプション）"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "dont": "避けるべき",
+        "doItems": {
+          "0": "短いテキストを使用する（1～2語）",
+          "1": "意味のあるカラーを一貫して使用する",
+          "2": "ステータスにはdot propを活用する",
+          "3": "削除可能なバッジにはonRemoveを設定する"
+        },
+        "dontItems": {
+          "0": "長い文章をバッジに入れない",
+          "1": "同じ画面で多色を過剰に使わない",
+          "2": "インタラクティブ要素としてバッジを使用しない",
+          "3": "装飾目的のみにバッジを使用しない"
+        }
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "tabDesc": "削除ボタンにフォーカス（removable時）",
+        "enterDesc": "バッジを削除（removable時）",
+        "ariaRemove": "削除ボタンに",
+        "ariaHidden": "アイコン・ドットは",
+        "contrast": "カラーコントラストはWCAG AA準拠",
+        "focusRing": "削除ボタンにfocus-ring表示"
+      },
+      "related": {
+        "button": "バッジ付きボタンの組み合わせ",
+        "avatar": "ステータスバッジ付きアバター",
+        "table": "テーブルセル内のステータス表示"
+      },
+      "tailwindCss": {
+        "description": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "description": "Badge 実践ガイド",
+        "colorConsistency": "同じ意味には同じカラーを使いましょう。例: success=アクティブ、error=エラー、warning=保留中。アプリ全体で一貫させることが重要です。",
+        "variantSelection": "solid は高い視認性が必要な場合、subtle は控えめな表示、outline はミニマルなデザインに適しています。",
+        "removableBadges": "removableバッジはタグ入力やフィルターのUIに最適です。onRemoveコールバックで状態管理を行いましょう。",
+        "asChildDesc": "のようにasChildを使えば、バッジをリンクなど他の要素として描画できます。"
+      },
+      "props": {
+        "variant": "バッジのビジュアルスタイル",
+        "color": "セマンティックカラー",
+        "size": "サイズ (20/24/28px)",
+        "radius": "角丸の大きさ (2/4/6/8/∞px)",
+        "icon": "先頭に表示するアイコン",
+        "dot": "ステータスドットを表示",
+        "removable": "削除ボタンを表示",
+        "onRemove": "削除ボタンのクリックコールバック",
+        "asChild": "Slotパターンで子要素として描画"
+      }
+    },
+    "card": {
+      "description": "Cardは、関連するコンテンツをグループ化して表示するためのコンテナコンポーネントです。ヘッダー、コンテンツ、フッターの構造で情報を整理し、画像やアクションを含む多様なレイアウトに対応します。",
+      "variants": {
+        "description": "3つのバリアントで、カードの視覚的な重要度を制御できます。",
+        "default": {
+          "desc": "シャドウで浮き上がるスタイル",
+          "usage": "メインUI"
+        },
+        "outline": {
+          "desc": "ボーダーのみのフラットなスタイル",
+          "usage": "リスト・グリッド"
+        },
+        "ghost": {
+          "desc": "背景・ボーダーなしの最小スタイル",
+          "usage": "グループ内"
+        }
+      },
+      "sizes": {
+        "paddingX": "横パディング",
+        "paddingXShort": "横",
+        "paddingTop": "上パディング",
+        "paddingTopShort": "上",
+        "paddingInner": "内部下",
+        "paddingLast": "末尾下",
+        "responsiveTip": "レスポンシブ：",
+        "responsiveTipDesc": "default・lgサイズはモバイル（640px未満）で自動的にパディングが一段階小さくなります。smサイズは固定値です。"
+      },
+      "features": {
+        "orientationDesc": "垂直・水平のレイアウト方向を切り替えられます。水平レイアウトでは画像が左側に配置されます。"
+      },
+      "customization": {
+        "desc": "overlayOpacityとoverlayClassNameで画像オーバーレイをカスタマイズできます。",
+        "opacityTitle": "透明度の調整",
+        "light": "ライト",
+        "defaultLabel": "デフォルト",
+        "dark": "ダーク",
+        "fullCustomTitle": "フルカスタマイズ",
+        "tip": "overlayClassNameを指定するとoverlayOpacityより優先されます。グラデーション方向や色を自由に変更できます。"
+      },
+      "componentStructure": {
+        "image": "カード画像（overlay対応）",
+        "header": "ヘッダー領域",
+        "title": "タイトル（icon prop対応）",
+        "description": "補足テキスト",
+        "action": "アクション要素（ヘッダー右上）",
+        "content": "メインコンテンツ領域",
+        "footer": "フッター領域"
+      },
+      "htmlAttrs": "標準のHTMLDivAttributes（Card.DescriptionはHTMLParagraphAttributes）を継承。カードのsizeコンテキストに基づいてパディングが自動調整されます。",
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "do": [
+          "関連するコンテンツを1枚のカードにまとめる",
+          "一貫したvariantとsizeを同じセクション内で使用する",
+          "クリック可能なカードにはinteractive propを使用する",
+          "画像にはalt属性を設定する"
+        ],
+        "dont": [
+          "カード内にカードをネストしない",
+          "1枚のカードに過剰なコンテンツを詰め込まない",
+          "interactiveカードの中にボタン等を配置しない（クリックが競合）",
+          "レイアウトのためだけにカードを使用しない"
+        ]
+      },
+      "a11y": {
+        "semanticsTitle": "セマンティクス",
+        "asChild": "リンクカードには<a>を使用",
+        "h3": "Card.Titleはh3要素で出力",
+        "iconAriaHidden": "Card.Titleのアイコンに",
+        "altAttr": "Card.Imageに",
+        "altAttrSuffix": "属性サポート",
+        "headingHierarchy": "見出し階層（h3）を適切に使用",
+        "domOrder": "DOM順序がビジュアル順序と一致"
+      },
+      "related": {
+        "badge": "カード内のステータス表示に",
+        "button": "カードフッターのアクションに",
+        "avatar": "プロフィールカードのアイコンに",
+        "metricCard": "数値指標に特化したカード"
+      },
+      "tailwindCss": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "sizeContext": "Cardのsize propはContext経由でCard.Header、Card.Content、Card.Footerに自動伝播します。個別にパディングを指定する必要はありません。",
+        "asChildLinks": "でカード全体をリンクにできます。アクセシビリティの観点から、interactiveカード内にはボタンやリンクを入れないでください。",
+        "horizontalLayout": "direction=\"horizontal\"はCard.Imageと組み合わせて使用すると効果的です。Cardが自動でCard.Imageと他の子要素を分離し、コンテンツを縦方向に配置します。Card.Imageはデフォルトw-48で、classNameで変更可能です。",
+        "cardAction": "Card.ActionはCard.Header内で自動的に右端に配置されます。IconButtonやBadgeなどを入れてヘッダーのアクションエリアとして使えます。"
+      },
+      "props": {
+        "card": {
+          "variant": "カードのビジュアルスタイル",
+          "size": "コンテンツのパディングスケール（レスポンシブ対応）",
+          "radius": "角丸の大きさ (2/4/6/8/12/16px)",
+          "direction": "レイアウト方向",
+          "interactive": "ホバー時のシャドウ強化・リフト効果（クリック可能なカード用）",
+          "asChild": "Slotパターンで子要素として描画"
+        },
+        "cardTitle": {
+          "icon": "タイトルの先頭に表示するアイコン"
+        },
+        "cardImage": {
+          "overlay": "グラデーションオーバーレイを表示",
+          "overlayOpacity": "オーバーレイの透明度（10〜90）",
+          "overlayClassName": "オーバーレイのカスタムクラス（overlayOpacityより優先）",
+          "alt": "画像の代替テキスト"
+        }
+      }
+    },
+    "table": {
+      "description": "Tableは、構造化データを行と列で表示するためのコンパウンドコンポーネントです。ソート、ストライプ、スティッキーヘッダーなどの機能を備え、柔軟なデータ表示に対応します。",
+      "sizes": {
+        "font": "フォント",
+        "cellPy": "Cell PY",
+        "cellPx": "Cell PX",
+        "bodyFont": "本文フォント",
+        "headFont": "ヘッダーフォント"
+      },
+      "componentStructure": {
+        "header": "'<thead>' ラッパー",
+        "body": "'<tbody>' ラッパー",
+        "footer": "'<tfoot>' ラッパー",
+        "row": "テーブル行（interactive・selected）",
+        "head": "ヘッダーセル（align・sortable）",
+        "cell": "データセル（align）",
+        "caption": "テーブルキャプション"
+      },
+      "customization": {
+        "desc": "sortIcon propでソートアイコンを自由にカスタマイズできます。部分的なオーバーライドも可能です。",
+        "lucideTitle": "Lucideアイコンに変更",
+        "partialTitle": "部分的オーバーライド",
+        "tip": "アイコンサイズは icon-xs（14px）を推奨。テーブルヘッダーのテキストサイズに最適です。"
+      },
+      "codeRecipes": {
+        "sortable": "ソート可能なヘッダー",
+        "withFooter": "フッター付きテーブル",
+        "withCaption": "テーブルの説明テキスト"
+      },
+      "anatomy": {
+        "rootContainer": "ルートコンテナ",
+        "headerRow": "ヘッダー行",
+        "headerCell": "ヘッダーセル",
+        "bodyRow": "データ行",
+        "bodyCell": "データセル",
+        "footer": "フッター行"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "do": [
+          "明確なヘッダーラベルを使用する",
+          "数値データは右寄せにする",
+          "大量データにはスティッキーヘッダーを使う",
+          "アクセシビリティのためにcaptionを設定する"
+        ],
+        "dont": [
+          "列数が多すぎるテーブルを作らない",
+          "レイアウト目的でテーブルを使わない",
+          "ソートロジックをコンポーネント内に組み込まない",
+          "セル内に過度に複雑なコンテンツを入れない"
+        ]
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "tab": "ソートボタン間のフォーカス移動",
+        "enter": "ソートを実行",
+        "semantic": "セマンティックHTML（table/thead/tbody/th/td）を使用",
+        "ariaSort": "ソート方向はaria-sortで通知",
+        "ariaHidden": "ソートアイコンはaria-hidden=\"true\"",
+        "caption": "captionによるテーブル説明をサポート"
+      },
+      "related": {
+        "badge": "テーブルセル内のステータス表示",
+        "avatar": "ユーザー情報列のアバター表示",
+        "checkbox": "行選択用チェックボックス"
+      },
+      "tailwindCss": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "description": "Table 実践ガイド",
+        "presentationOnly": "Tableコンポーネントはプレゼンテーション層のみを担当します。ソート・フィルタ・ページネーションのロジックは外部（TanStack Tableなど）で管理しましょう。",
+        "responsivePattern": "モバイルではスクロールコンテナ（overflow-auto）が自動適用されます。列数が多い場合は、重要な列を左に配置しましょう。",
+        "stickyHeader": "stickyHeaderを使う際は、wrapperClassNameで高さを制限しましょう（例: wrapperClassName=\"max-h-[400px]\"）。スクロールコンテナに高さ制限がないとヘッダー固定が効きません。",
+        "compoundComponents": "各サブコンポーネント（Table.Header, Table.Body等）は独立してスタイルをカスタマイズできます。classNameを渡して柔軟に拡張しましょう。"
+      },
+      "props": {
+        "size": "テーブルの行密度（sm: コンパクト / default: 標準 / lg: ゆったり）",
+        "variant": "テーブルのビジュアルスタイル",
+        "stickyHeader": "ヘッダーをスクロール時に固定表示",
+        "wrapperClassName": "スクロールラッパーに追加するclassName（例: \"max-h-[400px]\"）。stickyHeaderと組み合わせて使用",
+        "interactive": "ホバー時にハイライト効果を表示",
+        "selected": "行の選択状態を示す（data-selected属性を付与）",
+        "align": "テキストの水平配置",
+        "sortable": "ソートインジケーターを表示",
+        "sortDirection": "現在のソート方向",
+        "onSort": "ソートクリック時のコールバック",
+        "sortIcon": "ソートアイコンをカスタマイズ（部分的なオーバーライド可）"
+      }
+    },
+    "tabs": {
+      "description": "Tabsは、関連するコンテンツをパネルごとに切り替えて表示するナビゲーションコンポーネントです。3つのバリアントと4つのサイズで、さまざまなレイアウトに対応します。",
+      "sizes": {
+        "height": "高さ",
+        "font": "フォント",
+        "paddingX": "横パディング"
+      },
+      "componentStructure": {
+        "list": "タブリスト（variant・size・color・radius・fitted）",
+        "trigger": "タブボタン",
+        "content": "タブパネル"
+      },
+      "anatomy": {
+        "root": "ルートコンテナ",
+        "list": "タブバー",
+        "trigger": "個別タブボタン",
+        "indicator": "アクティブ下線",
+        "content": "コンテンツパネル"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "dont": "避けるべき",
+        "doItems": {
+          "0": "タブラベルは短く簡潔に（1～2語）",
+          "1": "関連するコンテンツのグループ化に使用する",
+          "2": "アイコンでタブの内容を視覚的に補助する",
+          "3": "デフォルトで最も重要なタブを選択状態にする"
+        },
+        "dontItems": {
+          "0": "タブ数を多くしすぎない（5個以下推奨）",
+          "1": "ページナビゲーション目的にタブを使用しない",
+          "2": "タブの順序を動的に変更しない",
+          "3": "タブ内にさらにタブをネストしない"
+        }
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "tabDesc": "タブリストにフォーカス / パネルへ移動",
+        "arrowHDesc": "水平タブ間を移動",
+        "arrowVDesc": "垂直タブ間を移動",
+        "homeEndDesc": "最初 / 最後のタブに移動",
+        "enterSpaceDesc": "タブを選択（manualモード時）",
+        "ariaSelected": "aria-selectedで選択状態を自動表示",
+        "ariaOrientation": "aria-orientationで方向を自動設定",
+        "disabledSkip": "disabled タブはキーボードナビゲーションでスキップ"
+      },
+      "vsSegmented": {
+        "description": "似たような見た目ですが、用途と構造が異なります。適切なコンポーネントを選択してください。",
+        "featureLabel": "特徴",
+        "purpose": "用途",
+        "structure": "構造",
+        "result": "結果",
+        "placement": "配置",
+        "tabsPurpose": "コンテンツナビゲーション",
+        "tabsStructure": "TabList + TabPanel の組み合わせ",
+        "tabsResult": "パネルの切替表示",
+        "tabsPlacement": "ページ/セクションの上部",
+        "segPurpose": "値の選択（フィルター、切替）",
+        "segStructure": "単独コンポーネント",
+        "segResult": "同じエリア内のデータ変更",
+        "segPlacement": "コンテンツ内、どこでも",
+        "tipLabel": "使い分けのポイント：",
+        "tip": "Tabsは「異なるコンテンツパネルを切り替える」場合に使用。Segmentedは「同じコンテンツエリア内で表示を変える」場合に使用します。見た目が似ている場合（Tabs pill vs Segmented default）でも、Tabs.Contentパネルの有無で選択してください。"
+      },
+      "related": {
+        "segmented": "ピル型のセグメント切替（RadioGroup基盤）",
+        "accordion": "折りたたみ式コンテンツパネル",
+        "dropdown": "ドロップダウンメニュー"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Tabs 実践ガイド",
+        "defaultVsValue": "非制御モードではdefaultValueを使います。状態を外部で管理したい場合はvalue+onValueChangeを使います。",
+        "activationMode": "automatic（デフォルト）はフォーカス移動で即座に切替。manualはEnter/Spaceで明示的に選択。重い処理がある場合はmanualを推奨します。",
+        "vsSegmented": "Tabsはコンテンツパネルの切替用、Segmentedは値の選択用です。コンテンツが切り替わるならTabs、フィルターやビュー切替ならSegmentedを使いましょう。",
+        "forceMount": "非アクティブなTabs.ContentをDOMに保持したい場合（アニメーション等）に使います。通常は不要です。"
+      },
+      "props": {
+        "defaultValue": "デフォルトで選択されるタブの値（非制御モード）",
+        "value": "選択されたタブの値（制御モード）",
+        "onValueChange": "タブ変更時のコールバック",
+        "orientation": "タブの向き",
+        "activationMode": "タブの活性化モード（automaticはフォーカスで即切替、manualはEnter/Space）",
+        "listVariant": "タブリストのビジュアルスタイル",
+        "size": "タブトリガーのサイズ",
+        "color": "アクティブインジケーターの色（lineバリアント専用）",
+        "radius": "角丸設定（enclosed: 上部角丸 none〜xl、pill: コンテナ角丸 全9段階）",
+        "fitted": "タブを親の幅いっぱいに均等配置",
+        "triggerValue": "タブの一意な識別値（必須）",
+        "disabled": "タブを無効化",
+        "contentValue": "対応するタブの値（必須）",
+        "forceMountProp": "非アクティブ時もDOMに保持（アニメーション用）"
+      }
+    },
+    "accordion": {
+      "description": "Accordionは、コンテンツを折りたたみ式のパネルに分割して表示するコンポーネントです。3つのバリアントと3つのサイズで、FAQやヘルプセクションなどさまざまな用途に対応します。",
+      "sizes": {
+        "padding": "パディング (トリガー)",
+        "paddingShort": "パディング",
+        "font": "フォント"
+      },
+      "features": {
+        "expandModeDesc": "singleは1つだけ展開、multipleは複数同時に展開できます。",
+        "collapsibleDesc": "collapsibleがtrue（デフォルト）の場合、開いているアイテムをクリックして閉じることができます。falseにすると、常に1つのアイテムが展開された状態を維持します。"
+      },
+      "componentStructure": {
+        "item": "アコーディオンアイテム",
+        "trigger": "トリガー（icon prop対応）",
+        "content": "コンテンツ領域（アニメーション付き）"
+      },
+      "customization": {
+        "description": "Accordion.Triggerのicon propでインジケーターアイコンを自由にカスタマイズできます。",
+        "plusMinusTitle": "Plus / Minus アイコン",
+        "chevronTitle": "ChevronRight（90°回転）",
+        "tip": "カスタムアイコンにaccordion-chevronクラスを追加すると、内蔵アイコンと同じ180°回転アニメーションが適用されます。"
+      },
+      "anatomy": {
+        "root": "ルートコンテナ",
+        "item": "折りたたみセクション",
+        "trigger": "ヘッダーボタン",
+        "chevron": "開閉アイコン",
+        "content": "展開コンテンツ"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "dont": "避けるべき",
+        "doItems": {
+          "0": "FAQやヘルプセクションに使用する",
+          "1": "関連するコンテンツをグループ化する",
+          "2": "最も重要な項目をデフォルトで展開する",
+          "3": "ラベルは簡潔で内容を予測できるものにする"
+        },
+        "dontItems": {
+          "0": "アコーディオン内に別のアコーディオンをネストしない",
+          "1": "必ず表示すべき重要な情報を隠さない",
+          "2": "項目数を多くしすぎない（7個以下推奨）",
+          "3": "短いコンテンツに不要な折りたたみを使用しない"
+        }
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "enterSpaceDesc": "フォーカス中のアイテムを開閉",
+        "tabDesc": "次のフォーカス可能な要素へ移動",
+        "arrowDownDesc": "次のトリガーにフォーカス移動",
+        "arrowUpDesc": "前のトリガーにフォーカス移動",
+        "homeDesc": "最初のトリガーにフォーカス移動",
+        "endDesc": "最後のトリガーにフォーカス移動",
+        "ariaLabelledBy": "role=\"region\" コンテンツに aria-labelledby 付与",
+        "ariaExpanded": "aria-expanded トリガーの展開状態を自動表示",
+        "ariaControls": "aria-controls トリガーとコンテンツをリンク",
+        "disabledSkip": "disabled アイテムはキーボードナビゲーションでスキップ"
+      },
+      "related": {
+        "tabs": "タブ切替（コンテンツパネル）",
+        "card": "カード型コンテンツコンテナ",
+        "dropdown": "ドロップダウンメニュー"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Accordion 実践ガイド",
+        "singleVsMultiple": "FAQのように1つずつ読む場合はsingle、設定画面のように複数セクションを同時に開く場合はmultipleを使います。",
+        "collapsible": "デフォルトでtrue。常に1つ開いた状態を維持したい場合はcollapsible='{false}'を設定します。multipleモードでは無効です。",
+        "defaultVsValue": "非制御モードではdefaultValueを使います。状態を外部で管理したい場合はvalue+onValueChangeを使います。",
+        "variantChoice": "defaultはシンプルな区切り線、borderedは外枠付き、splittedはカード型。用途に応じて使い分けましょう。"
+      },
+      "props": {
+        "type": "展開モード（singleは1つだけ、multipleは複数同時）",
+        "collapsibleProp": "すべてのアイテムを閉じることを許可（single モード）",
+        "variant": "ビジュアルスタイル",
+        "size": "トリガーとコンテンツのサイズ",
+        "iconPosition": "インジケーターアイコンの位置",
+        "defaultValue": "デフォルトで展開するアイテム（非制御モード）",
+        "value": "展開中のアイテム（制御モード）",
+        "onValueChange": "展開状態変更時のコールバック",
+        "rootDisabled": "全アイテムを無効化",
+        "itemValue": "アイテムの一意な識別値（必須）",
+        "itemDisabled": "このアイテムを無効化",
+        "triggerIcon": "カスタムインジケーターアイコン"
+      }
+    },
+    "divider": {
+      "description": "Dividerは、コンテンツ間を視覚的に区切るためのシンプルなコンポーネントです。水平・垂直方向に対応し、ラベル付きの区切り線としても使用できます。",
+      "variants": {
+        "solidDesc": "デフォルトの実線。一般的なコンテンツ区切りに最適。",
+        "solidUsage": "セクション区切り",
+        "dashedDesc": "破線スタイル。軽い区切りやドラフト状態の表現に。",
+        "dashedUsage": "サブ区切り",
+        "dottedDesc": "点線スタイル。最も控えめな区切りとして使用。",
+        "dottedUsage": "補足的な区切り"
+      },
+      "spacing": {
+        "margin": "余白",
+        "usage": "用途",
+        "smDesc": "密接な要素間",
+        "mdDesc": "コンパクトな区切り",
+        "defaultDesc": "標準的な区切り",
+        "lgDesc": "セクション間の大きな区切り",
+        "above": "上",
+        "below": "下"
+      },
+      "anatomy": {
+        "root": "ラインコンテナ",
+        "line": "1px ボーダー",
+        "label": "中央テキスト（任意）"
+      },
+      "bestPractices": {
+        "do": "推奨",
+        "dont": "避けるべき",
+        "doItems": {
+          "0": "関連するコンテンツグループの区切りに使用する",
+          "1": "ラベル付きDividerでセクションの意味を明確にする",
+          "2": "ナビゲーション項目やツールバーの区切りにverticalを使用する",
+          "3": "コンテンツの階層に合わせてcolorを使い分ける"
+        },
+        "dontItems": {
+          "0": "Dividerを過度に使用してレイアウトを複雑にしない",
+          "1": "spacingの代わりにDividerだけで余白を確保しない",
+          "2": "意味のない装飾としてDividerを使用しない",
+          "3": "同じセクション内で異なるvariantを混在させない"
+        }
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "noKeyboard": "Dividerは装飾的な要素のため、キーボード操作の対象外です。フォーカスを受け取りません。",
+        "ariaNone": "role=\"none\" 装飾目的のDivider（decorative=true）",
+        "ariaSeparator": "role=\"separator\" 意味的な区切り（decorative=false）",
+        "ariaOrientation": "aria-orientation 方向を自動設定",
+        "radixBased": "Radix Separator Primitive準拠"
+      },
+      "related": {
+        "tabs": "タブ切替（コンテンツパネル）",
+        "accordion": "折りたたみコンテンツパネル",
+        "card": "カード型コンテンツコンテナ"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Divider 実践ガイド",
+        "decorative": "装飾的な区切り線の場合はdecorative=true（デフォルト）を使います。意味的に重要な区切りの場合はdecorative='{false}'を設定してスクリーンリーダーに伝えます。",
+        "labelHorizontalOnly": "label propはorientation=\"horizontal\"でのみ有効です。垂直Dividerではラベルは表示されません。",
+        "spacingChoice": "密接な要素間はsm、一般的なセクション区切りはdefault、大きなセクション区切りはlgを使います。",
+        "flexContainer": "垂直Dividerを使う場合、親要素にdisplay: flexと適切な高さが必要です。self-stretchで親の高さに自動追従します。"
+      },
+      "props": {
+        "orientation": "Dividerの方向",
+        "variant": "線のスタイル",
+        "color": "線の色の強度",
+        "spacing": "Divider周りの余白",
+        "label": "Divider上に表示するコンテンツ（水平のみ）",
+        "labelPosition": "ラベルの配置位置",
+        "decorative": "装飾目的のセパレーター（trueの場合role=\"none\"）"
+      }
+    },
+    "modal": {
+      "description": "Modalは、メインコンテンツの上にオーバーレイ表示されるダイアログコンポーネントです。通常のModalと、ユーザーの確認が必要なAlertModalの2タイプを提供します。",
+      "sizes": {
+        "xsDesc": "簡単な確認・アラート",
+        "smDesc": "標準（デフォルト）",
+        "mdDesc": "標準フォーム",
+        "lgDesc": "複雑なフォーム",
+        "xlDesc": "テーブル・ダッシュボード",
+        "fullDesc": "フル幅",
+        "xsDescShort": "簡単な確認",
+        "smDescShort": "確認・アラート（デフォルト）",
+        "paddingTitle": "パディング（全サイズ共通）",
+        "paddingTitleDesktop": "パディング — 全サイズ共通",
+        "titleHeader": "タイトル",
+        "descHeader": "説明文",
+        "usageHeader": "用途",
+        "headerNote": "24px · 下 0",
+        "bodyNote": "24px",
+        "footerNote": "24px · 上 0",
+        "closeNote": "16px"
+      },
+      "features": {
+        "scrollBehaviorDesc": "\"outside\": モーダル全体スクロール。\"inside\": Bodyのみスクロール、Header/Footer固定。",
+        "sidebarLayoutDesc": "lg / xl / full サイズ限定。Modal.Body を p-0 flex で分割し、左ナビ＋右コンテンツのレイアウトを構成できます。",
+        "closeButtonDesc": "falseで閉じるボタン非表示。closeIcon propでアイコン差し替え可能。"
+      },
+      "componentStructure": {
+        "modal": {
+          "trigger": "トリガー要素",
+          "content": "パネル（size・scroll・close）",
+          "header": "ヘッダー領域",
+          "title": "タイトル（aria-labelledby）",
+          "description": "補足テキスト（aria-describedby）",
+          "body": "コンテンツ領域",
+          "footer": "アクション領域",
+          "close": "閉じるボタン",
+          "overlay": "背景オーバーレイ",
+          "portal": "ポータル"
+        },
+        "alertModal": {
+          "trigger": "トリガー要素",
+          "content": "パネル（size: xs / sm）",
+          "header": "ヘッダー領域",
+          "title": "タイトル（aria-labelledby）",
+          "description": "補足テキスト（aria-describedby）",
+          "body": "コンテンツ領域",
+          "footer": "アクション領域",
+          "action": "確認アクション",
+          "cancel": "キャンセル",
+          "overlay": "背景オーバーレイ",
+          "portal": "ポータル"
+        }
+      },
+      "codeRecipes": {
+        "formModalDesc": "フォーム入力用モーダル",
+        "confirmationDesc": "確認ダイアログ",
+        "scrollableDesc": "スクロール可能なコンテンツ"
+      },
+      "anatomy": {
+        "overlay": "背景オーバーレイ",
+        "content": "ダイアログ本体",
+        "header": "タイトル領域",
+        "title": "見出しテキスト",
+        "description": "補足説明テキスト",
+        "close": "閉じるボタン",
+        "body": "メインコンテンツ",
+        "footer": "アクションボタン"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "doItems": [
+          "破壊的操作にはAlertModalを使用する",
+          "モーダルのタイトルと説明を必ず設定する",
+          "長いコンテンツにはscrollBehavior=\"inside\"を使用する",
+          "コンテンツに適したサイズを選択する"
+        ],
+        "dontItems": [
+          "モーダルの中にモーダルをネストしない",
+          "簡単な通知にモーダルを使わない（Toastを推奨）",
+          "閉じる手段なしのモーダルを作らない",
+          "通常の操作にAlertModalを使わない（確認が必要な場面のみ）"
+        ]
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard": "Escapeキーでモーダルを閉じることができます。AlertModalではオーバーレイクリックでは閉じません。モーダル内ではTabキーでフォーカスがトラップされ、モーダル外の要素にフォーカスが移動しません。",
+        "ariaDialog": "Radix Dialogが自動設定",
+        "ariaAlertDialog": "AlertModalが自動設定",
+        "ariaLabelledBy": "Modal.Titleへ自動リンク",
+        "ariaDescribedBy": "Modal.Descriptionへ自動リンク",
+        "focusTrap": "フォーカストラップ（モーダル内にフォーカスを制限）",
+        "srLabel": "閉じるボタンにsr-onlyラベル設定"
+      },
+      "related": {
+        "drawer": "スライドインパネル",
+        "tooltip": "ホバーで表示する補足情報",
+        "popover": "クリックで表示するフローティングコンテンツ"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Modal 実践ガイド",
+        "modalVsAlert": "通常のモーダルにはModal、削除確認など明示的な選択が必要な場面ではAlertModalを使用します。AlertModalはオーバーレイクリックでは閉じません。",
+        "scrollBehavior": "短いコンテンツでは\"outside\"（デフォルト）が最適です。長いフォームでは\"inside\"でHeaderとFooterを固定し、Bodyのみスクロールします。",
+        "controlled": "Controlledモードでフォーム送信後に自動的にモーダルを閉じたり、外部イベントで開くことができます。"
+      },
+      "props": {
+        "size": "コンテンツの最大幅 (360/480/600/760/960/full)",
+        "scrollBehavior": "オーバーフロー時のスクロール位置",
+        "showCloseButton": "内蔵の閉じるボタンを表示",
+        "closeIcon": "カスタム閉じるアイコン",
+        "alertSize": "コンテンツの最大幅 (360/480)",
+        "asChild": "子要素をトリガーとして使用"
+      }
+    },
+    "drawer": {
+      "description": "Drawerは、画面の端からスライドインするパネルコンポーネントです。ナビゲーション、設定、詳細情報、フォームなどのサブコンテンツを表示するのに適しています。",
+      "sizes": {
+        "smDesc": "サイドパネル・設定",
+        "mdDesc": "標準（デフォルト）",
+        "lgDesc": "複雑なフォーム",
+        "xlDesc": "詳細コンテンツ",
+        "fullDesc": "フルサイズ",
+        "usageHeader": "用途",
+        "leftRightHeader": "左/右",
+        "topBottomHeader": "上/下",
+        "paddingTitle": "パディング（全サイズ共通）",
+        "paddingTitleDesktop": "パディング — 全サイズ共通",
+        "headerNote": "24px (下 0)",
+        "bodyNote": "24px",
+        "footerNote": "24px (上 0)",
+        "closeNote": "16px"
+      },
+      "features": {
+        "sidePlacementDesc": "4方向（left、right、top、bottom）からスライドインできます。デフォルトは right です。",
+        "closeButtonDesc": "showCloseButton で閉じるボタンの表示/非表示を制御できます。closeIcon でアイコン差し替えも可能です。"
+      },
+      "componentStructure": {
+        "trigger": "トリガー要素",
+        "content": "パネル（side・size・close）",
+        "header": "ヘッダー領域",
+        "title": "タイトル（aria-labelledby）",
+        "description": "補足テキスト（aria-describedby）",
+        "body": "コンテンツ領域（スクロール対応）",
+        "footer": "アクション領域",
+        "close": "閉じるボタン",
+        "overlay": "背景オーバーレイ",
+        "portal": "ポータル"
+      },
+      "codeRecipes": {
+        "navigationDesc": "サイドナビゲーション用",
+        "formDesc": "入力フォーム用",
+        "detailDesc": "詳細表示パネル用"
+      },
+      "anatomy": {
+        "overlay": "背景オーバーレイ",
+        "content": "サイドパネル本体",
+        "header": "タイトル領域",
+        "title": "見出しテキスト",
+        "close": "閉じるボタン",
+        "body": "メインコンテンツ",
+        "footer": "アクションボタン"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "doItems": [
+          "サブコンテンツやセカンダリナビゲーションにDrawerを使用する",
+          "メインコンテンツの文脈を保つ必要がある場合にDrawerを選択する",
+          "適切なsideをコンテンツの用途に合わせて選択する（ナビ→left、詳細→right）",
+          "Footerにアクションボタンを配置して操作を明確にする"
+        ],
+        "dontItems": [
+          "重要な確認ダイアログにDrawerを使わない — Modalを使用する",
+          "Drawerの中にDrawerをネストしない",
+          "大量のステップを持つウィザードにDrawerを使わない — 専用ページに遷移する",
+          "fullサイズを安易に使わない — モバイルではフルスクリーンに見えてしまう"
+        ]
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboardEsc": "Drawerを閉じる",
+        "keyboardTab": "Drawer内でフォーカス循環",
+        "ariaDialog": "Radix自動付与",
+        "ariaLabelledBy": "Title連携",
+        "ariaDescribedBy": "Description連携",
+        "ariaModal": "Radix自動付与",
+        "overlayClose": "オーバーレイクリックで閉じる",
+        "scrollLock": "背景スクロールロック"
+      },
+      "related": {
+        "modal": "確認やフォーム入力に適したダイアログ",
+        "tooltip": "ホバー時に補足情報を表示するオーバーレイ",
+        "popover": "クリックで表示されるフローティングコンテンツ"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Drawer 実践ガイド",
+        "drawerVsModal": "Drawerはサブコンテンツやナビゲーションに最適です。重要な確認ダイアログにはModalを使用してください。",
+        "side": "ナビゲーション→left、詳細パネル/設定→right、アクションシート→bottom が一般的なパターンです。",
+        "controlled": "Controlledモードでフォーム送信後の自動クローズなど、プログラム的な制御が可能です。"
+      },
+      "props": {
+        "side": "スライド方向",
+        "size": "パネルサイズ（左右は幅、上下は高さ: 320/400/480/640/full）",
+        "showCloseButton": "内蔵の閉じるボタンを表示",
+        "closeIcon": "カスタム閉じるアイコン",
+        "asChild": "子要素をトリガーとして使用"
+      }
+    },
+    "tooltip": {
+      "description": "Tooltipは、要素にホバーまたはフォーカスしたときに補足情報を表示するオーバーレイコンポーネントです。ボタンやアイコンの説明、ショートカットキーの表示などに適しています。",
+      "variants": {
+        "defaultDesc": "ダーク背景にシャドウ。浮遊感のある一般的な補足情報に使用。",
+        "defaultUsage": "アイコン説明、ヒント",
+        "invertedDesc": "グラスモーフィズム背景。背景ぼかし付きの洗練されたスタイル。",
+        "invertedUsage": "リッチUI、明るい背景"
+      },
+      "sizes": {
+        "fontLabel": "フォント",
+        "paddingLabel": "パディング",
+        "fontHeader": "フォント",
+        "paddingHeader": "パディング",
+        "usageHeader": "用途",
+        "smDesc": "コンパクトな補足情報",
+        "defaultDesc": "標準（デフォルト）"
+      },
+      "features": {
+        "sidePlacementDesc": "4方向（top, right, bottom, left）に配置できます。デフォルトは top です。",
+        "arrowDesc": "showArrow でトリガーを指す矢印の表示を制御できます。デフォルトは表示です。",
+        "alignDesc": "align でトリガーに対する配置を調整できます。",
+        "providerDesc": "Tooltip.Provider でグローバルな遅延設定を管理できます。連続ホバー時に skipDelayDuration により次のツールチップが即座に表示されます。"
+      },
+      "componentStructure": {
+        "trigger": "ホバー/フォーカス対象",
+        "content": "ツールチップ本体（variant・size・side・arrow）",
+        "arrow": "矢印インジケーター（Content内蔵）",
+        "portal": "ポータル（Content内蔵）",
+        "provider": "グローバル遅延設定"
+      },
+      "codeRecipes": {
+        "iconButtonDesc": "アイコンボタンの説明",
+        "shortcutDesc": "ショートカットキー表示",
+        "disabledDesc": "無効ボタンのヒント"
+      },
+      "anatomy": {
+        "trigger": "ホバー対象要素",
+        "content": "ツールチップ本体",
+        "arrow": "方向を示す矢印"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "doItems": {
+          "0": "アイコンボタンやアクションの補足説明にTooltipを使用する",
+          "1": "テキストは短く簡潔にする（1-2行以内）",
+          "2": "キーボードショートカットの表示にTooltipを活用する",
+          "3": "省略されたテキストのフル表示にTooltipを使用する"
+        },
+        "dontItems": {
+          "0": "必須情報をTooltipのみに配置しない — 常に表示されるテキストに書く",
+          "1": "インタラクティブなコンテンツ（リンク・ボタン）をTooltip内に配置しない — Popoverを使用する",
+          "2": "長い段落やリッチコンテンツをTooltipに入れない",
+          "3": "タッチデバイスのみのユーザーが必要な情報にTooltipを使わない"
+        }
+      },
+      "vsPopover": {
+        "intro": "似たフローティングUIですが、用途とインタラクションが異なります。",
+        "label0": "トリガー",
+        "label1": "コンテンツ",
+        "label2": "インタラクション",
+        "label3": "デフォルト方向",
+        "label4": "閉じ方",
+        "label5": "ARIA",
+        "tooltip0": "ホバー / フォーカス",
+        "tooltip1": "テキストのみ（短い補足）",
+        "tooltip2": "なし（読むだけ）",
+        "tooltip3": "top（読み流れを邪魔しない）",
+        "tooltip4": "ホバー解除で自動",
+        "tooltip5": "role=\"tooltip\"",
+        "popover0": "クリック",
+        "popover1": "リッチ（フォーム、ボタン、リンク）",
+        "popover2": "あり（操作可能）",
+        "popover3": "bottom（自然な上→下の操作）",
+        "popover4": "外部クリック / Esc / Closeボタン",
+        "popover5": "aria-expanded + aria-controls",
+        "note": "Tooltipは「ホバーで表示される短い補足テキスト」に使用。リンクやボタンなどインタラクティブなコンテンツが必要な場合はPopoverを使用します。"
+      },
+      "a11y": {
+        "keyboard": "キーボード操作",
+        "tabDesc": "トリガーにフォーカスで表示（遅延なし）",
+        "escDesc": "ツールチップを閉じる",
+        "aria0": "Radix自動付与",
+        "aria1": "自動連携",
+        "aria2": "WCAG 1.4.13 — コンテンツホバーで維持",
+        "aria3": "自動衝突回避（画面外はみ出し防止）"
+      },
+      "related": {
+        "drawer": "画面端からスライドインするパネルコンポーネント",
+        "modal": "確認やフォーム入力に適したダイアログ",
+        "dropdown": "メニュー項目のリストを表示するフローティングパネル"
+      },
+      "code": {
+        "tailwindDesc": "環境に合わせたスタイル適用方法"
+      },
+      "tips": {
+        "title": "Tooltip 実践ガイド",
+        "vsPopover": "ホバーで表示される補足情報に使用します。リンクやボタンなどのインタラクティブなコンテンツが必要な場合はPopoverを使用してください。",
+        "disabled": "無効化された要素にTooltipを表示する場合、spanでラップしてtabIndex={0}を設定してください。",
+        "provider": "複数のTooltipがある場合、Tooltip.ProviderでラップするとskipDelayDurationにより連続ホバー時のUXが向上します。",
+        "touch": "Tooltipはホバー操作に依存するため、タッチデバイスでは表示されません。必須情報は常に表示されるテキストにも記載してください。"
+      },
+      "props": {
+        "open": "ツールチップの表示状態（制御モード）",
+        "defaultOpen": "初期表示状態（非制御モード）",
+        "onOpenChange": "表示状態が変更されたときのコールバック",
+        "rootDelayDuration": "ホバーから表示までの遅延時間（ms）",
+        "disableHoverableContent": "コンテンツ上のホバーで表示を維持しない",
+        "variant": "外観バリアント（default: ダーク背景+シャドウ、inverted: グラスモーフィズム）",
+        "size": "テキストサイズ",
+        "side": "表示位置",
+        "sideOffset": "トリガーからの距離（px）",
+        "align": "トリガーに対するアラインメント",
+        "showArrow": "矢印の表示",
+        "providerDelayDuration": "グローバルなホバー遅延時間（ms）",
+        "skipDelayDuration": "連続ホバー時の遅延スキップ時間（ms）",
+        "providerDisableHoverableContent": "グローバルにコンテンツホバー維持を無効化"
+      }
+    },
+    "popover": {
+      "description": "Popoverは、トリガー要素をクリックすると表示されるフローティングパネルです。フォーム入力、設定パネル、リッチコンテンツの表示など、インタラクティブな要素を含むオーバーレイに適しています。",
+      "variants": {
+        "defaultDesc": "ペーパー背景にボーダーとシャドウ。一般的なポップオーバーに使用。",
+        "defaultUsage": "フォーム、設定",
+        "elevatedDesc": "グラスモーフィズム背景。背景ぼかし付きの洗練されたスタイル。",
+        "elevatedUsage": "プロフィール、詳細"
+      },
+      "sizes": {
+        "fontLabel": "フォント",
+        "paddingLabel": "パディング",
+        "radiusLabel": "角丸",
+        "fontHeader": "フォント",
+        "paddingHeader": "パディング",
+        "radiusHeader": "角丸"
+      },
+      "features": {
+        "sidePlacementDesc1": "4方向（top, right, bottom, left）に配置できます。デフォルトは",
+        "sidePlacementDesc2": "です。",
+        "arrowDesc": "でトリガーを指す矢印の表示を制御できます。デフォルトは表示です。",
+        "closeDesc1": "で内蔵の閉じるボタンを表示できます。",
+        "closeDesc2": "でアイコンをカスタマイズ可能です。",
+        "alignDesc": "でトリガーに対する配置を調整できます。",
+        "modalDesc": "を有効にすると、背景の操作が無効化されます。フォーカストラップも自動的に適用されます。"
+      },
+      "struct": {
+        "trigger": "クリック対象",
+        "content": "ポップオーバー本体（variant・size・side・arrow・close）",
+        "arrow": "矢印インジケーター（Content内蔵）",
+        "close": "閉じるボタン（Content内蔵 or 手動配置）",
+        "anchor": "カスタムアンカーポイント",
+        "portal": "ポータル（Content内蔵）"
+      },
+      "recipes": {
+        "formDesc": "インライン編集フォーム",
+        "profileDesc": "ユーザープロフィール表示",
+        "confirmDesc": "削除確認ダイアログ"
+      },
+      "anatomy": {
+        "trigger": "起動ボタン",
+        "content": "フローティングパネル",
+        "arrow": "方向を示す矢印",
+        "close": "閉じるボタン"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "do0": "インライン編集やフォーム入力にPopoverを使用する",
+        "do1": "リンクやボタンなどインタラクティブなコンテンツに適している",
+        "do2": "確認ダイアログの軽量代替として使用する",
+        "do3": "閉じるボタンまたはPopover.Closeで明確な閉じ方を提供する",
+        "dont0": "単純な補足情報にPopoverを使わない — Tooltipを使用する",
+        "dont1": "大量のコンテンツをPopoverに入れない — Modalを使用する",
+        "dont2": "メニューリストにPopoverを使わない — Dropdownを使用する",
+        "dont3": "入れ子のPopoverを使わない — UXが複雑になる"
+      },
+      "vsTooltip": {
+        "desc": "似たフローティングUIですが、用途とインタラクションが異なります。",
+        "label0": "トリガー",
+        "label1": "コンテンツ",
+        "label2": "インタラクション",
+        "label3": "デフォルト方向",
+        "label4": "閉じ方",
+        "label5": "ARIA",
+        "popover0": "クリック",
+        "popover1": "リッチ（フォーム、ボタン、リンク）",
+        "popover2": "あり（操作可能）",
+        "popover3": "bottom（自然な上→下の操作）",
+        "popover4": "外部クリック / Esc / Closeボタン",
+        "popover5": "aria-expanded + aria-controls",
+        "tooltip0": "ホバー / フォーカス",
+        "tooltip1": "テキストのみ（短い補足）",
+        "tooltip2": "なし（読むだけ）",
+        "tooltip3": "top（読み流れを邪魔しない）",
+        "tooltip4": "ホバー解除で自動",
+        "tooltip5": "role=\"tooltip\"",
+        "summaryTitle": "使い分けのポイント：",
+        "summaryBody": " Popoverは「クリックで開くインタラクティブなコンテンツ」に使用。単純な補足テキストのみの場合はTooltipを使用します。"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "enterSpace": "ポップオーバーを開く/閉じる",
+        "esc": "ポップオーバーを閉じる",
+        "tab": "コンテンツ内のフォーカス移動",
+        "aria0": "トリガーに自動付与",
+        "aria1": "自動連携",
+        "aria2": "自動フォーカス管理（open/close時）",
+        "aria3": "自動衝突回避（画面外はみ出し防止）"
+      },
+      "related": {
+        "tooltip": "ホバーで表示される簡潔な補足情報コンポーネント",
+        "modal": "確認やフォーム入力に適したダイアログ",
+        "dropdown": "メニュー項目のリストを表示するフローティングパネル"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "title": "Popover 実践ガイド",
+        "vsTooltip1": "インタラクティブなコンテンツ（リンク、ボタン、フォーム）が必要な場合はPopoverを使用します。ホバーで表示される単純な補足情報には",
+        "vsTooltip2": "を使用してください。",
+        "close1": "コンテンツ内に",
+        "close2": "を配置すると、クリックで閉じるボタンを作成できます。",
+        "close3": "で既存のButtonにアタッチ可能です。",
+        "modal1": "フォーム入力など、背景の操作を防ぎたい場合は",
+        "modal2": "を有効にします。フォーカストラップが自動適用されます。",
+        "focus1": "Popoverは開閉時に自動フォーカス管理を行います。",
+        "focus2": "でカスタマイズ可能です。"
+      },
+      "props": {
+        "open": "ポップオーバーの表示状態（制御モード）",
+        "defaultOpen": "初期表示状態（非制御モード）",
+        "onOpenChange": "表示状態が変更されたときのコールバック",
+        "modal": "背景操作を無効化し、フォーカストラップを適用する",
+        "variant": "外観バリアント（default: ペーパー背景+ボーダー+シャドウ、elevated: グラスモーフィズム）",
+        "size": "テキストサイズとパディング",
+        "side": "表示位置",
+        "sideOffset": "トリガーからの距離（デフォルト: 矢印あり12px / なし6px）",
+        "align": "トリガーに対するアラインメント",
+        "showArrow": "矢印の表示",
+        "showClose": "内蔵の閉じるボタンの表示",
+        "closeIcon": "閉じるボタンのカスタムアイコン"
+      }
+    },
+    "alert": {
+      "description": "Alertは、ユーザーに重要な情報やフィードバックを伝えるための通知コンポーネントです。ステータスに応じたアイコンと色を自動的に適用し、情報、成功、警告、エラーの4種類のメッセージを表現できます。",
+      "variants": {
+        "defaultDesc": "ティント背景に薄いボーダー。一般的な通知に使用。",
+        "defaultUsage": "情報通知",
+        "outlineDesc": "ボーダーのみ。背景を透明に保ちたい場合に。",
+        "outlineUsage": "軽い注意",
+        "filledDesc": "ソリッド背景。強い視覚的強調が必要な場合に。",
+        "filledUsage": "重要な警告"
+      },
+      "sizes": {
+        "paddingLabel": "パディング",
+        "titleLabel": "タイトル",
+        "descLabel": "説明",
+        "iconLabel": "アイコン",
+        "previewHeader": "プレビュー",
+        "smDesc": "コンパクト",
+        "defaultDesc": "標準（デフォルト）",
+        "lgDesc": "ゆったり"
+      },
+      "features": {
+        "closableDesc1": "を有効にすると閉じるボタンが表示されます。",
+        "closableDesc2": "でコールバックを受け取れます。",
+        "customIconDesc1": "でカスタムアイコンを設定、",
+        "customIconDesc2": "でアイコンを非表示にできます。",
+        "matrixDesc": "3つのバリアントと4つのカラーの全12パターン。"
+      },
+      "struct": {
+        "title": "アラートのタイトル（h5）",
+        "description": "説明テキスト（p）"
+      },
+      "recipes": {
+        "formDesc": "フォームバリデーションエラー一覧",
+        "bannerDesc": "全幅バナー型アラート",
+        "customIconDesc": "カスタムアイコン付きアラート"
+      },
+      "anatomy": {
+        "root": "アラートコンテナ",
+        "icon": "ステータスアイコン",
+        "title": "タイトル",
+        "description": "説明テキスト",
+        "close": "閉じるボタン"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "do0": "ステータスに適したcolorを使用する",
+        "do1": "タイトルと説明で簡潔にメッセージを伝える",
+        "do2": "一時的な通知にはclosableを使用する",
+        "dont0": "1ページに大量のAlertを表示しない",
+        "dont1": "重大なエラーにdefaultバリアントを使わない — filledを使用する",
+        "dont2": "一時的な通知にAlertを使わない — Toastを使用する",
+        "dont3": "ユーザーの確認が必要な場合にAlertを使わない — Modalを使用する"
+      },
+      "vsToast": {
+        "intro": "どちらもユーザーへの通知に使いますが、表示の持続性とインタラクションが異なります。",
+        "featureLabel": "特徴",
+        "label0": "表示",
+        "label1": "トリガー",
+        "label2": "コンテンツ",
+        "label3": "閉じ方",
+        "label4": "用途",
+        "label5": "ARIA",
+        "alert0": "ページ内に固定（永続的）",
+        "alert1": "ページロード時・状態変化時",
+        "alert2": "タイトル＋説明（リッチ）",
+        "alert3": "手動（closable）or 常時表示",
+        "alert3Short": "手動 or 常時表示",
+        "alert4": "システム状態、警告、エラー",
+        "alert5": "role=\"alert\" / role=\"status\"",
+        "toast0": "一時的に表示され自動で消える",
+        "toast1": "ユーザーアクション後のフィードバック",
+        "toast1Short": "ユーザーアクション後",
+        "toast2": "短いメッセージ（1〜2行）",
+        "toast2Short": "短いメッセージ",
+        "toast3": "自動消去（数秒後）",
+        "toast4": "保存完了、コピー完了など",
+        "toast4Short": "保存完了、コピー完了",
+        "toast5": "role=\"status\" + aria-live",
+        "summaryTitle": "使い分けのポイント：",
+        "summaryBody": " Alertはページ内の「状態通知」に使用。ユーザーのアクションに対する一時的なフィードバックにはToastを使用します。"
+      },
+      "a11y": {
+        "aria0": "error時に自動付与",
+        "aria1": "info/success/warning時",
+        "aria2": "閉じるボタンに",
+        "aria3": "装飾アイコンに"
+      },
+      "related": {
+        "toast": "一時的な通知を表示するフローティングメッセージ",
+        "modal": "ユーザーの確認やアクションを求めるダイアログ",
+        "badge": "ステータスやカテゴリを示す小さなラベル"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "title": "Alert 実践ガイド",
+        "tip0label": "color による ARIA ロール",
+        "tip0desc1": "は",
+        "tip0desc2": "（即時通知）、それ以外は",
+        "tip0desc3": "（穏やかな通知）が自動適用されます。",
+        "tip1desc1": "Alertはページ内の永続的な通知に使います。一時的なフィードバック（保存完了、コピー完了など）には",
+        "tip1desc2": "を使用してください。",
+        "tip2desc": "重大なエラーやシステム停止など、最も注意が必要な場面で使用します。日常的な通知に使いすぎると効果が薄れます。"
+      },
+      "props": {
+        "variantDesc": "外観バリアント（default: ティント背景、outline: ボーダー、filled: ソリッド）",
+        "colorDesc": "セマンティックカラー（アイコン・色・ARIAロールを自動決定）",
+        "sizeDesc": "サイズ（パディング・フォント・アイコンを一括制御）",
+        "closableDesc": "閉じるボタンの表示",
+        "onCloseDesc": "閉じるボタンのコールバック",
+        "closeIconDesc": "カスタム閉じるアイコン",
+        "iconDesc": "カスタムステータスアイコン",
+        "hideIconDesc": "アイコンを非表示にする",
+        "radiusDesc": "角丸",
+        "titleChildrenDesc": "タイトルテキスト",
+        "classNameDesc": "追加のCSSクラス",
+        "descChildrenDesc": "説明テキスト"
+      }
+    },
+    "toast": {
+      "description": "Toastは、ユーザーのアクションに対する一時的なフィードバックを表示するコンポーネントです。画面の端に表示され、一定時間後に自動的に消えます。命令的API（toast.success() など）で簡単にトリガーできます。",
+      "usageNote": {
+        "label": "デザイン仕様",
+        "desc1": "Toastの幅は",
+        "desc2": "固定です。360px未満の画面では",
+        "desc3": "で自動的に縮小されます。"
+      },
+      "types": {
+        "usage0": "一般通知",
+        "usage1": "成功",
+        "usage2": "エラー",
+        "usage3": "注意",
+        "usage4": "情報"
+      },
+      "features": {
+        "actionsDesc": "と でインラインボタンを追加できます。",
+        "promiseDesc": "で非同期処理のローディング→成功/エラーを自動遷移します。",
+        "closeButtonDesc": "でトーストに閉じるボタンを表示します。",
+        "richColorsDesc": "をToasterに設定すると、ステータストーストがソリッド背景で強調されます。",
+        "loadingDesc1": "はスピナー付きで永続表示されます。手動で閉じるか",
+        "loadingDesc2": "で消去します。"
+      },
+      "struct": {
+        "toast": "基本トースト",
+        "success": "成功トースト",
+        "error": "エラートースト",
+        "warning": "警告トースト",
+        "info": "情報トースト",
+        "loading": "ローディングトースト（永続）",
+        "promise": "Promise連動トースト",
+        "custom": "カスタムJSXトースト",
+        "dismiss": "トーストを閉じる（id省略で全閉じ）",
+        "toaster": "レンダリングプロバイダー"
+      },
+      "recipes": {
+        "promiseDesc": "非同期処理の自動遷移",
+        "undoDesc": "取り消しアクション付き",
+        "durationDesc": "表示時間をカスタマイズ"
+      },
+      "anatomy": {
+        "root": "トースト全体のコンテナ",
+        "icon": "ステータスアイコン",
+        "message": "メインメッセージ",
+        "description": "補足説明テキスト",
+        "action": "アクションボタン",
+        "close": "閉じるボタン"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "do0": "短くて明確なメッセージを使用する",
+        "do1": "ステータスに適したtypeを使用する",
+        "do2": "破壊的アクションにはUndoアクションを提供する",
+        "dont0": "トーストに長い文章やフォームを入れない",
+        "dont1": "ユーザー確認が必要な場合はModal/AlertModalを使う",
+        "dont2": "永続的な状態通知にはAlertを使う（Toastは一時的）",
+        "dont3": "同時に大量のトーストを表示しない"
+      },
+      "vsAlert": {
+        "intro": "どちらもユーザーへの通知に使いますが、表示の持続性とインタラクションが異なります。",
+        "featureLabel": "特徴",
+        "label0": "表示",
+        "label1": "トリガー",
+        "label2": "コンテンツ",
+        "label3": "閉じ方",
+        "label4": "用途",
+        "label5": "ARIA",
+        "toast0": "一時的に表示され自動で消える",
+        "toast1": "ユーザーアクション後のフィードバック",
+        "toast1Short": "ユーザーアクション後",
+        "toast2": "短いメッセージ（1〜2行）",
+        "toast2Short": "短いメッセージ",
+        "toast3": "自動消去（数秒後）",
+        "toast4": "保存完了、コピー完了など",
+        "toast4Short": "保存完了、コピー完了",
+        "toast5": "role=\"status\" + aria-live",
+        "alert0": "ページ内に固定（永続的）",
+        "alert1": "ページロード時・状態変化時",
+        "alert2": "タイトル＋説明（リッチ）",
+        "alert3": "手動（closable）or 常時表示",
+        "alert4": "システム状態、警告、エラー",
+        "alert5": "role=\"alert\" / role=\"status\"",
+        "summaryTitle": "使い分けのポイント：",
+        "summaryBody": " Toastはユーザーアクションに対する一時的なフィードバックに使用。ページ内の永続的な状態通知にはAlertを使用します。"
+      },
+      "a11y": {
+        "aria0": "error/warning時に自動付与",
+        "aria1": "default/success/info/loading時",
+        "aria2": "緊急通知（error/warning）",
+        "aria3": "通常通知（default/success/info/loading）",
+        "aria4": "コンテナに",
+        "aria5": "閉じるボタンに",
+        "aria6": "ホバー時にタイマー自動一時停止"
+      },
+      "related": {
+        "alert": "ページ内の永続的な通知コンポーネント",
+        "modal": "ユーザーの確認やアクションを求めるダイアログ",
+        "badge": "ステータスやカテゴリを示す小さなラベル",
+        "spinner": "不確定なローディング状態を表示するスピナー"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "title": "Toast 実践ガイド",
+        "tip0label": "Toaster は1つだけ",
+        "tip0desc1": "レイアウトのルートに",
+        "tip0desc2": "を1つだけ配置します。複数配置するとトーストが重複して表示されます。",
+        "tip1label": "toast.promise() で状態管理不要",
+        "tip1desc": "非同期処理のローディング→成功→エラーをtoast.promise()で自動管理できます。手動でloading/success/errorを切り替える必要はありません。",
+        "tip2label": "duration: 0 で永続トースト",
+        "tip2desc1": "duration を0に設定するとトーストは自動消去されません。",
+        "tip2desc2": "と組み合わせて手動閉じを提供してください。"
+      },
+      "props": {
+        "positionDesc": "トーストの表示位置",
+        "durationDesc": "自動消去までの時間（ms）。0で永続表示",
+        "visibleToastsDesc": "同時に表示するトーストの最大数",
+        "closeButtonDesc": "全トーストに閉じるボタンを表示",
+        "richColorsDesc": "ステータス色をソリッド背景に強調。falseでティント背景に切替",
+        "expandDesc": "常にすべてのトーストを展開表示",
+        "offsetDesc": "画面端からのオフセット（px）",
+        "gapDesc": "トースト間の間隔（px）",
+        "sizeDesc": "トーストのサイズ",
+        "containerClassNameDesc": "コンテナの追加CSSクラス",
+        "optDescriptionDesc": "補足説明テキスト",
+        "optDurationDesc": "個別の自動消去時間（ms）",
+        "dismissibleDesc": "閉じ可能かどうか",
+        "optCloseButtonDesc": "閉じるボタンの表示",
+        "iconDesc": "カスタムアイコン",
+        "actionDesc": "アクションボタン",
+        "cancelDesc": "キャンセルボタン",
+        "onDismissDesc": "閉じた時のコールバック",
+        "onAutoCloseDesc": "自動消去時のコールバック",
+        "idDesc": "トーストの識別子（更新・dismiss用）",
+        "optClassNameDesc": "個別トーストの追加CSSクラス"
+      }
+    },
+    "progress": {
+      "description": "Progressは、タスクの進行状況を視覚的に表示するコンポーネントです。リニアバーと円形の2つのタイプを提供し、ファイルアップロードやステップ進捗など確定的な進行率の表示に使用します。",
+      "sizes": {
+        "trackHeight": "トラック高さ",
+        "circularDiam": "円形直径",
+        "compact": "コンパクト",
+        "standard": "標準",
+        "spacious": "ゆったり"
+      },
+      "features": {
+        "typeDesc": "リニアバーと円形の2つのタイプを提供します。用途に応じて使い分けてください。",
+        "stripedDesc1": "で対角線ストライプを表示。",
+        "stripedDesc2": "を追加すると流れるアニメーションが有効になります。",
+        "showValueDesc1": "でパーセンテージを表示。",
+        "showValueDesc2": "でカスタムフォーマットが可能です。"
+      },
+      "struct": {
+        "standalone": "スタンドアロンコンポーネント。サブコンポーネントはありません。"
+      },
+      "recipes": {
+        "fileUploadDesc": "ファイルアップロードの進捗表示",
+        "circularValueDesc": "円形プログレスに値を表示",
+        "multiStepDesc": "マルチステップ進捗"
+      },
+      "anatomy": {
+        "track": "背景トラック",
+        "indicator": "進捗バー / アーク",
+        "value": "パーセンテージ（任意）"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "dontTitle": "避けるべき",
+        "do0": "進捗が明確な場合はdeterminateモードを使用する",
+        "do1": "長時間の処理にはshowValueで進捗率を表示する",
+        "do2": "ステータスに適したcolorを使用する（例: error=失敗）",
+        "dont0": "進捗がないのにProgressを使わない — Spinnerを使用する",
+        "dont1": "1ページに大量のProgressバーを表示しない",
+        "dont2": "ユーザーアクション後のフィードバックにProgressを使わない — Toastを使用する"
+      },
+      "a11y": {
+        "aria0": "自動付与",
+        "aria2": "propでカスタムラベル"
+      },
+      "related": {
+        "slider": "ドラッグ操作で値を選択するインタラクティブコントロール",
+        "badge": "ステータスやカテゴリを示す小さなラベル",
+        "toast": "一時的な通知を表示するフローティングメッセージ",
+        "spinner": "不確定なローディング状態を表示するスピナー"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "title": "Progress 実践ガイド",
+        "tip0desc": "進捗が計算可能な場合はProgressを使用。進捗が不明なローディングにはSpinnerを使用してください。",
+        "tip1desc1": "円形プログレスで",
+        "tip1desc2": "を使うと中央にパーセンテージが表示されます。smサイズでは見づらいのでdefault以上を推奨。",
+        "tip2desc": "でカスタム表記が可能。ファイルサイズやステップ表示に活用できます。"
+      },
+      "props": {
+        "typeDesc": "表示タイプ（リニアバーまたは円形）",
+        "valueDesc": "進捗値（0〜max）",
+        "maxDesc": "最大値",
+        "sizeDesc": "サイズ（linear: トラック高さ、circular: 直径）",
+        "variantDesc": "視覚バリアント（linearのみ）",
+        "colorDesc": "インジケーターの色（default: ダーク、primary: プライマリー）",
+        "indicatorClassNameDesc": "インジケーターのカスタムクラス（colorを上書き）",
+        "showValuePropDesc": "パーセント値を表示",
+        "formatLabelDesc": "値のカスタムフォーマッター",
+        "animatedDesc": "ストライプの流れアニメーション（striped variant時のみ）",
+        "thicknessDesc": "円形のストローク幅（circularのみ）",
+        "labelDesc": "アクセシビリティラベル",
+        "classNameDesc": "追加のCSSクラス"
+      }
+    },
+    "skeleton": {
+      "overview": {
+        "desc": "Skeletonは、コンテンツ読み込み中にプレースホルダーを表示するコンポーネントです。実際のレイアウト構造を事前に提示することで、レイアウトシフトを防ぎ、体感速度を向上させます。"
+      },
+      "variants": {
+        "textDesc": "テキスト行のプレースホルダー。角丸＋行高さ比例サイズ",
+        "circularDesc": "アバター・アイコン用の円形プレースホルダー",
+        "rectangularDesc": "画像・カード領域の矩形プレースホルダー"
+      },
+      "features": {
+        "animationDesc1": "2種のアニメーション。",
+        "animationDesc2": "は明暗パルス、",
+        "animationDesc3": "は左→右のシマーエフェクト。",
+        "compositionDesc": "複数のSkeletonを組み合わせてカード・リストなど複雑なレイアウトを再現できます。",
+        "countDesc1": "",
+        "countDesc2": "でテキスト行を自動生成。最終行は短く、各行は自然な幅バリエーションが付きます。",
+        "loadingDesc1": "",
+        "loadingDesc2": " propで条件付き描画。trueでSkeleton表示、falseでchildrenを描画します。",
+        "customSizingDesc1": "",
+        "customSizingDesc2": "・",
+        "customSizingDesc3": "・",
+        "customSizingDesc4": " propで精密なサイジングが可能です。"
+      },
+      "struct": {
+        "standalone": "スタンドアロンコンポーネント。サブコンポーネントはありません。"
+      },
+      "recipes": {
+        "cardDesc": "カード読み込みプレースホルダー",
+        "profileDesc": "ユーザープロフィールの読み込み",
+        "tableDesc": "テーブル行の読み込み",
+        "waveDesc": "シマーエフェクト付き"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "実際のコンテンツレイアウトに合わせた形状・サイズを使用する",
+        "do2": "アバターにはcircular、テキストにはtext、画像にはrectangularを使い分ける",
+        "do3": "ページ初期表示にはloading.tsxと組み合わせる",
+        "dontTitle": "避けるべき",
+        "dont1": "実際のレイアウトと大きく異なるSkeletonを使わない",
+        "dont2": "瞬時に表示されるデータにSkeletonを使わない — 不要なちらつきの原因",
+        "dont3": "不確定な待機にはSkeletonでなくSpinnerを使用する"
+      },
+      "a11y": {
+        "ariaHiddenSuffix": " 自動付与",
+        "screenReader": "装飾要素としてスクリーンリーダーから非表示",
+        "ariaBusyPrefix": "親コンテナに",
+        "ariaBusySuffix": "を設定推奨",
+        "reducedMotionSuffix": "対応"
+      },
+      "related": {
+        "spinnerDesc": "不確定なローディング状態を表示するスピナー",
+        "progressDesc": "確定的な進捗率を表示するバー・円形コンポーネント",
+        "cardDesc": "Skeletonと組み合わせてカード読み込みに使用"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "wave": "シマーエフェクトでプレミアム感。カード・画像のローディングに最適",
+        "widthHeight": "classNameでも指定可能だが、動的値にはpropsが便利",
+        "vsSpinner": "レイアウト構造が分かる → Skeleton、不確定な待機 → Spinner",
+        "ariaBusy": "親コンテナにaria-busy=\"true\"を設定してスクリーンリーダーに通知"
+      },
+      "props": {
+        "variant": "形状バリアント（text: 角丸行、circular: 円形、rectangular: 矩形）",
+        "animation": "アニメーション（pulse: 明暗パルス、wave: シマー、false: 静的）",
+        "count": "テキスト行数（text variant のみ。自動幅バリエーション付き）",
+        "loading": "条件付きローディング（true: Skeleton表示、false: children描画）",
+        "width": "カスタム幅",
+        "height": "カスタム高さ",
+        "radius": "カスタムborder-radius",
+        "children": "loading=false 時に描画するコンテンツ",
+        "className": "追加のCSSクラス"
+      }
+    },
+    "spinner": {
+      "overview": {
+        "desc": "Spinnerは、不確定なローディング状態を視覚的に表示するコンポーネントです。4つのバリアント（Ring、Dots、Bars、Orbit）を提供し、データ取得やページ遷移など完了時点が不明な非同期処理の待機表示に使用します。"
+      },
+      "variants": {
+        "ringDesc": "回転リング — 最も標準的なローディング表現",
+        "dotsDesc": "3つのドットが順番にフェードするパルスアニメーション",
+        "barsDesc": "4本のバーが波打つスケールアニメーション",
+        "orbitDesc": "Y軸3D回転 — 5種のサブスタイル（Ring・Dots・Cube・Flip・Morph）"
+      },
+      "features": {
+        "colorDesc1": "3つのカラーオプション。",
+        "colorDesc2": "は親要素のテキスト色を継承し、ボタン内部などで自然に馴染みます。",
+        "speedDesc": "アニメーション速度を3段階で調整できます。",
+        "orbitStylesDesc": "5つの3Dオービットスタイルを比較できます。"
+      },
+      "struct": {
+        "standalone": "スタンドアロンコンポーネント。サブコンポーネントはありません。"
+      },
+      "recipes": {
+        "buttonLoadingDesc": "ボタン内のローディング表示",
+        "pageLoadingDesc": "ページ全体のローディング",
+        "inlineTextDesc": "テキストの横にインライン表示",
+        "orbitCubeDesc": "3Dキューブオービット"
+      },
+      "anatomy": {
+        "track": "背景リング",
+        "indicator": "アクティブ部分",
+        "dots": "順次フェード",
+        "orbit": "3D回転"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "不確定な待機時間にはSpinnerを使用する",
+        "do2": "ボタン内部にはsize=\"sm\"とcolor=\"current\"を使う",
+        "do3": "テキスト横のインラインにはdotsバリアントが適切",
+        "dontTitle": "避けるべき",
+        "dont1": "進捗率が分かる場合はSpinnerを使わない — Progressを使用する",
+        "dont2": "1ページに大量のSpinnerを同時表示しない",
+        "dont3": "ユーザーの操作完了後のフィードバックにSpinnerを使わない — Toastを使用する"
+      },
+      "a11y": {
+        "roleStatusSuffix": " 自動付与",
+        "ariaLabelSuffix": " デフォルト",
+        "labelPropSuffix": " propでカスタムラベル",
+        "screenReaderReady": "スクリーンリーダー対応済み"
+      },
+      "related": {
+        "progressDesc": "確定的な進捗率を表示するバー・円形コンポーネント",
+        "buttonDesc": "ローディング状態でSpinnerを内部に表示するボタン",
+        "skeletonDesc": "コンテンツのプレースホルダー表示"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "colorCurrent": "親要素のテキスト色を継承。ボタン内部やカラフルなコンテナで自然に馴染む",
+        "variantDots": "テキスト横のインライン表示に最適。高さが低く行間を崩さない",
+        "variantOrbit": "5種の3Dサブスタイル（ring/dots/cube/flip/morph）。ページ全体のローディングに適合",
+        "vsProgress": "完了時点が不明 → Spinner、進捗率が分かる → Progress"
+      },
+      "props": {
+        "variant": "スピナーの視覚バリアント",
+        "orbitStyle": "Orbit サブスタイル（variant=\"orbit\" 時のみ）",
+        "size": "サイズ",
+        "color": "色（default: ダーク、primary: ブランド、current: 親のテキスト色を継承）",
+        "speed": "アニメーション速度",
+        "label": "アクセシビリティラベル（aria-label）",
+        "className": "追加のCSSクラス"
+      }
+    },
+    "breadcrumb": {
+      "overview": {
+        "desc": "Breadcrumbは、サイト内の現在位置を階層的に表示するナビゲーションコンポーネントです。ユーザーが上位ページへ素早く戻れるようにします。"
+      },
+      "sizes": {
+        "font": "フォント",
+        "icon": "アイコン"
+      },
+      "features": {
+        "autoCollapseDesc": "maxItemsで長いパスを自動省略。表示数はitemsBeforeCollapse / itemsAfterCollapseで制御。",
+        "customSepDesc": "任意のReactNodeをセパレーターに。スラッシュ、ドットなど自由に変更可能。",
+        "asChildDesc": "asChildでNext.js Linkなどカスタムリンクを合成。スタイルは自動継承。"
+      },
+      "struct": {
+        "list": "リストコンテナ",
+        "item": "アイテムラッパー",
+        "link": "リンク（asChild対応）",
+        "page": "現在のページ（aria-current）",
+        "separator": "セパレーター",
+        "ellipsis": "省略記号"
+      },
+      "anatomy": {
+        "root": "navコンテナ",
+        "list": "olリスト",
+        "item": "各パンくず項目",
+        "link": "クリック可能リンク",
+        "current": "現在ページ",
+        "separator": "区切り文字"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "サイトの階層構造を正確に反映する",
+        "do2": "現在のページを最後のアイテムとして表示する",
+        "do3": "長いパスにはcollapseを使って省略する",
+        "do4": "ページ上部の目立つ位置に配置する",
+        "dontTitle": "避けるべき",
+        "dont1": "現在のページをリンクにしない（Breadcrumb.Pageを使用）",
+        "dont2": "サイト階層と無関係なアイテムを含めない",
+        "dont3": "1階層だけのBreadcrumbは使わない（意味がない）",
+        "dont4": "メインナビゲーションの代わりとして使用しない"
+      },
+      "a11y": {
+        "semanticTitle": "セマンティック構造",
+        "semanticDesc1": "Breadcrumbは",
+        "semanticDesc2": "要素で囲まれ、内部は",
+        "semanticDesc3": "で順序付きリストとして構造化されます。スクリーンリーダーがナビゲーションの階層を正しく読み上げます。",
+        "ariaLabelSuffix": " nav要素に設定",
+        "ariaCurrentSuffix": " 現在のページに設定",
+        "ariaHiddenSuffix": " セパレーターに設定",
+        "waiAria": "WAI-ARIA Breadcrumb Pattern準拠"
+      },
+      "related": {
+        "tabsDesc": "タブ切替",
+        "navMenuDesc": "ナビゲーションメニュー",
+        "dropdownDesc": "ドロップダウンメニュー"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "title": "Breadcrumb 実践ガイド",
+        "asChildDesc1": "",
+        "asChildDesc2": "に",
+        "asChildDesc3": "を設定すると、Next.jsの",
+        "asChildDesc4": "をそのまま使えます。クライアントサイドナビゲーションが有効になります。",
+        "sepDesc1": "ルートの",
+        "sepDesc2": "にseparatorを設定すると、全",
+        "sepDesc3": "に適用されます。個別にchildrenで上書きすることもできます。",
+        "pageDesc1": "最後のアイテムには",
+        "pageDesc2": "を使います。",
+        "pageDesc3": "が自動設定され、太字+テキストカラーで視覚的に区別されます。",
+        "ellipsisDesc1": "パスが深い場合、中間のアイテムを",
+        "ellipsisDesc2": "で省略できます。",
+        "ellipsisDesc3": "が設定されスクリーンリーダーには非表示です。"
+      },
+      "props": {
+        "separator": "アイテム間のセパレーター要素",
+        "size": "Breadcrumbのサイズ",
+        "maxItems": "折りたたみ前の最大アイテム数",
+        "itemsBeforeCollapse": "省略記号の前に表示するアイテム数",
+        "itemsAfterCollapse": "省略記号の後に表示するアイテム数",
+        "asChild": "カスタムリンクコンポーネントとの合成（Radix Slot）",
+        "href": "リンク先のURL"
+      }
+    },
+    "pagination": {
+      "overview": {
+        "desc": "Paginationは、大量のデータやコンテンツをページ単位で分割し、ユーザーが任意のページに移動できるナビゲーションコンポーネントです。表示するページ数の幅や端の範囲を細かく設定でき、省略記号（…）を含むページ範囲を自動で計算します。"
+      },
+      "variants": {
+        "defaultDesc": "アクティブページにソリッド背景で塗りつぶし。最も一般的なスタイル。",
+        "defaultUsage": "標準UI",
+        "outlineDesc": "ボーダー付き。アクティブはソリッド背景で塗りつぶし。",
+        "outlineUsage": "フォーム・リスト",
+        "ghostDesc": "アクティブは控えめなハイライト。最小限の視覚的存在感。",
+        "ghostUsage": "補助UI"
+      },
+      "sizes": {
+        "height": "高さ",
+        "font": "フォント",
+        "icon": "アイコン"
+      },
+      "features": {
+        "withEdgesDesc": "先頭・末尾へのジャンプボタンを表示。大量ページで素早く移動。",
+        "loopDesc": "最後→最初、最初→最後の循環ナビゲーション。",
+        "disabledDesc": "全操作を無効化。データ読み込み中などに使用。",
+        "customIconsDesc": "icon propで内蔵アイコンを任意のReactNodeに差し替え。"
+      },
+      "struct": {
+        "content": "ページリストコンテナ",
+        "item": "ページアイテムラッパー",
+        "link": "ページ番号ボタン（page prop）",
+        "previous": "前へボタン",
+        "next": "次へボタン",
+        "first": "最初へボタン",
+        "last": "最後へボタン",
+        "ellipsis": "省略記号",
+        "items": "自動ページネーション"
+      },
+      "anatomy": {
+        "root": "navコンテナ",
+        "content": "フレックスリスト",
+        "prevNext": "前後ボタン",
+        "pageItem": "ページ番号",
+        "activePage": "現在ページ",
+        "ellipsis": "省略記号"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "データの総件数が多い場合にページネーションを使用する",
+        "do2": "現在のページ位置を明確に表示する",
+        "do3": "siblings・boundariesで適切なページ範囲を設定する",
+        "do4": "大量ページの場合はwithEdgesで先頭・末尾ジャンプを提供する",
+        "dontTitle": "避けるべき",
+        "dont1": "少量のデータにページネーションを使わない（全件表示推奨）",
+        "dont2": "ページ遷移時のスクロール位置リセットを忘れない",
+        "dont3": "全ページ番号を一度に表示しない（siblings/boundariesを活用）",
+        "dont4": "無限スクロールとの併用は避ける"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard1": "すべてのページボタンは",
+        "keyboard2": "キーでフォーカス移動でき、",
+        "keyboard3": "または",
+        "keyboard4": "で選択できます。disabled状態ではフォーカスが当たりません。",
+        "ariaNavSuffix": " nav要素に設定",
+        "ariaLabelSuffix": " ナビゲーション識別",
+        "ariaCurrentSuffix": " 現在ページに設定",
+        "ariaGotoSuffix": " 各ボタンに設定",
+        "wcag": "default 36px、lg 40px以上 (WCAG 2.5.8準拠)",
+        "ariaEllipsisSuffix": " Ellipsisに設定"
+      },
+      "related": {
+        "breadcrumbDesc": "パンくずリスト",
+        "navMenuDesc": "ナビゲーションメニュー",
+        "tableDesc": "データテーブル"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "title": "Pagination 実践ガイド",
+        "itemsDesc": "siblings・boundariesに基づいてページ番号とEllipsisが自動レンダリングされます。手動配置は不要です。",
+        "hookDesc": "UIを完全にカスタマイズしたい場合、フックでページ範囲の配列だけを取得し、独自のUIを構築できます。",
+        "valueDesc1": "URLパラメータ（",
+        "valueDesc2": "）とPaginationを同期するにはControlledモードが最適です。"
+      },
+      "props": {
+        "total": "総ページ数",
+        "value": "現在のページ（制御モード）",
+        "defaultValue": "初期ページ（非制御モード）",
+        "onChange": "ページ変更時のコールバック",
+        "siblings": "現在ページの両側に表示するページ数",
+        "boundaries": "先頭・末尾に常に表示するページ数",
+        "size": "コンポーネントのサイズ (28/32/36/40/48px)",
+        "variant": "ビジュアルバリアント",
+        "color": "アクティブページの色",
+        "radius": "ボーダーの角丸",
+        "disabled": "全操作を無効化",
+        "withControls": "前へ・次へボタンの表示",
+        "withEdges": "最初・最後ジャンプボタンの表示",
+        "loop": "最後→最初のループ移動",
+        "page": "遷移先のページ番号",
+        "isActive": "アクティブ状態（省略時はContextから自動判定）",
+        "icon": "カスタムアイコン"
+      }
+    },
+    "navigation-menu": {
+      "overview": {
+        "desc": "NavigationMenuは、サイトやアプリのセクション間を移動するためのナビゲーションコンポーネントです。水平バーとサイドバーの両方に対応し、サブメニューや折りたたみモードを備えています。"
+      },
+      "variants": {
+        "horizontalTitle": "Horizontal (デフォルト)",
+        "horizontalDesc": "ヘッダー下部やページ上部に配置する水平ナビゲーションバー。ホバーでドロップダウンが開きます。",
+        "horizontalBadge": "トップバー",
+        "verticalDesc": "ダッシュボードや管理画面のサイドバー。クリックでサブメニューが折りたたみ/展開されます。",
+        "verticalBadge": "サイドバー"
+      },
+      "sizes": {
+        "height": "高さ",
+        "padding": "横パディング",
+        "font": "フォント",
+        "icon": "アイコン"
+      },
+      "features": {
+        "subMenusDesc": "水平モードではホバーでドロップダウン、垂直モードではクリックでアコーディオン式に展開されます。",
+        "collapsedDesc": "collapsed propでアイコンのみ表示。collapsedWidth propで幅をカスタマイズ可能（デフォルト: 64px）。",
+        "activeStateDesc": "active propで現在のページを視覚的に強調表示し、aria-current=\"page\"を自動設定します。",
+        "groupLabelDesc": "NavigationMenu.Groupでアイテムをセクション分けし、label propでグループヘッダーを表示できます。",
+        "asChildDesc": "asChild propでNext.jsのLinkなどカスタムリンクコンポーネントを合成できます。"
+      },
+      "struct": {
+        "list": "リストコンテナ",
+        "item": "メニューアイテム（value・defaultOpen）",
+        "trigger": "サブメニュートリガー（icon・chevronIcon）",
+        "content": "サブメニューコンテンツ",
+        "link": "リンク（active・asChild・icon）",
+        "group": "グループ（label対応）",
+        "indicator": "アクティブインジケーター",
+        "viewport": "ビューポート（水平のみ）"
+      },
+      "customization": {
+        "introDesc": " に自由なJSXを配置して、メガメニューやカード型レイアウトなど柔軟にカスタマイズできます。",
+        "megaMenuTitle": "メガメニュー",
+        "cardLayoutTitle": "カード型レイアウト",
+        "tipDesc1": " 内のレイアウトは完全に自由です。グリッド、フレックス、カード等、プロジェクトに合わせて自由にカスタマイズしてください。",
+        "tipDesc2": " propでシェブロンアイコンも差し替え可能です。"
+      },
+      "anatomy": {
+        "root": "ナビゲーション全体",
+        "list": "アイテムリスト",
+        "item": "各ナビ項目",
+        "trigger": "ドロップダウン起動",
+        "content": "ドロップダウン内容",
+        "link": "ナビリンク",
+        "viewport": "コンテンツ表示領域"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "サイトの主要セクションに対して使用する",
+        "do2": "activeを使って現在のページを明示する",
+        "do3": "サイドバーにはアイコン+ラベルを併用する",
+        "do4": "関連リンクをGroupでセクション分けする",
+        "dontTitle": "避けるべき",
+        "dont1": "3階層以上のネストを避ける",
+        "dont2": "水平モードにアイテムを詰め込みすぎない",
+        "dont3": "collapsedモードでラベルなしのアイコンを使わない",
+        "dont4": "アクション実行用に使わない（Dropdownを使用）"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard1": "メニューへフォーカス移動",
+        "keyboard2": "トリガー/リンク間を移動",
+        "keyboard3": "リンクをアクティブ化 / コンテンツを開く",
+        "keyboard4": "コンテンツを閉じてトリガーに戻る",
+        "aria1Suffix": " nav要素に設定",
+        "aria2Suffix": " アクティブリンクに自動設定",
+        "aria3": "Radix NavigationMenu + Collapsibleによる完全なキーボードサポート",
+        "aria4": "WAI-ARIA Disclosure Navigation Pattern準拠"
+      },
+      "related": {
+        "breadcrumbDesc": "階層パスナビゲーション",
+        "tabsDesc": "タブ切替コンポーネント",
+        "dropdownDesc": "アクションメニュー"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "title": "NavigationMenu 実践ガイド",
+        "tip1Desc": "同じデータ構造でorientation propを切り替えるだけで、水平バーとサイドバーを簡単に切り替えられます。",
+        "tip2Desc1": "collapsed propと",
+        "tip2Desc2": "のアニメーションにより、サイドバーの折りたたみ/展開がスムーズに切り替わります。",
+        "tip3Desc1": "Next.jsの",
+        "tip3Desc2": "やReact Routerの",
+        "tip3Desc3": "を合成し、クライアントサイドルーティングを維持できます。",
+        "tip4Desc1": "水平モードのContentに",
+        "tip4Desc2": "などで幅を指定すると、メガメニュー風のレイアウトも可能です。",
+        "tip5Desc1": "水平モードのドロップダウンはabsolute配置のため、親要素に",
+        "tip5Desc2": "があるとクリップされます。",
+        "tip5Desc3": "に変更してください。"
+      },
+      "props": {
+        "orientation": "レイアウトの方向",
+        "size": "メニューアイテムのサイズ",
+        "collapsed": "vertical専用: アイコンのみ表示（折りたたみサイドバー）",
+        "width": "vertical専用: サイドバーの幅（px数値またはCSS文字列）",
+        "collapsedWidth": "vertical専用: 折りたたみ時の幅（サイズに応じた自動計算、px数値またはCSS文字列で上書き可）",
+        "radius": "ボーダーラディウス（horizontal: container/item concentric、vertical: 直接適用）",
+        "fontWeight": "メニューアイテムのフォントウェイト（active状態は常にsemibold）",
+        "delayDuration": "horizontal専用: ホバーで開くまでの遅延（ms）",
+        "skipDelayDuration": "horizontal専用: トリガー間移動時のスキップ遅延（ms）",
+        "value": "アクティブメニューアイテムの値（制御モード）",
+        "defaultValue": "デフォルトのアクティブ値（非制御モード）",
+        "onValueChange": "アクティブアイテム変更時のコールバック",
+        "itemValue": "Radix識別子（horizontal用）",
+        "defaultOpen": "vertical専用: サブメニューの初期展開状態",
+        "triggerIcon": "ラベルの前に表示するアイコン",
+        "chevronIcon": "シェブロンアイコンのカスタマイズ（horizontal: ▼、vertical: ▶）",
+        "active": "現在のページを表す（aria-current=\"page\"）",
+        "asChild": "カスタムリンクコンポーネントとの合成（Radix Slot）",
+        "linkIcon": "ラベルの前に表示するアイコン",
+        "href": "リンク先のURL",
+        "groupLabel": "グループヘッダーラベル",
+        "indicatorColor": "インジケーターの色（default=ダーク、primary=ブランド色）"
+      }
+    },
+    "line-chart": {
+      "overview": {
+        "desc": "トレンドや推移を直感的に表現する折れ線グラフコンポーネントです。linear・monotone・step・naturalの4種類の曲線スタイルと、シリーズごとのホバーハイライトをサポートします。"
+      },
+      "composition": {
+        "desc": " は当ライブラリから、その他は Recharts からインポートしてください。",
+        "legendNote": "(複数シリーズ時)",
+        "labelsNote": "(単一シリーズ時)"
+      },
+      "patterns": {
+        "desc": "LineChartの主要な表示パターンです。用途に応じて使い分けてください。",
+        "defaultDesc": "単一シリーズの基本的な折れ線グラフ",
+        "multipleDesc": "複数シリーズを重ねて比較",
+        "stepDesc": "階段状の折れ線グラフ (type=\"step\")",
+        "dashedDesc": "実線と破線の組み合わせ (variant=\"dashed\")"
+      },
+      "tooltipStyles": {
+        "desc1": "Chart.TooltipContentの",
+        "desc2": "propで、ツールチップのインジケーター形状を変更できます。",
+        "dotDesc": "デフォルトのドットインジケーター",
+        "lineDesc": "垂直線のインジケーター",
+        "dashedDesc": "破線のインジケーター"
+      },
+      "struct": {
+        "line": "ライン（type・variant・dot）",
+        "xAxis": "X軸",
+        "yAxis": "Y軸",
+        "tooltip": "ツールチップラッパー",
+        "tooltipContent": "ツールチップ内容",
+        "legend": "レジェンドラッパー",
+        "legendContent": "レジェンド内容"
+      },
+      "anatomy": {
+        "root": "Chartラッパー",
+        "chartArea": "プロットエリア",
+        "xAxis": "水平軸",
+        "yAxis": "垂直軸",
+        "line": "データライン",
+        "dot": "データポイント",
+        "tooltip": "ホバー情報",
+        "grid": "グリッド線",
+        "legend": "シリーズ凡例"
+      },
+      "props": {
+        "config": "チャートの設定オブジェクト (ラベル・カラー定義)",
+        "children": "Rechartsチャートコンポーネント",
+        "id": "チャートのユニークID (CSS変数スコーピング用)",
+        "hoverFade": "ホバーしたシリーズをフルカラーで表示し、それ以外をフェードアウトするハイライト効果を有効にする",
+        "type": "カーブの補間タイプ。monotoneは滑らかな曲線、linearは直線、stepは階段状、naturalは自然なスプライン",
+        "variant": "ラインのスタイル。\"dashed\" は破線で表示",
+        "dot": "データポイントのドット表示",
+        "activeDot": "ホバー時のアクティブドット表示",
+        "indicator": "インジケーターの形状",
+        "hideLabel": "ラベルを非表示にする",
+        "hideIndicator": "インジケーターを非表示にする",
+        "color": "インジケーターの色を直接指定。未指定時はペイロードの色を使用",
+        "labelClassName": "ラベル要素に追加するCSSクラス",
+        "nameKey": "データキーの名前マッピング",
+        "labelKey": "ラベルキーのマッピング",
+        "labelFormatter": "ラベルのカスタムフォーマッター",
+        "formatter": "値のカスタムフォーマッター",
+        "hideIcon": "アイコンを非表示にする",
+        "legendNameKey": "データキーの名前マッピング",
+        "verticalAlign": "垂直位置 (Recharts Legendから自動注入)",
+        "align": "水平位置 (Recharts Legendから自動注入)",
+        "layout": "レイアウト方向 (Recharts Legendから自動注入)",
+        "tick": "軸ラベルのスタイル。デフォルトでデザイントークン (--font-size-2xs, --color-text-subtle) を適用。カスタムオブジェクトで上書き可能",
+        "yAxisWidth": "Y軸の幅。\"auto\"でデータに応じて自動調整。数値で固定幅を指定可能",
+        "spreadProps": "Recharts XAxis / YAxis の全プロパティをそのまま使用可能"
+      },
+      "recipes": {
+        "curveTypesDesc": "カーブ補間の種類",
+        "noDotsDesc": "ドットなしのクリーンなライン"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "時系列データやトレンド表示に使用する",
+        "do2": "accessibilityLayerを必ず有効にする",
+        "do3": "予測値にはvariant=\"dashed\"を使用する",
+        "do4": "デザイントークンのカラーを使用する",
+        "dontTitle": "避けるべき",
+        "dont1": "カテゴリ比較には使用しない (BarChartを推奨)",
+        "dont2": "5シリーズ以上を1つのチャートに詰め込まない",
+        "dont3": "離散データにmonotone補間を使用しない (stepを推奨)",
+        "dont4": "グリッドなしでデータの比較を強制しない"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard1": "チャートエリアにフォーカス",
+        "keyboard2": "データポイント間の移動",
+        "aria1Suffix": " キーボード+SR対応",
+        "aria2": "Tooltipでデータ値をテキストで提供",
+        "aria3": "Legendでシリーズを識別可能",
+        "aria4": "カラートークンでダークモード自動対応"
+      },
+      "related": {
+        "barChartDesc": "カテゴリ比較やランキングの表示に最適",
+        "areaChartDesc": "面積で量の変化を強調表示",
+        "pieChartDesc": "割合や構成比の表示に最適",
+        "metricCardDesc": "単一指標の強調表示"
+      },
+      "peerDep": {
+        "desc1": "Line Chartは",
+        "desc2": " をピア依存関係として使用します。別途インストールが必要です。"
+      },
+      "tailwindDesc": "チャートカラーのカスタマイズ方法",
+      "tips": {
+        "title": "LineChart 実践ガイド",
+        "tip1Desc1": "連続データには",
+        "tip1Desc2": "（滑らかな曲線）、離散データには",
+        "tip1Desc3": "（階段状）を推奨します。",
+        "tip1Desc4": "は直線的に結ぶ最もシンプルな形式です。",
+        "tip2Desc1": "実績値と予測値の組み合わせでは、実績を",
+        "tip2Desc2": "、予測を",
+        "tip2Desc3": "で表示するのが一般的です。視覚的にデータの性質を区別できます。",
+        "tip3Desc1": "データポイントが多い場合は",
+        "tip3Desc2": "でドットを非表示にすると、ラインの流れが見やすくなります。ホバー時のactiveDotは引き続き表示されます。",
+        "tip4Desc1": "Chartはグリッド線をデフォルトで点線に設定します。実線に戻す場合は、Chartに",
+        "tip4Desc2": "を追加してください。"
+      }
+    },
+    "area-chart": {
+      "desc": "面積で量の変化を直感的に表現するエリアチャートコンポーネントです。時系列データの推移や積み上げ比率の表示に適しており、solidとgradientの2スタイルで視覚的な印象を調整できます。",
+      "composition": {
+        "note": " は当ライブラリから、その他は Recharts からインポートしてください。"
+      },
+      "patterns": {
+        "intro": "AreaChartの主要な表示パターンです。用途に応じて使い分けてください。",
+        "defaultDesc": "単一シリーズの基本的なエリアチャート",
+        "multipleDesc": "複数シリーズを重ねて比較",
+        "stackedDesc": "複数シリーズを積み上げて合計を視覚化",
+        "gradientDesc": "グラデーション塗りで深みのある表現"
+      },
+      "tooltipStyles": {
+        "desc1": "Chart.TooltipContentの",
+        "desc2": "propで、ツールチップのインジケーター形状を変更できます。",
+        "dotDesc": "デフォルトのドットインジケーター",
+        "lineDesc": "垂直線のインジケーター",
+        "dashedDesc": "破線のインジケーター"
+      },
+      "struct": {
+        "area": "エリア（type・variant・dot・fillOpacity）",
+        "xAxis": "X軸",
+        "yAxis": "Y軸",
+        "tooltipWrapper": "ツールチップラッパー",
+        "tooltipContent": "ツールチップ内容",
+        "legendWrapper": "レジェンドラッパー",
+        "legendContent": "レジェンド内容"
+      },
+      "anatomy": {
+        "root": "Chartラッパー",
+        "chartArea": "プロットエリア",
+        "xAxis": "水平軸",
+        "yAxis": "垂直軸",
+        "areaFill": "塗りつぶし領域",
+        "areaLine": "エリア上端ライン",
+        "tooltip": "ホバー情報",
+        "grid": "グリッド線",
+        "legend": "シリーズ凡例"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "ChartConfigでラベルとカラーを一元管理する",
+        "do2": "accessibilityLayerを必ず有効にする",
+        "do3": "積み上げエリアではstackIdを統一する",
+        "do4": "gradientで視覚的な深みを加える",
+        "dontTitle": "避けるべき",
+        "dont1": "ハードコードされたカラー値を直接使用しない",
+        "dont2": "コンテナサイズなしでチャートを配置しない",
+        "dont3": "5シリーズ以上を1つのチャートに詰め込まない",
+        "dont4": "stackedで不透明度を高くしすぎて重なりが見えなくならないようにする"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard1": "チャートエリアにフォーカス",
+        "keyboard2": "データポイント間の移動",
+        "aria1": " キーボード+SR対応",
+        "aria2": "Tooltipでデータ値をテキストで提供",
+        "aria3": "Legendでシリーズを識別可能",
+        "aria4": "カラートークンでダークモード自動対応"
+      },
+      "related": {
+        "lineChartDesc": "トレンドや推移の表示に最適",
+        "barChartDesc": "カテゴリ比較やランキングの表示に最適",
+        "pieChartDesc": "割合や構成比の表示に最適",
+        "metricCardDesc": "単一指標の強調表示"
+      },
+      "peerDep": {
+        "desc1": "Area Chartは",
+        "desc2": " をピア依存関係として使用します。別途インストールが必要です。"
+      },
+      "tailwindDesc": "チャートカラーのカスタマイズ方法",
+      "tips": {
+        "intro": "AreaChart 実践ガイド",
+        "chartConfigDesc": "ChartConfigでラベルとカラーを定義すると、Tooltip・Legend・Chart.Styleが自動でカラーを解決します。ハードコードは不要です。",
+        "gradientDesc1": "Chart.Areaに",
+        "gradientDesc2": "を渡すとSVG linearGradientが自動生成されます。上部が不透明、下部が透明のグラデーションで深みのある表現が可能です。",
+        "stackingDesc1": "複数のChart.Areaに同じ",
+        "stackingDesc2": "を渡すと積み上げエリアチャートになります。",
+        "a11yDesc1": "AreaChartに",
+        "a11yDesc2": "を渡すとキーボード操作とスクリーンリーダー対応が有効になります。"
+      },
+      "props": {
+        "container": {
+          "config": "チャートの設定オブジェクト (ラベル・カラー定義)",
+          "children": "Rechartsチャートコンポーネント",
+          "id": "チャートのユニークID (CSS変数スコーピング用)",
+          "hoverFade": "ホバーしたシリーズをフルカラーで表示し、それ以外をフェードアウトするハイライト効果を有効にする"
+        },
+        "tooltipContent": {
+          "indicator": "インジケーターの形状",
+          "hideLabel": "ラベルを非表示にする",
+          "hideIndicator": "インジケーターを非表示にする",
+          "color": "インジケーターの色を直接指定。未指定時はペイロードの色を使用",
+          "labelClassName": "ラベル要素に追加するCSSクラス",
+          "nameKey": "データキーの名前マッピング",
+          "labelKey": "ラベルキーのマッピング",
+          "labelFormatter": "ラベルのカスタムフォーマッター",
+          "formatter": "値のカスタムフォーマッター"
+        },
+        "legendContent": {
+          "hideIcon": "アイコンを非表示にする",
+          "nameKey": "データキーの名前マッピング",
+          "verticalAlign": "垂直位置 (Recharts Legendから自動注入)",
+          "align": "水平位置 (Recharts Legendから自動注入)",
+          "layout": "レイアウト方向 (Recharts Legendから自動注入)"
+        },
+        "chartArea": {
+          "type": "曲線の補間方式",
+          "variant": "塗りのスタイル。\"gradient\" はSVG linearGradientを自動生成",
+          "dot": "データポイントのドットを表示",
+          "activeDot": "ホバー時に強調ドットを表示",
+          "fillOpacity": "領域の不透明度 (0–1)。gradient variantでは無視される"
+        },
+        "chartAxis": {
+          "tick": "軸ラベルのスタイル。デフォルトでデザイントークン (--font-size-2xs, --color-text-subtle) を適用。カスタムオブジェクトで上書き可能",
+          "width": "Y軸の幅。\"auto\"でデータに応じて自動調整。数値で固定幅を指定可能",
+          "spreadProps": "Recharts XAxis / YAxis の全プロパティをそのまま使用可能"
+        }
+      }
+    },
+    "bar-chart": {
+      "desc": "データの比較や推移を直感的に表現する棒グラフコンポーネントです。縦棒・横棒のレイアウト切り替え、グループ・積み上げ表示、バーへのラベル表示など、豊富な表現オプションを備えています。",
+      "composition": {
+        "note": " は当ライブラリから、その他は Recharts からインポートしてください。"
+      },
+      "patterns": {
+        "intro": "BarChartの主要な表示パターンです。用途に応じて使い分けてください。",
+        "defaultDesc": "単一シリーズの基本的な棒グラフ",
+        "multipleDesc": "複数シリーズを並べて比較",
+        "stackedDesc": "複数シリーズを積み上げて合計を視覚化",
+        "horizontalDesc": "横方向の棒グラフ (layout=\"vertical\")"
+      },
+      "tooltipStyles": {
+        "desc1": "Chart.TooltipContentの",
+        "desc2": "propで、ツールチップのインジケーター形状を変更できます。",
+        "dotDesc": "デフォルトのドットインジケーター",
+        "lineDesc": "垂直線のインジケーター",
+        "dashedDesc": "破線のインジケーター"
+      },
+      "struct": {
+        "bar": "バー（radius・variant・layout・stackPosition）",
+        "xAxis": "X軸",
+        "yAxis": "Y軸",
+        "tooltipWrapper": "ツールチップラッパー",
+        "tooltipContent": "ツールチップ内容",
+        "legendWrapper": "レジェンドラッパー",
+        "legendContent": "レジェンド内容"
+      },
+      "anatomy": {
+        "root": "Chartラッパー",
+        "chartArea": "プロットエリア",
+        "xAxis": "水平軸",
+        "yAxis": "垂直軸",
+        "bar": "データバー",
+        "tooltip": "ホバー情報",
+        "grid": "グリッド線",
+        "legend": "シリーズ凡例"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "ChartConfigでラベルとカラーを一元管理する",
+        "do2": "accessibilityLayerを必ず有効にする",
+        "do3": "min-hまたはaspect-videoでコンテナサイズを指定する",
+        "do4": "デザイントークンのカラーを使用する",
+        "dontTitle": "避けるべき",
+        "dont1": "ハードコードされたカラー値を直接使用しない",
+        "dont2": "コンテナサイズなしでチャートを配置しない",
+        "dont3": "5シリーズ以上を1つのチャートに詰め込まない",
+        "dont4": "グリッドなしでデータの比較を強制しない"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard1": "チャートエリアにフォーカス",
+        "keyboard2": "データポイント間の移動",
+        "aria1": " キーボード+SR対応",
+        "aria2": "Tooltipでデータ値をテキストで提供",
+        "aria3": "Legendでシリーズを識別可能",
+        "aria4": "カラートークンでダークモード自動対応"
+      },
+      "related": {
+        "lineChartDesc": "トレンドや推移の表示に最適",
+        "areaChartDesc": "面積で量の変化を強調表示",
+        "pieChartDesc": "割合や構成比の表示に最適",
+        "metricCardDesc": "単一指標の強調表示"
+      },
+      "peerDep": {
+        "desc1": "Bar Chartは",
+        "desc2": " をピア依存関係として使用します。別途インストールが必要です。"
+      },
+      "tailwindDesc": "チャートカラーのカスタマイズ方法",
+      "tips": {
+        "intro": "BarChart 実践ガイド",
+        "chartConfigDesc": "ChartConfigでラベルとカラーを定義すると、Tooltip・Legend・Chart.Styleが自動でカラーを解決します。ハードコードは不要です。",
+        "containerSizingDesc1": "Chartはデフォルトで",
+        "containerSizingDesc2": "（16:9）を適用します。",
+        "containerSizingDesc3": "は内部の",
+        "containerSizingDesc4": "が高さを0と計算するエッジケースを防ぐ安全策です。固定高さにしたい場合は",
+        "containerSizingDesc5": "のように指定してください。",
+        "a11yDesc1": "BarChartに",
+        "a11yDesc2": "を渡すとキーボード操作とスクリーンリーダー対応が有効になります。",
+        "stackedRadiusDesc1": "積み上げバーでは、最下段に",
+        "stackedRadiusDesc2": "、最上段に",
+        "stackedRadiusDesc3": "を設定すると自然な角丸になります。",
+        "gridLineDesc1": "Chartはグリッド線をデフォルトで点線に設定します。実線に戻す場合は、Chartに",
+        "gridLineDesc2": "を追加してください。"
+      },
+      "props": {
+        "container": {
+          "config": "チャートの設定オブジェクト (ラベル・カラー定義)",
+          "children": "Rechartsチャートコンポーネント",
+          "id": "チャートのユニークID (CSS変数スコーピング用)",
+          "hoverFade": "ホバーしたバーグループをフルカラーで表示し、それ以外をフェードアウトするハイライト効果を有効にする"
+        },
+        "tooltipContent": {
+          "indicator": "インジケーターの形状",
+          "hideLabel": "ラベルを非表示にする",
+          "hideIndicator": "インジケーターを非表示にする",
+          "color": "インジケーターの色を直接指定。未指定時はペイロードの色を使用",
+          "labelClassName": "ラベル要素に追加するCSSクラス",
+          "nameKey": "データキーの名前マッピング",
+          "labelKey": "ラベルキーのマッピング",
+          "labelFormatter": "ラベルのカスタムフォーマッター",
+          "formatter": "値のカスタムフォーマッター"
+        },
+        "legendContent": {
+          "hideIcon": "アイコンを非表示にする",
+          "nameKey": "データキーの名前マッピング",
+          "verticalAlign": "垂直位置 (Recharts Legendから自動注入)",
+          "align": "水平位置 (Recharts Legendから自動注入)",
+          "layout": "レイアウト方向 (Recharts Legendから自動注入)"
+        },
+        "chartBar": {
+          "variant": "バーのスタイル。\"outline\" は太い枠線と半透明の塗りで表示",
+          "radius": "角丸サイズ。デザイントークン (--radius-*) に対応した名前付きバリアント",
+          "layout": "チャートの方向。\"horizontal\" では右側 (Y軸と反対側) に角丸を適用",
+          "stackPosition": "積み上げバーの位置。\"bottom\" では下側の角丸を適用"
+        },
+        "chartAxis": {
+          "tick": "軸ラベルのスタイル。デフォルトでデザイントークン (--font-size-2xs, --color-text-subtle) を適用。カスタムオブジェクトで上書き可能",
+          "width": "Y軸の幅。\"auto\"でデータに応じて自動調整。数値で固定幅を指定可能",
+          "spreadProps": "Recharts XAxis / YAxis の全プロパティをそのまま使用可能"
+        }
+      }
+    },
+    "pie-chart": {
+      "desc": "割合や構成比を直感的に表現する円グラフコンポーネントです。Pie（円）とDonut（ドーナツ）の2バリアントがあり、ラベル位置や中央テキストも自由にカスタマイズできます。",
+      "composition": {
+        "note": "Chart.* は当ライブラリから、その他は Recharts からインポートしてください。",
+        "centerLabel": "CSSオーバーレイ（donutのみ）"
+      },
+      "patterns": {
+        "desc": "PieChartの主要な表示パターンです。用途に応じて使い分けてください。",
+        "default": "基本的な円グラフ",
+        "donut": "ドーナツ型 + 中央ラベル",
+        "labeled": "外部ラベル + 凡例付き",
+        "styled": "パディング + 角丸のスタイル付きドーナツ"
+      },
+      "tooltipStyles": {
+        "desc": "Chart.TooltipContentのindicatorpropで、ツールチップのインジケーター形状を変更できます。",
+        "dot": "デフォルトのドットインジケーター",
+        "line": "垂直線のインジケーター",
+        "dashed": "破線のインジケーター"
+      },
+      "struct": {
+        "pie": "パイ（variant・label・activeShape）",
+        "tooltip": "ツールチップラッパー",
+        "tooltipContent": "ツールチップ内容",
+        "legend": "レジェンドラッパー",
+        "legendContent": "レジェンド内容"
+      },
+      "customization": {
+        "desc": "ドーナツ型の中央ラベルはCSSオーバーレイで実装するため、HTMLコンテンツを自由にカスタマイズできます。",
+        "numLabel": "数値 + ラベル",
+        "iconPercent": "アイコン + パーセント",
+        "rich": "リッチコンテンツ",
+        "tip": "中央ラベルはCSSオーバーレイ（absolute + pointer-events-none）で実装するため、テキスト・アイコン・カスタムコンポーネントなど、あらゆるHTMLコンテンツを自由に配置できます。"
+      },
+      "anatomy": {
+        "root": "Chartラッパー",
+        "chartArea": "プロットエリア",
+        "segment": "データスライス",
+        "label": "スライスラベル",
+        "tooltip": "ホバー情報",
+        "legend": "シリーズ凡例",
+        "center": "ドーナツ中央"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "スライス数は5〜6個以内に抑える",
+        "do2": "ドーナツ型で中央に合計値やKPIを表示する",
+        "do3": "Tooltipで正確な数値を提供する",
+        "do4": "Legendで各スライスを識別可能にする",
+        "do5": "accessibilityLayerを必ず有効にする",
+        "dontTitle": "避けるべき",
+        "dont1": "7個以上のスライスで使わない（BarChartの方が適切）",
+        "dont2": "類似した値が多い場合は避ける（差が見えない）",
+        "dont3": "時系列データには使わない（LineChart推奨）",
+        "dont4": "色だけで区別させない（Legendやラベルを併用）"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard1": "チャートエリアにフォーカス",
+        "keyboard2": "スライス間の移動",
+        "aria1": "Tooltipでデータ値をテキストで提供",
+        "aria2": "Legendでスライスを識別可能",
+        "aria3": "カラートークンでダークモード自動対応",
+        "aria4": "activeShapeでホバーフィードバック提供",
+        "aria5": "キーボード+SR対応"
+      },
+      "related": {
+        "barChart": "カテゴリ比較やランキングの表示に最適",
+        "lineChart": "トレンドや推移の表示に最適",
+        "areaChart": "面積で量の変化を強調表示",
+        "metricCard": "単一指標の強調表示"
+      },
+      "peerDep": "Pie Chartは recharts をピア依存関係として使用します。別途インストールが必要です。",
+      "tailwindDesc": "チャートカラーのカスタマイズ方法",
+      "tips": {
+        "desc": "PieChart 実践ガイド",
+        "fill": "各データオブジェクトにfillプロパティを含めると、ChartConfigのカラーが各スライスに自動適用されます。",
+        "donut": "CSSオーバーレイ（absolute + pointer-events-none）で中央にKPIや合計値を自由に配置できます。",
+        "hideLabel": "PieChartでは通常<Chart.TooltipContent hideLabel />を使用します。Pieのデータ構造ではlabelが不要です。",
+        "nameKey": "Chart.LegendContentにnameKey=\"name\"を渡すと、凡例がデータのnameフィールドを正しく表示します。",
+        "accessibilityLayer": "キーボード操作とスクリーンリーダー対応が有効になります。必ず設定してください。"
+      },
+      "props": {
+        "container": {
+          "config": "チャートの設定オブジェクト (ラベル・カラー定義)",
+          "children": "Rechartsチャートコンポーネント",
+          "id": "チャートのユニークID (CSS変数スコーピング用)"
+        },
+        "tooltipContent": {
+          "indicator": "インジケーターの形状",
+          "hideLabel": "ラベルを非表示にする",
+          "hideIndicator": "インジケーターを非表示にする",
+          "color": "インジケーターの色を直接指定",
+          "nameKey": "データキーの名前マッピング",
+          "labelKey": "ラベルキーのマッピング",
+          "labelFormatter": "ラベルのカスタムフォーマッター",
+          "formatter": "値のカスタムフォーマッター"
+        },
+        "legendContent": {
+          "hideIcon": "アイコンを非表示にする",
+          "nameKey": "データキーの名前マッピング",
+          "verticalAlign": "垂直位置",
+          "align": "水平位置",
+          "layout": "レイアウト方向"
+        },
+        "pie": {
+          "variant": "形状。\"donut\" は innerRadius を自動設定",
+          "label": "ラベル位置。outside=引き出し線、inside=スライス内部 (小さいスライスは自動非表示)",
+          "labelContent": "ラベルに表示する内容",
+          "activeShape": "ホバー時にスライスを拡大する効果",
+          "innerRadius": "内側の半径。variant で自動設定されるが、直接上書きも可能",
+          "paddingAngle": "スライス間の間隔 (度)",
+          "cornerRadius": "スライスの角丸",
+          "startAngle": "開始角度 (90 = 12時方向)",
+          "endAngle": "終了角度"
+        }
+      }
+    },
+    "metric-card": {
+      "desc": "MetricCardは、KPIや重要指標をダッシュボードで見やすく表示するコンポーネントです。タイトル、数値、トレンドインジケーター、説明テキスト、アイコンを自由に組み合わせて使えます。",
+      "sizes": {
+        "thPadding": "パディング",
+        "thValue": "数値",
+        "thTitle": "タイトル",
+        "thIcon": "アイコン",
+        "thValueFont": "数値フォント",
+        "responsiveLabel": "レスポンシブ：",
+        "responsiveTip": "default・lgサイズはモバイル（640px未満）で自動的にパディングが一段階小さくなります。smサイズは固定値です。"
+      },
+      "features": {
+        "gridPreviewDesc1": "ダッシュボードでの実際の表示イメージ。",
+        "gridPreviewDesc2": "レイアウトでの使用例です。",
+        "trendDesc": "トレンドインジケーターは方向に応じてアイコンとカラーが自動適用されます。色覚多様性に配慮し、アイコン＋テキストで意味を伝えます。"
+      },
+      "struct": {
+        "header": "ヘッダー領域（Title + Symbol横並び）",
+        "title": "メトリクスラベル",
+        "symbol": "アイコン表示領域",
+        "value": "数値表示（animated対応）",
+        "trend": "増減トレンド（direction）",
+        "description": "補足テキスト"
+      },
+      "recipes": {
+        "withIcon": "アイコン付きヘッダー",
+        "fullCard": "全要素表示"
+      },
+      "anatomy": {
+        "root": "ルートコンテナ",
+        "header": "ヘッダー部",
+        "title": "カードタイトル",
+        "symbol": "シンボルアイコン",
+        "value": "大きな数値",
+        "trend": "トレンド指標",
+        "description": "補足テキスト"
+      },
+      "bestPractices": {
+        "doTitle": "推奨",
+        "do1": "トレンドには色＋アイコン＋テキストを併用する",
+        "do2": "グリッドレイアウトでカードを均等に配置する",
+        "do3": "数値は読みやすいフォーマットで表示する（カンマ区切り等）",
+        "do4": "比較期間を説明テキストで明示する",
+        "dontTitle": "避けるべき",
+        "dont1": "色だけでトレンドの方向を伝えない（色覚多様性に配慮）",
+        "dont2": "1画面に多すぎるメトリックカードを配置しない",
+        "dont3": "コンテキストなしの数値だけを表示しない",
+        "dont4": "異なるサイズのカードを同じグリッドに混在させない"
+      },
+      "a11y": {
+        "keyboardTitle": "キーボード操作",
+        "keyboard1": "フォーカス移動",
+        "aria1Before": "トレンドアイコンは",
+        "aria1After": "+ sr-onlyテキスト",
+        "aria2": "色だけでなくアイコン＋テキストで意味を伝達",
+        "aria3": "自然な読み上げ順序（タイトル→数値→トレンド→説明）",
+        "aria4": "WCAG AA色彩コントラスト準拠"
+      },
+      "related": {
+        "barChart": "カテゴリ比較やランキングの表示に最適",
+        "lineChart": "トレンドや推移の表示に最適",
+        "areaChart": "面積で量の変化を強調表示",
+        "pieChart": "割合や構成比の表示に最適",
+        "card": "汎用カードレイアウト"
+      },
+      "tailwindDesc": "環境に合わせたスタイル適用方法",
+      "tips": {
+        "desc": "MetricCard 実践ガイド",
+        "compound": "必要なサブコンポーネントだけを組み合わせてください。MetricCard.Title + MetricCard.Valueだけでも機能します。",
+        "gridDesc1": "ダッシュボードでは",
+        "gridDesc2": "で2×2または4列配置が最適です。",
+        "formatDesc1": "大きな数値は",
+        "formatDesc2": "やK/M接尾辞で読みやすくフォーマットしてください。",
+        "context": "MetricCard.Descriptionで比較期間（\"vs last month\"等）を明示すると、数値の文脈が伝わりやすくなります。"
+      },
+      "props": {
+        "metricCard": {
+          "variant": "カードのスタイルバリアント",
+          "size": "カードのサイズ (パディング・フォントサイズに影響)",
+          "radius": "カードの角丸サイズ (デザイントークン準拠)",
+          "animated": "MetricCard.Valueの数値をカウントアップでアニメーション表示"
+        },
+        "trend": {
+          "direction": "トレンドの方向 (必須)。アイコンと色が自動適用"
+        }
+      }
+    },
+    "design-tokens-overview": {
+      "description": "トークンを変えるだけで、デザインのすべてが変わる。テーマもカスタマイズも、驚くほどシンプル",
+      "tokens": {
+        "colors": "ブランドカラーからUI用途別カラーまで",
+        "typography": "書体、サイズ、太さの組み合わせ",
+        "spacing": "要素間の余白とレイアウト間隔",
+        "shadows": "UIの深さと浮き上がりを表現",
+        "radius": "角の丸みで柔らかさを調整",
+        "borderWidth": "境界線の太さで強調レベルを制御",
+        "breakpoints": "画面サイズに応じたレイアウト切替",
+        "zIndex": "要素の重なり順を管理",
+        "opacity": "要素の透明度で視覚的な階層を表現",
+        "iconSizes": "用途別に最適化された6段階サイズ",
+        "duration": "アニメーションの速さを統一",
+        "easing": "動きの加速・減速カーブ",
+        "scale": "押下やアニメーションの拡縮効果",
+        "animation": "UI要素の出現・状態遷移モーション"
+      },
+      "stats": {
+        "categories": "トークンカテゴリ",
+        "semanticColors": "セマンティックカラー",
+        "typeScale": "タイポスケール",
+        "figmaSync": "Figma同期"
+      },
+      "ssot": {
+        "desc1Before": "すべてのデザイントークンは",
+        "desc1After": "を基準として管理されています。",
+        "desc2After": "を実行すると、すべての配布ファイルが自動生成されます。"
+      }
+    },
+    "design-tokens-installation": {
+      "desc": "色・スペーシング・タイポグラフィなどのデザイン値を、どの環境でも同じように使えるトークンパッケージ。",
+      "tabTokens": "トークン",
+      "tabFonts": "フォント",
+      "cssBadge": "CSS変数のみ",
+      "individualImport": "個別インポート",
+      "cssNoteAfter": " を追加すると、セマンティックカラーが自動的にダークテーマに切り替わります。",
+      "noConfigBadge": "設定ファイル不要",
+      "v4NoteAfter1": " がないと",
+      "v4NoteAfter2": " や ",
+      "v4NoteAfter3": " 等のクラスが使えません。",
+      "v3Badge": "CSS + プリセット",
+      "v3NotePart1": "プリセットは",
+      "v3NotePart2": " を使用するため、既存のTailwindクラスはそのまま維持されます。",
+      "v3NotePart3": " ※ v3でもセマンティックカラーの opacity modifier（",
+      "v3NotePart4": " 等）に対応しています。RGB チャンネル変数を使用してアルファ値を適用します。",
+      "jsBadge": "静的値",
+      "jsNotePart1": "ESM（",
+      "jsNotePart2": "）と CJS（",
+      "jsNotePart3": "）の両方に対応。TypeScript型定義も同梱されています。",
+      "usageDesc": "使用可能なトークンと形式を確認してください。",
+      "semanticLabel": "セマンティック vs プリミティブ:",
+      "semanticNoteAfter1": "プリミティブ（",
+      "semanticNoteAfter2": "等）は固定値。セマンティック（",
+      "semanticNoteAfter3": "等）はlight/darkテーマで切り替わります。",
+      "jsExportLabel": "JS export:",
+      "jsExportAfter1": "プリミティブ値（静的）のみ。",
+      "jsExportAfter2": " はテーマで値が変わるため JS では使用不可。CSS変数を使用してください。TypeScript型定義（18種）同梱。",
+      "packageDesc1": "用途に応じて必要なファイルをインポートします。すべて",
+      "packageDesc2": "で自動生成されます。",
+      "packageSubtitle": "9配布ファイル + CLI + ソース",
+      "cssAllDesc": "オールインワンバンドル",
+      "cssVarsDesc": "全プリミティブ変数",
+      "lightThemeDesc": "ライトテーマ",
+      "darkThemeDesc": "ダークテーマ",
+      "recommended": "推奨",
+      "twV4AllDesc": "v4 オールインワン",
+      "twV3PresetDesc": "v3 プリセット",
+      "twV4ThemeDesc": "v4 テーマ定義",
+      "tsTypesDesc": "TypeScript 型",
+      "flatJsonDesc": "フラット JSON",
+      "ssotDesc": "唯一の編集対象ファイル",
+      "packageFooterAfter1": " を編集 → ",
+      "packageFooterAfter2": " で9ファイルすべてが自動再生成されます。",
+      "syncHeaderDesc": "Figmaでデザインを更新 → CLIひとつで全ファイルに反映",
+      "stepDesignDesc": "デザイン編集",
+      "stepExportDesc": "エクスポート",
+      "stepOutputDesc": "9ファイル",
+      "mobileStep1Desc": "デザインを編集",
+      "mobileStep2Desc": "トークンをエクスポート",
+      "mobileStep3Desc": "npx sync-tokens を実行",
+      "mobileStep4Desc": "9ファイルを自動生成",
+      "dryRunDesc": "実際のファイル書き込みなしで変更内容をプレビュー",
+      "forceDesc": "破壊的変更の確認プロンプトをスキップ",
+      "inputDesc": "figma-tokens.json のパス（デフォルト: ./figma-tokens.json）",
+      "outputDesc": "出力ディレクトリ（デフォルト: ./）",
+      "breakingDescBefore": "既存の",
+      "breakingDescAfter": " がある場合、sync-tokens は自動的に変更を検出し、差分を表示します。",
+      "breakingItem1Label": "Diff表示",
+      "breakingItem1Desc": "追加・変更・削除・リネームを色分けで視覚化",
+      "breakingItem2Label": "確認プロンプト",
+      "breakingItem2Desc": "破壊的変更（削除・リネーム）がある場合、実行前に確認を要求",
+      "breakingItem3Label": "後方互換エイリアス",
+      "breakingItem3Desc": "リネーム検出時に css/deprecated.css を自動生成。既存の参照が壊れません。",
+      "breakingFooterAfter1": " で事前に差分だけ確認、",
+      "breakingFooterAfter2": " で確認プロンプトをスキップできます。",
+      "tokensStudioTitle": "Tokens Studio セットアップ",
+      "tokensStudioStep1": "FigmaコミュニティからTokens Studioプラグインをインストール",
+      "tokensStudioStep2": "リポジトリの figma-tokens.json をプラグインにインポート",
+      "tokensStudioStep3": "GitHub同期を設定するとデザインとコードのトークンを自動同期（オプション）",
+      "fontsDesc": "トークンのデフォルトフォント（Inter + Fira Code）と、ロケール別CJKフォントのセットアップ方法。",
+      "baseDescBefore": "すべてのユーザーに共通のベースフォント。トークンの",
+      "baseDescAfter": "に定義されています。",
+      "interDesc": "Sans-serif — UI全般",
+      "firaCodeDesc": "Monospace — コードブロック",
+      "installMethodsTitle": "インストール方法を選択",
+      "installMethodsSubtitle": "環境に合わせていずれか1つを選択してください。",
+      "fontsourceBadge": "セルフホスティング",
+      "fontsourceNote": "プリセットの fontFamily がそのまま適用されるため、Tailwind側の追加設定は不要です。",
+      "cdnBadge": "追加設定不要",
+      "cdnNote": "CDN利用時はプリセットの fontFamily がそのまま適用されるため、追加設定は不要です。",
+      "nextFontNoteBefore": "next/fontはフォントを固有名（",
+      "nextFontNoteAfter": "）で登録するため、CSS変数を通じたオーバーライドが必要です。",
+      "filenameLayoutOrMain": "app/layout.tsx または main.ts",
+      "japaneseDesc": "日本語ロケールでは、Baseに加えて以下の2ステップが必要です。",
+      "loadNotoJPTitle": "Noto Sans JP を読み込む",
+      "loadFontSubtitle": "Baseで選んだ方法と同じものを使用",
+      "localeOverrideTitle": "Locale Override CSS を追加",
+      "localeOverrideSubtitle": "必須 — フォントの読み込みだけでは適用されません。",
+      "langAttrNotePart1": " の ",
+      "langAttrNotePart2": " 属性に基づいて自動的にフォントが切り替わります。",
+      "koreanDesc": "韓国語ロケールでは、Baseに加えて以下の2ステップが必要です。",
+      "loadNotoKRTitle": "Noto Sans KR を読み込む",
+      "customFontsDesc": "独自のフォントを使用する場合、CSS変数をオーバーライドするだけでデザインシステム全体に反映されます。",
+      "customFontsNotePart1": "Tailwindの ",
+      "customFontsNotePart2": "、CSSの ",
+      "customFontsNotePart3": " など、すべてのトークン参照が自動的にカスタムフォントに切り替わります。"
+    },
+    "design-tokens-colors": {
+      "pageDesc": "Primitive Colorが基本パレットを、Semantic Colorがテーマ対応の配色を提供する2層構造。CSS変数ベースでフレームワーク非依存です。",
+      "primitiveDesc": "基礎となるカラーパレット。これらの値はSemantic Tokenから参照されます。",
+      "customizableTitle": "カスタマイズ可能",
+      "customizableDescBefore": "ブランドに合わせて自由にカスタマイズ可能です。実装時は",
+      "customizableDescAfter": "などのSemantic Token経由でご利用ください。",
+      "semanticDesc": "ライトモードとダークモード間で自動的に適応するテーマ対応カラー。同じCSS変数が各モードで異なる値を持ちます。",
+      "tokenFormatLabel": "トークン形式",
+      "modeDescFigma": "デザイナーがFigmaで使用するトークン名",
+      "modeDescTailwind": "開発者がコードで直接使用するクラス",
+      "modeDescCss": "Tailwindなしで直接使用可能なCSS変数",
+      "modeDescHex": "実際のカラー値",
+      "semanticBgDesc": "ページやカードの背景色。4階層で深度を表現",
+      "semanticBorderDesc": "区切り線、入力フィールドの枠線",
+      "semanticTextDesc": "テキストの階層（本文、補足、リンクなど）",
+      "semanticPrimaryDesc": "主要なアクションボタン、リンク、強調",
+      "semanticSecondaryDesc": "セカンダリボタン、補助的なUI要素",
+      "semanticStatusDesc": "成功・警告・エラー・情報の状態表示",
+      "primitiveGray": "背景、ボーダー、テキストなど、UIの基盤となるニュートラルカラー。ダークモード最適化設計",
+      "primitivePrimary": "ブランドカラー。主要なアクション、リンク、強調に使用",
+      "primitiveSecondary": "セカンダリアクション、補助的なUI要素に使用",
+      "primitiveBlue": "情報、リンク、進行中の状態を表すInfoカラー",
+      "primitiveGreen": "成功、完了、肯定的な状態を表すSuccessカラー",
+      "primitiveYellow": "警告、注意が必要な状態を表すWarningカラー",
+      "primitiveRed": "エラー、削除、危険な操作を表すErrorカラー",
+      "tokenMappingDesc": "Figma → CSS → Tailwind の3段階マッピング",
+      "namingRuleTitle": "CSS → Tailwind 命名ルール",
+      "namingRuleDesc": "を除いた部分がそのままTailwindクラス名になります。",
+      "namingBasicLabel": "基本",
+      "namingConversionLabel": "CSS × Tailwind 命名変換",
+      "namingSameNameTitle": "同名",
+      "namingSameNameDesc": "CSSプレフィックスとTailwindユーティリティが同名",
+      "namingTailwindStdTitle": "Tailwind 標準",
+      "namingTailwindStdDesc": "Tailwindエコシステムの標準パターンに合わせたエイリアス",
+      "namingNote": "shadcn/ui 等が採用する開発者向けの短縮命名とは目的が異なり、Figma → コード 1:1 同期により、デザイナーと開発者が同じトークン名で会話できる命名体系です。",
+      "usageDesc": "コンポーネントとカラートークンの実践的な使い方",
+      "tailwindCssDesc": "環境に合わせたカラー適用方法",
+      "tipsDesc": "カラートークン 実践ガイド",
+      "tip1Desc": "の代わりにセマンティックトークンを使うとテーマ切り替えに対応できます。",
+      "tip2Desc": "のようなハードコードはダークモードで見えなくなります。",
+      "tip3Desc": "はテーマに追従しないため、トークンの方が安全です。",
+      "tip4Desc": "Tailwind外の環境ではCSS変数で同じトークンにアクセスできます。",
+      "usageCode_bgTokens": "背景トークン",
+      "usageCode_bgLayers": "背景の階層: background → paper → elevated",
+      "usageCode_title": "タイトル",
+      "usageCode_supplemental": "補足テキスト",
+      "usageCode_link": "リンク",
+      "usageCode_statusColors": "ステータスカラー",
+      "usageCode_primaryText": "プライマリテキスト",
+      "usageCode_infoText": "情報テキスト",
+      "usageCode_saved": "保存しました",
+      "usageCode_error": "エラーがあります",
+      "usageCode_warning": "注意が必要です",
+      "usageCode_componentAuto": "コンポーネントはカラーが自動適用",
+      "usageCode_defaultDark": "defaultカラー（ダーク）",
+      "usageCode_primaryColor": "primary カラー",
+      "usageCode_secondaryColor": "secondary カラー",
+      "tokenCode_pageBg": "ページ背景",
+      "tokenCode_cardPanel": "カード、パネル",
+      "tokenCode_modalPopover": "モーダル、ポップオーバー",
+      "tokenCode_subsection": "サブセクション",
+      "tokenCode_body": "本文",
+      "tokenCode_supplemental": "補足テキスト",
+      "tokenCode_hint": "ヒント",
+      "tokenCode_link": "リンク",
+      "tokenCode_primaryText": "プライマリテキスト",
+      "tokenCode_infoText": "情報テキスト",
+      "tokenCode_successText": "成功テキスト",
+      "tokenCode_errorText": "エラーテキスト",
+      "tokenCode_warningText": "警告テキスト",
+      "tokenCode_default": "デフォルト",
+      "tokenCode_hover": "ホバー",
+      "tokenCode_active": "アクティブ",
+      "tokenCode_lightBgBadgeAlert": "淡い背景 (Badge, Alert)",
+      "tokenCode_primaryOnText": "プライマリ上のテキスト",
+      "tokenCode_lightBg": "淡い背景",
+      "tokenCode_strong": "強調",
+      "tokenCode_subtle": "控えめ",
+      "tokenCode_series1": "データ系列 1 (Blue)",
+      "tokenCode_series2": "データ系列 2 (Pink)",
+      "tokenCode_series3": "データ系列 3 (Lavender)",
+      "tokenCode_series4": "データ系列 4 (Sky)",
+      "tokenCode_series5": "データ系列 5 (Rose)",
+      "tokenCode_transparency": "透明度は color-mix() を使用"
+    },
+    "design-tokens-typography": {
+      "pageDesc": "ウェブ標準16pxをベースにしたタイプスケール。CJK最適化の13px（text-sm）も含まれています。",
+      "bannerBase": "ウェブ標準 (1rem)",
+      "bannerCjk": "CJK可読性最適化",
+      "fontFamilyDesc": "ベースフォント（Inter）+ ロケール別CJKフォント構成",
+      "fontFamilyUsage_base": "デフォルト（トークン値そのまま）",
+      "fontFamilyUsage_ja": "日本語ロケール（CSS override）",
+      "fontFamilyUsage_ko": "韓国語ロケール（CSS override）",
+      "fontFamilyUsage_mono": "コード、技術的な値",
+      "typeScaleDesc": "クリックしてコピー。11pxから48pxまでの11段階タイプスケール",
+      "typeScaleInfo": "各サイズに最適な行高（line-height）が自動的に含まれています。",
+      "typeScaleInfoBold": "別途設定は不要です。",
+      "lineHeightLabel": "行高",
+      "copiedText": "コピー完了!",
+      "copyButtonTitle": "クリックしてコピー",
+      "fontWeightDesc": "3つの基本ウェイトのみを使用して一貫性を維持",
+      "fontWeightUsage_normal": "本文、説明",
+      "fontWeightUsage_semibold": "サブ見出し、ボタン",
+      "fontWeightUsage_bold": "見出し、強調",
+      "semanticStylesDesc": "用途別に定義されたテキストスタイル",
+      "semanticStylesInfo": "一般的な規約です。",
+      "semanticStylesInfoBody": "コンテキストに応じてType Scaleの任意のサイズを自由に使用できます。",
+      "tableTag": "タグ",
+      "tableLineHeight": "行高",
+      "tableWeight": "ウェイト",
+      "tableName": "名前",
+      "previewHeading": "見出し",
+      "previewBody": "本文テキスト",
+      "previewLabel": "ラベル",
+      "previewCaption": "キャプションテキスト",
+      "interactiveTextLabel": "テキスト",
+      "interactivePlaceholder": "プレビューテキストを入力",
+      "interactiveSizeLabel": "サイズ",
+      "interactiveWeightLabel": "ウェイト",
+      "interactiveDefaultText": "テキストを入力してください",
+      "interactiveInitialText": "デザインシステム",
+      "usageDesc": "タイポグラフィトークンの実践的な使い方",
+      "tailwindCssDesc": "環境に合わせたタイポグラフィ適用方法",
+      "tipsDesc": "タイポグラフィトークン 実践ガイド",
+      "tip1Desc": "の代わりにトークンクラスを使うとスケール全体の一貫性を保てます。",
+      "tip2DescBefore": "定義済みウェイト（400 / 600 / 700）を使用。",
+      "tip2DescAfter": "（500）はトークンに含まれていません。",
+      "tip3Desc": "各サイズに最適な line-height が組み込まれているため、",
+      "tip3DescAfter": "の上書きは不要です。",
+      "tip4Desc": "Tailwind外の環境ではCSS変数で同じトークンにアクセスできます。",
+      "usageCode_headingComment": "見出し — サイズ + ウェイト",
+      "usageCode_pageTitle": "ページタイトル",
+      "usageCode_sectionHeading": "セクション見出し",
+      "usageCode_subHeading": "サブ見出し",
+      "usageCode_bodyComment": "本文",
+      "usageCode_bodyDefault": "デフォルトの本文テキスト（16px）",
+      "usageCode_bodyCjk": "CJKに最適化されたテキスト（13px）",
+      "usageCode_bodySupplemental": "補足テキスト（12px）",
+      "usageCode_labelComment": "ラベル — semibold で識別性を確保",
+      "usageCode_formLabel": "フォームラベル",
+      "usageCode_badgeText": "バッジテキスト",
+      "usageCode_codeComment": "コード — モノスペースフォント",
+      "tailwindCode_lineHeight": "行高",
+      "tailwindCode_base": "ベース",
+      "tailwindCode_normalUsage": "本文",
+      "tailwindCode_semiboldUsage": "ラベル、サブ見出し",
+      "tailwindCode_boldUsage": "見出し、強調",
+      "cssCode_base": "ベース",
+      "cssCode_exampleH1": "例: Heading 1",
+      "cssCode_exampleBodyDefault": "例: Body Default",
+      "cssCode_exampleLabelDefault": "例: Label Default"
+    },
+    "design-tokens-spacing": {
+      "pageDesc": "4pxベースユニットで設計されたスペーシングシステム。コンポーネントとレイアウト全体で一貫したリズムを提供します。",
+      "baseUnitTitle": "4px ベースユニット",
+      "baseUnitDesc": "0〜12pxは2px刻み（微調整用）、12px以降は4pxの倍数で構成されています。",
+      "spacingScaleDesc": "クリックしてコピー。0pxから96pxまでの完全なスペーシングスケール（0〜12pxは2px刻み、12px以降は4px刻み）",
+      "componentSpacingDesc": "各コンポーネントの推奨スペーシング値",
+      "badgeGapLabel": "Gap (アイコン/ドット)",
+      "alertGapLabel": "Gap (アイコン↔コンテンツ)",
+      "layoutSpacingDesc": "ページやセクションのレイアウトに推奨されるスペーシングパターン。プリミティブトークンとレスポンシブブレイクポイントを組み合わせて使用します。",
+      "symmetricDesc": "X = Y 同一パディング。ダッシュボード、アプリ向け",
+      "readingDesc": "Y > X 縦余白が大きい。文書、ブログ向け",
+      "sectionDesc": "ページ内の大きなセクション間（レスポンシブ）",
+      "sectionGapLabel": "Gap (セクション間)",
+      "elementDesc": "セクション内の要素間",
+      "elementGapLabel": "Gap (要素間)",
+      "inlineDesc": "横並びの要素間",
+      "inlineGapLabel": "Gap (インライン)",
+      "usageDesc": "スペーシングトークンの実践的な使い方",
+      "tailwindCssDesc": "環境に合わせたスペーシング適用方法",
+      "tipsDesc": "スペーシングトークン 実践ガイド",
+      "tip1Desc": "のような任意値ではなくトークンスケールを使うとリズムが揃います。",
+      "tip2Desc": "マージンよりも Flexbox/Grid の gap を活用するとレイアウトが安定します。",
+      "tip3Desc": "のような任意値を使うとスケールから外れやすくなります。",
+      "tip4Desc": "Tailwind外の環境ではCSS変数で同じトークンにアクセスできます。",
+      "usageCode_pagePadding": "ページパディング（レスポンシブ）",
+      "usageCode_sectionGap": "セクション間のギャップ",
+      "usageCode_header": "ヘッダー",
+      "usageCode_title": "タイトル",
+      "usageCode_desc": "説明テキスト",
+      "usageCode_card": "カード: 内部パディング + 要素間ギャップ",
+      "usageCode_cardHeading": "カード見出し",
+      "usageCode_body": "本文",
+      "usageCode_confirm": "確認",
+      "usageCode_cancel": "キャンセル",
+      "usageCode_grid": "グリッドレイアウト",
+      "tailwindCode_reset": "リセット",
+      "tailwindCode_extraSmall": "極小",
+      "tailwindCode_insideIcon": "アイコン内",
+      "tailwindCode_badgeTag": "バッジ、タグ",
+      "tailwindCode_input": "インプット",
+      "tailwindCode_buttonCardSmall": "ボタン、カード（小）",
+      "tailwindCode_modal": "モーダル",
+      "tailwindCode_cardStandard": "カード（標準）",
+      "tailwindCode_section": "セクション",
+      "tailwindCode_inlineGap": "インライン要素間",
+      "tailwindCode_buttonIconText": "ボタン内アイコンとテキスト",
+      "tailwindCode_formGap": "フォーム要素間",
+      "tailwindCode_cardElementGap": "カード内要素間",
+      "tailwindCode_sectionBlockGap": "セクション内ブロック間",
+      "tailwindCode_sectionGap": "セクション間",
+      "tailwindCode_belowHeading": "見出し下",
+      "tailwindCode_betweenParagraphs": "パラグラフ間",
+      "tailwindCode_largeSectionGap": "大セクション間",
+      "tailwindCode_direction": "方向指定",
+      "tailwindCode_horizontalOnly": "水平のみ",
+      "tailwindCode_verticalOnly": "垂直のみ",
+      "tailwindCode_topOnly": "上のみ",
+      "tailwindCode_childrenVertical": "子要素間の縦間隔",
+      "tailwindCode_responsive": "レスポンシブ",
+      "tailwindCode_padding": "パディング",
+      "tailwindCode_gap": "ギャップ",
+      "cssCode_usageExample": "使用例"
+    },
+    "design-tokens-shadows": {
+      "pageDesc": "シャドウはUIに深さと階層を与え、要素の浮き上がりを表現します。ダークモードではopacityが自動で調整されます。",
+      "shadowScaleDesc": "さまざまな用途に対応した5段階のエレベーション（ダークモード自動対応）",
+      "lightDarkDesc": "ダークモードではopacityが自動的に増加し、視認性が向上します。",
+      "hoverElevationDesc": "ホバー時にシャドウを変化させてインタラクティブ性を表現",
+      "hoverElevationHint": "カードにホバーして効果を確認してください",
+      "componentShadowsDesc": "一般的なUIコンポーネントの推奨シャドウトークン",
+      "componentShadowsNoteTitle": "推奨シャドウトークン:",
+      "componentShadowsNoteDesc": "各UIコンポーネントに最適なシャドウトークンの一覧です。",
+      "darkModeAutoTitle": "自動ダークモード対応",
+      "darkModeAutoDesc": "シャドウトークンはテーマごとに最適なopacity値が定義されています。CSS変数で自動的に切り替わるため、コンポーネントコードの変更は不要です。",
+      "tableUsageCase": "ユースケース",
+      "tableRatioHeader": "倍率",
+      "darkModeTechTitle": "ダークモードでの追加テクニック",
+      "darkModeTechDesc": "シャドウに加えて、以下のテクニックを併用するとより効果的です：",
+      "darkModeTech1": "境界を定義するために控えめなボーダーを使用",
+      "darkModeTech2": "浮き上がった要素の背景色を明るくする（bg-elevated）",
+      "darkModeTech3": "シャドウとボーダーの組み合わせで深さを表現",
+      "shadowXs_usage": "控えめなエレベーション",
+      "shadowXs_examples": "バッジ|タグ|インライン要素",
+      "shadowSm_usage": "軽いエレベーション",
+      "shadowSm_examples": "カード|選択状態|ホバー",
+      "shadowMd_usage": "フローティング要素",
+      "shadowMd_examples": "ドロップダウン|ポップオーバー",
+      "shadowLg_usage": "高いエレベーション",
+      "shadowLg_examples": "モーダル|ダイアログ|トースト",
+      "shadowXl_usage": "最も高いエレベーション",
+      "shadowXl_examples": "大型モーダル|オーバーレイ",
+      "compCard_desc": "カードの軽いエレベーション",
+      "compDropdown_desc": "ドロップダウンメニュー",
+      "compModal_desc": "モーダル、ダイアログ",
+      "compTooltip_desc": "ツールチップ",
+      "compPopover_desc": "ポップオーバー",
+      "usageDesc": "シャドウトークンの基本的な使い方",
+      "tailwindCssDesc": "環境に合わせたシャドウ適用方法",
+      "tipsDesc": "シャドウトークン 実践ガイド",
+      "tip1Desc": "のようなハードコードではなくトークンを使うとダークモードに自動対応します。",
+      "tip2Desc": "ホバーエレベーションは1段階ずつ上げると自然に見えます（xs→sm、sm→md）。",
+      "tip3Desc": "Tailwind外の環境ではCSS変数で同じトークンにアクセスできます。",
+      "usageCode_elevation": "エレベーション: xs → sm → md → lg → xl",
+      "usageCode_badgeTag": "バッジ、タグ",
+      "usageCode_cardTooltip": "カード、ツールチップ",
+      "usageCode_dropdown": "ドロップダウン",
+      "usageCode_modal": "モーダル",
+      "usageCode_largeOverlay": "大型オーバーレイ",
+      "usageCode_hoverElevation": "ホバーでエレベーション変化（1段階上げ）",
+      "tailwindCode_xs": "控えめ — バッジ、タグ",
+      "tailwindCode_sm": "軽い — カード、ホバー",
+      "tailwindCode_md": "フローティング — ドロップダウン",
+      "tailwindCode_lg": "高い — モーダル、ダイアログ",
+      "tailwindCode_xl": "最大 — 大型オーバーレイ",
+      "tailwindCode_combo": "組み合わせ",
+      "tailwindCode_shadowBorder": "シャドウ + ボーダー",
+      "tailwindCode_shadowRadius": "シャドウ + 角丸",
+      "cssCode_usageExample": "使用例",
+      "cssCode_hoverElevation": "ホバーエレベーション",
+      "cssCode_darkModeAuto": "ダークモードでは opacity 自動増加。コード変更不要"
+    },
+    "design-tokens-radius": {
+      "pageDesc": "角丸はUIの印象を左右する重要な要素です。コンポーネントは6px（rounded-md）を基準に設計されています。",
+      "radiusScaleDesc": "シャープから完全な丸みまで、すべての角丸トークン",
+      "componentRadiusDesc": "要素の役割に応じた角丸の選び方",
+      "nestedRadiusDesc": "角丸要素をネストする場合、視覚的な一貫性を維持するために、内側の角丸は外側の角丸からパディング分を引いた値にする必要があります。",
+      "tableUsageCase": "ユースケース",
+      "groupSmall_title": "小さい要素",
+      "groupSmall_desc": "控えめな丸みでテキストとの調和を保つ",
+      "groupInteractive_title": "インタラクティブ要素",
+      "groupInteractive_badge": "基準",
+      "groupInteractive_desc": "視覚的な安定感とクリック可能な印象",
+      "groupContainer_title": "コンテナ要素",
+      "groupContainer_desc": "内部要素との階層感を表現",
+      "groupLarge_title": "大きい要素",
+      "groupLarge_desc": "柔らかく親しみやすい印象",
+      "groupCircular_title": "円形・ピル型要素",
+      "groupCircular_desc": "アイコン的な役割を持つ要素",
+      "incorrectExample": "間違った例",
+      "incorrectExampleNote1": "を使用すると",
+      "incorrectExampleNote2": "角丸が平行にならず不自然",
+      "correctExample": "正しい例",
+      "correctExampleNote": "24px − 12px = 12px で自然な曲線",
+      "commonPatterns": "よく使うパターン",
+      "radiusNone_usage": "シャープな角",
+      "radiusSm_usage": "わずかな丸み",
+      "radiusBase_usage": "デフォルトの丸み",
+      "radiusMd_usage": "インプット、ボタン",
+      "radiusLg_usage": "ドロップダウン、コンテナ",
+      "radiusXl_usage": "カード、モーダル",
+      "radius2xl_usage": "フィーチャーセクション",
+      "radius3xl_usage": "ヒーロー要素",
+      "radiusFull_usage": "円形、ピル型",
+      "usageDesc": "角丸トークンの基本的な使い方",
+      "tailwindCssDesc": "環境に合わせた角丸の適用方法",
+      "tipsDesc": "角丸トークン 実践ガイド",
+      "tip1Desc": "ボタン・インプットなどインタラクティブ要素の基準値（6px）です。",
+      "tip2Desc": "ネストされた角丸は外側から padding を引いた値にすると曲線が平行に揃います。",
+      "tip3Desc": "のような任意値ではなくトークンを使うとデザイン全体の統一感が高まります。",
+      "tip4Desc": "Tailwind外の環境ではCSS変数で同じトークンにアクセスできます。",
+      "usageCode_interactive": "インタラクティブ要素 — 6px（基準）",
+      "usageCode_container": "コンテナ — 8px",
+      "usageCode_cardModal": "カード・モーダル — 12px",
+      "usageCode_circlePill": "円形・ピル型",
+      "usageCode_specificCorner": "特定の角のみ",
+      "usageCode_nestedRadius": "ネストされた角丸: inner = outer − padding",
+      "tailwindCode_sharp": "シャープ",
+      "tailwindCode_slightRound": "わずかな丸み",
+      "tailwindCode_default": "デフォルト（= rounded-base）",
+      "tailwindCode_buttonInput": "ボタン、インプット（基準）",
+      "tailwindCode_dropdownContainer": "ドロップダウン、コンテナ",
+      "tailwindCode_cardModal": "カード、モーダル",
+      "tailwindCode_feature": "フィーチャーセクション",
+      "tailwindCode_hero": "ヒーロー要素",
+      "tailwindCode_circlePill": "円形、ピル型",
+      "tailwindCode_direction": "方向指定",
+      "tailwindCode_topOnly": "上のみ",
+      "tailwindCode_rightOnly": "右のみ",
+      "tailwindCode_bottomOnly": "下のみ",
+      "tailwindCode_leftOnly": "左のみ",
+      "tailwindCode_topLeftOnly": "左上のみ",
+      "tailwindCode_combo": "組み合わせ",
+      "tailwindCode_radiusBorder": "角丸 + ボーダー",
+      "tailwindCode_radiusShadow": "角丸 + シャドウ",
+      "cssCode_usageExample": "使用例",
+      "cssCode_specificCorner": "特定の角のみ",
+      "cssCode_nestedRadius": "ネストされた角丸"
+    },
+    "design-tokens-border-width": {
+      "pageDesc": "要素の境界線の太さを定義し、UIの階層と視覚的な区切りを表現します。",
+      "borderScaleDesc": "0pxから8pxまでの5段階のボーダー幅",
+      "useCasesDesc": "各コンテキストでの推奨ボーダー幅",
+      "commonPatterns": "よく使うパターン",
+      "legendBorder": "ボーダー",
+      "legendElement": "要素",
+      "tableUsageCase": "ユースケース",
+      "patternCard": "カード",
+      "patternInput": "インプット",
+      "patternFocus": "フォーカス",
+      "patternSelected": "選択状態",
+      "patternAccent": "アクセント",
+      "patternDecorative": "装飾",
+      "exampleCard": "カードボーダー",
+      "exampleAccent": "アクセントボーダー",
+      "exampleStatus": "ステータスインジケーター",
+      "accentLight": "軽い強調",
+      "accentMedium": "中程度の強調",
+      "accentStrong": "強い強調",
+      "statusSuccess": "成功",
+      "statusWarning": "警告",
+      "statusError": "エラー",
+      "statusInfo": "情報",
+      "border0_usage": "ボーダーなし",
+      "border1_usage": "デフォルトボーダー（最も一般的）",
+      "border2_usage": "強調されたボーダー",
+      "border4_usage": "ハイライトボーダー",
+      "border8_usage": "装飾的ボーダー",
+      "usageDesc": "ボーダー幅トークンの基本的な使い方",
+      "tailwindCssDesc": "環境に合わせたボーダー幅の適用方法",
+      "tipsDesc": "ボーダー幅トークン 実践ガイド",
+      "tip1Before": "ほとんどのUI要素には",
+      "tip1After": "（1px）で十分です。カード、インプット、ディバイダーなどのデフォルトに使用します。",
+      "tip2Desc": "フォーカスや選択状態など、ユーザーの注意を引く必要がある場面で2pxを使用します。",
+      "tip3Desc": "左ボーダー4pxはアラートやステータスインジケーターのアクセントとして最適です。",
+      "tip4Desc": "Tailwind外の環境ではCSS変数で同じトークンにアクセスできます。",
+      "usageCode_cardBorder": "カードボーダー — デフォルト 1px",
+      "usageCode_focusState": "フォーカス状態 — 2px で強調",
+      "usageCode_selectedCard": "選択状態のカード — 2px",
+      "usageCode_leftAccent": "左アクセント — 4px",
+      "usageCode_decorative": "装飾ボーダー — 8px",
+      "usageCode_noBorder": "ボーダーなし — 0px リセット",
+      "tailwindCode_none": "ボーダーなし",
+      "tailwindCode_default": "デフォルト（最も一般的）",
+      "tailwindCode_focus": "フォーカス、選択状態",
+      "tailwindCode_accent": "アクセント、ハイライト",
+      "tailwindCode_decorative": "装飾的な強調",
+      "tailwindCode_direction": "方向指定",
+      "tailwindCode_topOnly": "上のみ 2px",
+      "tailwindCode_rightOnly": "右のみ 2px",
+      "tailwindCode_bottomOnly": "下のみ 2px",
+      "tailwindCode_leftOnly": "左のみ 4px（アクセント）",
+      "tailwindCode_combo": "組み合わせ",
+      "tailwindCode_card": "カード",
+      "tailwindCode_selected": "選択状態",
+      "tailwindCode_alert": "アラート",
+      "tailwindCode_deco": "装飾",
+      "tailwindCode_divider": "ディバイダー",
+      "tailwindCode_horizontal": "水平区切り",
+      "tailwindCode_vertical": "垂直区切り",
+      "cssCode_usageExample": "使用例"
+    },
+    "design-tokens-icon-sizes": {
+      "pageDesc": "テキストやUI要素とのバランスを考慮したアイコンサイズスケール。ボタンサイズに応じた適切なサイズを提供します。",
+      "scaleDesc": "6段階のセマンティックアイコンサイズスケール（12px〜32px）",
+      "iconTextAlignmentDesc": "テキストサイズに適したアイコンサイズとギャップの組み合わせ",
+      "usageGuidelinesDesc": "各コンテキストでの推奨アイコンサイズ",
+      "tableUsage": "ユースケース",
+      "tableValue": "値",
+      "bestPracticesGood": "推奨",
+      "bestPracticesBad": "避けるべき",
+      "goodPractice1": "テキストサイズに比例したアイコンサイズを使用",
+      "goodPractice2": "タッチターゲットは最低24x24pxを確保（WCAG 2.5.8）",
+      "goodPractice3": "同じコンテキストでは一貫したサイズを維持",
+      "goodPractice4": "アイコンとテキスト間に適切なギャップを設定",
+      "badPractice1": "テキストより大きすぎるアイコン",
+      "badPractice2": "同じコンポーネント内で異なるサイズの混在",
+      "badPractice3": "スケール外の任意のサイズ",
+      "badPractice4": "アイコンの歪み（縦横比の変更）",
+      "icon2xs_usage": "バッジアイコン、小型インジケーター",
+      "icon2xs_context": "バッジ",
+      "iconXs_usage": "xs/smボタン、タグ",
+      "iconXs_context": "小型ボタン",
+      "iconSm_usage": "default/lgボタン、フォーム要素",
+      "iconSm_context": "標準ボタン",
+      "iconMd_usage": "IconButton、ナビゲーション",
+      "iconMd_context": "IconButton",
+      "iconLg_usage": "大型アイコン、カード",
+      "iconLg_context": "カード、ナビ",
+      "iconXl_usage": "空の状態、ヒーロー",
+      "iconXl_context": "ヒーロー",
+      "usageDesc": "アイコンサイズトークンの基本的な使い方",
+      "tailwindCssDesc": "環境に合わせたアイコンサイズの適用方法",
+      "tipsDesc": "アイコンサイズトークン 実践ガイド",
+      "tip1Desc": "ボタン内アイコンの基準サイズ（16px）。テキストと同じ行に配置する場合に最適です。",
+      "tip2Desc": "IconButtonやナビゲーションの基準サイズ（20px）。単独で使用するアイコンに適しています。",
+      "tip3Desc": "SVGのviewBoxは24x24を維持し、表示サイズはクラスで制御します。viewBoxを変更するとストローク幅が崩れます。",
+      "tip4Desc": "スケール外の任意サイズは避けてください。6段階のトークンで統一することでデザインの一貫性が保たれます。",
+      "code_inlineIcon": "インラインアイコン — テキストに合わせて icon-sm",
+      "code_addFavorite": "お気に入りに追加",
+      "code_buttonIcon": "ボタン内アイコン — icon-xs（小）/ icon-sm（標準）",
+      "code_next": "次へ進む",
+      "code_iconButton": "IconButton — icon-md が基準",
+      "code_navigation": "ナビゲーション — icon-lg",
+      "code_menu": "メニュー",
+      "code_heroSection": "ヒーローセクション — icon-xl",
+      "code_dropToUpload": "ファイルをドロップしてアップロード",
+      "tailwindCode_xsBtn": "xs/smボタン、バッジ",
+      "tailwindCode_stdBtn": "標準ボタン、フォーム",
+      "tailwindCode_iconBtn": "IconButton、ナビ",
+      "tailwindCode_card": "カード、大型アイコン",
+      "tailwindCode_hero": "ヒーロー、空の状態",
+      "tailwindCode_inBtn": "ボタン内アイコン",
+      "tailwindCode_smallBtn": "小型ボタン",
+      "tailwindCode_stdBtnLabel": "標準ボタン",
+      "tailwindCode_responsive": "レスポンシブ",
+      "tailwindCode_externalLib": "外部ライブラリ",
+      "cssCode_example": "使用例"
+    },
+    "design-tokens-opacity": {
+      "pageDesc": "要素の透明度を制御し、オーバーレイや状態変化の視覚的な階層を表現します。",
+      "scaleDesc": "0%から100%までの完全な不透明度スケール",
+      "interactiveDemoDesc": "スライダーで不透明度を調整して効果を確認",
+      "opacityVsAlpha_after": "プロパティとカラーのアルファ値の違い",
+      "parentElement50": "親要素 (50%)",
+      "childAlsoOpaque": "子要素も50%に",
+      "affectsChildren": "子要素にも影響する",
+      "childFullOpaque": "子要素は100%",
+      "bgOnlyText": "背景のみ透明",
+      "textReadabilityDesc": "不透明度がテキストの読みやすさに与える影響",
+      "sampleText": "デザインシステムは、一貫性のあるユーザー体験を提供します。",
+      "readable": "可読",
+      "notRecommended": "非推奨",
+      "accessibilityNote_before": "アクセシビリティのため、本文テキストは",
+      "accessibilityThreshold": "60%以上",
+      "accessibilityNote_after": "の不透明度を維持してください。",
+      "animationExampleDesc": "不透明度を使ったフェードイン・フェードアウト効果",
+      "usageDesc": "不透明度トークンの実践的な使い方",
+      "tailwindCssDesc": "環境に合わせた不透明度の適用方法",
+      "tipsDesc": "不透明度トークン 実践ガイド",
+      "tableUsage": "ユースケース",
+      "tip1Before": "無効状態やローディング中の要素には",
+      "tip1After": "が標準的な値です。要素全体（子要素含む）に適用されます。",
+      "tip2Before": "背景色だけを透明にしたい場合は",
+      "tip2Middle": "ではなく",
+      "tip2After": "を使うと子要素に影響しません。",
+      "tip3Before": "Tailwind v3/v4 両方で",
+      "tip3Middle1": "等のセマンティックカラーに",
+      "tip3Middle2": "記法が使用可能です。v4 は",
+      "tip3Middle3": "で処理、v3 は RGB チャンネル変数（",
+      "tip3After": "）で対応しています。",
+      "tip4Before": "フェードイン・フェードアウトには",
+      "tip4Middle": "と",
+      "tip4After": "を組み合わせるとスムーズなアニメーションになります。",
+      "code_elementOpacity": "要素全体の不透明度",
+      "code_semiTransparent": "半透明コンテンツ",
+      "code_disabledState": "無効状態",
+      "code_disabledBtn": "無効なボタン",
+      "code_hoverReveal": "ホバーで完全表示",
+      "code_hoverShow": "ホバーで表示",
+      "code_colorAlpha": "カラーの不透明度には color-mix() を使用",
+      "code_primaryBg": "10% primary 背景",
+      "tailwindCode_opacity0": "完全に透明",
+      "tailwindCode_opacity10": "薄いオーバーレイ",
+      "tailwindCode_opacity25": "軽度の強調",
+      "tailwindCode_opacity50": "半透明",
+      "tailwindCode_opacity75": "ほぼ不透明",
+      "tailwindCode_opacity100": "完全に不透明",
+      "tailwindCode_statesTitle": "状態別パターン",
+      "tailwindCode_disabled": "無効状態",
+      "tailwindCode_hoverShow": "ホバーで表示",
+      "tailwindCode_loading": "ローディング",
+      "tailwindCode_transitionTitle": "トランジション",
+      "tailwindCode_normalFade": "標準フェード",
+      "tailwindCode_slowFade": "ゆっくりフェード",
+      "cssCode_example": "使用例",
+      "opacity0_usage": "完全に透明（非表示）",
+      "opacity5_usage": "非常に薄いオーバーレイ",
+      "opacity10_usage": "ホバー背景、薄い区切り",
+      "opacity15_usage": "フォーカスリングエラー、軽い色混合",
+      "opacity20_usage": "フォーカスリング、軽いオーバーレイ",
+      "opacity25_usage": "軽度の強調",
+      "opacity30_usage": "ボーダー、区切り線",
+      "opacity35_usage": "中弱度のオーバーレイ",
+      "opacity40_usage": "中程度のオーバーレイ",
+      "opacity45_usage": "中程度の混合",
+      "opacity50_usage": "半透明、バランスの取れた混合",
+      "opacity55_usage": "やや強いオーバーレイ",
+      "opacity60_usage": "モーダルバックドロップ",
+      "opacity65_usage": "中強度のオーバーレイ",
+      "opacity70_usage": "強いオーバーレイ",
+      "opacity75_usage": "ほぼ不透明、重要な要素の表示",
+      "opacity80_usage": "ほぼ不透明",
+      "opacity85_usage": "高い不透明度",
+      "opacity90_usage": "わずかな透明感",
+      "opacity95_usage": "わずかな透明感",
+      "opacity100_usage": "完全に不透明（デフォルト）"
+    },
+    "design-tokens-z-index": {
+      "pageDesc": "UI要素の重なり順を一貫したルールで管理します。Dropdown、Modal、Tooltipなどのレイヤーが衝突しない設計です。",
+      "scaleDesc": "基本値とセマンティックトークンの2つのカテゴリで構成されています。",
+      "baseValuesTitle": "基本値（0-50）",
+      "semanticValuesTitle": "セマンティック値",
+      "tableUsage": "ユースケース",
+      "interactiveDemoDesc": "各要素をクリックして、z-indexによる重なり順を確認できます。",
+      "interactiveClickedElement": "クリックした要素:",
+      "interactiveModalDesc": "ドロップダウンより前面に表示されます",
+      "componentUsageDesc": "各UIコンポーネントに適したz-indexトークン",
+      "layerHierarchyDesc": "z-indexの値が高いほど前面に表示されます。",
+      "layerHierarchyNote": "上に行くほどz-index値が高く、前面に表示",
+      "commonIssuesDesc": "z-index関連のよくある問題と解決方法",
+      "stackingContextTitle": "スタッキングコンテキストとは",
+      "stackingContextDesc": "z-indexは同じスタッキングコンテキスト内でのみ比較されます。新しいスタッキングコンテキストは以下の場合に作成されます：",
+      "stackingItem1": "position: absolute/relative/fixedと z-index が設定された要素",
+      "stackingItem2": "opacity が 1 未満の要素",
+      "stackingItem3": "transform、filter、perspective が設定された要素",
+      "stackingItem4": "isolation: isolate が設定された要素",
+      "bestPracticesGood": "推奨",
+      "bestPracticesBad": "避けるべき",
+      "goodPractice1": "セマンティックトークン（z-modal等）を使用する",
+      "goodPractice2": "Portalを使用してモーダルをbody直下に配置",
+      "goodPractice3": "isolation: isolateでコンテキストを明示的に制御",
+      "goodPractice4": "z-indexの階層設計を事前に計画する",
+      "badPractice1": "z-index: 9999 などの任意の大きな値",
+      "badPractice2": "問題が起きるたびにz-indexを増やす",
+      "badPractice3": "スタッキングコンテキストを考慮しない実装",
+      "badPractice4": "ハードコードされたz-index値の乱用",
+      "zIndex0_usage": "ベースレイヤー、スタッキングコンテキストのリセット",
+      "zIndex10_usage": "わずかな浮き上がり",
+      "zIndex20_usage": "軽い浮き上がり",
+      "zIndex30_usage": "中程度の浮き上がり",
+      "zIndex40_usage": "強調された浮き上がり",
+      "zIndex50_usage": "基本レイヤー内の最大値",
+      "zIndexSticky_usage": "スティッキーヘッダー、固定要素",
+      "zIndexDropdown_usage": "ドロップダウンメニュー、セレクト",
+      "zIndexOverlay_usage": "オーバーレイ、バックドロップ",
+      "zIndexModal_usage": "モーダルダイアログ",
+      "zIndexPopover_usage": "ポップオーバー、ホバーカード",
+      "zIndexTooltip_usage": "ツールチップ",
+      "zIndexToast_usage": "トースト通知（最上位）",
+      "layerToast_desc": "通知メッセージ",
+      "layerTooltip_desc": "ホバーヒント",
+      "layerPopover_desc": "ポップアップカード",
+      "layerModal_desc": "ダイアログ",
+      "layerOverlay_desc": "背景マスク",
+      "layerDropdown_desc": "メニュー",
+      "layerSticky_desc": "固定ヘッダー",
+      "layerBase_desc": "通常コンテンツ",
+      "issue1_problem": "モーダルがドロップダウンの後ろに隠れる",
+      "issue1_cause": "ドロップダウンが新しいスタッキングコンテキストを作成している",
+      "issue1_solution": "Portalを使用してモーダルをbody直下にレンダリング",
+      "issue2_problem": "z-index: 9999でも要素が前面に来ない",
+      "issue2_cause": "親要素のスタッキングコンテキストに制限されている",
+      "issue2_solution": "親要素のz-indexを確認、またはisolation: isolateを使用",
+      "issue3_problem": "position: fixedの要素がモーダルの後ろに",
+      "issue3_cause": "fixedでも適切なz-indexが必要",
+      "issue3_solution": "z-modalより高いz-index（z-toast等）を使用",
+      "usageDesc": "z-indexトークンの実践的な使い方。スタッキングコンテキストの衝突を防ぎます。",
+      "tailwindCssDesc": "環境に合わせたz-index適用方法",
+      "tipsDesc": "z-indexトークン 実践ガイド",
+      "tip1After": "のような任意値ではなくセマンティックトークンを使うとレイヤー管理が安定します。",
+      "tip2Before": "モーダルの背景には",
+      "tip2Middle": "、ダイアログ本体には",
+      "tip2After": "を使い分けると階層が明確になります。",
+      "tip3Before": "親要素に",
+      "tip3After": "を設定すると、子要素のz-indexが外部に漏れなくなります。",
+      "tip4Desc": "Tailwind外の環境ではCSS変数で同じz-indexトークンにアクセスできます。",
+      "code_fixedHeader": "固定ヘッダー",
+      "code_overlayModal": "オーバーレイ + モーダル",
+      "code_header": "ヘッダー",
+      "code_modalDialog": "モーダルダイアログ",
+      "code_dropdownMenu": "ドロップダウンメニュー",
+      "code_menuButton": "メニュー",
+      "code_item1": "アイテム 1",
+      "code_item2": "アイテム 2",
+      "code_tooltipToast": "ツールチップ & トースト",
+      "code_tooltipText": "ツールチップ",
+      "code_notificationMsg": "通知メッセージ",
+      "tailwindCode_z0": "ベースレイヤー",
+      "tailwindCode_z10": "わずかな浮き上がり",
+      "tailwindCode_z20": "軽い浮き上がり",
+      "tailwindCode_z30": "中程度の浮き上がり",
+      "tailwindCode_z40": "強調された浮き上がり",
+      "tailwindCode_z50": "基本レイヤー内の最大値",
+      "tailwindCode_sticky": "スティッキーヘッダー",
+      "tailwindCode_dropdown": "ドロップダウン、セレクト",
+      "tailwindCode_overlay": "オーバーレイ、バックドロップ",
+      "tailwindCode_modal": "モーダルダイアログ",
+      "tailwindCode_popover": "ポップオーバー",
+      "tailwindCode_tooltip": "ツールチップ",
+      "tailwindCode_toast": "トースト通知（最上位）",
+      "cssCode_title": "CSS変数一覧",
+      "cssCode_example": "使用例"
+    },
+    "design-tokens-breakpoints": {
+      "pageDesc": "モバイルファーストで設計されたブレークポイントシステム。画面サイズに応じたレスポンシブレイアウトを実現します。",
+      "breakpointScaleDesc": "5段階のブレークポイントでほぼすべてのデバイスに対応",
+      "gridSystemDesc": "ブレークポイントごとに推奨されるグリッドカラム数",
+      "deviceReferenceDesc": "各デバイスの画面幅と対応するブレークポイント",
+      "interactiveDesc": "スライダーで画面幅を変更し、ブレークポイントの切り替わりを体験",
+      "defaultDesc": "モバイル（縦向き）",
+      "colUnit": "カラム",
+      "col1": "1列",
+      "col2": "2列",
+      "col3": "3列",
+      "deviceMobile": "スマートフォン",
+      "deviceTablet": "タブレット",
+      "deviceDesktop": "デスクトップ",
+      "deviceMobileGroup": "モバイル",
+      "deviceTabletGroup": "タブレット",
+      "deviceDesktopGroup": "デスクトップ",
+      "tableTargetDevice": "対象デバイス",
+      "tableGrid": "グリッド",
+      "tableTarget": "対象",
+      "commonLayoutPatterns": "よく使うレイアウトパターン",
+      "patternSidebarMain": "サイドバー + メイン",
+      "sidebarLabel": "サイドバー (2 or 3)",
+      "mainLabel": "メイン (10 or 9)",
+      "patternThreeCol": "3等分カード",
+      "patternFourCol": "4等分グリッド",
+      "responsiveChangeExample": "レスポンシブ変化の例",
+      "screenWidthComparison": "画面幅の比較",
+      "screenWidthComparisonDesc": "ブレークポイントの境界を点線で表示",
+      "principleMobileFirst": "モバイルファースト",
+      "principleMobileFirstDesc": "最小の画面サイズから設計を始め、大きな画面に向けて拡張します。",
+      "principleContentFirst": "コンテンツ優先",
+      "principleContentFirstDesc": "デバイスではなくコンテンツに基づいてブレークポイントを選択します。",
+      "principleFluidGrid": "流動的なグリッド",
+      "principleFluidGridDesc": "固定幅ではなく相対単位を使用し、スムーズに適応します。",
+      "principleTestFocus": "テスト重視",
+      "principleTestFocusDesc": "実際のデバイスでテストし、ブレークポイント境界を確認します。",
+      "interactiveGrid": "グリッド",
+      "interactiveNav": "ナビ",
+      "interactiveLayout": "レイアウト",
+      "bpSm_desc": "小型タブレット、大型スマートフォン（横向き）",
+      "bpSm_devices": "iPhone Plus/Max, 小型タブレット",
+      "bpMd_desc": "タブレット（縦向き）",
+      "bpMd_devices": "iPad Mini, iPad",
+      "bpLg_desc": "タブレット（横向き）、小型ノートPC",
+      "bpLg_devices": "iPad Pro, 小型ラップトップ",
+      "bpXl_desc": "デスクトップ、ノートPC",
+      "bpXl_devices": "MacBook, 標準モニター",
+      "bp2xl_desc": "大型デスクトップモニター",
+      "bp2xl_devices": "大型モニター、ウルトラワイド",
+      "usageDesc": "ブレークポイントトークンの実践的な使い方",
+      "tailwindCssDesc": "環境に合わせたブレークポイントの適用方法",
+      "tipsDesc": "ブレークポイント 実践ガイド",
+      "tip1Before": "モバイルファーストで設計し、",
+      "tip1After": "以上のプレフィックスで段階的に拡張するのが基本です。",
+      "tip2Before": "スタック→横並びの切り替えは",
+      "tip2After": "パターンが最も汎用的です。",
+      "tip3Before": "ナビゲーションの出し分けには",
+      "tip3Middle": "と",
+      "tip3After": "の組み合わせが効果的です。",
+      "tip4Before": "Tailwind外の環境では",
+      "tip4After": "のようにCSS変数値を直接使用できます。",
+      "usageCode_responsivePadding": "レスポンシブパディング",
+      "usageCode_responsiveGrid": "レスポンシブグリッド: 1列 → 2列 → 3列 → 4列",
+      "usageCode_sidebarLayout": "モバイルではスタック、md以上でサイドバーレイアウト",
+      "usageCode_sidebar": "サイドバー",
+      "usageCode_mainContent": "メインコンテンツ",
+      "usageCode_visibilityToggle": "ブレークポイントで表示/非表示を切り替え",
+      "usageCode_desktopNav": "デスクトップナビ",
+      "usageCode_mobileMenu": "モバイルメニュー",
+      "usageCode_responsiveTypography": "レスポンシブタイポグラフィ",
+      "usageCode_heading": "見出し",
+      "tailwindCode_sm": "以上",
+      "tailwindCode_md": "以上",
+      "tailwindCode_lg": "以上",
+      "tailwindCode_xl": "以上",
+      "tailwindCode_2xl": "以上",
+      "tailwindCode_grid": "グリッド",
+      "tailwindCode_padding": "パディング",
+      "tailwindCode_visibility": "表示/非表示",
+      "tailwindCode_showMd": "md以上で表示",
+      "tailwindCode_hideMd": "md以上で非表示",
+      "tailwindCode_typography": "タイポグラフィ",
+      "tailwindCode_layout": "レイアウト",
+      "tailwindCode_stackRow": "スタック → 横並び",
+      "tailwindCode_fullFixed": "全幅 → 固定幅",
+      "cssCode_mediaQuery": "メディアクエリでの使用",
+      "cssCode_mobile": "モバイル",
+      "cssCode_jsRef": "JavaScriptで参照"
+    },
+    "design-tokens-duration": {
+      "pageDesc": "トランジションやアニメーションの長さを統一し、インターフェース全体で一貫した速度感を実現します。",
+      "durationScaleDesc": "瞬時からゆっくりまで、7段階のアニメーション時間",
+      "instant_usage": "即座の変更、遷移なし",
+      "fast_usage": "ホバー、フォーカス",
+      "micro_usage": "ボタン、マイクロインタラクション",
+      "normal_usage": "標準的なUI遷移（デフォルト）",
+      "slow_usage": "モーダル、ドロワーの開閉",
+      "slower_usage": "複雑なアニメーション",
+      "slowest_usage": "ページ遷移、大きな要素の変化",
+      "spin_usage": "ローディングスピナー（infinite）",
+      "hoverToCheck": "ホバーして確認",
+      "componentDemoDesc": "実際のUIコンポーネントでの速度体感",
+      "modalBodyText": "300msのフェードイン効果を体感してください。",
+      "interactiveDemoDesc": "各ボックスは異なる速度で移動します。",
+      "useCasesDesc": "各UIパターンに適したアニメーション時間",
+      "col_pattern": "パターン",
+      "col_recommended": "推奨値",
+      "col_description": "説明",
+      "useCase_hover_name": "ホバーエフェクト",
+      "useCase_hover_desc": "リンク、アイコンのホバー時の色変化",
+      "useCase_button_name": "ボタン",
+      "useCase_button_desc": "ボタンのホバー、アクティブ状態の遷移",
+      "useCase_dropdown_name": "ドロップダウン",
+      "useCase_dropdown_desc": "メニューの展開・折りたたみ",
+      "useCase_modal_name": "モーダル",
+      "useCase_modal_desc": "モーダルの出現（normal）と退出（fast）アニメーション",
+      "useCase_pageTransition_name": "ページ遷移",
+      "useCase_pageTransition_desc": "ページ間のフェード遷移",
+      "bestPracticesGood": "推奨",
+      "bestPracticesBad": "避けるべき",
+      "do1": "小さな要素には短い時間（100-200ms）",
+      "do2": "大きな要素には長い時間（300-500ms）",
+      "do3": "ユーザーの待ち時間を最小化",
+      "do4": "アクセシビリティ設定を尊重",
+      "dont1": "500ms以上の長いアニメーション",
+      "dont2": "頻繁なインタラクションでの遅い遷移",
+      "dont3": "一貫性のない速度の混在",
+      "dont4": "不必要なアニメーション",
+      "usageDesc": "トランジションにdurationトークンを適用する基本的な使い方",
+      "tailwindCssDesc": "環境に合わせたduration適用方法",
+      "tipsDesc": "durationトークン 実践ガイド",
+      "tip1_before": "迷ったら",
+      "tip1_after": "（200ms）を使用してください。ほとんどのUI遷移に適した標準値です。",
+      "tip2_title": "要素サイズ",
+      "tip2_desc": "小さい要素ほど短い時間（fast〜micro）、大きい要素ほど長い時間（slow〜slowest）を使うと自然な印象になります。",
+      "tip3_before": "",
+      "tip3_after": "を尊重し、アクセシビリティ設定でアニメーションを無効化できるようにしてください。",
+      "tip4_title": "500ms以下",
+      "tip4_desc": "UIアニメーションは500ms以下に抑えてください。それ以上長いとユーザーが待たされている印象を受けます。",
+      "code_comment1": "ホバー時のカラー遷移 — fast (100ms)",
+      "code_comment2": "ボタンの状態遷移 — micro (150ms)",
+      "code_comment3": "ドロップダウンの展開 — normal (200ms)",
+      "code_comment4": "モーダルのフェードイン — slow (300ms)",
+      "code_comment5": "ページ遷移のフェード — slowest (500ms)",
+      "code_linkText": "リンクテキスト",
+      "code_buttonText": "送信する",
+      "code_dialogContent": "ダイアログ内容",
+      "code_pageContent": "ページコンテンツ",
+      "tw_instant": "即座の変更",
+      "tw_fast": "ホバー、フォーカス",
+      "tw_micro": "ボタン、マイクロインタラクション",
+      "tw_normal": "標準UI遷移",
+      "tw_slow": "モーダル、ドロワー",
+      "tw_slower": "複雑なアニメーション",
+      "tw_slowest": "ページ遷移",
+      "tw_spin": "ローディングスピナー"
+    },
+    "design-tokens-easing": {
+      "pageDesc": "アニメーションの速度変化を制御するイージング関数。適切な使い分けで、自然で心地よいUIの動きを実現します。",
+      "usageLabel": "用途:",
+      "easingFunctionsDesc": "5種類の基本イージング関数",
+      "interactiveDemoDesc": "各ボックスは異なるイージングで移動します（同じ時間）。",
+      "componentDemoDesc": "実際のUIコンポーネントでイージングの効果を体験",
+      "linear_desc": "一定速度、加減速なし",
+      "linear_usage": "プログレスバー、ローディングアニメーション",
+      "ease_desc": "ゆっくり始まり、素早く、ゆっくり終わる",
+      "ease_usage": "汎用的なトランジション（デフォルト）",
+      "easeIn_desc": "ゆっくり始まり、素早く終わる",
+      "easeIn_usage": "画面外へ出ていく要素",
+      "easeOut_desc": "素早く始まり、ゆっくり終わる",
+      "easeOut_usage": "画面内に入ってくる要素",
+      "easeInOut_desc": "ゆっくり始まり、ゆっくり終わる",
+      "easeInOut_usage": "状態の切り替え、トグル",
+      "modal_openLabel": "開く:",
+      "modal_closeLabel": "閉じる:",
+      "modal_bodyText": "ease-outで滑らかに表示され、ease-inで素早く消えます。",
+      "useCasesDesc": "各UIパターンに適したイージング関数",
+      "col_pattern": "パターン",
+      "col_recommendedEasing": "推奨イージング",
+      "col_reason": "理由",
+      "useCase_hover_pattern": "ホバーエフェクト",
+      "useCase_hover_reason": "素早い反応、滑らかな終了",
+      "useCase_modalOpen_pattern": "モーダルの開く",
+      "useCase_modalOpen_reason": "画面に入ってくる動き",
+      "useCase_modalClose_pattern": "モーダルの閉じる",
+      "useCase_modalClose_reason": "画面から出ていく動き",
+      "useCase_slider_pattern": "スライダー",
+      "useCase_slider_reason": "滑らかな双方向の動き",
+      "useCase_loading_pattern": "ローディング",
+      "useCase_loading_reason": "一定速度の進行",
+      "useCase_pageTransition_pattern": "ページ遷移",
+      "useCase_pageTransition_reason": "自然な速度変化",
+      "bestPracticesGood": "推奨",
+      "bestPracticesBad": "避けるべき",
+      "do1": "表示アニメーションにease-out",
+      "do2": "非表示アニメーションにease-in",
+      "do3": "状態切り替えにease-in-out",
+      "do4": "ホバー効果にease-out",
+      "dont1": "表示アニメーションにease-in",
+      "dont2": "非表示アニメーションにease-out",
+      "dont3": "すべてにlinearを使用",
+      "dont4": "複雑なcubic-bezierの乱用",
+      "usageDesc": "イージングトークンの基本的な使い方。トランジションに自然な速度変化を付与します。",
+      "tailwindCssDesc": "環境に合わせたイージングの適用方法",
+      "tipsDesc": "イージングトークン 実践ガイド",
+      "tip1_before": "表示アニメーションの基本。要素が画面に入るときは",
+      "tip1_after": "を使うと自然に感じます。",
+      "tip2_desc": "非表示アニメーション専用。要素が画面から出ていくときに使うと加速感が自然です。",
+      "tip3_desc": "トグルやスライダーなど、状態間を行き来する要素に最適。両端がゆっくりで安定感があります。",
+      "tip4_desc": "プログレスバーやローディングなど、一定速度が求められる場面でのみ使用します。UIトランジションには不向きです。",
+      "code_comment1": "ホバーエフェクト — ease-out で素早い反応",
+      "code_comment2": "モーダルの表示 — ease-out で滑らかに入ってくる",
+      "code_comment3": "トグル切り替え — ease-in-out で双方向に滑らか",
+      "code_comment4": "プログレスバー — linear で一定速度",
+      "code_comment5": "画面外へ退出 — ease-in で加速しながら消える",
+      "tw_linear": "一定速度",
+      "tw_ease": "汎用（デフォルト）",
+      "tw_easeIn": "ゆっくり開始",
+      "tw_easeOut": "ゆっくり終了",
+      "tw_easeInOut": "両端ゆっくり",
+      "tw_sectionCombine": "トランジションと組み合わせ",
+      "tw_sectionUseCases": "ユースケース別",
+      "tw_easeOut_comment": "表示、ホバー、フォーカス",
+      "tw_easeIn_comment": "非表示、画面外への退出",
+      "tw_easeInOut_comment": "トグル、スライダー",
+      "tw_linear_comment": "プログレスバー、ローディング",
+      "css_usageTitle": "使用例"
+    },
+    "design-tokens-scale": {
+      "pageDesc": "インタラクティブ要素のスケール変形トークン。押下時の視覚的フィードバック（0.98）、モーダル出現アニメーション（0.95）、コンポーネント出現アニメーションの開始スケール（0.5/0.75）を定義します。",
+      "scaleTokensDesc": "押下フィードバック、モーダル出現、コンポーネント出現アニメーション用のスケール値",
+      "pressed_usage": "ボタンのアクティブ/押下状態",
+      "s95_usage": "モーダルコンテンツの出現アニメーション",
+      "s50_usage": "アニメーション開始スケール（Radio dot等）",
+      "s75_usage": "アニメーション開始スケール（Checkbox等）",
+      "whyThisValueDesc": "各スケール値の設計根拠",
+      "why_pressed_hard": "認識困難",
+      "why_pressed_optimal": "最適 ★",
+      "why_pressed_modal": "Modal出現",
+      "why_pressed_desc": "2%の縮小は知覚できるが自然。0.99は変化が小さすぎ、0.95は要素が飛び跳ねるように見える。",
+      "why_invisible": "不可視",
+      "why_startPoint": "開始点 ★",
+      "why_complete": "完了",
+      "why_50_desc": "半分のサイズから出現。小さいドットには大きめのスケール変化で「ポップ」感を演出。",
+      "why_75_desc": "75%から出現。チェックマークは形状が複雑なため、控えめなスケール変化で自然に。",
+      "why_95_excess": "過剰",
+      "why_95_desc": "95%から出現。モーダルコンテンツは大きな要素なので、わずかなスケール変化で十分な視覚効果。translateYと組み合わせて自然な出現感を演出。",
+      "comparison_desc1": "基準値",
+      "comparison_desc2": "変化が小さすぎる",
+      "comparison_desc3": "推奨値 ★",
+      "comparison_desc4": "少し強め",
+      "comparison_desc5": "コンテンツ出現",
+      "comparison_clickPrompt": "各ボックスをクリックして、スケール効果を体験してください。",
+      "componentDemoDesc": "実際のUIコンポーネントでスケール効果を体験",
+      "useCasesDesc": "スケールトークンの一般的な使用パターン",
+      "useCase_button_name": "ボタン押下",
+      "useCase_button_desc": "ボタンをクリック/タップした時の視覚的フィードバック",
+      "useCase_card_name": "カード押下",
+      "useCase_card_desc": "クリック可能なカードのアクティブ状態",
+      "useCase_icon_name": "アイコンボタン",
+      "useCase_icon_desc": "アイコンボタンの押下フィードバック",
+      "col_pattern": "パターン",
+      "col_value": "値",
+      "col_description": "説明",
+      "col_useCases": "ユースケース",
+      "bestPracticesGood": "推奨",
+      "bestPracticesBad": "避けるべき",
+      "do1": "単独ボタンにscale-pressed",
+      "do2": "duration-microと組み合わせる",
+      "do3": "クリック可能な要素にのみ使用",
+      "do4": "active:疑似クラスで適用",
+      "dont1": "グループ/連結ボタンにscale使用",
+      "dont2": "0.95以下の極端なスケール",
+      "dont3": "長いdurationとの組み合わせ",
+      "dont4": "hover状態でのスケール縮小",
+      "usageDesc": "スケールトークンの基本的な使い方。押下フィードバックやアニメーション開始スケールに使用します。",
+      "tailwindCssDesc": "環境に合わせたスケール適用方法",
+      "tipsDesc": "スケールトークン 実践ガイド",
+      "tip1_desc": "単独のボタンやカードにのみ使用し、グループ化・連結されたボタンには適用しないでください。隣接要素が動いて不自然に見えます。",
+      "tip2_before": "",
+      "tip2_middle": "には必ず",
+      "tip2_after": "を組み合わせてください。遅い duration では押下感が損なわれます。",
+      "tip3_before": "モーダルコンテンツの出現アニメーション用。大きな要素にはわずかなスケール変化（5%）で十分な視覚効果が得られます。",
+      "tip3_after": "クラスで自動適用されます。",
+      "tip4_desc": "アニメーション開始スケールは要素サイズに合わせて選択します。小さい要素（Radio dot）は50%、大きい要素（Checkbox）は75%が自然です。",
+      "tip5_before": "Tailwind外の環境では CSS変数 ",
+      "tip5_after": " で同じトークン値にアクセスできます。",
+      "code_comment1": "ボタン押下フィードバック — scale-pressed (0.98)",
+      "code_comment2": "カード押下フィードバック",
+      "code_comment3": "アイコンボタン押下",
+      "code_comment4": "モーダルコンテンツ出現アニメーション — scale-95 (0.95)",
+      "code_comment5": "animate-modal-content-enter クラスで自動適用",
+      "code_comment6": "他の状態と組み合わせ",
+      "tw_pressedComment": "ボタン・カード押下 (0.98)",
+      "tw_50comment": "Radio dot 出現開始 (0.5)",
+      "tw_75comment": "Checkbox 出現開始 (0.75)",
+      "tw_95comment": "Modal コンテンツ出現 (0.95)",
+      "tw_sectionDuration": "Duration と組み合わせ",
+      "tw_sectionMultiState": "複数状態の組み合わせ",
+      "css_50comment": "0.5 — Radio dot 出現",
+      "css_75comment": "0.75 — Checkbox 出現",
+      "css_95comment": "0.95 — Modal コンテンツ出現",
+      "css_pressedComment": "0.98 — ボタン押下",
+      "css_sectionButton": "ボタン押下",
+      "css_sectionCheckbox": "Checkbox アニメーション",
+      "css_checkboxAuto": "animate-checkbox-enter クラスで自動適用",
+      "css_sectionRadio": "Radio dot アニメーション",
+      "css_radioAuto": "animate-radio-enter クラスで自動適用",
+      "css_sectionModal": "Modal コンテンツ出現",
+      "css_modalAuto": "animate-modal-content-enter クラスで自動適用"
+    },
+    "design-tokens-animation": {
+      "page_desc": "コンポーネントの出現・退出エフェクトを統一するアニメーショントークン。すべてNamed型で、トークン名がそのままクラス名（animate-'{name}'）に1:1マッピングされます。",
+      "enterToken_checkbox_enter_desc": "チェックマークの出現アニメーション",
+      "enterToken_radio_enter_desc": "ラジオドットの出現アニメーション",
+      "pair_modal_overlay_enter_desc": "オーバーレイフェードイン",
+      "pair_modal_overlay_exit_desc": "オーバーレイフェードアウト",
+      "pair_modal_content_enter_desc": "コンテンツ出現（opacity + scale + translateY）",
+      "pair_modal_content_exit_desc": "コンテンツ退出",
+      "pair_nav_fade_in_desc": "フェードイン",
+      "pair_nav_fade_out_desc": "フェードアウト",
+      "pair_nav_viewport_enter_desc": "ビューポート出現（opacity + scale + translateY）",
+      "pair_nav_viewport_exit_desc": "ビューポート退出",
+      "pair_nav_collapsible_down_desc": "コラプシブル展開（height）",
+      "pair_nav_collapsible_up_desc": "コラプシブル収縮（height）",
+      "pair_accordion_down_desc": "アコーディオン展開（height）",
+      "pair_accordion_up_desc": "アコーディオン収縮（height）",
+      "group_drawer_desc": "画面端からのスライドイン／アウト",
+      "group_tooltip_desc": "ツールチップの出現／退出（opacity + translate 4px）",
+      "group_popover_desc": "ポップオーバーの出現／退出（opacity + translate 4px）",
+      "group_toast_desc": "トーストのスライドイン／アウト",
+      "single_spin_desc": "無限回転（ローディングスピナー）",
+      "single_progress_stripe_desc": "ストライプ流れアニメーション（background-position）",
+      "single_spinner_orbit_desc": "3D Y軸回転（rotateY 0→360deg）",
+      "single_spinner_dot_desc": "ドット不透明度パルス（opacity 0.2→1→0.2）",
+      "single_spinner_bar_desc": "バースケールパルス（scaleY 0.4→1→0.4）",
+      "single_spinner_morph_desc": "有機的形状変形＋3D回転（border-radius morph）",
+      "single_skeleton_pulse_desc": "明暗パルス（opacity 1→0.4→1）",
+      "single_skeleton_wave_desc": "シマーグラデーション（translateX -100%→100%）",
+      "demo_replay_label": "クリックでリプレイ",
+      "usage_desc": "アニメーショントークンの実践的な使い方。複数のユーティリティクラスを組み合わせて出現エフェクトを構成します。",
+      "comment_loading_spinner": "ローディングスピナー",
+      "tailwind_css_desc": "環境に合わせたアニメーション適用方法",
+      "comment_all_animations": "他の全アニメーションも同様に variables.css で自動生成:",
+      "tip1_desc_before": "各アニメーショントークンが1つのクラスに対応します。",
+      "tip1_desc_middle": "、",
+      "tip1_desc_after": " のように、トークン名がそのままクラス名になります。",
+      "tip2_desc_before": "マイクロインタラクションには150ms（",
+      "tip2_desc_after": "）を使用すると、素早いフィードバックが得られます。",
+      "tip3_desc_before": "出現アニメーションには ",
+      "tip3_desc_middle": " を使用し、自然な減速感を演出します。",
+      "tip3_desc_after": " は出現には不向きです。",
+      "tip4_label": "コンポーネント内部で自動適用",
+      "tip4_desc": "すべてのアニメーションはコンポーネント内部で自動的に適用されます。ユーザーがクラスを直接使う必要はありません。duration/easing はCSS変数を参照しているため、トークン値の変更で全アニメーションの速度が一括調整されます。",
+      "tip5_desc_before": "",
+      "tip5_desc_after": " でアニメーションを無効化し、アクセシビリティに配慮します。",
+      "enter_animations_desc_before": "Checkbox・Radioの出現エフェクト。各トークンが1つのクラス（",
+      "enter_animations_desc_after": "）に1:1マッピングされます。",
+      "scale_comparison_desc": "コンポーネントの形状に合わせたスケール値の使い分け",
+      "start_scale_label": "開始スケール",
+      "checkbox_desc": "チェックマークが枠内に収まるサイズ感で、75%の大きめスケールから自然に出現。",
+      "radio_desc": "小さいドットを50%スケールから開始し、「ポップ」感のある印象的な出現を演出。",
+      "named_animations_desc_before": "コンポーネント固有のスタンドアロンアニメーション。各 ",
+      "named_animations_desc_after": " クラス1つで完結します。",
+      "bp_recommended": "推奨",
+      "bp_avoid": "避けるべき",
+      "bp_do_1": "短いduration（micro=150ms）で素早いフィードバック",
+      "bp_do_2": "ease-outで自然な減速感を演出",
+      "bp_do_3": "opacity+scaleの組み合わせで豊かなトランジション",
+      "bp_do_4": "namedクラスで1:1マッピング",
+      "bp_dont_1": "300ms+のマイクロインタラクション",
+      "bp_dont_2": "ease-inでの出現アニメーション",
+      "bp_dont_3": "ハードコードのkeyframes",
+      "bp_dont_4": "prefers-reduced-motionの無視",
+      "tips_desc": "アニメーショントークン 実践ガイド"
+    },
+    "guidelines-accessibility": {
+      "page_desc": "Radix Primitives と Field システムによる自動アクセシビリティ対応のガイドラインです。",
+      "focus_mgmt_desc_after": " で統一。Input / Textarea はキーボード検出ベースの独自制御を適用。",
+      "focus_normal_label": "通常フォーカス",
+      "focus_error_label": "エラー時フォーカス",
+      "focus_note_after": " はキーボードフォーカスのみで発火します。マウスクリック時にはフォーカスリングが表示されません。Input / Textareaはさらに独自のキーボードフォーカス検出を行い、Tab操作時のみリングを表示します。",
+      "keyboard_nav_desc": "Radix Primitives が各コンポーネントのキーボード操作を自動管理します。",
+      "kb_btn_toggle_desc": "Tab移動、Enter/Spaceで実行",
+      "kb_checkbox_desc": "Tab移動、Spaceで切り替え",
+      "kb_switch_desc": "Tab移動、Spaceで切り替え",
+      "kb_radiogroup_desc": "Tabでグループ移動、矢印キーで選択（roving focus）",
+      "kb_togglegroup_desc": "Tabでグループ移動、矢印キーで切り替え",
+      "kb_slider_desc": "矢印で値変更、Home/Endで最小/最大",
+      "color_contrast_desc": "WCAG 2.2 AA では、テキストとUIコンポーネントに最低コントラスト比が要求されます。",
+      "contrast_text_normal_name": "テキスト（通常）",
+      "contrast_text_large_name": "テキスト（大）",
+      "contrast_ui_name": "UI要素",
+      "contrast_text_enhanced_name": "テキスト（強化）",
+      "example_good": "OK",
+      "example_bad": "NG",
+      "heading_text": "見出しテキスト",
+      "action_label": "アクションラベル",
+      "low_contrast": "低コントラスト — opacity-30",
+      "lower_contrast": "さらに低コントラスト — opacity-40",
+      "touch_targets_desc": "WCAG 2.5.8 は最小 24px を推奨。default（40px）以上で充足します。デスクトップではマウス操作のため、小さいサイズも実用的です。",
+      "touch_wcag_ok": "WCAG 充足",
+      "touch_tips_title": "より良い操作性のためのヒント:",
+      "touch_tip_1": "要素間に十分な間隔（8px以上）を確保する",
+      "touch_tip_2": "Checkbox / Switch / RadioGroupはラベルクリックで切り替え可能 — ラベル領域がタッチターゲットを補完",
+      "touch_tip_3": "モバイル向け画面では lg 以上のサイズを検討する",
+      "screen_reader_desc": "各コンポーネントが自動管理するARIA属性の一覧です。",
+      "sr_comp_input_field": "Input（Field連動）",
+      "sr_comp_svg": "装飾 SVG",
+      "sr_manual_badge": "手動",
+      "sr_btn_aria_busy_desc": "loading=true 時に自動付与",
+      "sr_btn_aria_pressed_desc": "selected=true 時に自動付与",
+      "sr_btn_disabled_desc": "native disabled属性（aria-disabledではない）",
+      "sr_iconbtn_aria_label_desc": "テキストがないため必須",
+      "sr_iconbtn_aria_hidden_desc": "内部SVGアイコンに自動付与",
+      "sr_input_aria_invalid_desc": "error=true 時に自動付与",
+      "sr_input_aria_describedby_desc": "Field内でFieldErrorに自動接続",
+      "sr_checkbox_role_desc": "Radixが自動設定（checkbox / switch / radiogroup）",
+      "sr_checkbox_aria_checked_desc": "状態に応じて自動管理",
+      "sr_fielderror_role_desc": "エラーメッセージをスクリーンリーダーに即時通知",
+      "sr_svg_aria_hidden_desc": "Button leftIcon/rightIconで自動付与",
+      "web_guidelines_desc": "コンポーネントに限らず、Web全般で推奨されるアクセシビリティのベストプラクティスです。",
+      "wg_semantic_html_title": "セマンティックHTML",
+      "wg_semantic_html_1": "<button>、<nav>、<main> 等の適切な要素を使用",
+      "wg_semantic_html_2": "<div onClick> ではなく <button> を使う",
+      "wg_semantic_html_3": "リストは <ul> / <ol> でマークアップ",
+      "wg_heading_title": "見出し階層",
+      "wg_heading_1": "h1 → h2 → h3 の順序を守る（レベルを飛ばさない）",
+      "wg_heading_2": "ページに h1 は1つだけ",
+      "wg_heading_3": "見出しはスクリーンリーダーのナビゲーションポイントになる",
+      "wg_landmark_title": "ランドマーク",
+      "wg_landmark_1": "<header>、<footer>、<aside> でページ構造を明示",
+      "wg_landmark_2": "メインコンテンツを <main> で囲む",
+      "wg_landmark_3": "スクリーンリーダーがページ内をジャンプできるようになる",
+      "wg_alt_title": "代替テキスト",
+      "wg_alt_1": "すべての意味のある画像に alt 属性を設定",
+      "wg_alt_2": "装飾的な画像は alt=\"\" で非表示",
+      "wg_alt_3": "alt テキストは画像の内容を簡潔に説明する",
+      "wg_color_title": "色だけに依存しない",
+      "wg_color_1": "エラー表示は赤色＋アイコン＋テキストを併用",
+      "wg_color_2": "グラフはパターンやラベルで区別できるようにする",
+      "wg_color_3": "リンクは色だけでなく下線やアイコンで区別",
+      "wg_dynamic_title": "動的コンテンツ",
+      "wg_dynamic_1": "aria-live で動的更新をスクリーンリーダーに通知",
+      "wg_dynamic_2": "トースト・通知には role=\"alert\" または role=\"status\"",
+      "wg_dynamic_3": "ページ遷移時にフォーカスを適切に管理する"
+    },
+    "guidelines-icons": {
+      "cat_navigation_desc": "ページ遷移やメニュー操作",
+      "cat_actions_desc": "ユーザーアクションとツール",
+      "cat_media_desc": "メディア再生とコントロール",
+      "cat_status_desc": "状態とフィードバック表示",
+      "cat_communication_desc": "通知とメッセージ",
+      "cat_users_desc": "ユーザーと設定",
+      "cat_files_desc": "ファイルとフォルダ管理",
+      "cat_development_desc": "開発とインフラ",
+      "cat_objects_desc": "オブジェクトとシンボル",
+      "cat_ai_ml_desc": "AI、機械学習、自動化",
+      "cat_voice_audio_desc": "音声、オーディオ、録音",
+      "cat_call_center_desc": "コールセンター、電話対応",
+      "cat_chat_messaging_desc": "チャット、メッセージング",
+      "cat_analytics_desc": "SaaS分析、ダッシュボード",
+      "cat_business_desc": "ビジネス、エンタープライズ",
+      "cat_workflow_desc": "ワークフロー、インテグレーション",
+      "cat_dashboard_desc": "管理画面、設定",
+      "cat_others_desc": "その他のユーティリティ",
+      "size_xs_usage": "xs/smボタン、バッジ、タグ",
+      "size_sm_usage": "default/lgボタン、フォーム要素",
+      "size_md_usage": "IconButton、ナビゲーション",
+      "size_lg_usage": "大型アイコン、カード",
+      "size_xl_usage": "空の状態、ヒーロー",
+      "page_desc_before": "Lucide Iconsライブラリをベースに、一貫性のあるアイコンシステムを提供します。サイズの詳細は",
+      "page_desc_after": "を参照してください。",
+      "badge_size_tokens": "5 サイズトークン",
+      "library_click_copy": "クリックしてアイコン名をコピー",
+      "library_view_all": "全アイコンを見る",
+      "size_scale_desc_before": "5段階のセマンティックアイコンサイズスケール。詳細は",
+      "size_scale_desc_after": "トークンページを参照",
+      "size_table_token": "トークン",
+      "size_table_size": "サイズ",
+      "size_table_usage": "用途",
+      "auto_sizing_desc": "UIコンポーネント内のアイコンは自動的にサイズが調整されます。classNameの指定は不要です。",
+      "with_text_label": "テキスト付き",
+      "icon_only_label": "アイコンのみ",
+      "auto_sizing_note_1": "自動サイズ調整はSVGを",
+      "auto_sizing_note_direct": "直接",
+      "auto_sizing_note_2": "レンダリングするコンポーネントに対して機能します。",
+      "auto_sizing_note_3": "のようなラッパー要素がある場合は動作しません。",
+      "install_desc": "Lucide Reactをプロジェクトにインストールします。",
+      "usage_desc": "アイコンの基本的な使用方法です。",
+      "custom_icons_desc": "自動サイズ調整を活用するカスタムアイコンの作成方法です。",
+      "code_search_label": "検索",
+      "code_add_aria_label": "追加",
+      "comment_size_spec": "// サイズ指定（トークンクラス）",
+      "comment_color_spec": "// カラー指定",
+      "comment_stroke_width": "// ストローク幅",
+      "comment_thin": "// 細め",
+      "comment_default": "// デフォルト",
+      "comment_thick": "// 太め",
+      "comment_correct_impl": "// ✅ 正しい実装 - SVGを直接レンダリング",
+      "comment_component_usage": "// コンポーネントで使用（自動サイズ調整）",
+      "code_button_label": "ボタン",
+      "comment_wrong_impl": "// ❌ 間違った実装 - ラッパー要素があるとサイズ調整されない",
+      "comment_manual_size": "// この場合、手動でサイズを指定する必要がある",
+      "code_not_work": "動作しない",
+      "comment_auto_sizing_example": "// 自動サイズ調整の使用例",
+      "comment_with_text_small": "// テキスト付きアイコン - 小さめのサイズに自動調整",
+      "comment_icon_only_large": "// アイコンのみ - 大きめのサイズに自動調整",
+      "comment_auto_by_size": "// コンポーネントのサイズに応じて自動調整",
+      "code_favorite": "お気に入り",
+      "code_small": "小",
+      "code_large": "大",
+      "tip_title": "Tip: アイコンライブラリの互換性",
+      "tip_desc": "Lucide、Heroicons、React Icons など、ほとんどのアイコンライブラリはSVGを直接レンダリングするため、自動サイズ調整が機能します。"
+    },
+    "guidelines-tailwind-versions": {
+      "page_desc_1": "Tailwind CSS v3 / v4 デュアルサポートの仕組み。",
+      "page_desc_2": "コンポーネントコードは単一ソースを維持し、テーマファイルでバージョン差分を吸収します。",
+      "page_desc_before_link": "セットアップ方法は",
+      "page_desc_after_link": "ページを参照してください。",
+      "badge_dual_support": "デュアルサポート",
+      "badge_single_source": "単一ソース",
+      "badge_theme_files": "2 テーマファイル",
+      "arch_desc": "figma-tokens.json → variables.css が唯一の値ソース。v3-preset.js と v4-theme.css は variables.css を参照するマッピングレイヤーです。",
+      "generated_files_label": "生成ファイル",
+      "hex_values_label": "全トークンの HEX 値",
+      "provides_utilities_label": "ユーティリティ提供",
+      "component_shared_label": "コンポーネント（共通コード）",
+      "v3_card_title": "v3 の仕組み",
+      "v3_item_1_before": "JS プリセット（",
+      "v3_item_1_after": "）",
+      "v3_item_2_before": "CSS変数を ",
+      "v3_item_2_after": " で参照",
+      "v3_item_3": "plugins でカスタムユーティリティ定義",
+      "v3_item_4_before": "セマンティックカラーの ",
+      "v3_item_4_after": "（RGB チャンネル変数）",
+      "v4_card_title": "v4 の仕組み",
+      "v4_item_2": "var() 参照 + HEX フォールバック（同名変数はカスケードで上書き）",
+      "v4_item_3_after": " でランタイム変換",
+      "v4_item_4_code": "bg-primary/50 対応",
+      "sync_desc": "Figma トークン → sync-tokens 実行時、v3/v4 テーマファイルが生成される2つのパターン",
+      "pattern1_title": "var() 参照（名前が異なる変数）",
+      "pattern1_desc_before": "テーマ変数名とCSS変数名が異なる場合、",
+      "pattern1_desc_after": " で直接参照します。",
+      "flow_source_label": "variables.css — ソース",
+      "flow_var_ref_label": "var() で参照",
+      "flow_alias_label": "v3/v4 テーマ — 別名で定義",
+      "flow_dev_class_label": "開発者が使うクラス",
+      "pattern2_title": "CSS カスケード（同名変数）",
+      "pattern2_desc_1": "同名変数は var() 自己参照が不可。sync-tokens が v4-theme.css の @theme に HEX フォールバック値を生成し、variables.css（unlayered）が ",
+      "pattern2_desc_strong": "@layer theme より常に優先",
+      "pattern2_desc_2": "されるカスケードで上書きします。ユーティリティは var() 参照を使うため、ダークモードの変数切り替えが自動反映されます。",
+      "cascade_priority_label": "優先",
+      "cascade_unlayered_desc": "unlayered — 常にカスケードで勝つ",
+      "cascade_override_label": "↑ 上書き",
+      "cascade_theme_label": "@theme — HEX フォールバック値",
+      "code_comment_fallback": "/* フォールバック */",
+      "code_comment_priority": "/* 優先 */",
+      "variables_always_wins_label": "variables.css (unlayered = 常に勝つ)",
+      "sync_method_var": "var() 参照",
+      "sync_method_cascade": "CSS カスケード",
+      "sync_when_diff_name": "変数名が異なる",
+      "sync_when_same_name": "同名変数",
+      "sync_when_not_in_theme": "@theme に無い項目",
+      "sync_info_before": "これらの同期は ",
+      "sync_info_after": " CLI で自動生成されます。v3-preset.js / v4-theme.css を手動で編集する必要はありません。",
+      "naming_desc": "v3 と v4 ではテーマ変数の定義方法が異なります。コンポーネントが使うユーティリティクラスは同一です。",
+      "naming_info_1_a": "v4 の ",
+      "naming_info_1_b": " ネームスペースに存在しない項目（duration, scale, z-index, icon-size 等）は ",
+      "naming_info_1_c": " で個別定義。v3 では同等の機能を ",
+      "naming_info_1_d": " の ",
+      "naming_info_1_e": " で実現しています。",
+      "naming_info_2_a": "v4 では ",
+      "naming_info_2_b": " エイリアスも使用可能です（例: ",
+      "naming_info_2_c": " = ",
+      "naming_info_2_d": "）。shadcn/ui 等のエコシステムと互換性があります。",
+      "custom_desc": "Tailwind 標準テーマに存在しない項目を、v3/v4 それぞれの方法でカスタムユーティリティとして定義しています。",
+      "custom_util_panel_v4": "v4 — @utility（v4-theme.css に定義済み）",
+      "custom_util_panel_v3": "v3 — plugins（v3-preset.js に定義済み）",
+      "duration_util_desc": "トランジションの持続時間",
+      "scale_util_desc": "ボタン押下時の縮小アニメーション",
+      "icon_sizes_util_desc": "5段階のアイコンサイズ",
+      "focus_ring_util_desc": "フォーカスリングのユーティリティ",
+      "z_index_util_desc": "名前付きZインデックス",
+      "animation_util_desc": "コンポーネントアニメーション",
+      "dark_desc": "ダークモードは themes/dark.css の .dark ブロックで完全管理。v3/v4 テーマファイルにダークモード定義は不要です。",
+      "dark_mode_footer": ".dark クラスの切り替えで自動的に異なる外観に — primary 等のカラーは dark.css でトーン調整可能",
+      "v3_dark_1_before": "ユーザーの tailwind.config.js に ",
+      "v3_dark_1_after": " を設定。",
+      "v3_dark_2_before": "v3-preset.js は ",
+      "v3_dark_2_after": " で参照するため、",
+      "v3_dark_3": ".dark クラスで変数が切り替わると自動反映。",
+      "v4_dark_1": "variables.css（unlayered）が @theme（theme layer）をカスケードで常に上書き。ユーティリティは var() を使うため、.dark の変数切り替えが自動反映。",
+      "v4_dark_2_before": "v4-theme.css に ",
+      "v4_dark_2_after": " ブロックは不要。",
+      "opacity_desc": "v3/v4 両方で bg-primary/50 のような opacity modifier が使用可能。v3 は RGB チャンネル変数、v4 は color-mix() で実現されます。",
+      "v3_opacity_subtitle": "RGB チャンネル変数で全対応",
+      "v4_opacity_subtitle": "color-mix() で全対応",
+      "opacity_info_1_before": "v3 でも ",
+      "opacity_info_1_after": " のような opacity modifier に対応しています。",
+      "opacity_info_2_before": "RGB チャンネル変数（",
+      "opacity_info_2_middle": "）を自動生成して ",
+      "opacity_info_2_after": " を適用します。"
+    },
+    "home": {
+      "hero_line1": "ひとつで",
+      "hero_line2": "つくる",
+      "sync_heading_before": "デザインとコードは、",
+      "sync_heading_accent": "常に同期",
+      "sync_desc": "Figma Tokensの変更がコードに自動反映。",
+      "sync_subdesc": "明確なトークン設計で、AI共同開発にも最適化。",
+      "sync_figma_label": "トークンを変更",
+      "sync_tokens_label": "自動で生成・更新",
+      "sync_components_label": "スタイルが自動反映",
+      "sync_badge": "常に100%同期",
+      "showcase_line1": "すべてを",
+      "showcase_line2": "ひとつの言語で",
+      "showcase_desc_1": "トークン、コンポーネント、ドキュメント。",
+      "showcase_desc_2": "すべてが同期し、チームが加速する。",
+      "bento_tokens_desc": "Figmaからコードまで同期された、 Single Source of Truthとしてのトークンシステム。",
+      "bento_ai_desc": "LLM対応アプリのためのUI",
+      "bento_dark_desc": "ワンクリックでシームレスに切り替え",
+      "bento_figma_desc": "デザインとコードを常に同期",
+      "bento_a11y_desc": "WCAG 2.2 AA準拠",
+      "bento_a11y_keyboard": "キーボード",
+      "bento_a11y_screenreader": "スクリーンリーダー",
+      "bento_responsive_desc": "モバイルファーストで構築",
+      "bento_radix_desc": "堅牢なHeadless UIベース",
+      "bento_radix_feature1": "キーボードナビゲーション",
+      "bento_radix_feature2": "ARIA属性の自動付与",
+      "token_heading_before": "ひとつのJSONから、",
+      "token_heading_accent": "すべてが生まれる",
+      "quickstart_heading": "数行で、すぐに使える",
+      "step1_title": "インストール",
+      "step2_title": "インポート",
+      "step3_title": "つくる",
+      "step3_desc_1": "42以上のコンポーネントを自由に組み合わせて、",
+      "step3_desc_2": "すぐにプロダクトを構築できます。",
+      "cta_heading_before": "すべてが、",
+      "cta_heading_accent": "手に入る",
+      "cta_desc_1": "デザイントークン単体でも、UIコンポーネント一式でも。",
+      "cta_desc_2": "必要なものを、ワンコマンドで。",
+      "cta_subdesc": "デザインとコード、境界なく",
+      "hero_tagline": "トークンで動くデザインシステム"
     }
   },
   "footer": {
