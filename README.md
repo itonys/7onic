@@ -296,6 +296,10 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 
 ---
 
+## Contact
+
+hello@7onic.io
+
 ## License
 
 MIT
