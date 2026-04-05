@@ -1,5 +1,7 @@
 # [7onic Design System](https://7onic.design)
 
+> **Just take a look. Don't say I didn't warn you.**
+
 > **🚀 Now available on npm — `npm install @7onic-ui/react @7onic-ui/tokens`**
 
 One JSON, every format. AI-optimized design system with Figma-synced token pipeline — accessible React components on Radix UI, and the ecosystem's only Tailwind v3+v4 dual support.
@@ -307,5 +309,6 @@ MIT
 ---
 
 <p align="center">
-  <strong>One JSON, every format — from Figma to production.</strong>
+  <strong>One JSON, every format — from Figma to production.</strong><br>
+  Independently built.
 </p>
