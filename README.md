@@ -22,7 +22,7 @@
 
 | | What | Why it matters |
 |:---:|---|---|
-| **🎯** | **Zero design-code drift** | One person designs in Figma and codes in React. No handoff, no miscommunication, no drift. |
+| **🎯** | **Zero design-code drift** | Design and code from a single vision. No handoff, no drift — every component is pixel-verified against Figma. |
 | **📦** | **One JSON, every format** | `figma-tokens.json` auto-generates CSS, Tailwind v3, Tailwind v4, JS/TS, and JSON — all in sync. |
 | **🧩** | **shadcn freedom + MUI convenience** | Built-in `loading`, `leftIcon`, `pressEffect`, `Field` — no DIY. Override anything with `className`. |
 | **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
