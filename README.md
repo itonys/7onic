@@ -1,75 +1,64 @@
-# [7onic Design System](https://7onic.design)
+<p align="center">
+  <a href="https://7onic.design">
+    <img src="https://7onic.design/og-image.png" alt="7onic Design System" width="100%" />
+  </a>
+</p>
 
-> **Just take a look. Don't say I didn't warn you.**
+<h1 align="center">7onic Design System</h1>
 
-> **🚀 Now available on npm — `npm install @7onic-ui/react @7onic-ui/tokens`**
+<p align="center">
+  <strong>Just take a look. Don't say I didn't warn you.</strong>
+</p>
 
-One JSON, every format. AI-optimized design system with Figma-synced token pipeline — accessible React components on Radix UI, and the ecosystem's only Tailwind v3+v4 dual support.
+<p align="center">
+  <a href="https://www.npmjs.com/package/@7onic-ui/react"><img src="https://img.shields.io/npm/v/@7onic-ui/react?color=37D8E6&label=react" alt="npm react" /></a>
+  <a href="https://www.npmjs.com/package/@7onic-ui/tokens"><img src="https://img.shields.io/npm/v/@7onic-ui/tokens?color=37D8E6&label=tokens" alt="npm tokens" /></a>
+  <a href="https://github.com/itonys/7onic/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
+  <a href="https://7onic.design"><img src="https://img.shields.io/badge/docs-7onic.design-black" alt="Documentation" /></a>
+</p>
+
+<p align="center">
+  Open-source React design system where design and code never drift.<br>
+  Single source of truth from Figma tokens, designer-verified components on Radix UI.
+</p>
 
 ---
 
-## Features
+## Why 7onic?
 
-- **Figma-Synced Token Pipeline** — Single source of truth. One JSON powers CSS, Tailwind, JS, and TypeScript
-- **Only Tailwind v3+v4 Dual Support** — The ecosystem's only design system supporting both versions
-- **AI-Optimized Components** — Structured for AI coding tools (Claude, Copilot) with predictable patterns
-- **Namespace + Named Exports** — Both `<Card.Header>` and `<CardHeader>` work. Use whichever you prefer
-- **100% TypeScript** — Full type safety with IntelliSense support
-- **Dark Mode Built-in** — Light/dark themes with system preference detection
-- **Radix UI Primitives** — Accessible, keyboard-navigable components out of the box
-- **Charts Included** — Bar, Line, Area, Pie, MetricCard with design token integration
-- **Tokens-only Distribution** — Use CSS variables without Tailwind or React
-- **Zero Runtime CSS** — No CSS-in-JS runtime overhead. Pure Tailwind classes
-- **Multilingual** — English, Japanese, Korean with automatic locale detection
+| | What | Why it matters |
+|:---:|---|---|
+| **🎯** | **Zero design-code drift** | One person designs in Figma and codes in React. No handoff, no miscommunication, no drift. |
+| **📦** | **One JSON, every format** | `figma-tokens.json` auto-generates CSS, Tailwind v3, Tailwind v4, JS/TS, and JSON — all in sync. |
+| **🧩** | **shadcn freedom + MUI convenience** | Built-in `loading`, `leftIcon`, `pressEffect`, `Field` — no DIY. Override anything with `className`. |
+| **🤖** | **AI-optimized** | Predictable token names and component patterns. Claude, Copilot, Cursor just work. |
+| **🌏** | **CJK-first typography** | Type scale tuned for Japanese kanji, Korean hangul, and Latin — not an afterthought. |
 
 ---
 
-## Quick Start
-
-### Components + Tokens
+## Get Started
 
 ```bash
 npm install @7onic-ui/react @7onic-ui/tokens
 ```
 
-```tsx
-// Standalone components
-import { Button } from '@7onic-ui/react'
-
-<Button>Get Started</Button>
-<Button variant="solid" color="primary">Primary</Button>
-
-// Compound components — namespace (recommended)
-import { Card } from '@7onic-ui/react'
-
-<Card>
-  <Card.Header>
-    <Card.Title>Settings</Card.Title>
-  </Card.Header>
-  <Card.Content>...</Card.Content>
-</Card>
-
-// Compound components — named exports (also supported)
-import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
-```
-
-#### Tailwind v4
+<details>
+<summary><strong>Tailwind v4</strong></summary>
 
 ```css
 @import "tailwindcss";
-
 @import '@7onic-ui/tokens/tailwind/v4.css';
-
 @source "../node_modules/@7onic-ui/react/dist";
 ```
+</details>
 
-#### Tailwind v3
+<details>
+<summary><strong>Tailwind v3</strong></summary>
 
 ```css
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 @import '@7onic-ui/tokens/css/all.css';
 ```
 
@@ -77,52 +66,13 @@ import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
 // tailwind.config.js
 module.exports = {
   presets: [require('@7onic-ui/tokens/tailwind/v3-preset')],
-  content: [
-    './node_modules/@7onic-ui/react/dist/**/*.{js,mjs}',
-  ],
+  content: ['./node_modules/@7onic-ui/react/dist/**/*.{js,mjs}'],
 }
 ```
+</details>
 
-#### Body Style
-
-```html
-<body class="bg-background text-foreground">
-```
-
-<br>
-
-### Tokens Only
-
-```bash
-npm install @7onic-ui/tokens
-```
-
-#### Tailwind v4
-
-```css
-@import "tailwindcss";
-
-@import '@7onic-ui/tokens/tailwind/v4.css';
-```
-
-#### Tailwind v3
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@import '@7onic-ui/tokens/css/all.css';
-```
-
-```js
-// tailwind.config.js
-module.exports = {
-  presets: [require('@7onic-ui/tokens/tailwind/v3-preset')],
-}
-```
-
-#### CSS Only
+<details>
+<summary><strong>CSS only (no Tailwind, no React)</strong></summary>
 
 ```css
 @import '@7onic-ui/tokens/css/all.css';
@@ -133,65 +83,24 @@ module.exports = {
   border-radius: var(--radius-md);
 }
 ```
+</details>
 
-#### JavaScript / TypeScript
-
-```ts
-import { colors, spacing, typography } from '@7onic-ui/tokens'
+```html
+<body class="bg-background text-foreground">
 ```
 
----
+```tsx
+import { Button, Card } from '@7onic-ui/react'
 
-## Package Structure
+<Button variant="solid" color="primary">Get Started</Button>
 
-### `@7onic-ui/react` — Component Library
-
-| File | Format | Description |
-|------|--------|-------------|
-| `dist/index.js` | CJS | CommonJS for Node.js / require() |
-| `dist/index.mjs` | ESM | ES Modules for bundlers / import |
-| `dist/index.d.ts` | Types | TypeScript definitions |
-
-```ts
-import { Button, Card, Modal } from '@7onic-ui/react'
+<Card>
+  <Card.Header>
+    <Card.Title>Settings</Card.Title>
+  </Card.Header>
+  <Card.Content>...</Card.Content>
+</Card>
 ```
-
-### `@7onic-ui/tokens` — Design Tokens
-
-**CSS Variables** — Use with any framework or vanilla CSS
-
-| File | Description |
-|------|-------------|
-| `css/all.css` | All-in-one bundle (variables + light + dark) ⭐ |
-| `css/variables.css` | Primitive tokens only |
-| `css/themes/light.css` | Light theme semantics |
-| `css/themes/dark.css` | Dark theme semantics |
-
-**Tailwind Presets** — Drop-in presets for v3 and v4
-
-| File | Description |
-|------|-------------|
-| `tailwind/v4.css` | All-in-one Tailwind v4 (theme + variables) ⭐ |
-| `tailwind/v3-preset.js` | Tailwind v3 preset for `tailwind.config.js` |
-| `tailwind/v4-theme.css` | Tailwind v4 `@theme` definitions |
-
-**JavaScript / TypeScript / JSON**
-
-| File | Description |
-|------|-------------|
-| `js/index.js` | CJS export |
-| `js/index.mjs` | ESM export |
-| `types/index.d.ts` | TypeScript definitions |
-| `json/tokens.json` | Flat JSON for custom tooling |
-
-**CLI**
-
-| File | Description |
-|------|-------------|
-| `cli/sync.js` | `npx sync-tokens` — regenerate all files from source |
-| `figma-tokens.json` | **SSOT** — the only file you edit |
-
-> All 9 distribution files + 2 convenience bundles are auto-generated from `figma-tokens.json` via `npx sync-tokens`.
 
 ---
 
@@ -201,37 +110,31 @@ import { Button, Card, Modal } from '@7onic-ui/react'
 |----------|-----------|:-----:|
 | **Forms** | Button, IconButton, ButtonGroup, Input, Textarea, Select, Dropdown, Checkbox, Radio, Switch, Toggle, ToggleGroup, Segmented, Slider | 14 |
 | **Data Display** | Avatar, Badge, Card, Table | 4 |
-| **Chart** | BarChart, LineChart, AreaChart, PieChart, MetricCard | 5 |
+| **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | 5 |
 | **Layout** | Tabs, Accordion, Divider | 3 |
 | **Overlay** | Modal, Drawer, Tooltip, Popover | 4 |
 | **Feedback** | Alert, Toast, Progress, Spinner, Skeleton | 5 |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | 3 |
 
-**38 components** ready. All follow these patterns:
-
-- CVA (class-variance-authority) for variant management
-- Controlled & uncontrolled modes
-- `forwardRef` for ref forwarding
-- `'use client'` directive
-- Namespace compound export (`Card.Header`) + backward-compatible named exports (`CardHeader`)
+**38 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, namespace exports (`Card.Header`) + named exports (`CardHeader`).
 
 ---
 
-## Design Tokens
+## Design Tokens — 14 Categories
 
 | Token | Values | Description |
 |-------|--------|-------------|
 | **Colors** | Semantic system | Brand, status, text, background, border |
 | **Typography** | 11 sizes (11–72px) | CJK-optimized: `md`(14px) for UI, `base`(16px) for body |
 | **Spacing** | 18 values (0–96px) | 2px steps (0–12px), 4px steps (12px+) |
-| **Radius** | 9 values (0–9999px) | `none` through `full` |
+| **Radius** | 9 values | `none` through `full` |
 | **Shadows** | 6 primitives | `xs` through `xl` + `primary-glow` |
-| **Duration** | 8 values (0–1000ms) | `instant` through `spin` |
-| **Easing** | 5 functions | `linear`, `ease`, `ease-in`, `ease-out`, `ease-in-out` |
+| **Duration** | 8 values | `instant` through `spin` |
+| **Easing** | 5 functions | `linear` through `ease-in-out` |
 | **Z-Index** | 13 layers | `0` through `toast`(3000) |
 | **Icon Sizes** | 6 sizes (12–32px) | `2xs` through `xl` |
-| **Opacity** | 21 values (0–1) | 5% increments |
-| **Animation** | 54 named (1:1) | Component enter/exit, spin, skeleton, progress |
+| **Opacity** | 21 values | 5% increments |
+| **Animation** | 54 keyframes | Component enter/exit, spin, skeleton, progress |
 | **Breakpoints** | 5 widths | `sm`(640) through `2xl`(1536) |
 | **Border Width** | 5 values | `0`, `1`, `2`, `4`, `8` |
 | **Scale** | 4 values | `50`, `75`, `95`, `pressed`(0.98) |
@@ -241,23 +144,54 @@ import { Button, Card, Modal } from '@7onic-ui/react'
 ## Token Pipeline
 
 ```
-figma-tokens.json                    ← SSOT (only file you edit)
+figma-tokens.json                    ← SSOT (the only file you edit)
     │
     │  npx sync-tokens
     │
     ├── css/variables.css            ← CSS variables (all primitives)
     ├── css/themes/light.css         ← Light theme semantics
     ├── css/themes/dark.css          ← Dark theme semantics
-    ├── css/all.css                  ← Bundle (variables + light + dark)
+    ├── css/all.css                  ← All-in-one bundle
     ├── tailwind/v3-preset.js        ← Tailwind v3 preset
     ├── tailwind/v4-theme.css        ← Tailwind v4 theme
-    ├── tailwind/v4.css              ← Bundle (theme + variables)
+    ├── tailwind/v4.css              ← Tailwind v4 bundle
     ├── js/index.js + .mjs           ← JavaScript / ESM
     ├── types/index.d.ts             ← TypeScript definitions
     └── json/tokens.json             ← Flat JSON
 ```
 
-CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking changes are auto-detected with diff visualization and backward-compatible aliases.
+Breaking changes are auto-detected with diff visualization. Backward-compatible aliases generated automatically.
+
+<details>
+<summary><strong>Package structure</strong></summary>
+
+### `@7onic-ui/react`
+
+| File | Format | Description |
+|------|--------|-------------|
+| `dist/index.js` | CJS | CommonJS for Node.js / require() |
+| `dist/index.mjs` | ESM | ES Modules for bundlers / import |
+| `dist/index.d.ts` | Types | TypeScript definitions |
+
+### `@7onic-ui/tokens`
+
+| File | Description |
+|------|-------------|
+| `css/all.css` | All-in-one bundle (variables + light + dark) |
+| `css/variables.css` | Primitive tokens only |
+| `css/themes/light.css` | Light theme semantics |
+| `css/themes/dark.css` | Dark theme semantics |
+| `tailwind/v4.css` | All-in-one Tailwind v4 |
+| `tailwind/v3-preset.js` | Tailwind v3 preset |
+| `tailwind/v4-theme.css` | Tailwind v4 theme definitions |
+| `js/index.js` | CJS export |
+| `js/index.mjs` | ESM export |
+| `types/index.d.ts` | TypeScript definitions |
+| `json/tokens.json` | Flat JSON for custom tooling |
+| `cli/sync.js` | `npx sync-tokens` CLI |
+| `figma-tokens.json` | SSOT — the only file you edit |
+
+</details>
 
 ---
 
@@ -294,7 +228,6 @@ CLI supports `--dry-run`, `--force`, `--input`, `--output` flags. Breaking chang
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
 - [ ] AI integration guide — `llms.txt` hosting + tool-specific rule files (Claude / Cursor / Copilot)
-- [ ] `/7onic-demo` Claude Code skill — build a full service with zero hardcoding, guided setup
 
 ---
 
