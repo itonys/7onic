@@ -1,9 +1,3 @@
-<p align="center">
-  <a href="https://7onic.design">
-    <img src="https://7onic.design/og-image.png" alt="7onic Design System" width="100%" />
-  </a>
-</p>
-
 <h1 align="center">7onic Design System</h1>
 
 <p align="center">
@@ -31,8 +25,13 @@
 | **🎯** | **Zero design-code drift** | One person designs in Figma and codes in React. No handoff, no miscommunication, no drift. |
 | **📦** | **One JSON, every format** | `figma-tokens.json` auto-generates CSS, Tailwind v3, Tailwind v4, JS/TS, and JSON — all in sync. |
 | **🧩** | **shadcn freedom + MUI convenience** | Built-in `loading`, `leftIcon`, `pressEffect`, `Field` — no DIY. Override anything with `className`. |
+| **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
+| **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
+| **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
+| **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
 | **🤖** | **AI-optimized** | Predictable token names and component patterns. Claude, Copilot, Cursor just work. |
 | **🌏** | **CJK-first typography** | Type scale tuned for Japanese kanji, Korean hangul, and Latin — not an afterthought. |
+| **🔥** | **Relentlessly updated** | Actively maintained with continuous research, refinement, and new features. Not abandoned — ever. |
 
 ---
 
