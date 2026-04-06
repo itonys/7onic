@@ -84,9 +84,13 @@ module.exports = {
 ```
 </details>
 
+Apply base theme colors to `<body>` — enables dark mode and consistent backgrounds:
+
 ```html
 <body class="bg-background text-foreground">
 ```
+
+Use components:
 
 ```tsx
 import { Button, Card } from '@7onic-ui/react'
