@@ -6,6 +6,30 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.1.1] — 2026-04-07
+
+### @7onic-ui/react
+
+#### Added
+- **AI Integration**: `llms.txt` included in npm package (llms.txt standard)
+
+### @7onic-ui/tokens
+
+#### Added
+- **AI Integration**: `llms.txt` included in npm package (llms.txt standard)
+
+### Documentation
+
+#### Added
+- AI Integration pages (`/design-tokens/ai`, `/components/ai`)
+- Setup guides for Claude Code, Cursor, GitHub Copilot, ChatGPT
+- `llms.txt` entry in Installation page Package Contents
+
+#### Changed
+- README: added AI Integration section, updated AI-ready feature description
+
+---
+
 ## [0.1.0] — 2026-04-04
 
 Initial release of 7onic Design System.
