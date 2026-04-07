@@ -5582,7 +5582,7 @@
     "guidelines-ai": {
       "hero_title_1": "AI Integration",
       "hero_title_2": "Tokens",
-      "hero_desc": "AIにトークンルールを渡すと、ハードコード値ではなくデザイントークンで構築します。ダークモード、スペーシング、カラーまですべて自動で対応します。",
+      "hero_desc": "AIにトークンルールを渡すだけで、ハードコードではなくデザイントークンで構築。ダークモード、スペーシング、カラーもすべて自動対応します。",
       "hero_desc_2_before": "コンポーネントとAIの連携については、",
       "hero_desc_2_link": "Component AI Integration",
       "hero_desc_2_after": "をご覧ください。",
