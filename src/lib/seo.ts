@@ -61,6 +61,11 @@ export const componentSEO = {
     ja: 'Radix UIベースのプロダクション対応Reactコンポーネント。Tailwind CSSとデザイントークンでカスタマイズ可能。',
     ko: 'Radix UI 기반의 프로덕션 대응 React 컴포넌트. Tailwind CSS와 디자인 토큰으로 커스터마이즈 가능.',
   }),
+  ai: page('AI Integration — Components', {
+    en: 'Let AI build with 7onic components and tokens. Full setup guide with Props, compound patterns, and form recipes.',
+    ja: '7onicコンポーネントとトークンでAI開発するための完全ガイド。Props、compoundパターン、フォームレシピ付き。',
+    ko: '7onic 컴포넌트와 토큰으로 AI 개발하기 위한 완전 가이드. Props, compound 패턴, 폼 레시피 포함.',
+  }),
   accordion: page('Accordion', {
     en: 'Collapsible content sections with 3 variants, single/multiple mode, and customizable icon position. Built on Radix UI.',
     ja: '3つのバリアント、single/multipleモード、アイコン位置カスタマイズ対応の折りたたみコンポーネント。Radix UIベース。',
@@ -345,6 +350,11 @@ export const tokenSEO = {
     en: '13 z-index tokens for layering — from base content to modals, toasts, and tooltips.',
     ja: 'ベースコンテンツからモーダル、トースト、ツールチップまでの13 z-indexトークン。',
     ko: '베이스 콘텐츠부터 모달, 토스트, 툴팁까지 13개 z-index 토큰.',
+  }),
+  ai: page('AI Integration — Tokens', {
+    en: 'Let AI build with design tokens, not hardcoded values. Setup guide for Claude Code, Cursor, Copilot, and ChatGPT.',
+    ja: 'AIにハードコードではなくデザイントークンで構築させるガイド。Claude Code、Cursor、Copilot、ChatGPT対応。',
+    ko: 'AI가 하드코딩 대신 디자인 토큰으로 빌드하도록 설정하는 가이드. Claude Code, Cursor, Copilot, ChatGPT 대응.',
   }),
 } as const
 

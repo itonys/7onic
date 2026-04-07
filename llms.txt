@@ -1,0 +1,474 @@
+# 7onic Design System — AI Guide (Tokens)
+
+## What is 7onic?
+
+Token-driven design system. Single source of truth — design tokens to code.
+Use the token system to style any project with consistent colors, spacing, typography, and more.
+
+- Documentation: https://7onic.design
+- npm: `@7onic-ui/tokens` (design tokens)
+- For components + tokens guide, see: https://7onic.design/llms-full.txt
+
+---
+
+# ═══ SECTION 1: PROJECT SETUP ═══
+
+## How to Start
+
+### Step 1: Ask the user (setup checklist)
+
+Before writing any code, present this checklist and wait for answers:
+
+1. **Framework** — Next.js / Vite (React SPA) / Remix / other?
+2. **Dark mode** — Yes or no?
+3. **Font** — Use default, or custom font? If custom, which font?
+4. **Locale** — Which language(s)? (for CJK font loading)
+
+**If the user answers in natural language**, extract the answers. **If any item is missing, ask a follow-up question for the missing items only.** Do not proceed until all 4 items are answered.
+
+### Step 2: Execute full setup (all at once, do not skip any)
+
+After receiving answers, execute ALL of the following in order. Every step is mandatory.
+
+**2-1. Install package (skip if already installed):**
+```bash
+npm install @7onic-ui/tokens
+```
+> Check package.json first. If already listed in dependencies, skip this step.
+
+**2-2. Create or update globals.css with token imports:**
+
+**How to detect Tailwind version:**
+- `tailwind.config.js` (or `.ts`) exists → **v3**
+- No config file → **v4** (uses CSS-based configuration)
+
+**New project (Tailwind v4):**
+```css
+/* globals.css — ALL imports are required, do not skip any */
+@import "tailwindcss";
+@import "@7onic-ui/tokens/css/variables.css";
+@import "@7onic-ui/tokens/css/themes/light.css";
+@import "@7onic-ui/tokens/css/themes/dark.css";    /* omit ONLY if dark mode = no */
+@import "@7onic-ui/tokens/tailwind/v4-theme.css";
+```
+
+**Existing project with Tailwind v3** (detect from tailwind.config.js):
+```css
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import '@7onic-ui/tokens/css/variables.css';
+@import '@7onic-ui/tokens/css/themes/light.css';
+@import '@7onic-ui/tokens/css/themes/dark.css';    /* omit ONLY if dark mode = no */
+```
+```js
+// tailwind.config.js — add preset
+const preset = require('@7onic-ui/tokens/tailwind/v3-preset')
+module.exports = {
+  presets: [preset],
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+}
+```
+
+**2-3. Set body classes:**
+```html
+<body class="bg-background text-foreground">
+```
+
+**2-4. Apply user's answers:**
+
+- Dark mode = yes → implement dark mode toggle (see below)
+- Custom font → load font (next/font for Next.js, CDN for Vite) + set `--font-family-sans`
+- Locale includes Japanese → load Noto Sans JP font
+- Locale includes Korean → load Noto Sans KR font
+
+**2-5. Verify setup is complete before writing any UI code:**
+- [ ] Package installed (@7onic-ui/tokens)
+- [ ] globals.css has ALL required imports in correct order
+- [ ] Body has `bg-background text-foreground`
+- [ ] Dark mode toggle (if selected)
+- [ ] Font loaded (if custom)
+- [ ] CJK fonts loaded (if applicable)
+
+⛔ **Do NOT proceed to Step 3 until all checks pass.**
+
+### Icon Import Pattern (lucide-react)
+
+```tsx
+// ✅ Official pattern — no suffix
+import { Search, Settings, ChevronDown, X } from 'lucide-react'
+
+// ❌ Legacy alias — avoid
+import { SearchIcon, SettingsIcon } from 'lucide-react'
+
+// ⚠️ Name collision with your own component — use alias
+import { Badge as BadgeIcon } from 'lucide-react'
+```
+
+### Step 3: Start building
+
+Use token classes for all styling. See Token Reference below.
+
+---
+
+# ═══ SECTION 2: AI RULES ═══
+
+## ⛔ Core Principle
+
+**Token values are user-defined.** Every project has different brand colors, spacing, and design decisions. The token NAMES are the API — never assume or hardcode specific values.
+
+## Whitelist — ONLY These Are Allowed
+
+When writing any code, you may ONLY use:
+
+1. **Token classes** — colors, spacing, typography, radius, shadows, z-index, icon sizes, duration, easing, opacity, scale (listed in Token Reference below)
+2. **Tailwind structural utilities** — layout, positioning, display, overflow, sizing, and more:
+   - Layout: flex, grid, block, inline, hidden, container
+   - Position: relative, absolute, fixed, sticky, top-0, inset-0
+   - Flex/Grid: items-center, justify-between, gap-4, col-span-2
+   - Sizing: w-full, h-full, min-h-screen, max-w-7xl
+   - Spacing: space-x-*, space-y-*, divide-x, divide-y
+   - Overflow: overflow-hidden, overflow-auto, truncate, whitespace-nowrap
+   - Interaction: cursor-pointer, pointer-events-none, select-none
+   - Accessibility: sr-only
+   - Group/Peer: group, group-hover:*, peer, peer-checked:*
+   - Aspect: aspect-square, aspect-video
+   - Text: line-clamp-*, text-ellipsis
+   - Animation: animate-spin, animate-pulse, animate-bounce
+   - Any other Tailwind structural/layout utility not listed above is also allowed — as long as it does not hardcode colors, spacing values, font sizes, or other visual values that exist as tokens
+   - ⚠️ Utilities that implicitly use color (divide, border) must be paired with a token color:
+     `divide-y divide-border` ✅ / `divide-y` alone ❌ (may not adapt to dark mode)
+     `border border-border` ✅ / `border` alone ❌
+3. **Tailwind visual utilities using token values** — gradients, transforms, transitions:
+   - Gradient: bg-gradient-to-r, from-primary, to-secondary (token colors only)
+   - Transform: rotate-45, translate-x-1
+   - Transition: transition-all, transition-colors (with token durations)
+   - Backdrop: backdrop-blur, backdrop-blur-sm
+4. **Responsive prefixes** — sm:, md:, lg:, xl:, 2xl: (on allowed classes only)
+5. **State prefixes** — hover:, focus:, active:, disabled: (on allowed classes only, token values only)
+6. **Layout dimension arbitrary values** — height and width ONLY: h-[300px], max-w-[1200px], min-h-screen (when no token fits)
+7. **Opacity modifier** — append `/0-100` to any token color for transparency:
+   - `bg-primary/50`, `text-foreground/70`, `border-border/30`
+   - Do NOT use `opacity-*` utility as a workaround — it affects the entire element including children
+   - `bg-primary/10` ✅ (only background is transparent) / `bg-primary opacity-10` ❌ (children also become transparent)
+
+**Everything not in this list is FORBIDDEN.**
+
+⚠️ **Gradient/visual utilities must use token colors only:** `from-primary to-secondary` ✅ / `from-blue-500 to-purple-600` ❌
+
+## ❌ Forbidden — Never Use These
+
+| Category | Forbidden | Use Instead |
+|---|---|---|
+| Raw colors | `bg-blue-500`, `text-gray-700`, `bg-white` | `bg-primary`, `text-foreground`, `bg-background` |
+| Dark prefix | `dark:bg-gray-900`, `dark:text-white` | Semantic tokens auto-adapt |
+| Arbitrary values | `p-[17px]`, `text-[13px]`, `rounded-[7px]`, `z-[999]` | `p-4`, `text-sm`, `rounded-md`, `z-modal` |
+| Icon sizing | `w-4 h-4`, `w-5 h-5` | `icon-sm`, `icon-md` |
+| Raw durations | `duration-150`, `duration-200` | `duration-micro`, `duration-normal` |
+| Raw shadows | `shadow-[0_2px_4px...]` | `shadow-sm` |
+| Inline styles | `style={{ color: '#333' }}` | `className="text-foreground"` |
+| @apply raw | `@apply bg-blue-500` | `@apply bg-primary` |
+| Hardcoded hex | `#FF5733`, `rgb(51,51,51)` | Token classes |
+
+## When User Requests Custom Values
+
+If the user explicitly asks for a value outside the token system:
+
+```
+User: "Change this background to #FF5733"
+
+AI: "This color is not in the token system.
+     Apply this custom value bypassing the tokens?
+     Or I can use an existing token (bg-primary, bg-error, etc.)."
+
+User: "Apply it"
+AI: → Apply the custom value
+```
+
+**Rule:**
+- User request within token range → execute immediately
+- User request outside token range → ask "custom value, bypass tokens?" → execute only after confirmation
+- AI writing code on its own → token system ONLY, never bypass
+
+---
+
+## Dark Mode
+
+Dark mode is **automatic** when using semantic tokens. No `dark:` prefix needed.
+
+| ❌ NEVER | ✅ CORRECT |
+|---|---|
+| `bg-white dark:bg-gray-900` | `bg-background` |
+| `text-gray-900 dark:text-gray-100` | `text-foreground` |
+| `text-gray-500 dark:text-gray-400` | `text-muted` |
+| `border-gray-200 dark:border-gray-700` | `border-border` |
+
+### Dark Mode Toggle Implementation
+
+Strategy: `dark` class on `<html>` element.
+
+**Required behavior:**
+1. Toggle adds/removes `dark` class on `<html>`
+2. Persist choice to localStorage (key: `"theme"`)
+3. On page load: check localStorage first → fallback to system preference
+4. System preference: `window.matchMedia('(prefers-color-scheme: dark)')`
+
+**Three states:** `'light'` | `'dark'` | `'system'`
+
+**Minimal logic:**
+- Read: `localStorage.getItem('theme') || 'system'`
+- Apply: `document.documentElement.classList.toggle('dark', isDark)`
+- Save: `localStorage.setItem('theme', newTheme)`
+
+**Add a toggle button in the header** that cycles through light → dark → system (or light ↔ dark).
+
+---
+
+# ═══ SECTION 3: TOKEN REFERENCE ═══
+
+> Token values depend on the user's project configuration.
+> The names below are the API. Never assume specific hex values.
+
+## Colors — Semantic (theme-aware, USE THESE)
+
+**Background:**
+- `background` — main page background
+- `background-paper` — card/surface background
+- `background-elevated` — elevated surface (above paper)
+- `background-muted` — subtle/subdued background
+
+**Text:**
+- `foreground` (alias: `text`) — primary text
+- `text-muted` — secondary text, lower emphasis
+- `text-subtle` — tertiary text, lowest emphasis
+- `text-link` — link color
+- `text-primary` — brand-colored text
+
+**Intent Status:**
+- `text-info` / `text-success` / `text-error` / `text-warning`
+
+**Intent Colors (each has 5 variants):**
+- `primary` / `primary-hover` / `primary-active` / `primary-tint` / `primary-foreground`
+- `secondary` / `secondary-hover` / `secondary-active` / `secondary-tint` / `secondary-foreground`
+- `success` / `success-hover` / `success-active` / `success-tint` / `success-foreground`
+- `warning` / `warning-hover` / `warning-active` / `warning-tint` / `warning-foreground`
+- `error` / `error-hover` / `error-active` / `error-tint` / `error-foreground`
+- `info` / `info-hover` / `info-active` / `info-tint` / `info-foreground`
+
+**Border:**
+- `border` — default border
+- `border-subtle` — lighter/softer border
+- `border-strong` — stronger/darker border
+
+**State:**
+- `disabled` — disabled background
+- `disabled-text` — disabled text
+- `focus-ring` — focus indicator
+- `focus-ring-error` — error focus indicator
+
+## Colors — Primitive (raw palette, use sparingly)
+
+7 color families, each with 50–900 shades (10 steps):
+`gray`, `primary`, `secondary`, `blue`, `green`, `red`, `yellow`
+
+Usage: `bg-primary-100`, `text-gray-600`, `border-blue-300`
+**Prefer semantic tokens over primitives** — primitives don't auto-adapt to dark mode.
+**Note:** The actual colors of each palette depend on the user's token configuration.
+
+## Spacing
+
+| Token | Value | Common Use |
+|---|---|---|
+| `0` | 0 | Reset |
+| `0.5` | 2px | Micro gap |
+| `1` | 4px | Tight gap |
+| `1.5` | 6px | Small gap |
+| `2` | 8px | Default gap |
+| `2.5` | 10px | — |
+| `3` | 12px | Section gap |
+| `4` | 16px | Card padding |
+| `5` | 20px | — |
+| `6` | 24px | Section padding |
+| `7` | 28px | — |
+| `8` | 32px | Large padding |
+| `10` | 40px | — |
+| `12` | 48px | — |
+| `14` | 56px | — |
+| `16` | 64px | Page margin |
+| `20` | 80px | — |
+| `24` | 96px | Hero spacing |
+
+## Typography
+
+**Font Families:**
+- `font-sans` — sans-serif body font (user-defined)
+- `font-mono` — monospace code font (user-defined)
+
+**Font Sizes:**
+
+| Class | Size | Line Height | Use Case |
+|---|---|---|---|
+| `text-2xs` | 11px | 16px | Fine print |
+| `text-xs` | 12px | 18px | Caption, badge |
+| `text-sm` | 13px | 20px | Body small, table |
+| `text-md` | 14px | 22px | Body default |
+| `text-base` | 16px | 26px | Body large |
+| `text-lg` | 18px | 28px | Subtitle |
+| `text-xl` | 20px | 30px | Title |
+| `text-2xl` | 24px | 34px | Heading |
+| `text-3xl` | 30px | 40px | Hero subtitle |
+| `text-4xl` | 36px | 46px | Hero title |
+| `text-5xl` | 48px | 58px | Display |
+
+**Font Weights:**
+- `font-normal` (400) — body text
+- `font-semibold` (600) — labels, emphasis
+- `font-bold` (700) — headings
+
+## Border Radius
+
+| Class | Value | Use Case |
+|---|---|---|
+| `rounded-none` | 0px | Square |
+| `rounded-sm` | 2px | Subtle |
+| `rounded-base` | 4px | Default (checkbox) |
+| `rounded-md` | 6px | Default (button) |
+| `rounded-lg` | 8px | Card, input |
+| `rounded-xl` | 12px | Large card |
+| `rounded-2xl` | 16px | Modal |
+| `rounded-3xl` | 24px | Pill shape |
+| `rounded-full` | 9999px | Circle, pill button |
+
+## Shadows
+
+| Class | Description |
+|---|---|
+| `shadow-xs` | Barely visible — subtle elevation |
+| `shadow-sm` | Default card shadow |
+| `shadow-md` | Dropdown, popover |
+| `shadow-lg` | Modal, drawer |
+| `shadow-xl` | Floating action |
+
+Shadows automatically adapt between light and dark themes.
+
+## Z-Index (named stack)
+
+| Class | Value | Use Case |
+|---|---|---|
+| `z-0` | 0 | Default |
+| `z-10`–`z-50` | 10–50 | Layout layers |
+| `z-sticky` | 100 | Sticky header |
+| `z-dropdown` | 1000 | Dropdown menu |
+| `z-overlay` | 1100 | Overlay/backdrop |
+| `z-modal` | 2000 | Modal dialog |
+| `z-popover` | 2100 | Popover |
+| `z-tooltip` | 2200 | Tooltip |
+| `z-toast` | 3000 | Toast notification |
+
+**Never use arbitrary z-index values.** Always use these named tokens.
+
+## Icon Sizes (6-step scale)
+
+| Class | Size | Use Case |
+|---|---|---|
+| `icon-2xs` | 12px | Badge icon, small indicator |
+| `icon-xs` | 14px | xs/sm button icon, tag |
+| `icon-sm` | 16px | Default button icon, form element |
+| `icon-md` | 20px | Navigation, default icon button |
+| `icon-lg` | 24px | Large icon button, card |
+| `icon-xl` | 32px | Hero, feature icon |
+
+**Never use `w-4 h-4` for icons.** Always use `icon-{size}` classes.
+
+## Duration
+
+| Class | Value | Use Case |
+|---|---|---|
+| `duration-instant` | 0ms | No animation |
+| `duration-fast` | 100ms | Micro interactions |
+| `duration-micro` | 150ms | Button press, toggle |
+| `duration-normal` | 200ms | Default transition |
+| `duration-slow` | 300ms | Panel slide |
+| `duration-slower` | 400ms | Page transition |
+| `duration-slowest` | 500ms | Complex animation |
+| `duration-spin` | 1000ms | Spinner rotation |
+
+## Easing
+
+- `ease-linear` — constant speed
+- `ease-ease` — natural acceleration/deceleration
+- `ease-ease-in` — slow start
+- `ease-ease-out` — slow end
+- `ease-ease-in-out` — slow start and end
+
+## Opacity
+
+21-step scale: `opacity-0`, `opacity-5`, `opacity-10` ... `opacity-95`, `opacity-100`
+Each 5% increment. Values: 0, 0.05, 0.10 ... 0.95, 1.0
+
+## Scale (Transform)
+
+| Class | Value | Use Case |
+|---|---|---|
+| `scale-50` | 0.5 | Half size |
+| `scale-75` | 0.75 | Reduced |
+| `scale-95` | 0.95 | Hover shrink |
+| `scale-pressed` | 0.98 | Button press effect |
+
+## Breakpoints
+
+| Class | Min Width | Use Case |
+|---|---|---|
+| `sm:` | 640px | Mobile landscape |
+| `md:` | 768px | Tablet |
+| `lg:` | 1024px | Desktop |
+| `xl:` | 1280px | Wide desktop |
+| `2xl:` | 1536px | Ultra-wide |
+
+---
+
+# ═══ SECTION 4: TOKEN CUSTOMIZATION ═══
+
+## ⛔ Rule for AI: Use Existing Tokens Only
+
+The token system is comprehensive — semantic colors, primitives, spacing, typography, radius, shadows, z-index, icon sizes, duration, easing, opacity, scale, and breakpoints cover all UI needs.
+
+**Every visual value you need already exists as a token.** Use it.
+
+- **Always use token names** (`bg-primary`, `text-foreground`, `rounded-lg`) — never hardcode values
+- **Never assume specific color values** — token values are defined by the user's project
+- **Never add CSS variables, hex values, or arbitrary Tailwind values**
+- **Token customization is the user's responsibility** — if the user needs custom values, they will handle it separately. See: https://7onic.design/components/theming
+- **Never modify generated token files** — the following files are auto-generated from figma-tokens.json via sync-tokens. AI must never edit, add to, or delete from these files: `variables.css`, `light.css`, `dark.css`, `v3-preset.js`, `v4-theme.css`, `index.js`, `index.mjs`, `index.d.ts`, `tokens.json`
+
+### Self-Check (after writing ANY code)
+
+Before presenting code to the user, scan your own output for violations:
+
+- [ ] Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-white`, `border-gray-*`)
+- [ ] Any arbitrary value? (`p-[*]`, `text-[*]`, `rounded-[*]`, `z-[*]`)
+- [ ] Any inline style? (`style={{ }}`)
+- [ ] Any `dark:` prefix?
+- [ ] Any `w-N h-N` for icons instead of `icon-*`?
+- [ ] Any `divide-*` or `border` without a token color? (`divide-y` alone → `divide-y divide-border`)
+- [ ] Any `opacity-*` on element instead of color modifier? (`bg-primary opacity-10` → `bg-primary/10`)
+
+**If ANY violation is found → fix it before showing code to the user.**
+**Do NOT present code with violations. Fix first, then present.**
+
+---
+
+- **When in doubt, check the documentation** — if token usage is unclear, refer to the official docs:
+  - Token pages: `https://7onic.design/design-tokens/{name}` (e.g., `/design-tokens/colors`, `/design-tokens/spacing`)
+  - Do not guess token values or usage — verify from the documentation first
+
+---
+
+## Links
+
+- Documentation: https://7onic.design
+- npm (tokens): https://npmjs.com/package/@7onic-ui/tokens
+- npm (react): https://npmjs.com/package/@7onic-ui/react
+- GitHub: https://github.com/itonys/7onic
+- Full AI guide (tokens + components): https://7onic.design/llms-full.txt

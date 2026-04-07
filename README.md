@@ -29,7 +29,7 @@
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
 | **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
-| **🤖** | **AI-optimized** | Predictable token names and component patterns. Claude, Copilot, Cursor just work. |
+| **🤖** | **AI-ready** | Ships with `llms.txt` — AI builds with design tokens, not hardcoded values. Zero config for Claude, Cursor, Copilot. |
 | **🌏** | **CJK-first typography** | Type scale tuned for Japanese kanji, Korean hangul, and Latin — not an afterthought. |
 | **🔥** | **Relentlessly updated** | Actively maintained with continuous research, refinement, and new features. Not abandoned — ever. |
 
@@ -175,6 +175,7 @@ Breaking changes are auto-detected with diff visualization. Backward-compatible 
 | `dist/index.js` | CJS | CommonJS for Node.js / require() |
 | `dist/index.mjs` | ESM | ES Modules for bundlers / import |
 | `dist/index.d.ts` | Types | TypeScript definitions |
+| `llms.txt` | Text | AI integration rules (llms.txt standard) |
 
 ### `@7onic-ui/tokens`
 
@@ -195,6 +196,23 @@ Breaking changes are auto-detected with diff visualization. Backward-compatible 
 | `figma-tokens.json` | SSOT — the only file you edit |
 
 </details>
+
+---
+
+## AI Integration
+
+7onic ships with `llms.txt` — an open standard that lets AI tools build with design tokens instead of hardcoded values.
+
+```
+# In CLAUDE.md, .cursor/rules, or copilot-instructions.md
+Rules: node_modules/@7onic-ui/react/llms.txt
+```
+
+Once loaded, AI automatically uses `bg-primary` instead of `bg-blue-500`, spacing tokens instead of arbitrary pixels, and skips unnecessary `dark:` prefixes.
+
+Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that reads text files.
+
+**Setup guides**: [Tokens](https://7onic.design/design-tokens/ai) · [Components](https://7onic.design/components/ai)
 
 ---
 
@@ -226,11 +244,11 @@ Breaking changes are auto-detected with diff visualization. Backward-compatible 
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
 - [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.1.0
+- [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [ ] Theme Customizer (live color preview)
 - [ ] `npx 7onic add` CLI (shadcn-style)
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
-- [ ] AI integration guide — `llms.txt` hosting + tool-specific rule files (Claude / Cursor / Copilot)
 
 ---
 
