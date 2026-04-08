@@ -24,20 +24,53 @@ function page(title: string, descriptions: LocaleDescriptions): LocaleSEOMap {
   return result
 }
 
+// Canonical URL + hreflang alternates builder
+// Every child page must override parent's alternates to avoid
+// Google treating them as duplicates of the homepage
+export function buildAlternates(locale: string, path: string) {
+  const base = siteConfig.siteUrl
+  const canonicalUrl = locale === 'en' ? `${base}${path}` : `${base}/${locale}${path}`
+  const languages: Record<string, string> = {}
+  for (const loc of ['en', 'ja', 'ko']) {
+    languages[loc] = loc === 'en' ? `${base}${path}` : `${base}/${loc}${path}`
+  }
+  languages['x-default'] = `${base}${path}`
+  return { canonical: canonicalUrl, languages }
+}
+
+// Inject canonical + hreflang into existing metadata
+function withCanonical(metadata: Metadata, locale: string, path: string): Metadata {
+  const alternates = buildAlternates(locale, path)
+  return {
+    ...metadata,
+    openGraph: {
+      ...(metadata.openGraph as Record<string, unknown>),
+      url: alternates.canonical,
+    },
+    alternates,
+  }
+}
+
 // Accessor functions for layout.tsx
 export function getComponentSEO(locale: string, key: string): Metadata {
   const entry = componentSEO[key as keyof typeof componentSEO]
-  return entry?.[(locale as Locale)] ?? entry?.en
+  const metadata = entry?.[(locale as Locale)] ?? entry?.en
+  const path = key === 'index' ? '/components' : `/components/${key}`
+  return withCanonical(metadata, locale, path)
 }
 
 export function getTokenSEO(locale: string, key: string): Metadata {
   const entry = tokenSEO[key as keyof typeof tokenSEO]
-  return entry?.[(locale as Locale)] ?? entry?.en
+  const metadata = entry?.[(locale as Locale)] ?? entry?.en
+  const path = key === 'index' ? '/design-tokens' : `/design-tokens/${key}`
+  return withCanonical(metadata, locale, path)
 }
 
 export function getGuidelineSEO(locale: string, key: string): Metadata {
   const entry = guidelineSEO[key as keyof typeof guidelineSEO]
-  return entry?.[(locale as Locale)] ?? entry?.en
+  const metadata = entry?.[(locale as Locale)] ?? entry?.en
+  const path = `/guidelines/${key}`
+  return withCanonical(metadata, locale, path)
 }
 
 // Description accessors for OG images (always English)
