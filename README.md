@@ -220,14 +220,10 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 
 | | |
 |---|---|
-| **Framework** | Next.js 14 + React 18 |
-| **Language** | TypeScript 5 |
 | **Styling** | Tailwind CSS v3 / v4 + CSS Variables |
 | **Primitives** | Radix UI |
 | **Charts** | Recharts |
-| **Tokens** | Figma Token Studio → `sync-tokens` |
 | **Variants** | class-variance-authority (CVA) |
-| **Build** | tsup (library), Next.js (docs) |
 
 ---
 
