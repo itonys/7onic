@@ -260,5 +260,6 @@ MIT
 
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
-  Independently built.
+  Independently built.<br>
+  <sub>Last updated: 2026-04-08</sub>
 </p>
