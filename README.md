@@ -252,10 +252,6 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 
 ---
 
-## Contact
-
-hello@7onic.io
-
 ## License
 
 MIT
