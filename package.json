@@ -48,7 +48,7 @@
     "verify:i18n:html": "tsx scripts/verify-i18n-html.ts",
     "verify:components": "tsx scripts/verify-components.ts",
     "verify:publish": "tsx scripts/verify-publish.ts",
-    "prepublishOnly": "npm run verify:docs && npm run build:lib && npm run verify:publish"
+    "prepublishOnly": "npm run build:lib "npm run verify:docs && npm run build:lib && npm run verify:publish""npm run verify:docs && npm run build:lib && npm run verify:publish" npm run verify:publish"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",
