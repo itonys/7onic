@@ -26,7 +26,6 @@ export * from './components/ui/navigation-menu'
 export * from './components/ui/pagination'
 export * from './components/ui/modal'
 export * from './components/ui/metric-card'
-export * from './components/ui/chart'
 
 // Utilities
 export { cn } from './lib/utils'

@@ -2,7 +2,10 @@ import { defineConfig } from 'tsup'
 import path from 'path'
 
 export default defineConfig({
-  entry: ['src/components/ui/index.ts'],
+  entry: {
+    'index': 'src/components/ui/index.ts',
+    'chart': 'src/components/ui/chart.tsx',
+  },
   format: ['cjs', 'esm'],
   dts: true,
   splitting: false,

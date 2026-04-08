@@ -133,7 +133,7 @@ Design freely based on user's project description. Always use 7onic components +
 
 | Component | Additional Package | When to install |
 |---|---|---|
-| Chart (Bar, Line, Area, Pie) | `recharts` | Auto-install when you decide to use any Chart component |
+| Chart (Bar, Line, Area, Pie) | `recharts` | `npm install recharts` — import from `@7onic-ui/react/chart` (separate entry point) |
 
 ---
 
@@ -403,7 +403,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
 
 ### Compound Components List (21)
 
-Accordion, Alert, Avatar, Breadcrumb, Card, Chart, Drawer, Dropdown, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
+Accordion, Alert, Avatar, Breadcrumb, Card, Chart, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
 
 ### Standalone Components (15)
 
@@ -574,22 +574,22 @@ import { Select } from '@7onic-ui/react'
 
 ---
 
-### Dropdown
+### DropdownMenu
 
 ```tsx
-import { Dropdown } from '@7onic-ui/react'
+import { DropdownMenu } from '@7onic-ui/react'
 
-<Dropdown>
-  <Dropdown.Trigger asChild>
+<DropdownMenu>
+  <DropdownMenu.Trigger asChild>
     <Button variant="outline">Options</Button>
-  </Dropdown.Trigger>
-  <Dropdown.Content>
-    <Dropdown.Item>Edit</Dropdown.Item>
-    <Dropdown.Item>Duplicate</Dropdown.Item>
-    <Dropdown.Separator />
-    <Dropdown.Item className="text-error">Delete</Dropdown.Item>
-  </Dropdown.Content>
-</Dropdown>
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Item>Edit</DropdownMenu.Item>
+    <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item className="text-error">Delete</DropdownMenu.Item>
+  </DropdownMenu.Content>
+</DropdownMenu>
 ```
 
 | Prop (Content) | Type | Default | Description |
@@ -599,7 +599,7 @@ import { Dropdown } from '@7onic-ui/react'
 | flush | `boolean` | `false` | Full-width items (no padding) |
 | sideOffset | `number` | `4` | Gap from trigger |
 
-**Sub-components:** Dropdown.Trigger, Dropdown.Content, Dropdown.Item, Dropdown.CheckboxItem, Dropdown.RadioItem, Dropdown.Label, Dropdown.Separator, Dropdown.Group, Dropdown.Sub, Dropdown.SubTrigger, Dropdown.SubContent, Dropdown.Shortcut
+**Sub-components:** DropdownMenu.Trigger, DropdownMenu.Content, DropdownMenu.Item, DropdownMenu.CheckboxItem, DropdownMenu.RadioItem, DropdownMenu.Label, DropdownMenu.Separator, DropdownMenu.Group, DropdownMenu.Sub, DropdownMenu.SubTrigger, DropdownMenu.SubContent, DropdownMenu.Shortcut
 
 ---
 
@@ -1469,7 +1469,7 @@ import { NavigationMenu } from '@7onic-ui/react'
 All chart types use the Chart namespace:
 
 ```tsx
-import { Chart } from '@7onic-ui/react'
+import { Chart } from '@7onic-ui/react/chart'
 
 const chartConfig = {
   revenue: { label: 'Revenue', color: 'var(--color-chart-1)' },
@@ -1637,6 +1637,9 @@ Before creating custom UI, check if 7onic already has it:
 // ✅ Single import path
 import { Button, Card, Input, toast } from '@7onic-ui/react'
 
+// ✅ Chart components use a separate entry point (recharts is optional)
+import { Chart } from '@7onic-ui/react/chart'
+
 // ❌ Never import from internal paths
 import { Button } from '@7onic-ui/react/components/button'  // WRONG
 
@@ -1705,10 +1708,10 @@ toast.success('Done')
   <Link href="/about">About</Link>
 </Button>
 
-// ✅ Dropdown item as link
-<Dropdown.Item asChild>
+// ✅ DropdownMenu item as link
+<DropdownMenu.Item asChild>
   <Link href="/settings">Settings</Link>
-</Dropdown.Item>
+</DropdownMenu.Item>
 
 // ✅ Breadcrumb as Next.js Link
 <Breadcrumb.Link asChild>
@@ -1717,7 +1720,7 @@ toast.success('Done')
 ```
 
 **Use `asChild` when combining 7onic components with routing `<Link>`.**
-Components that support `asChild`: Button, IconButton, Badge, Card, Modal.Trigger, Modal.Close, Drawer.Trigger, Drawer.Close, Dropdown.Item, Breadcrumb.Link, NavigationMenu.Link, Tooltip.Trigger, Popover.Trigger
+Components that support `asChild`: Button, IconButton, Badge, Card, Modal.Trigger, Modal.Close, Drawer.Trigger, Drawer.Close, DropdownMenu.Item, Breadcrumb.Link, NavigationMenu.Link, Tooltip.Trigger, Popover.Trigger
 
 ---
 
@@ -1907,7 +1910,7 @@ But if YOUR code uses React hooks (`useState`, `useEffect`) or event handlers (`
 | Input | Standalone | default/filled | xs/sm/default/lg/xl | — | leftIcon/rightIcon, error |
 | Textarea | Standalone | default/filled | compact/default | — | resize options |
 | Select | Compound | — | xs/sm/default/lg/xl | — | Trigger + Content + Item |
-| Dropdown | Compound | — | sm/md/lg | — | CheckboxItem, RadioItem, Sub |
+| DropdownMenu | Compound | — | sm/md/lg | — | CheckboxItem, RadioItem, Sub |
 | Checkbox | Standalone | — | sm/default/lg | default/primary | indeterminate, label |
 | RadioGroup | Compound | — | sm/default/lg | default/primary | Item with label |
 | Switch | Standalone | — | sm/default/lg | 5 colors | label positions, icons |

@@ -6,6 +6,40 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.0] — 2026-04-08
+
+### @7onic-ui/react
+
+#### Changed
+- **[Breaking]** Chart components moved to separate entry point `@7onic-ui/react/chart`
+  - Before: `import { Chart } from '@7onic-ui/react'`
+  - After: `import { Chart } from '@7onic-ui/react/chart'`
+  - Reason: `recharts` is optional — importing any component without recharts installed no longer crashes
+
+#### Added
+- Pre-publish validation script (`verify:publish`) — tests actual npm pack + install + import
+
+### @7onic-ui/tokens
+- Version synced to 0.2.0 (no functional changes)
+
+### Migration Guide
+
+```tsx
+// Before (v0.1.x)
+import { Button, Chart, type ChartConfig } from '@7onic-ui/react'
+
+// After (v0.2.0) — Chart uses a separate entry point
+import { Button } from '@7onic-ui/react'
+import { Chart, type ChartConfig } from '@7onic-ui/react/chart'
+```
+
+Non-chart imports are unchanged:
+```tsx
+import { Button, Card, Input } from '@7onic-ui/react'  // works as before
+```
+
+---
+
 ## [0.1.1] — 2026-04-07
 
 ### @7onic-ui/react
