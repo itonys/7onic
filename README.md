@@ -218,7 +218,7 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 
 ## Tech Stack
 
-| | |
+| Category | Technology |
 |---|---|
 | **Styling** | Tailwind CSS v3 / v4 + CSS Variables |
 | **Primitives** | Radix UI |
