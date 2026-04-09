@@ -19,11 +19,11 @@ Initialize 7onic in your project. Creates `7onic.json`, installs base dependenci
 
 ```bash
 npx 7onic init
-npx 7onic init --yes    # Skip prompts, use defaults
+npx 7onic init --tailwind v3 --yes    # Explicit v3, skip prompts
 ```
 
 **What it does:**
-1. Detects Tailwind version (v3: config file exists, v4: no config)
+1. Detects Tailwind version (v3: config file exists, v4: no config) — or uses `--tailwind` flag
 2. Detects package manager (npm/pnpm/yarn/bun)
 3. Installs: `@7onic-ui/tokens`, `clsx`, `tailwind-merge`, `class-variance-authority`
 4. Creates/updates CSS file with token imports

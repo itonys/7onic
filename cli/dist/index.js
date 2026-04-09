@@ -1251,7 +1251,13 @@ var CSS_V4_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
 `;
 async function init(args) {
   const flagYes = args.includes("--yes") || args.includes("-y");
+  const tailwindFlagIdx = args.indexOf("--tailwind");
+  const tailwindFlagRaw = tailwindFlagIdx !== -1 ? args[tailwindFlagIdx + 1] : null;
+  const forcedTailwindVersion = tailwindFlagRaw === "v3" || tailwindFlagRaw === "3" ? 3 : tailwindFlagRaw === "v4" || tailwindFlagRaw === "4" ? 4 : null;
   mt(import_picocolors2.default.bold("7onic init"));
+  if (tailwindFlagIdx !== -1 && forcedTailwindVersion === null) {
+    O2.warn(`Invalid --tailwind value: "${tailwindFlagRaw ?? "(empty)"}". Use v3 or v4.`);
+  }
   const cwd = process.cwd();
   const projectRoot = findProjectRoot(cwd);
   if (!projectRoot) {
@@ -1298,13 +1304,14 @@ async function init(args) {
   const cssDefault = CSS_CANDIDATES.find((c2) => import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, c2))) || "src/app/globals.css";
   let config;
   if (flagYes) {
+    const resolvedVersion = forcedTailwindVersion ?? tw.version;
     config = {
       componentsAlias: "@/components/ui",
       utilsAlias: "@/lib/utils",
-      tailwindVersion: tw.version,
+      tailwindVersion: resolvedVersion,
       cssPath: cssDefault
     };
-    O2.info(`Using defaults: Tailwind v${tw.version}, CSS: ${cssDefault}`);
+    O2.info(`Using defaults: Tailwind v${resolvedVersion}, CSS: ${cssDefault}`);
   } else {
     config = await dt(
       {
@@ -1324,7 +1331,7 @@ async function init(args) {
             { value: 3, label: "Tailwind v3" },
             { value: 4, label: "Tailwind v4" }
           ],
-          initialValue: tw.version
+          initialValue: forcedTailwindVersion ?? tw.version
         }),
         cssPath: () => Ot({
           message: "CSS file path",
@@ -12875,12 +12882,22 @@ ${import_picocolors4.default.bold("Commands:")}
   init                  Initialize 7onic in your project
   add <component...>    Add components to your project
 
-${import_picocolors4.default.bold("Options:")}
+${import_picocolors4.default.bold("Init options:")}
+  --tailwind v3|v4      Set Tailwind version (default: auto-detect)
+  --yes, -y             Skip prompts, use defaults
+
+${import_picocolors4.default.bold("Add options:")}
+  --all                 Add all components
+  --overwrite           Overwrite existing files
+  --yes, -y             Skip prompts
+
+${import_picocolors4.default.bold("Global options:")}
   --version, -v         Show version
   --help, -h            Show this help message
 
 ${import_picocolors4.default.bold("Examples:")}
   npx 7onic init
+  npx 7onic init --tailwind v3 --yes
   npx 7onic add button card input
   npx 7onic add --all
 `;

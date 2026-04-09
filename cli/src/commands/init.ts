@@ -40,7 +40,19 @@ const CSS_V4_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
 export async function init(args: string[]): Promise<void> {
   const flagYes = args.includes('--yes') || args.includes('-y')
 
+  // Parse --tailwind flag (e.g. --tailwind v3 / --tailwind 3 / --tailwind v4)
+  const tailwindFlagIdx = args.indexOf('--tailwind')
+  const tailwindFlagRaw = tailwindFlagIdx !== -1 ? args[tailwindFlagIdx + 1] : null
+  const forcedTailwindVersion: 3 | 4 | null =
+    tailwindFlagRaw === 'v3' || tailwindFlagRaw === '3' ? 3
+    : tailwindFlagRaw === 'v4' || tailwindFlagRaw === '4' ? 4
+    : null
+
   p.intro(pc.bold('7onic init'))
+
+  if (tailwindFlagIdx !== -1 && forcedTailwindVersion === null) {
+    p.log.warn(`Invalid --tailwind value: "${tailwindFlagRaw ?? '(empty)'}". Use v3 or v4.`)
+  }
 
   // 1. Find project root
   const cwd = process.cwd()
@@ -113,13 +125,14 @@ export async function init(args: string[]): Promise<void> {
   }
 
   if (flagYes) {
+    const resolvedVersion = forcedTailwindVersion ?? tw.version
     config = {
       componentsAlias: '@/components/ui',
       utilsAlias: '@/lib/utils',
-      tailwindVersion: tw.version,
+      tailwindVersion: resolvedVersion,
       cssPath: cssDefault,
     }
-    p.log.info(`Using defaults: Tailwind v${tw.version}, CSS: ${cssDefault}`)
+    p.log.info(`Using defaults: Tailwind v${resolvedVersion}, CSS: ${cssDefault}`)
   } else {
     config = await p.group(
       {
@@ -142,7 +155,7 @@ export async function init(args: string[]): Promise<void> {
               { value: 3, label: 'Tailwind v3' },
               { value: 4, label: 'Tailwind v4' },
             ],
-            initialValue: tw.version,
+            initialValue: forcedTailwindVersion ?? tw.version,
           }),
         cssPath: () =>
           p.text({

@@ -6,6 +6,17 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [Unreleased]
+
+### 7onic
+
+#### Added
+- `--tailwind v3|v4` flag for `init` command — explicit Tailwind version selection in non-interactive mode
+- Warning on invalid `--tailwind` value instead of silent fallback
+- Full `--help` documentation for all `init` and `add` options
+
+---
+
 ## [0.1.2] — 2026-04-10
 
 ### 7onic

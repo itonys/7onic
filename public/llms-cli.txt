@@ -35,10 +35,12 @@ Run the 7onic CLI to set up the project:
 
 ```bash
 npx 7onic init
+# Or specify Tailwind version explicitly:
+npx 7onic init --tailwind v3 --yes
 ```
 
 This automatically:
-- Detects Tailwind v3/v4
+- Detects Tailwind v3/v4 (or uses `--tailwind` flag if specified)
 - Installs base dependencies (@7onic-ui/tokens, lucide-react, class-variance-authority, clsx, tailwind-merge)
 - Sets up globals.css with all required token imports
 - Creates `cn()` utility at `lib/utils.ts`

@@ -5720,6 +5720,7 @@
       "config_alias_utils": "cn() 유틸리티 위치",
       "deps_desc": "컴포넌트가 다른 컴포넌트에 의존하면 둘 다 자동으로 복사됩니다.",
 
+      "flag_tailwind": "init의 Tailwind 버전 지정 (기본: 자동 감지)",
       "flag_all": "모든 컴포넌트 추가 (recharts 옵트아웃 프롬프트)",
       "flag_yes": "확인 프롬프트 건너뛰기 (기본값 사용)",
       "flag_overwrite": "기존 파일 덮어쓰기",

@@ -15,12 +15,22 @@ ${pc.bold('Commands:')}
   init                  Initialize 7onic in your project
   add <component...>    Add components to your project
 
-${pc.bold('Options:')}
+${pc.bold('Init options:')}
+  --tailwind v3|v4      Set Tailwind version (default: auto-detect)
+  --yes, -y             Skip prompts, use defaults
+
+${pc.bold('Add options:')}
+  --all                 Add all components
+  --overwrite           Overwrite existing files
+  --yes, -y             Skip prompts
+
+${pc.bold('Global options:')}
   --version, -v         Show version
   --help, -h            Show this help message
 
 ${pc.bold('Examples:')}
   npx 7onic init
+  npx 7onic init --tailwind v3 --yes
   npx 7onic add button card input
   npx 7onic add --all
 `

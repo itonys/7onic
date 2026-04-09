@@ -5720,6 +5720,7 @@
       "config_alias_utils": "Where cn() utility lives",
       "deps_desc": "When a component depends on another, both are copied automatically.",
 
+      "flag_tailwind": "Set Tailwind version for init (default: auto-detect)",
       "flag_all": "Add all components (recharts opt-out prompt)",
       "flag_yes": "Skip confirmation prompts (use defaults)",
       "flag_overwrite": "Overwrite existing files",

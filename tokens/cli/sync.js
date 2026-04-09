@@ -319,7 +319,7 @@ var KNOWN_ORDERS = {
   fontSize: ["2xs", "xs", "sm", "md", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl"],
   borderRadius: ["none", "sm", "base", "md", "lg", "xl", "2xl", "3xl", "full"],
   shadow: ["xs", "sm", "md", "lg", "xl", "primary-glow"],
-  iconSize: ["xs", "sm", "md", "lg", "xl"],
+  iconSize: ["2xs", "xs", "sm", "md", "lg", "xl"],
   zIndex: ["0", "10", "20", "30", "40", "50", "sticky", "dropdown", "overlay", "modal", "popover", "tooltip", "toast"],
   duration: ["instant", "fast", "micro", "normal", "slow", "slower", "slowest"],
   easing: ["linear", "ease", "easeIn", "easeOut", "easeInOut"],
@@ -385,21 +385,23 @@ function readAnimationTokens(tokens) {
     const durationVar = `var(--duration-${durationKey})`;
     const easingVar = `var(--easing-${camelToKebab(easingKey)})`;
     const animationType = ext?.animationType;
-    if (animationType === "spin") {
-      result.push({ name, type: "spin", opacity: "", scale: "", translateY: "", translateYNegative: false, heightVar: "", durationVar, easingVar });
+    if (animationType === "spin" || animationType === "progress-stripe" || animationType === "spinner-orbit" || animationType === "spinner-dot" || animationType === "spinner-bar" || animationType === "spinner-morph" || animationType === "skeleton-pulse" || animationType === "skeleton-wave") {
+      result.push({ name, type: animationType, opacity: "", scale: "", translateX: "", translateXNegative: false, translateY: "", translateYNegative: false, heightVar: "", durationVar, easingVar });
       continue;
     }
     if (animationType === "height-expand" || animationType === "height-collapse") {
-      result.push({ name, type: animationType, opacity: "", scale: "", translateY: "", translateYNegative: false, heightVar: val.heightVar, durationVar, easingVar });
+      result.push({ name, type: animationType, opacity: "", scale: "", translateX: "", translateXNegative: false, translateY: "", translateYNegative: false, heightVar: val.heightVar, durationVar, easingVar });
       continue;
     }
     const direction = ext?.direction;
     const type = direction === "exit" ? "exit" : "enter";
     const opacityRaw = val.opacity ? resolveRef(val.opacity, p) : "";
     const scaleRaw = val.scale ? resolveRef(val.scale, p) : "";
+    const translateXRaw = val.translateX ? val.translateX.startsWith("{") ? resolveRef(val.translateX, p) : val.translateX : "";
+    const translateXNegative = ext?.translateXNegative === true;
     const translateYRaw = val.translateY ? resolveRef(val.translateY, p) : "";
     const translateYNegative = ext?.translateYNegative === true;
-    result.push({ name, type, opacity: opacityRaw, scale: scaleRaw, translateY: translateYRaw, translateYNegative, heightVar: "", durationVar, easingVar });
+    result.push({ name, type, opacity: opacityRaw, scale: scaleRaw, translateX: translateXRaw, translateXNegative, translateY: translateYRaw, translateYNegative, heightVar: "", durationVar, easingVar });
   }
   return result.length > 0 ? result : null;
 }
@@ -414,12 +416,117 @@ function extractRefKey(ref) {
   const match = ref.match(/^\{primitive\.\w+\.(\w+)\}$/);
   return match ? match[1] : ref;
 }
+function formatTranslateVal(raw, negative) {
+  const sign = negative ? "-" : "";
+  if (/[%a-z]/i.test(raw)) return `${sign}${raw}`;
+  return `${sign}${raw}px`;
+}
 function generateAnimationCss(a, format) {
   const lines = [];
   if (a.type === "spin") {
     lines.push(`@keyframes ${a.name} {`);
     lines.push(`  from { transform: rotate(0deg); }`);
     lines.push(`  to { transform: rotate(360deg); }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "spinner-orbit") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  from { transform: rotateY(0deg); }`);
+    lines.push(`  to { transform: rotateY(360deg); }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "spinner-dot") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  0%, 100% { opacity: 0.2; }`);
+    lines.push(`  50% { opacity: 1; }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "spinner-bar") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  0%, 100% { transform: scaleY(0.4); }`);
+    lines.push(`  50% { transform: scaleY(1); }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "spinner-morph") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  0%, 100% { border-radius: 50%; transform: rotateY(0deg) rotate(0deg); }`);
+    lines.push(`  25% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotateY(90deg) rotate(90deg); }`);
+    lines.push(`  50% { border-radius: 50%; transform: rotateY(180deg) rotate(180deg); }`);
+    lines.push(`  75% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; transform: rotateY(270deg) rotate(270deg); }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "skeleton-pulse") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  0%, 100% { opacity: 1; }`);
+    lines.push(`  50% { opacity: 0.4; }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "skeleton-wave") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  0% { transform: translateX(-100%); }`);
+    lines.push(`  100% { transform: translateX(100%); }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "progress-stripe") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  from { background-position: 1rem 0; }`);
+    lines.push(`  to { background-position: 0 0; }`);
     lines.push(`}`);
     if (format === "v4") {
       lines.push(`@utility animate-${a.name} {`);
@@ -449,10 +556,15 @@ function generateAnimationCss(a, format) {
       fromT.push(isEnter ? `scale(${a.scale})` : "scale(1)");
       toT.push(isEnter ? "scale(1)" : `scale(${a.scale})`);
     }
+    if (a.translateX) {
+      const v = formatTranslateVal(a.translateX, a.translateXNegative);
+      fromT.push(isEnter ? `translateX(${v})` : "translateX(0)");
+      toT.push(isEnter ? "translateX(0)" : `translateX(${v})`);
+    }
     if (a.translateY) {
-      const px = `${a.translateYNegative ? "-" : ""}${a.translateY}px`;
-      fromT.push(isEnter ? `translateY(${px})` : "translateY(0)");
-      toT.push(isEnter ? "translateY(0)" : `translateY(${px})`);
+      const v = formatTranslateVal(a.translateY, a.translateYNegative);
+      fromT.push(isEnter ? `translateY(${v})` : "translateY(0)");
+      toT.push(isEnter ? "translateY(0)" : `translateY(${v})`);
     }
     if (fromT.length) {
       fromProps.push(`transform: ${fromT.join(" ")}`);
@@ -1088,6 +1200,7 @@ function generateJsTokens(tokens) {
       };
       if (val.opacity) obj.opacity = resolveRef(val.opacity, p);
       if (val.scale) obj.scale = resolveRef(val.scale, p);
+      if (val.translateX) obj.translateX = val.translateX.startsWith("{") ? resolveRef(val.translateX, p) : val.translateX;
       if (val.translateY) obj.translateY = resolveRef(val.translateY, p);
       if (val.heightVar) obj.heightVar = val.heightVar;
       animData[name] = obj;
@@ -1285,6 +1398,7 @@ function generateTypeDefinitions(tokens) {
       const fields = ["duration: string", "easing: string"];
       if (val.opacity) fields.unshift("opacity: string");
       if (val.scale) fields.unshift("scale: string");
+      if (val.translateX) fields.unshift("translateX: string");
       if (val.translateY) fields.unshift("translateY: string");
       if (val.heightVar) fields.unshift("heightVar: string");
       lines.push(`  '${name}': { ${fields.join("; ")} };`);
@@ -1552,6 +1666,7 @@ function generateNormalizedJson(tokens) {
       animFlat[`${name}-easing`] = easingRaw;
       if (val.opacity) animFlat[`${name}-opacity`] = resolveRef(val.opacity, p);
       if (val.scale) animFlat[`${name}-scale`] = resolveRef(val.scale, p);
+      if (val.translateX) animFlat[`${name}-translateX`] = val.translateX.startsWith("{") ? resolveRef(val.translateX, p) : val.translateX;
       if (val.translateY) animFlat[`${name}-translateY`] = resolveRef(val.translateY, p);
       if (val.heightVar) animFlat[`${name}-heightVar`] = val.heightVar;
     }
@@ -1796,6 +1911,48 @@ function generateV3Preset(tokens) {
         lines.push(`          from: { height: '${isExpand ? "0" : `var(${a.heightVar})`}' },`);
         lines.push(`          to: { height: '${isExpand ? `var(${a.heightVar})` : "0"}' },`);
         lines.push(`        },`);
+      } else if (a.type === "spin") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          from: { 'transform': 'rotate(0deg)' },`);
+        lines.push(`          to: { 'transform': 'rotate(360deg)' },`);
+        lines.push(`        },`);
+      } else if (a.type === "progress-stripe") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          from: { 'background-position': '1rem 0' },`);
+        lines.push(`          to: { 'background-position': '0 0' },`);
+        lines.push(`        },`);
+      } else if (a.type === "spinner-orbit") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          from: { 'transform': 'rotateY(0deg)' },`);
+        lines.push(`          to: { 'transform': 'rotateY(360deg)' },`);
+        lines.push(`        },`);
+      } else if (a.type === "spinner-dot") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          '0%, 100%': { 'opacity': '0.2' },`);
+        lines.push(`          '50%': { 'opacity': '1' },`);
+        lines.push(`        },`);
+      } else if (a.type === "spinner-bar") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          '0%, 100%': { 'transform': 'scaleY(0.4)' },`);
+        lines.push(`          '50%': { 'transform': 'scaleY(1)' },`);
+        lines.push(`        },`);
+      } else if (a.type === "spinner-morph") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          '0%, 100%': { 'border-radius': '50%', 'transform': 'rotateY(0deg) rotate(0deg)' },`);
+        lines.push(`          '25%': { 'border-radius': '30% 70% 70% 30% / 30% 30% 70% 70%', 'transform': 'rotateY(90deg) rotate(90deg)' },`);
+        lines.push(`          '50%': { 'border-radius': '50%', 'transform': 'rotateY(180deg) rotate(180deg)' },`);
+        lines.push(`          '75%': { 'border-radius': '70% 30% 30% 70% / 70% 70% 30% 30%', 'transform': 'rotateY(270deg) rotate(270deg)' },`);
+        lines.push(`        },`);
+      } else if (a.type === "skeleton-pulse") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          '0%, 100%': { 'opacity': '1' },`);
+        lines.push(`          '50%': { 'opacity': '0.4' },`);
+        lines.push(`        },`);
+      } else if (a.type === "skeleton-wave") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          '0%': { 'transform': 'translateX(-100%)' },`);
+        lines.push(`          '100%': { 'transform': 'translateX(100%)' },`);
+        lines.push(`        },`);
       } else {
         const isEnter = a.type === "enter";
         const fromProps = [];
@@ -1809,10 +1966,15 @@ function generateV3Preset(tokens) {
           fromT.push(isEnter ? `scale(${a.scale})` : "scale(1)");
           toT.push(isEnter ? "scale(1)" : `scale(${a.scale})`);
         }
+        if (a.translateX) {
+          const v = formatTranslateVal(a.translateX, a.translateXNegative);
+          fromT.push(isEnter ? `translateX(${v})` : "translateX(0)");
+          toT.push(isEnter ? "translateX(0)" : `translateX(${v})`);
+        }
         if (a.translateY) {
-          const px = `${a.translateYNegative ? "-" : ""}${a.translateY}px`;
-          fromT.push(isEnter ? `translateY(${px})` : "translateY(0)");
-          toT.push(isEnter ? "translateY(0)" : `translateY(${px})`);
+          const v = formatTranslateVal(a.translateY, a.translateYNegative);
+          fromT.push(isEnter ? `translateY(${v})` : "translateY(0)");
+          toT.push(isEnter ? "translateY(0)" : `translateY(${v})`);
         }
         if (fromT.length) {
           fromProps.push(`'transform': '${fromT.join(" ")}'`);
@@ -1827,10 +1989,11 @@ function generateV3Preset(tokens) {
   }
   lines.push(`      },`);
   lines.push(``);
+  const infiniteTypes = /* @__PURE__ */ new Set(["spin", "progress-stripe", "spinner-orbit", "spinner-dot", "spinner-bar", "spinner-morph", "skeleton-pulse", "skeleton-wave"]);
   lines.push(`      animation: {`);
   if (v3Anim) {
     for (const a of v3Anim) {
-      const infinite = a.type === "spin" ? " infinite" : "";
+      const infinite = infiniteTypes.has(a.type) ? " infinite" : "";
       lines.push(`        '${a.name}': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}',`);
     }
   }
@@ -1838,10 +2001,10 @@ function generateV3Preset(tokens) {
   lines.push(`    },`);
   lines.push(`  },`);
   lines.push(`  plugins: [`);
-  lines.push(`    // Icon size utilities (icon-xs, icon-sm, icon-md, icon-lg, icon-xl)`);
+  lines.push(`    // Icon size utilities`);
   lines.push(`    function({ addUtilities }) {`);
   lines.push(`      addUtilities({`);
-  for (const name of ["xs", "sm", "md", "lg", "xl"]) {
+  for (const name of KNOWN_ORDERS.iconSize) {
     lines.push(`        '.icon-${name}': { width: 'var(--icon-size-${name})', height: 'var(--icon-size-${name})' },`);
   }
   lines.push(`      })`);
@@ -1867,7 +2030,7 @@ function generateV3Preset(tokens) {
     lines.push(`    function({ addUtilities }) {`);
     lines.push(`      addUtilities({`);
     for (const a of v3Anim) {
-      const infinite = a.type === "spin" ? " infinite" : "";
+      const infinite = infiniteTypes.has(a.type) ? " infinite" : "";
       lines.push(`        '.animate-${a.name}': { 'animation': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}' },`);
     }
     lines.push(`      })`);
