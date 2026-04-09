@@ -11,10 +11,12 @@ on:
           - both
           - tokens-only
           - react-only
+          - cli-only
+          - all
 
 jobs:
   publish-tokens:
-    if: inputs.package == 'both' || inputs.package == 'tokens-only'
+    if: inputs.package == 'both' || inputs.package == 'tokens-only' || inputs.package == 'all'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +34,7 @@ jobs:
 
   publish-react:
     needs: publish-tokens
-    if: always() && (inputs.package == 'both' || inputs.package == 'react-only') && (needs.publish-tokens.result == 'success' || needs.publish-tokens.result == 'skipped')
+    if: always() && (inputs.package == 'both' || inputs.package == 'react-only' || inputs.package == 'all') && (needs.publish-tokens.result == 'success' || needs.publish-tokens.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -50,6 +52,23 @@ jobs:
         run: npm run build:lib
 
       - name: Publish @7onic-ui/react
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-cli:
+    if: inputs.package == 'cli-only' || inputs.package == 'all'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Publish 7onic (CLI)
+        working-directory: cli
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
