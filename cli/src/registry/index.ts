@@ -11134,12 +11134,17 @@ export {
   },
 }
 
-/** Chart aliases — all resolve to chart registry item */
-export const CHART_ALIASES: Record<string, string> = {
+/** Component aliases — shorthand names that resolve to registry keys */
+export const COMPONENT_ALIASES: Record<string, string> = {
+  // Chart aliases
   'bar-chart': 'chart',
   'line-chart': 'chart',
   'area-chart': 'chart',
   'pie-chart': 'chart',
+  // Convenience aliases
+  'radio': 'radio-group',
+  'nav': 'navigation-menu',
+  'dropdown-menu': 'dropdown',
 }
 
 /** Components available via `7onic add` (excludes internal-only) */

@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/tokens",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Design tokens for 7onic Design System — CSS variables, Tailwind presets, JS, TypeScript",
   "author": "7onic",
   "license": "MIT",

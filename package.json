@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/react",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -47,6 +47,7 @@
     "build:cli": "node scripts/build-cli.js",
     "build:7onic": "node scripts/build-7onic-cli.js",
     "generate:registry": "tsx scripts/generate-registry.ts",
+    "generate:llms-cli": "tsx scripts/generate-llms-cli.ts",
     "verify:registry": "tsx scripts/generate-registry.ts && git diff --exit-code cli/src/registry/index.ts",
     "verify:docs": "tsx scripts/verify-docs.ts",
     "verify:i18n": "tsx scripts/verify-i18n.ts",
@@ -83,7 +84,7 @@
     "tailwind-merge": "^2.3.0"
   },
   "peerDependencies": {
-    "@7onic-ui/tokens": "^0.1.0",
+    "@7onic-ui/tokens": ">=0.1.0 <1.0.0",
     "react": "^18.2.0 || ^19.0.0",
     "react-dom": "^18.2.0 || ^19.0.0",
     "recharts": "^2.15.0 || ^3.0.0"

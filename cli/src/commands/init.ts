@@ -164,7 +164,7 @@ export async function init(args: string[]): Promise<void> {
 
   // 9. Install base dependencies
   const s = p.spinner()
-  const baseDeps = ['@7onic-ui/tokens', 'clsx', 'tailwind-merge', 'class-variance-authority']
+  const baseDeps = ['@7onic-ui/tokens', 'lucide-react', 'clsx', 'tailwind-merge', 'class-variance-authority']
 
   s.start(`Installing dependencies (${pm})...`)
   try {

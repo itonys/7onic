@@ -7,7 +7,7 @@ import { detectPackageManager } from '../utils/detect-pm'
 import { installDeps } from '../utils/install-deps'
 import { rewriteImports } from '../utils/rewrite-imports'
 import { logger } from '../utils/logger'
-import { registry, CHART_ALIASES, INSTALLABLE_COMPONENTS } from '../registry'
+import { registry, COMPONENT_ALIASES, INSTALLABLE_COMPONENTS } from '../registry'
 import type { RegistryItem } from '../registry/schema'
 
 export async function add(args: string[]): Promise<void> {
@@ -45,8 +45,8 @@ export async function add(args: string[]): Promise<void> {
   } else {
     requestedNames = []
     for (const arg of componentArgs) {
-      // Resolve chart aliases
-      const resolved = CHART_ALIASES[arg] || arg
+      // Resolve aliases
+      const resolved = COMPONENT_ALIASES[arg] || arg
 
       // Validate name
       if (!registry[resolved]) {

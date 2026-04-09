@@ -184,6 +184,11 @@ export const componentSEO = {
     ja: '7onicの導入ガイド — npm、yarn、pnpmでコンポーネントとトークンをインストール。Tailwind v3/v4セットアップ。',
     ko: '7onic 시작 가이드 — npm, yarn, pnpm으로 컴포넌트와 토큰 설치. Tailwind v3/v4 셋업 안내.',
   }),
+  cli: page('CLI', {
+    en: 'Add 7onic components to your project with npx 7onic. Copy source files with automatic dependency resolution.',
+    ja: 'npx 7onicでコンポーネントをプロジェクトに追加。依存関係を自動解決してソースファイルをコピー。',
+    ko: 'npx 7onic으로 프로젝트에 컴포넌트 추가. 의존성 자동 해결로 소스 파일 복사.',
+  }),
   'line-chart': page('Line Chart', {
     en: 'Line chart component with 4 interpolation types, dot markers, series highlighting, and hover fade. Built on Recharts.',
     ja: '4つの補間タイプ、ドットマーカー、シリーズハイライト、ホバーフェード対応のラインチャート。Rechartsベース。',

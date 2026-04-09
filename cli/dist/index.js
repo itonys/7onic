@@ -1342,7 +1342,7 @@ async function init(args) {
   }
   const tailwindVersion = config.tailwindVersion;
   const s = fe();
-  const baseDeps = ["@7onic-ui/tokens", "clsx", "tailwind-merge", "class-variance-authority"];
+  const baseDeps = ["@7onic-ui/tokens", "lucide-react", "clsx", "tailwind-merge", "class-variance-authority"];
   s.start(`Installing dependencies (${pm})...`);
   try {
     installDeps(baseDeps, { cwd: projectRoot, pm });
@@ -12583,11 +12583,16 @@ export {
     }]
   }
 };
-var CHART_ALIASES = {
+var COMPONENT_ALIASES = {
+  // Chart aliases
   "bar-chart": "chart",
   "line-chart": "chart",
   "area-chart": "chart",
-  "pie-chart": "chart"
+  "pie-chart": "chart",
+  // Convenience aliases
+  "radio": "radio-group",
+  "nav": "navigation-menu",
+  "dropdown-menu": "dropdown"
 };
 var INSTALLABLE_COMPONENTS = [
   "accordion",
@@ -12655,7 +12660,7 @@ async function add(args) {
   } else {
     requestedNames = [];
     for (const arg of componentArgs) {
-      const resolved = CHART_ALIASES[arg] || arg;
+      const resolved = COMPONENT_ALIASES[arg] || arg;
       if (!registry[resolved]) {
         const suggestion = findSimilar(resolved, [...INSTALLABLE_COMPONENTS]);
         logger.error(
@@ -12859,7 +12864,7 @@ function showSetupHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.0";
+var VERSION = "0.1.2";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

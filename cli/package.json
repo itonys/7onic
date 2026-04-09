@@ -1,6 +1,6 @@
 {
   "name": "7onic",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "CLI for adding 7onic design system components to your project",
   "bin": {
     "7onic": "./dist/index.js"
