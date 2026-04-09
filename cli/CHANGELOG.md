@@ -6,7 +6,7 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ---
 
-## [Unreleased]
+## [0.1.3] — 2026-04-10
 
 ### 7onic
 
