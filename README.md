@@ -24,7 +24,8 @@
 |:---:|---|---|
 | **🎯** | **Zero design-code drift** | Design and code from a single vision. No handoff, no drift — every component is pixel-verified against Figma. |
 | **📦** | **One JSON, every format** | `figma-tokens.json` auto-generates CSS, Tailwind v3, Tailwind v4, JS/TS, and JSON — all in sync. |
-| **🧩** | **shadcn freedom + MUI convenience** | Built-in `toast.promise()`, `pressEffect`, namespace patterns — no DIY. `npx 7onic add` or `npm install` — same components, your workflow. |
+| **🧩** | **shadcn freedom + MUI convenience** | shadcn's customization with none of its missing features. MUI's built-in power with none of its styling constraints. Both, by design. |
+| **⚡** | **npm or CLI — your choice** | `npm install` for packages, `npx 7onic add` for local copy. Same components, two workflows. |
 | **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
@@ -37,11 +38,15 @@
 
 ## Get Started
 
-```bash
-# npm package
-npm install @7onic-ui/react @7onic-ui/tokens
+**Option A — npm package**
 
-# or CLI (local copy)
+```bash
+npm install @7onic-ui/react @7onic-ui/tokens
+```
+
+**Option B — CLI (local file copy)**
+
+```bash
 npx 7onic init
 npx 7onic add button card input
 ```
@@ -258,8 +263,8 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
 - [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.2
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
-- [ ] Theme Customizer (live color preview)
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
+- [ ] Theme Customizer (live color preview)
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
 
