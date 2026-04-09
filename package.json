@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/react",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -23,7 +23,9 @@
   },
   "typesVersions": {
     "*": {
-      "chart": ["./dist/chart.d.ts"]
+      "chart": [
+        "./dist/chart.d.ts"
+      ]
     }
   },
   "files": [
@@ -43,6 +45,9 @@
     "typecheck": "tsc --noEmit",
     "sync-tokens": "tsx scripts/run-sync.ts",
     "build:cli": "node scripts/build-cli.js",
+    "build:7onic": "node scripts/build-7onic-cli.js",
+    "generate:registry": "tsx scripts/generate-registry.ts",
+    "verify:registry": "tsx scripts/generate-registry.ts && git diff --exit-code cli/src/registry/index.ts",
     "verify:docs": "tsx scripts/verify-docs.ts",
     "verify:i18n": "tsx scripts/verify-i18n.ts",
     "verify:i18n:html": "tsx scripts/verify-i18n-html.ts",
@@ -90,6 +95,7 @@
   },
   "devDependencies": {
     "@7onic-ui/tokens": "file:./tokens",
+    "@clack/prompts": "^1.2.0",
     "@types/node": "^20.14.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
@@ -104,6 +110,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "lucide-react": "^0.400.0",
     "next": "^15.0.0",
+    "picocolors": "^1.1.1",
     "postcss": "^8.4.38",
     "prettier": "^3.3.0",
     "react": "^19.0.0",

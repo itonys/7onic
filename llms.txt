@@ -1,17 +1,17 @@
-# 7onic Design System — AI Guide (Tokens)
+# 7onic Design System — AI Guide (Full)
 
 ## What is 7onic?
 
-Token-driven design system. Single source of truth — design tokens to code.
-Use the token system to style any project with consistent colors, spacing, typography, and more.
+Token-driven React design system with 38 components on Radix UI.
+Single source of truth — design tokens to code. Use this to build any React service.
 
 - Documentation: https://7onic.design
-- npm: `@7onic-ui/tokens` (design tokens)
-- For components + tokens guide, see: https://7onic.design/llms-full.txt
+- npm: `@7onic-ui/react` (components) + `@7onic-ui/tokens` (design tokens)
+- For tokens-only guide, see: https://7onic.design/llms.txt
 
 ---
 
-# ═══ SECTION 1: PROJECT SETUP ═══
+# ═══ SECTION 1: PROJECT SETUP & AI RULES ═══
 
 ## How to Start
 
@@ -23,18 +23,19 @@ Before writing any code, present this checklist and wait for answers:
 2. **Dark mode** — Yes or no?
 3. **Font** — Use default, or custom font? If custom, which font?
 4. **Locale** — Which language(s)? (for CJK font loading)
+5. **What are you building?** — Describe the project
 
-**If the user answers in natural language**, extract the answers. **If any item is missing, ask a follow-up question for the missing items only.** Do not proceed until all 4 items are answered.
+**If the user answers in natural language** (e.g., "Make me a dashboard with dark mode, English only"), extract the answers from their message. **If any item is missing, ask a follow-up question for the missing items only.** Do not proceed until all 5 items are answered.
 
 ### Step 2: Execute full setup (all at once, do not skip any)
 
 After receiving answers, execute ALL of the following in order. Every step is mandatory.
 
-**2-1. Install package (skip if already installed):**
+**2-1. Install packages (skip if already installed):**
 ```bash
-npm install @7onic-ui/tokens
+npm install @7onic-ui/react @7onic-ui/tokens lucide-react
 ```
-> Check package.json first. If already listed in dependencies, skip this step.
+> Check package.json first. If packages are already listed in dependencies, skip this step.
 
 **2-2. Create or update globals.css with token imports:**
 
@@ -67,7 +68,10 @@ npm install @7onic-ui/tokens
 const preset = require('@7onic-ui/tokens/tailwind/v3-preset')
 module.exports = {
   presets: [preset],
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@7onic-ui/react/dist/**/*.{js,mjs}',
+  ],
 }
 ```
 
@@ -84,7 +88,7 @@ module.exports = {
 - Locale includes Korean → load Noto Sans KR font
 
 **2-5. Verify setup is complete before writing any UI code:**
-- [ ] Package installed (@7onic-ui/tokens)
+- [ ] Packages installed (@7onic-ui/react, @7onic-ui/tokens, lucide-react)
 - [ ] globals.css has ALL required imports in correct order
 - [ ] Body has `bg-background text-foreground`
 - [ ] Dark mode toggle (if selected)
@@ -102,28 +106,48 @@ import { Search, Settings, ChevronDown, X } from 'lucide-react'
 // ❌ Legacy alias — avoid
 import { SearchIcon, SettingsIcon } from 'lucide-react'
 
-// ⚠️ Name collision with your own component — use alias
+// ⚠️ Name collision with 7onic component — use alias
+import { Badge } from '@7onic-ui/react'
 import { Badge as BadgeIcon } from 'lucide-react'
 ```
 
-### Step 3: Start building
+### Step 3: Add Toaster to root layout (if using Toast)
 
-Use token classes for all styling. See Token Reference below.
+Place `<Toaster />` once in your root layout file. Without this, `toast()` calls will not render.
+
+```tsx
+import { Toaster } from '@7onic-ui/react'
+
+// In your root layout (e.g., app/layout.tsx)
+<body className="bg-background text-foreground">
+  {children}
+  <Toaster position="bottom-right" />
+</body>
+```
+
+### Step 4: Start building
+
+Design freely based on user's project description. Always use 7onic components + tokens.
+
+### Component Dependencies (auto-install during development)
+
+| Component | Additional Package | When to install |
+|---|---|---|
+| Chart (Bar, Line, Area, Pie) | `recharts` | `npm install recharts` — import from `@7onic-ui/react/chart` (separate entry point) |
 
 ---
 
-# ═══ SECTION 2: AI RULES ═══
+## ⛔ AI Rules — Whitelist System
 
-## ⛔ Core Principle
+### Core Principle
 
-**Token values are user-defined.** Every project has different brand colors, spacing, and design decisions. The token NAMES are the API — never assume or hardcode specific values.
+**Token values are user-defined.** Every project has different brand colors and design decisions. The token NAMES are the API — never assume or hardcode specific values.
 
-## Whitelist — ONLY These Are Allowed
+### Whitelist — ONLY These Are Allowed
 
-When writing any code, you may ONLY use:
-
-1. **Token classes** — colors, spacing, typography, radius, shadows, z-index, icon sizes, duration, easing, opacity, scale (listed in Token Reference below)
-2. **Tailwind structural utilities** — layout, positioning, display, overflow, sizing, and more:
+1. **7onic components + Props** — always prefer components over raw HTML
+2. **Token classes** — colors, spacing, typography, radius, shadows, z-index, icon sizes, duration, easing, opacity, scale
+3. **Tailwind structural utilities** — layout, positioning, display, overflow, sizing, and more:
    - Layout: flex, grid, block, inline, hidden, container
    - Position: relative, absolute, fixed, sticky, top-0, inset-0
    - Flex/Grid: items-center, justify-between, gap-4, col-span-2
@@ -140,15 +164,15 @@ When writing any code, you may ONLY use:
    - ⚠️ Utilities that implicitly use color (divide, border) must be paired with a token color:
      `divide-y divide-border` ✅ / `divide-y` alone ❌ (may not adapt to dark mode)
      `border border-border` ✅ / `border` alone ❌
-3. **Tailwind visual utilities using token values** — gradients, transforms, transitions:
+4. **Tailwind visual utilities using token values** — gradients, transforms, transitions:
    - Gradient: bg-gradient-to-r, from-primary, to-secondary (token colors only)
    - Transform: rotate-45, translate-x-1
    - Transition: transition-all, transition-colors (with token durations)
    - Backdrop: backdrop-blur, backdrop-blur-sm
-4. **Responsive prefixes** — sm:, md:, lg:, xl:, 2xl: (on allowed classes only)
-5. **State prefixes** — hover:, focus:, active:, disabled: (on allowed classes only, token values only)
-6. **Layout dimension arbitrary values** — height and width ONLY: h-[300px], max-w-[1200px], min-h-screen (when no token fits)
-7. **Opacity modifier** — append `/0-100` to any token color for transparency:
+5. **Responsive prefixes** — sm:, md:, lg:, xl:, 2xl: (on allowed classes only)
+6. **State prefixes** — hover:, focus:, active:, disabled: (on allowed classes only, token values only)
+7. **Layout dimension arbitrary values** — height and width ONLY: h-[300px], max-w-[1200px] (when no token fits)
+8. **Opacity modifier** — append `/0-100` to any token color for transparency:
    - `bg-primary/50`, `text-foreground/70`, `border-border/30`
    - Do NOT use `opacity-*` utility as a workaround — it affects the entire element including children
    - `bg-primary/10` ✅ (only background is transparent) / `bg-primary opacity-10` ❌ (children also become transparent)
@@ -157,21 +181,61 @@ When writing any code, you may ONLY use:
 
 ⚠️ **Gradient/visual utilities must use token colors only:** `from-primary to-secondary` ✅ / `from-blue-500 to-purple-600` ❌
 
-## ❌ Forbidden — Never Use These
+### Decision Tree — For Every UI Element
 
-| Category | Forbidden | Use Instead |
-|---|---|---|
-| Raw colors | `bg-blue-500`, `text-gray-700`, `bg-white` | `bg-primary`, `text-foreground`, `bg-background` |
-| Dark prefix | `dark:bg-gray-900`, `dark:text-white` | Semantic tokens auto-adapt |
-| Arbitrary values | `p-[17px]`, `text-[13px]`, `rounded-[7px]`, `z-[999]` | `p-4`, `text-sm`, `rounded-md`, `z-modal` |
-| Icon sizing | `w-4 h-4`, `w-5 h-5` | `icon-sm`, `icon-md` |
-| Raw durations | `duration-150`, `duration-200` | `duration-micro`, `duration-normal` |
-| Raw shadows | `shadow-[0_2px_4px...]` | `shadow-sm` |
-| Inline styles | `style={{ color: '#333' }}` | `className="text-foreground"` |
-| @apply raw | `@apply bg-blue-500` | `@apply bg-primary` |
-| Hardcoded hex | `#FF5733`, `rgb(51,51,51)` | Token classes |
+```
+Step 1: Does a 7onic component exist for this?
+  → YES: Use the component. Style via Props (variant/size/color).
+         className ONLY for layout (margin, width, flex positioning).
+  → NO: Step 2
 
-## When User Requests Custom Values
+Step 2: Is this a layout/structural element? (flex container, grid, section wrapper)
+  → YES: Use div/section + token classes only.
+  → NO: Step 3
+
+Step 3: Re-check the 38 components. Most UI can be built with component combinations.
+  → Still no match: Use div + token classes only.
+```
+
+### ❌ Forbidden Patterns
+
+```tsx
+// ❌ HTML instead of components
+<button className="bg-primary rounded-lg px-4 py-2">   → <Button>
+<input className="border rounded-lg px-3 h-10">         → <Input>
+<div className="border rounded-xl p-6 shadow-sm">       → <Card>
+<table className="w-full">                               → <Table>
+
+// ❌ className overriding component styles
+<Button className="bg-blue-500 text-white">   → <Button color="primary">
+<Badge className="bg-red-100 text-red-700">   → <Badge color="error">
+
+// ❌ Raw Tailwind colors
+bg-blue-500, text-gray-700, bg-white, border-gray-200
+
+// ❌ Dark mode prefix
+dark:bg-gray-900, dark:text-white
+
+// ❌ Arbitrary values (except layout dimensions)
+p-[17px], text-[13px], rounded-[7px], z-[999]
+
+// ❌ Inline styles
+style={{ color: '#333', padding: '20px' }}
+
+// ❌ @apply with raw values
+@apply bg-blue-500
+
+// ❌ Icon sizing with w/h
+w-4 h-4, w-5 h-5   → icon-sm, icon-md
+
+// ❌ Radix direct import
+import * as Dialog from '@radix-ui/react-dialog'   → import { Modal } from '@7onic-ui/react'
+
+// ❌ Unnecessary component wrappers
+function MyButton(props) { return <Button {...props} /> }   → Use Button directly
+```
+
+### When User Requests Custom Values
 
 If the user explicitly asks for a value outside the token system:
 
@@ -186,22 +250,64 @@ User: "Apply it"
 AI: → Apply the custom value
 ```
 
-**Rule:**
-- User request within token range → execute immediately
-- User request outside token range → ask "custom value, bypass tokens?" → execute only after confirmation
-- AI writing code on its own → token system ONLY, never bypass
+| Situation | AI Behavior |
+|---|---|
+| User request within token range | Execute immediately |
+| User request outside token range | Ask "bypass tokens?" → execute after confirmation |
+| AI writing code on its own | Token system ONLY — never bypass |
+
+### Third-Party Libraries
+
+When a feature is needed that no 7onic component covers (map, video player, rich text editor, etc.):
+
+- **Do NOT install any library without asking the user first**
+- Ask: "Which library would you like to use for [feature]?"
+- Install and use only after user's choice
+
+### Token Customization Is the User's Responsibility
+
+The token system covers all UI needs out of the box. As AI, use existing tokens only.
+
+If the user needs custom values beyond existing tokens, they will handle it separately.
+Customization guide: https://7onic.design/components/theming
+
+**Never modify generated token files** — these are auto-generated from figma-tokens.json via sync-tokens. AI must never edit, add to, or delete from: `variables.css`, `light.css`, `dark.css`, `v3-preset.js`, `v4-theme.css`, `index.js`, `index.mjs`, `index.d.ts`, `tokens.json`
+
+### Self-Check (after writing ANY code)
+
+Before presenting code to the user, scan your own output for violations:
+
+- [ ] Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-white`, `border-gray-*`)
+- [ ] Any arbitrary value? (`p-[*]`, `text-[*]`, `rounded-[*]`, `z-[*]`)
+- [ ] Any inline style? (`style={{ }}`)
+- [ ] Any `dark:` prefix?
+- [ ] Any `w-N h-N` for icons instead of `icon-*`?
+- [ ] Any `<button>`, `<input>`, `<table>` instead of 7onic components?
+- [ ] Any Radix direct import?
+- [ ] Any className overriding component visual styles?
+- [ ] Any `divide-*` or `border` without a token color? (`divide-y` alone → `divide-y divide-border`)
+- [ ] Any `opacity-*` on element instead of color modifier? (`bg-primary opacity-10` → `bg-primary/10`)
+
+**If ANY violation is found → fix it before showing code to the user.**
+**Do NOT present code with violations. Fix first, then present.**
 
 ---
 
-## Dark Mode
+**When in doubt, check the documentation** — if component Props, token usage, or patterns are unclear, refer to the official docs before guessing:
+- Component pages: `https://7onic.design/components/{name}` (e.g., `/components/button`, `/components/navigation-menu`)
+- Token pages: `https://7onic.design/design-tokens/{name}` (e.g., `/design-tokens/colors`, `/design-tokens/spacing`)
+- Do not guess — verify from documentation first
 
-Dark mode is **automatic** when using semantic tokens. No `dark:` prefix needed.
+---
+
+## Dark Mode — Automatic
+
+Dark mode works automatically when using semantic tokens. No `dark:` prefix needed.
 
 | ❌ NEVER | ✅ CORRECT |
 |---|---|
 | `bg-white dark:bg-gray-900` | `bg-background` |
 | `text-gray-900 dark:text-gray-100` | `text-foreground` |
-| `text-gray-500 dark:text-gray-400` | `text-muted` |
 | `border-gray-200 dark:border-gray-700` | `border-border` |
 
 ### Dark Mode Toggle Implementation
@@ -225,243 +331,1615 @@ Strategy: `dark` class on `<html>` element.
 
 ---
 
-# ═══ SECTION 3: TOKEN REFERENCE ═══
+## Token Reference (Quick)
 
-> Token values depend on the user's project configuration.
-> The names below are the API. Never assume specific hex values.
+> Token values depend on the user's project configuration. Never assume specific hex values.
 
-## Colors — Semantic (theme-aware, USE THESE)
+**Semantic Colors (theme-aware):**
+- Background: `background`, `background-paper`, `background-elevated`, `background-muted`
+- Text: `foreground`, `text-muted`, `text-subtle`, `text-link`, `text-primary`
+- Status text: `text-info`, `text-success`, `text-error`, `text-warning`
+- Intent (×6): `{intent}`, `{intent}-hover`, `{intent}-active`, `{intent}-tint`, `{intent}-foreground` — where intent = primary, secondary, success, warning, error, info
+- Border: `border`, `border-subtle`, `border-strong`
+- State: `disabled`, `disabled-text`, `focus-ring`, `focus-ring-error`
 
-**Background:**
-- `background` — main page background
-- `background-paper` — card/surface background
-- `background-elevated` — elevated surface (above paper)
-- `background-muted` — subtle/subdued background
+**Spacing:** 0, 0.5(2px), 1(4px), 1.5(6px), 2(8px), 2.5(10px), 3(12px), 4(16px), 5(20px), 6(24px), 7(28px), 8(32px), 10(40px), 12(48px), 14(56px), 16(64px), 20(80px), 24(96px)
 
-**Text:**
-- `foreground` (alias: `text`) — primary text
-- `text-muted` — secondary text, lower emphasis
-- `text-subtle` — tertiary text, lowest emphasis
-- `text-link` — link color
-- `text-primary` — brand-colored text
+**Font:** `font-sans` (user-defined), `font-mono` (user-defined)
+**Font Sizes:** text-2xs(11px), text-xs(12px), text-sm(13px), text-md(14px), text-base(16px), text-lg(18px), text-xl(20px), text-2xl(24px), text-3xl(30px), text-4xl(36px), text-5xl(48px)
+**Font Weights:** font-normal(400), font-semibold(600), font-bold(700)
 
-**Intent Status:**
-- `text-info` / `text-success` / `text-error` / `text-warning`
+**Radius:** rounded-none(0), rounded-sm(2), rounded-base(4), rounded-md(6), rounded-lg(8), rounded-xl(12), rounded-2xl(16), rounded-3xl(24), rounded-full(9999)
 
-**Intent Colors (each has 5 variants):**
-- `primary` / `primary-hover` / `primary-active` / `primary-tint` / `primary-foreground`
-- `secondary` / `secondary-hover` / `secondary-active` / `secondary-tint` / `secondary-foreground`
-- `success` / `success-hover` / `success-active` / `success-tint` / `success-foreground`
-- `warning` / `warning-hover` / `warning-active` / `warning-tint` / `warning-foreground`
-- `error` / `error-hover` / `error-active` / `error-tint` / `error-foreground`
-- `info` / `info-hover` / `info-active` / `info-tint` / `info-foreground`
+**Shadows:** shadow-xs, shadow-sm, shadow-md, shadow-lg, shadow-xl
 
-**Border:**
-- `border` — default border
-- `border-subtle` — lighter/softer border
-- `border-strong` — stronger/darker border
+**Z-Index:** z-sticky(100), z-dropdown(1000), z-overlay(1100), z-modal(2000), z-popover(2100), z-tooltip(2200), z-toast(3000)
 
-**State:**
-- `disabled` — disabled background
-- `disabled-text` — disabled text
-- `focus-ring` — focus indicator
-- `focus-ring-error` — error focus indicator
+**Icon Sizes:** icon-2xs(12px), icon-xs(14px), icon-sm(16px), icon-md(20px), icon-lg(24px), icon-xl(32px)
 
-## Colors — Primitive (raw palette, use sparingly)
+**Duration:** duration-instant(0), duration-fast(100), duration-micro(150), duration-normal(200), duration-slow(300), duration-slower(400), duration-slowest(500), duration-spin(1000)
 
-7 color families, each with 50–900 shades (10 steps):
-`gray`, `primary`, `secondary`, `blue`, `green`, `red`, `yellow`
+**Easing:** ease-linear, ease-ease, ease-ease-in, ease-ease-out, ease-ease-in-out
 
-Usage: `bg-primary-100`, `text-gray-600`, `border-blue-300`
-**Prefer semantic tokens over primitives** — primitives don't auto-adapt to dark mode.
-**Note:** The actual colors of each palette depend on the user's token configuration.
+**Opacity:** opacity-0 to opacity-100 (5% increments)
 
-## Spacing
+**Scale:** scale-50, scale-75, scale-95, scale-pressed(0.98)
 
-| Token | Value | Common Use |
-|---|---|---|
-| `0` | 0 | Reset |
-| `0.5` | 2px | Micro gap |
-| `1` | 4px | Tight gap |
-| `1.5` | 6px | Small gap |
-| `2` | 8px | Default gap |
-| `2.5` | 10px | — |
-| `3` | 12px | Section gap |
-| `4` | 16px | Card padding |
-| `5` | 20px | — |
-| `6` | 24px | Section padding |
-| `7` | 28px | — |
-| `8` | 32px | Large padding |
-| `10` | 40px | — |
-| `12` | 48px | — |
-| `14` | 56px | — |
-| `16` | 64px | Page margin |
-| `20` | 80px | — |
-| `24` | 96px | Hero spacing |
+**Breakpoints:** sm(640), md(768), lg(1024), xl(1280), 2xl(1536)
 
-## Typography
+For detailed token reference, see: https://7onic.design/llms.txt
 
-**Font Families:**
-- `font-sans` — sans-serif body font (user-defined)
-- `font-mono` — monospace code font (user-defined)
+---
 
-**Font Sizes:**
+# ═══ SECTION 2: COMPONENT IMPORT PATTERNS ═══
 
-| Class | Size | Line Height | Use Case |
+## Import
+
+```tsx
+// All components from single package
+import { Button, Card, Input, Toast } from '@7onic-ui/react'
+```
+
+## Namespace Pattern (Compound Components)
+
+21 compound components use namespace imports. Access sub-components via dot notation:
+
+```tsx
+import { Card } from '@7onic-ui/react'
+
+// ✅ Namespace usage (preferred)
+<Card>
+  <Card.Header>
+    <Card.Title>Title</Card.Title>
+    <Card.Description>Description</Card.Description>
+  </Card.Header>
+  <Card.Content>Content</Card.Content>
+  <Card.Footer>Footer</Card.Footer>
+</Card>
+
+// ✅ Named exports also work (backwards compatible)
+import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
+```
+
+### Compound Components List (21)
+
+Accordion, Alert, Avatar, Breadcrumb, Card, Chart, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
+
+### Standalone Components (15)
+
+Badge, Button, ButtonGroup, Checkbox, Divider, IconButton, Input, Progress, Skeleton, Slider, Spinner, Switch, Textarea, Toast, Toggle
+
+---
+
+# ═══ SECTION 3: ALL COMPONENTS (38) ═══
+
+---
+
+## Forms
+
+### Button
+
+```tsx
+import { Button } from '@7onic-ui/react'
+
+<Button variant="solid" color="primary" size="default">Submit</Button>
+<Button variant="outline" color="default" leftIcon={<Icon />}>Cancel</Button>
+<Button loading>Processing...</Button>
+<Button variant="link" color="primary">Learn more</Button>
+```
+
+| Prop | Type | Default | Description |
 |---|---|---|---|
-| `text-2xs` | 11px | 16px | Fine print |
-| `text-xs` | 12px | 18px | Caption, badge |
-| `text-sm` | 13px | 20px | Body small, table |
-| `text-md` | 14px | 22px | Body default |
-| `text-base` | 16px | 26px | Body large |
-| `text-lg` | 18px | 28px | Subtitle |
-| `text-xl` | 20px | 30px | Title |
-| `text-2xl` | 24px | 34px | Heading |
-| `text-3xl` | 30px | 40px | Hero subtitle |
-| `text-4xl` | 36px | 46px | Hero title |
-| `text-5xl` | 48px | 58px | Display |
+| variant | `'solid' \| 'outline' \| 'ghost' \| 'link'` | `'solid'` | Visual style |
+| color | `'default' \| 'primary' \| 'secondary' \| 'destructive'` | `'default'` | Color scheme |
+| size | `'xs' \| 'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Height: 28/32/36/40/48px |
+| radius | `'none' \| 'sm' \| 'base' \| 'default' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| 'full'` | `'default'` | Border radius |
+| loading | `boolean` | `false` | Shows spinner, disables button |
+| leftIcon | `ReactNode` | — | Icon before label |
+| rightIcon | `ReactNode` | — | Icon after label |
+| fullWidth | `boolean` | `false` | `w-full` |
+| selected | `boolean` | — | Selected state (outline/ghost) |
+| fontWeight | `'normal' \| 'semibold'` | per variant | Override font weight |
+| pressEffect | `boolean` | `true` | Scale-down on press |
+| asChild | `boolean` | `false` | Render as child element (Slot) |
+| disabled | `boolean` | `false` | Disabled state |
 
-**Font Weights:**
-- `font-normal` (400) — body text
-- `font-semibold` (600) — labels, emphasis
-- `font-bold` (700) — headings
+**Icon sizing by button size:** xs/sm → icon-xs(14px), md/default/lg → icon-sm(16px)
 
-## Border Radius
+---
 
-| Class | Value | Use Case |
-|---|---|---|
-| `rounded-none` | 0px | Square |
-| `rounded-sm` | 2px | Subtle |
-| `rounded-base` | 4px | Default (checkbox) |
-| `rounded-md` | 6px | Default (button) |
-| `rounded-lg` | 8px | Card, input |
-| `rounded-xl` | 12px | Large card |
-| `rounded-2xl` | 16px | Modal |
-| `rounded-3xl` | 24px | Pill shape |
-| `rounded-full` | 9999px | Circle, pill button |
+### IconButton
 
-## Shadows
+```tsx
+import { IconButton } from '@7onic-ui/react'
 
-| Class | Description |
+<IconButton variant="ghost" size="default" aria-label="Settings">
+  <SettingsIcon />
+</IconButton>
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'solid' \| 'outline' \| 'ghost' \| 'subtle'` | `'solid'` | Visual style |
+| color | `'default' \| 'primary' \| 'secondary' \| 'destructive'` | `'default'` | Color scheme |
+| size | `'xs' \| 'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | 28/32/36/40/48px (square) |
+| radius | Same as Button | `'default'` | Border radius |
+| loading | `boolean` | `false` | Shows spinner |
+| pressEffect | `boolean` | `true` | Scale-down on press |
+| asChild | `boolean` | `false` | Slot pattern |
+
+**Icon sizing:** xs → icon-xs(14px), sm/md → icon-sm(16px), default → icon-md(20px), lg → icon-lg(24px)
+**Always provide `aria-label`** — no visible text.
+
+---
+
+### ButtonGroup
+
+```tsx
+import { Button, ButtonGroup } from '@7onic-ui/react'
+
+<ButtonGroup variant="outline" size="default" attached>
+  <Button>Left</Button>
+  <Button>Center</Button>
+  <Button>Right</Button>
+</ButtonGroup>
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'outline' \| 'ghost'` | — | Applied to all children |
+| size | Button sizes | — | Applied to all children |
+| radius | Button radius values | — | Applied to all children |
+| fontWeight | `'normal' \| 'semibold'` | — | Applied to all children |
+| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction |
+| attached | `boolean` | `false` | Overlapping borders |
+| disabled | `boolean` | `false` | Disable all children |
+
+Provides context — child Buttons inherit variant/size/radius automatically.
+
+---
+
+### Input
+
+```tsx
+import { Input } from '@7onic-ui/react'
+
+<Input placeholder="Email" size="default" />
+<Input variant="filled" leftIcon={<SearchIcon />} />
+<Input error rightIcon={<AlertIcon />} />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'filled'` | `'default'` | Border or filled background |
+| size | `'xs' \| 'sm' \| 'default' \| 'lg' \| 'xl'` | `'default'` | Height: 36/40/44/48/56px |
+| radius | `'none' \| 'sm' \| 'base' \| 'default' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| 'full'` | `'default'` | Border radius |
+| error | `boolean` | `false` | Error border state |
+| focusRing | `boolean` | `false` | Explicit focus ring (vs keyboard-only) |
+| leftIcon | `ReactNode` | — | Left icon |
+| rightIcon | `ReactNode` | — | Right icon |
+
+**Works with Field wrapper** for label, error, char count. See Field section.
+
+---
+
+### Textarea
+
+```tsx
+import { Textarea } from '@7onic-ui/react'
+
+<Textarea placeholder="Message" rows={4} resize="vertical" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'filled'` | `'default'` | Border or filled |
+| size | `'compact' \| 'default'` | `'default'` | Padding density |
+| radius | Same as Input | `'default'` | Border radius |
+| resize | `'none' \| 'vertical' \| 'horizontal' \| 'both'` | `'vertical'` | Resize handle |
+| error | `boolean` | `false` | Error state |
+| focusRing | `boolean` | `false` | Explicit focus ring |
+
+---
+
+### Select
+
+```tsx
+import { Select } from '@7onic-ui/react'
+
+<Select>
+  <Select.Trigger>
+    <Select.Value placeholder="Choose option" />
+  </Select.Trigger>
+  <Select.Content>
+    <Select.Item value="a">Option A</Select.Item>
+    <Select.Item value="b">Option B</Select.Item>
+    <Select.Group>
+      <Select.Label>Group</Select.Label>
+      <Select.Item value="c">Option C</Select.Item>
+    </Select.Group>
+  </Select.Content>
+</Select>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| size | `'xs' \| 'sm' \| 'default' \| 'lg' \| 'xl'` | `'default'` | Trigger height |
+| radius | Same as Input | `'default'` | Border radius |
+| value | `string` | — | Controlled value |
+| defaultValue | `string` | — | Uncontrolled default |
+| onValueChange | `(value: string) => void` | — | Change handler |
+
+**Sub-components:** Select.Trigger, Select.Value, Select.Content, Select.Item, Select.Group, Select.Label, Select.Separator
+
+---
+
+### DropdownMenu
+
+```tsx
+import { DropdownMenu } from '@7onic-ui/react'
+
+<DropdownMenu>
+  <DropdownMenu.Trigger asChild>
+    <Button variant="outline">Options</Button>
+  </DropdownMenu.Trigger>
+  <DropdownMenu.Content>
+    <DropdownMenu.Item>Edit</DropdownMenu.Item>
+    <DropdownMenu.Item>Duplicate</DropdownMenu.Item>
+    <DropdownMenu.Separator />
+    <DropdownMenu.Item className="text-error">Delete</DropdownMenu.Item>
+  </DropdownMenu.Content>
+</DropdownMenu>
+```
+
+| Prop (Content) | Type | Default | Description |
+|---|---|---|---|
+| radius | `'md' \| 'lg' \| 'xl'` | `'lg'` | Border radius |
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` | Item density |
+| flush | `boolean` | `false` | Full-width items (no padding) |
+| sideOffset | `number` | `4` | Gap from trigger |
+
+**Sub-components:** DropdownMenu.Trigger, DropdownMenu.Content, DropdownMenu.Item, DropdownMenu.CheckboxItem, DropdownMenu.RadioItem, DropdownMenu.Label, DropdownMenu.Separator, DropdownMenu.Group, DropdownMenu.Sub, DropdownMenu.SubTrigger, DropdownMenu.SubContent, DropdownMenu.Shortcut
+
+---
+
+### Checkbox
+
+```tsx
+import { Checkbox } from '@7onic-ui/react'
+
+<Checkbox label="Accept terms" />
+<Checkbox size="lg" color="primary" checked />
+<Checkbox checked="indeterminate" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Checkbox size |
+| radius | `'none' \| 'sm' \| 'md'` | `'sm'` | Border radius |
+| weight | `'thin' \| 'bold'` | `'bold'` | Checkmark thickness |
+| color | `'default' \| 'primary'` | `'default'` | Checked color |
+| label | `string` | — | Label text |
+| checked | `boolean \| 'indeterminate'` | — | Controlled state |
+| defaultChecked | `boolean` | — | Uncontrolled default |
+| onCheckedChange | `(checked: boolean \| 'indeterminate') => void` | — | Change handler |
+| disabled | `boolean` | `false` | Disabled state |
+
+---
+
+### RadioGroup
+
+```tsx
+import { RadioGroup } from '@7onic-ui/react'
+
+<RadioGroup defaultValue="a">
+  <RadioGroup.Item value="a" label="Option A" />
+  <RadioGroup.Item value="b" label="Option B" />
+  <RadioGroup.Item value="c" label="Option C" disabled />
+</RadioGroup>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Radio size |
+| weight | `'thin' \| 'bold'` | `'bold'` | Indicator thickness |
+| color | `'default' \| 'primary'` | `'default'` | Selected color |
+| orientation | `'horizontal' \| 'vertical'` | `'vertical'` | Layout direction |
+| value | `string` | — | Controlled value |
+| defaultValue | `string` | — | Uncontrolled default |
+| onValueChange | `(value: string) => void` | — | Change handler |
+
+**Sub-components:** RadioGroup.Item (with `label` prop)
+
+---
+
+### Switch
+
+```tsx
+import { Switch } from '@7onic-ui/react'
+
+<Switch label="Notifications" />
+<Switch size="lg" color="primary" defaultChecked />
+<Switch startLabel="Off" endLabel="On" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Track size |
+| color | `'default' \| 'primary' \| 'success' \| 'warning' \| 'error'` | `'default'` | Active track color |
+| label | `string` | — | Label text |
+| labelPosition | `'start' \| 'end' \| 'top' \| 'bottom'` | `'end'` | Label placement |
+| startLabel | `string` | — | Left label (off state) |
+| endLabel | `string` | — | Right label (on state) |
+| checkedIcon | `ReactNode` | — | Icon when checked |
+| uncheckedIcon | `ReactNode` | — | Icon when unchecked |
+| checked | `boolean` | — | Controlled state |
+| defaultChecked | `boolean` | — | Uncontrolled default |
+| onCheckedChange | `(checked: boolean) => void` | — | Change handler |
+| disabled | `boolean` | `false` | Disabled state |
+
+---
+
+### Toggle
+
+```tsx
+import { Toggle } from '@7onic-ui/react'
+
+<Toggle variant="default" aria-label="Bold">
+  <BoldIcon />
+</Toggle>
+<Toggle variant="outline" pressed>Active</Toggle>
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'outline' \| 'ghost' \| 'outline-ghost'` | `'default'` | Visual style |
+| size | `'xs' \| 'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | 28/32/36/40/48px |
+| radius | Same as Button | `'default'` | Border radius |
+| fontWeight | `'normal' \| 'semibold'` | per variant | Font weight |
+| iconOnly | `boolean` | `false` | Square mode (no text padding) |
+| pressEffect | `boolean` | `true` | Scale-down on press |
+| pressed | `boolean` | — | Controlled state |
+| defaultPressed | `boolean` | — | Uncontrolled default |
+| onPressedChange | `(pressed: boolean) => void` | — | Change handler |
+
+---
+
+### ToggleGroup
+
+```tsx
+import { ToggleGroup } from '@7onic-ui/react'
+
+<ToggleGroup type="single" defaultValue="center">
+  <ToggleGroup.Item value="left"><AlignLeftIcon /></ToggleGroup.Item>
+  <ToggleGroup.Item value="center"><AlignCenterIcon /></ToggleGroup.Item>
+  <ToggleGroup.Item value="right"><AlignRightIcon /></ToggleGroup.Item>
+</ToggleGroup>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| type | `'single' \| 'multiple'` | required | Selection mode |
+| variant | `'default' \| 'outline'` | `'default'` | Visual style |
+| size | `'xs' \| 'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Item size |
+| radius | Same as Button | `'default'` | Border radius |
+| fontWeight | `'normal' \| 'semibold'` | per variant | Font weight |
+| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction |
+| value | `string \| string[]` | — | Controlled value |
+| defaultValue | `string \| string[]` | — | Uncontrolled default |
+| onValueChange | `(value) => void` | — | Change handler |
+
+**Sub-components:** ToggleGroup.Item
+
+---
+
+### Segmented
+
+```tsx
+import { Segmented } from '@7onic-ui/react'
+
+<Segmented defaultValue="all">
+  <Segmented.Item value="all">All</Segmented.Item>
+  <Segmented.Item value="active">Active</Segmented.Item>
+  <Segmented.Item value="inactive">Inactive</Segmented.Item>
+</Segmented>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'outline' \| 'underline' \| 'ghost'` | `'default'` | Visual style |
+| size | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | 32/36/40/48px (no xs) |
+| radius | Same as Button (excl. none) | `'default'` | Border radius |
+| fontWeight | `'normal' \| 'semibold'` | per variant | Font weight |
+| value | `string` | — | Controlled value |
+| defaultValue | `string` | — | Uncontrolled default |
+| onValueChange | `(value: string) => void` | — | Change handler |
+
+**Sub-components:** Segmented.Item
+**Note:** Only 4 sizes (no xs) — intentional design decision.
+
+---
+
+### Slider
+
+```tsx
+import { Slider } from '@7onic-ui/react'
+
+<Slider defaultValue={[50]} showTooltip="auto" />
+<Slider defaultValue={[20, 80]} color="primary" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Track/thumb size |
+| color | `'default' \| 'primary'` | `'default'` | Active track color |
+| showTooltip | `'auto' \| 'always' \| 'never'` | `'auto'` | Tooltip display |
+| formatLabel | `(value: number) => string` | — | Tooltip value formatter |
+| startContent | `ReactNode` | — | Left content (label/icon) |
+| endContent | `ReactNode` | — | Right content (label/icon) |
+| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction |
+| value | `number[]` | — | Controlled value(s) |
+| defaultValue | `number[]` | — | Uncontrolled default |
+| onValueChange | `(value: number[]) => void` | — | Change handler |
+| min | `number` | `0` | Minimum value |
+| max | `number` | `100` | Maximum value |
+| step | `number` | `1` | Step increment |
+
+---
+
+### Field (Form Wrapper)
+
+```tsx
+import { Field, Input, Textarea } from '@7onic-ui/react'
+
+<Field error="Invalid email">
+  <Field.Label required>Email</Field.Label>
+  <Input placeholder="you@example.com" />
+  <Field.Error />
+</Field>
+
+<Field>
+  <Field.Label>Bio</Field.Label>
+  <Textarea placeholder="Tell us about yourself" maxLength={200} />
+  <Field.CharCount />
+</Field>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| gap | `'none' \| 'xs' \| 'sm' \| 'default' \| 'lg'` | `'default'` | Gap between elements |
+| error | `string \| boolean` | — | Error message (passed to children via context) |
+| disabled | `boolean` | `false` | Disabled state (passed to children via context) |
+
+**Sub-components:** Field.Label (with `required` prop), Field.Error, Field.CharCount
+**Context:** Input, Textarea, Checkbox, RadioGroup, Select auto-detect Field context for error/disabled/id.
+
+---
+
+## Data Display
+
+### Avatar
+
+```tsx
+import { Avatar } from '@7onic-ui/react'
+
+<Avatar size="default">
+  <Avatar.Image src="/photo.jpg" alt="User" />
+  <Avatar.Fallback name="John Doe" colorized />
+</Avatar>
+
+<Avatar.Group max={3}>
+  <Avatar><Avatar.Image src="/a.jpg" /><Avatar.Fallback>A</Avatar.Fallback></Avatar>
+  <Avatar><Avatar.Image src="/b.jpg" /><Avatar.Fallback>B</Avatar.Fallback></Avatar>
+  <Avatar><Avatar.Image src="/c.jpg" /><Avatar.Fallback>C</Avatar.Fallback></Avatar>
+  <Avatar><Avatar.Fallback>+2</Avatar.Fallback></Avatar>
+</Avatar.Group>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| size | `'xs' \| 'sm' \| 'default' \| 'lg' \| 'xl' \| '2xl'` | `'default'` | Avatar size |
+| shape | `'circle' \| 'square'` | `'circle'` | Avatar shape |
+| status | `'online' \| 'offline' \| 'busy' \| 'away'` | — | Status indicator dot |
+
+| Prop (Fallback) | Type | Default | Description |
+|---|---|---|---|
+| name | `string` | — | Auto-generates initials |
+| colorized | `boolean` | `false` | Deterministic color from name hash |
+| colorVariant | `'vivid' \| 'soft'` | `'vivid'` | Color intensity |
+
+| Prop (Group) | Type | Default | Description |
+|---|---|---|---|
+| max | `number` | — | Max visible avatars |
+| size | Same as Root | — | Override all children |
+| shape | Same as Root | — | Override all children |
+
+**Sub-components:** Avatar.Image, Avatar.Fallback, Avatar.Group
+
+---
+
+### Badge
+
+```tsx
+import { Badge } from '@7onic-ui/react'
+
+<Badge variant="solid" color="primary">New</Badge>
+<Badge variant="subtle" color="success" dot>Active</Badge>
+<Badge variant="outline" removable onRemove={() => {}}>Tag</Badge>
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'solid' \| 'subtle' \| 'outline'` | `'subtle'` | Visual style |
+| color | `'default' \| 'primary' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'default'` | Color scheme |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Badge size |
+| radius | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'full'` | Border radius |
+| icon | `ReactNode` | — | Leading icon |
+| dot | `boolean` | `false` | Status dot indicator |
+| removable | `boolean` | `false` | Shows remove button |
+| onRemove | `() => void` | — | Remove handler |
+| asChild | `boolean` | `false` | Slot pattern |
+
+---
+
+### Card
+
+```tsx
+import { Card } from '@7onic-ui/react'
+
+<Card variant="default" interactive>
+  <Card.Image src="/cover.jpg" overlay overlayOpacity={40} />
+  <Card.Header>
+    <Card.Title icon={<StarIcon />}>Featured</Card.Title>
+    <Card.Description>Card description</Card.Description>
+    <Card.Action><IconButton variant="ghost"><MoreIcon /></IconButton></Card.Action>
+  </Card.Header>
+  <Card.Content>Main content</Card.Content>
+  <Card.Footer>Footer actions</Card.Footer>
+</Card>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'outline' \| 'ghost'` | `'default'` | Visual style |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
+| radius | `'sm' \| 'base' \| 'md' \| 'lg' \| 'xl' \| '2xl'` | `'xl'` | Border radius |
+| direction | `'vertical' \| 'horizontal'` | `'vertical'` | Layout direction |
+| interactive | `boolean` | `false` | Hover shadow + lift |
+| asChild | `boolean` | `false` | Slot pattern |
+
+| Prop (Image) | Type | Default | Description |
+|---|---|---|---|
+| overlay | `boolean` | `false` | Gradient overlay |
+| overlayOpacity | `10-90` | `60` | Overlay darkness |
+
+**Sub-components:** Card.Image, Card.Header, Card.Title (with `icon`), Card.Description, Card.Action, Card.Content, Card.Footer
+
+---
+
+### Table
+
+```tsx
+import { Table } from '@7onic-ui/react'
+
+<Table variant="default" stickyHeader>
+  <Table.Header>
+    <Table.Row>
+      <Table.Head sortable sortDirection="asc" onSort={() => {}}>Name</Table.Head>
+      <Table.Head align="right">Amount</Table.Head>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row interactive>
+      <Table.Cell>John</Table.Cell>
+      <Table.Cell align="right">$100</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'bordered' \| 'striped'` | `'default'` | Visual style |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Cell padding |
+| stickyHeader | `boolean` | `false` | Sticky header row |
+
+| Prop (Head) | Type | Default | Description |
+|---|---|---|---|
+| align | `'left' \| 'center' \| 'right'` | `'left'` | Text alignment |
+| sortable | `boolean` | `false` | Shows sort indicator |
+| sortDirection | `'asc' \| 'desc' \| null` | — | Current sort state |
+| onSort | `() => void` | — | Sort handler |
+
+| Prop (Row) | Type | Default | Description |
+|---|---|---|---|
+| interactive | `boolean` | `false` | Hover highlight |
+| selected | `boolean` | `false` | Selected state |
+
+**Sub-components:** Table.Header, Table.Body, Table.Footer, Table.Row, Table.Head, Table.Cell, Table.Caption
+
+---
+
+## Layout
+
+### Tabs
+
+```tsx
+import { Tabs } from '@7onic-ui/react'
+
+<Tabs defaultValue="tab1">
+  <Tabs.List variant="line" size="default">
+    <Tabs.Trigger value="tab1">Tab 1</Tabs.Trigger>
+    <Tabs.Trigger value="tab2">Tab 2</Tabs.Trigger>
+  </Tabs.List>
+  <Tabs.Content value="tab1">Content 1</Tabs.Content>
+  <Tabs.Content value="tab2">Content 2</Tabs.Content>
+</Tabs>
+```
+
+| Prop (List) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'line' \| 'enclosed' \| 'pill'` | `'line'` | Tab style |
+| size | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Tab size |
+| fitted | `boolean` | `false` | Full width tabs |
+| color | `'default' \| 'primary'` | `'default'` | Active tab color |
+| radius | `'none' \| 'sm' \| 'md' \| 'default' \| 'lg' \| 'full'` | `'default'` | Border radius (enclosed/pill) |
+
+**Sub-components:** Tabs.List, Tabs.Trigger, Tabs.Content
+
+---
+
+### Accordion
+
+```tsx
+import { Accordion } from '@7onic-ui/react'
+
+<Accordion type="single" collapsible defaultValue="item-1">
+  <Accordion.Item value="item-1">
+    <Accordion.Trigger>Section 1</Accordion.Trigger>
+    <Accordion.Content>Content 1</Accordion.Content>
+  </Accordion.Item>
+  <Accordion.Item value="item-2">
+    <Accordion.Trigger>Section 2</Accordion.Trigger>
+    <Accordion.Content>Content 2</Accordion.Content>
+  </Accordion.Item>
+</Accordion>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| type | `'single' \| 'multiple'` | required | Expansion mode |
+| variant | `'default' \| 'bordered' \| 'splitted'` | `'default'` | Visual style |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
+| iconPosition | `'left' \| 'right'` | `'right'` | Chevron placement |
+| collapsible | `boolean` | `false` | Allow all closed (single only) |
+
+**Sub-components:** Accordion.Item, Accordion.Trigger (with `icon` prop), Accordion.Content
+
+---
+
+### Divider
+
+```tsx
+import { Divider } from '@7onic-ui/react'
+
+<Divider />
+<Divider variant="dashed" color="muted" />
+<Divider label="OR" labelPosition="center" />
+<Divider orientation="vertical" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction |
+| variant | `'solid' \| 'dashed' \| 'dotted'` | `'solid'` | Line style |
+| color | `'default' \| 'muted' \| 'strong'` | `'default'` | Line color |
+| spacing | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Margin around line |
+| label | `string` | — | Center label text |
+| labelPosition | `'left' \| 'center' \| 'right'` | `'center'` | Label placement |
+
+---
+
+## Overlay
+
+### Modal
+
+```tsx
+import { Modal, Button } from '@7onic-ui/react'
+
+<Modal>
+  <Modal.Trigger asChild>
+    <Button>Open Modal</Button>
+  </Modal.Trigger>
+  <Modal.Portal>
+    <Modal.Overlay />
+    <Modal.Content size="md">
+      <Modal.Header>
+        <Modal.Title>Confirm</Modal.Title>
+        <Modal.Description>Are you sure?</Modal.Description>
+      </Modal.Header>
+      <Modal.Body>Modal body content</Modal.Body>
+      <Modal.Footer>
+        <Modal.Close asChild><Button variant="outline">Cancel</Button></Modal.Close>
+        <Button color="primary">Confirm</Button>
+      </Modal.Footer>
+    </Modal.Content>
+  </Modal.Portal>
+</Modal>
+```
+
+| Prop (Content) | Type | Default | Description |
+|---|---|---|---|
+| size | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Modal width |
+| scrollBehavior | `'inside' \| 'outside'` | `'inside'` | Scroll target |
+| showCloseButton | `boolean` | `true` | Show X button |
+
+**Sub-components:** Modal.Trigger, Modal.Portal, Modal.Overlay, Modal.Content, Modal.Header, Modal.Title, Modal.Description, Modal.Body, Modal.Footer, Modal.Close
+
+**Required structure:** Portal → Overlay + Content. Don't forget Portal and Overlay.
+
+---
+
+### Drawer
+
+```tsx
+import { Drawer, Button } from '@7onic-ui/react'
+
+<Drawer>
+  <Drawer.Trigger asChild>
+    <Button>Open Drawer</Button>
+  </Drawer.Trigger>
+  <Drawer.Portal>
+    <Drawer.Overlay />
+    <Drawer.Content side="right" size="md">
+      <Drawer.Header>
+        <Drawer.Title>Settings</Drawer.Title>
+      </Drawer.Header>
+      <Drawer.Body>Content</Drawer.Body>
+      <Drawer.Footer>
+        <Drawer.Close asChild><Button variant="outline">Close</Button></Drawer.Close>
+      </Drawer.Footer>
+    </Drawer.Content>
+  </Drawer.Portal>
+</Drawer>
+```
+
+| Prop (Content) | Type | Default | Description |
+|---|---|---|---|
+| side | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Slide direction |
+| size | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Width/height |
+| showCloseButton | `boolean` | `true` | Show X button |
+
+**Sub-components:** Drawer.Trigger, Drawer.Portal, Drawer.Overlay, Drawer.Content, Drawer.Header, Drawer.Title, Drawer.Description, Drawer.Body, Drawer.Footer, Drawer.Close
+
+---
+
+### Tooltip
+
+```tsx
+import { Tooltip } from '@7onic-ui/react'
+
+<Tooltip.Provider>
+  <Tooltip>
+    <Tooltip.Trigger asChild>
+      <Button>Hover me</Button>
+    </Tooltip.Trigger>
+    <Tooltip.Portal>
+      <Tooltip.Content side="top" showArrow>
+        Tooltip text
+        <Tooltip.Arrow />
+      </Tooltip.Content>
+    </Tooltip.Portal>
+  </Tooltip>
+</Tooltip.Provider>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| delayDuration | `number` | `200` | Hover delay (ms) |
+
+| Prop (Content) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'inverted'` | `'default'` | Dark/light bg |
+| size | `'sm' \| 'default'` | `'default'` | Padding scale |
+| side | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` | Placement |
+| showArrow | `boolean` | `false` | Show arrow |
+| sideOffset | `number` | `4` | Gap from trigger |
+
+**⚠️ Tooltip.Provider is required** — wrap your app or section with it.
+**Sub-components:** Tooltip.Provider, Tooltip.Trigger, Tooltip.Content, Tooltip.Arrow, Tooltip.Portal
+
+---
+
+### Popover
+
+```tsx
+import { Popover, Button } from '@7onic-ui/react'
+
+<Popover>
+  <Popover.Trigger asChild>
+    <Button variant="outline">Open</Button>
+  </Popover.Trigger>
+  <Popover.Portal>
+    <Popover.Content side="bottom" showArrow showClose>
+      <Popover.Arrow />
+      <p>Popover content</p>
+    </Popover.Content>
+  </Popover.Portal>
+</Popover>
+```
+
+| Prop (Content) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'elevated'` | `'default'` | Shadow style |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
+| side | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Placement |
+| showArrow | `boolean` | `false` | Show arrow |
+| showClose | `boolean` | `false` | Show X button |
+
+**Sub-components:** Popover.Trigger, Popover.Content, Popover.Arrow, Popover.Close, Popover.Anchor, Popover.Portal
+
+---
+
+## Feedback
+
+### Alert
+
+```tsx
+import { Alert } from '@7onic-ui/react'
+
+<Alert color="success" closable onClose={() => {}}>
+  <Alert.Title>Success</Alert.Title>
+  <Alert.Description>Operation completed.</Alert.Description>
+</Alert>
+
+<Alert variant="filled" color="error" icon={<ErrorIcon />}>
+  <Alert.Title>Error</Alert.Title>
+</Alert>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'outline' \| 'filled'` | `'default'` | Visual style |
+| color | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Color scheme |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
+| radius | Same as Card | `'lg'` | Border radius |
+| closable | `boolean` | `false` | Show close button |
+| onClose | `() => void` | — | Close handler |
+| icon | `ReactNode` | auto | Custom icon (auto-selects by color) |
+| hideIcon | `boolean` | `false` | Hide icon |
+
+**Sub-components:** Alert.Title, Alert.Description
+
+---
+
+### Toast (Imperative API)
+
+```tsx
+import { Toaster, toast } from '@7onic-ui/react'
+
+// 1. Add Toaster provider to your app layout (once)
+<Toaster position="bottom-right" />
+
+// 2. Call toast() anywhere
+toast('Default notification')
+toast.success('Saved successfully')
+toast.error('Something went wrong')
+toast.warning('Please check your input')
+toast.info('New update available')
+toast.loading('Processing...')
+
+// With options
+toast.success('Saved', {
+  description: 'Your changes have been saved.',
+  duration: 5000,
+  action: { label: 'Undo', onClick: () => {} },
+})
+
+// Promise
+toast.promise(fetchData(), {
+  loading: 'Loading...',
+  success: 'Data loaded',
+  error: 'Failed to load',
+})
+
+// Dismiss
+const id = toast('Message')
+toast.dismiss(id)    // Dismiss specific
+toast.dismiss()      // Dismiss all
+```
+
+| Prop (Toaster) | Type | Default | Description |
+|---|---|---|---|
+| position | `'top-left' \| 'top-center' \| 'top-right' \| 'bottom-left' \| 'bottom-center' \| 'bottom-right'` | `'bottom-right'` | Toast position |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Toast size |
+| duration | `number` | `4000` | Auto-dismiss ms (0 = persistent) |
+| closeButton | `boolean` | `false` | Show close button |
+| richColors | `boolean` | `false` | Filled color backgrounds |
+| expand | `boolean` | `false` | Show all toasts expanded |
+| visibleToasts | `number` | `3` | Max visible at once |
+
+**⚠️ No Portal needed.** Just place `<Toaster />` in your root layout. Call `toast()` from anywhere.
+
+---
+
+### Progress
+
+```tsx
+import { Progress } from '@7onic-ui/react'
+
+<Progress value={65} showValue />
+<Progress type="circular" value={75} color="primary" />
+<Progress variant="striped" animated value={50} />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| type | `'linear' \| 'circular'` | `'linear'` | Shape |
+| value | `number` | `0` | Current value |
+| max | `number` | `100` | Maximum value |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Bar/circle size |
+| variant | `'default' \| 'striped'` | `'default'` | Bar fill style |
+| color | `'default' \| 'primary'` | `'default'` | Fill color |
+| showValue | `boolean` | `false` | Show percentage text |
+| formatLabel | `(value: number, max: number) => string` | — | Custom label |
+| animated | `boolean` | `false` | Animate stripes |
+
+---
+
+### Spinner
+
+```tsx
+import { Spinner } from '@7onic-ui/react'
+
+<Spinner />
+<Spinner variant="dots" size="lg" color="primary" />
+<Spinner variant="bars" speed="slow" />
+<Spinner variant="orbit" orbitStyle="morph" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'ring' \| 'dots' \| 'bars' \| 'orbit'` | `'ring'` | Animation style |
+| orbitStyle | `'ring' \| 'dots' \| 'cube' \| 'flip' \| 'morph'` | `'ring'` | Orbit sub-variant |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Spinner size |
+| color | `'default' \| 'primary' \| 'current'` | `'default'` | Color |
+| speed | `'slow' \| 'default' \| 'fast'` | `'default'` | Animation speed |
+| label | `string` | `'Loading'` | aria-label text |
+
+---
+
+### Skeleton
+
+```tsx
+import { Skeleton } from '@7onic-ui/react'
+
+<Skeleton variant="text" count={3} />
+<Skeleton variant="circular" width={48} height={48} />
+<Skeleton variant="rectangular" width="100%" height={200} />
+
+{/* Conditional rendering */}
+<Skeleton loading={isLoading}>
+  <ActualContent />
+</Skeleton>
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'text' \| 'circular' \| 'rectangular'` | `'text'` | Shape |
+| animation | `'pulse' \| 'wave' \| false` | `'pulse'` | Animation style |
+| width | `number \| string` | — | Width (px or CSS) |
+| height | `number \| string` | — | Height (px or CSS) |
+| radius | `number \| string` | — | Border radius |
+| count | `number` | `1` | Multi-line count |
+| loading | `boolean` | `true` | Show skeleton vs children |
+| children | `ReactNode` | — | Content (shown when loading=false) |
+
+---
+
+## Navigation
+
+### Breadcrumb
+
+```tsx
+import { Breadcrumb } from '@7onic-ui/react'
+
+<Breadcrumb>
+  <Breadcrumb.List>
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href="/">Home</Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item>
+      <Breadcrumb.Link href="/docs">Docs</Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item>
+      <Breadcrumb.Page>Current</Breadcrumb.Page>
+    </Breadcrumb.Item>
+  </Breadcrumb.List>
+</Breadcrumb>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| separator | `ReactNode` | `'/'` | Custom separator |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Text size |
+| maxItems | `number` | — | Collapse threshold |
+| itemsBeforeCollapse | `number` | `1` | Items before ellipsis |
+| itemsAfterCollapse | `number` | `1` | Items after ellipsis |
+
+**Sub-components:** Breadcrumb.List, Breadcrumb.Item, Breadcrumb.Link (with `asChild`), Breadcrumb.Page, Breadcrumb.Separator, Breadcrumb.Ellipsis
+
+---
+
+### Pagination
+
+```tsx
+import { Pagination } from '@7onic-ui/react'
+
+{/* Quick mode */}
+<Pagination total={10} defaultValue={1} />
+
+{/* Compound mode */}
+<Pagination total={20} value={page} onChange={setPage}>
+  <Pagination.Content>
+    <Pagination.Previous />
+    <Pagination.Items />
+    <Pagination.Next />
+  </Pagination.Content>
+</Pagination>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| total | `number` | required | Total pages |
+| value | `number` | — | Controlled page |
+| defaultValue | `number` | `1` | Uncontrolled default |
+| onChange | `(page: number) => void` | — | Change handler |
+| siblings | `number` | `1` | Pages beside current |
+| boundaries | `number` | `1` | Pages at start/end |
+| variant | `'default' \| 'outline' \| 'ghost'` | `'default'` | Visual style |
+| color | `'default' \| 'primary'` | `'default'` | Active page color |
+| size | `'xs' \| 'sm' \| 'default' \| 'lg' \| 'xl'` | `'default'` | Button size |
+| radius | `'none' \| 'sm' \| 'md' \| 'default' \| 'lg' \| 'full'` | `'default'` | Border radius |
+| loop | `boolean` | `false` | Wrap around |
+| disabled | `boolean` | `false` | Disabled state |
+
+**Sub-components:** Pagination.Content, Pagination.Item, Pagination.Link, Pagination.Previous, Pagination.Next, Pagination.First, Pagination.Last, Pagination.Ellipsis, Pagination.Items
+
+---
+
+### NavigationMenu
+
+```tsx
+import { NavigationMenu } from '@7onic-ui/react'
+
+{/* Horizontal (header) */}
+<NavigationMenu orientation="horizontal">
+  <NavigationMenu.List>
+    <NavigationMenu.Item>
+      <NavigationMenu.Link href="/" active>Home</NavigationMenu.Link>
+    </NavigationMenu.Item>
+    <NavigationMenu.Item>
+      <NavigationMenu.Trigger>Products</NavigationMenu.Trigger>
+      <NavigationMenu.Content>
+        <NavigationMenu.Link href="/product-a">Product A</NavigationMenu.Link>
+        <NavigationMenu.Link href="/product-b">Product B</NavigationMenu.Link>
+      </NavigationMenu.Content>
+    </NavigationMenu.Item>
+  </NavigationMenu.List>
+  <NavigationMenu.Viewport />
+</NavigationMenu>
+
+{/* Vertical (sidebar) */}
+<NavigationMenu orientation="vertical" size="default">
+  <NavigationMenu.List>
+    <NavigationMenu.Group label="Main">
+      <NavigationMenu.Item>
+        <NavigationMenu.Link href="/" icon={<HomeIcon />} active>Dashboard</NavigationMenu.Link>
+      </NavigationMenu.Item>
+    </NavigationMenu.Group>
+  </NavigationMenu.List>
+</NavigationMenu>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout mode |
+| size | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Item size |
+| collapsed | `boolean` | `false` | Icon-only mode (vertical) |
+| radius | Same as Button | `'default'` | Border radius |
+| fontWeight | `'normal' \| 'semibold'` | `'normal'` | Font weight |
+
+| Prop (Link) | Type | Default | Description |
+|---|---|---|---|
+| active | `boolean` | `false` | Current page indicator |
+| icon | `ReactNode` | — | Leading icon |
+| asChild | `boolean` | `false` | Slot pattern |
+
+**Sub-components:** NavigationMenu.List, NavigationMenu.Item, NavigationMenu.Trigger, NavigationMenu.Content, NavigationMenu.Link, NavigationMenu.Group (vertical only, with `label`), NavigationMenu.Indicator (horizontal only), NavigationMenu.Viewport
+
+---
+
+## Charts
+
+### Chart (Container + Sub-components)
+
+All chart types use the Chart namespace:
+
+```tsx
+import { Chart } from '@7onic-ui/react/chart'
+
+const chartConfig = {
+  revenue: { label: 'Revenue', color: 'var(--color-chart-1)' },
+  profit: { label: 'Profit', color: 'var(--color-chart-2)' },
+}
+
+{/* Line Chart */}
+<Chart config={chartConfig} className="h-[300px]">
+  <Chart.XAxis dataKey="month" />
+  <Chart.YAxis />
+  <Chart.Tooltip content={<Chart.TooltipContent />} />
+  <Chart.Legend content={<Chart.LegendContent />} />
+  <Chart.Line dataKey="revenue" type="monotone" />
+  <Chart.Line dataKey="profit" type="monotone" variant="dashed" />
+</Chart>
+
+{/* Bar Chart */}
+<Chart config={chartConfig} className="h-[300px]" hoverFade>
+  <Chart.XAxis dataKey="month" />
+  <Chart.YAxis />
+  <Chart.Tooltip content={<Chart.TooltipContent />} />
+  <Chart.Bar dataKey="revenue" radius="md" />
+  <Chart.Bar dataKey="profit" radius="md" />
+</Chart>
+
+{/* Area Chart */}
+<Chart config={chartConfig} className="h-[300px]">
+  <Chart.XAxis dataKey="month" />
+  <Chart.YAxis />
+  <Chart.Tooltip content={<Chart.TooltipContent />} />
+  <Chart.Area dataKey="revenue" type="monotone" variant="gradient" />
+</Chart>
+
+{/* Pie Chart */}
+<Chart config={chartConfig} className="h-[300px]">
+  <Chart.Tooltip content={<Chart.TooltipContent />} />
+  <Chart.Pie data={data} dataKey="value" nameKey="name" variant="donut" label="outside" />
+</Chart>
+```
+
+**⚠️ chartConfig is REQUIRED.** It maps data keys to labels and colors.
+
+| Prop (Container) | Type | Default | Description |
+|---|---|---|---|
+| config | `ChartConfig` | required | Data key → label/color mapping |
+| hoverFade | `boolean` | `false` | Fade non-hovered elements |
+
+| Prop (Bar) | Type | Default | Description |
+|---|---|---|---|
+| radius | `'none' \| 'sm' \| 'base' \| 'md' \| 'lg'` | `'none'` | Bar corner radius |
+| layout | `'vertical' \| 'horizontal'` | `'vertical'` | Bar direction |
+| variant | `'solid' \| 'outline'` | `'solid'` | Fill style |
+| stackPosition | `'top' \| 'bottom'` | `'top'` | Stack position |
+
+| Prop (Line) | Type | Default | Description |
+|---|---|---|---|
+| type | `'linear' \| 'monotone' \| 'step' \| 'natural'` | `'monotone'` | Curve type |
+| variant | `'solid' \| 'dashed'` | `'solid'` | Line style |
+| dot | `boolean` | `true` | Show data points |
+| activeDot | `boolean` | `true` | Show active point |
+
+| Prop (Area) | Type | Default | Description |
+|---|---|---|---|
+| type | `'linear' \| 'monotone' \| 'step' \| 'natural'` | `'monotone'` | Curve type |
+| variant | `'solid' \| 'gradient'` | `'solid'` | Fill style |
+| fillOpacity | `number` | `0.4` | Fill opacity (0-1) |
+
+| Prop (Pie) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'pie' \| 'donut'` | `'pie'` | Pie or donut |
+| label | `'none' \| 'outside' \| 'inside'` | `'none'` | Label display |
+| labelContent | `'value' \| 'percent'` | `'value'` | Label format |
+| activeShape | `boolean` | `true` | Expand on hover |
+
+**Chart Colors (CSS variables):**
+`--color-chart-1` (blue), `--color-chart-2` (pink), `--color-chart-3` (lavender), `--color-chart-4` (sky), `--color-chart-5` (rose)
+Each has light/dark theme variants.
+
+**ChartConfig format:**
+```tsx
+type ChartConfig = {
+  [dataKey: string]: {
+    label?: ReactNode
+    icon?: ComponentType
+    color?: string              // CSS color or variable
+    // OR theme-specific:
+    theme?: { light: string, dark: string }
+  }
+}
+```
+
+---
+
+### MetricCard
+
+```tsx
+import { MetricCard } from '@7onic-ui/react'
+
+<MetricCard>
+  <MetricCard.Header>
+    <MetricCard.Title>Revenue</MetricCard.Title>
+    <MetricCard.Symbol><DollarIcon /></MetricCard.Symbol>
+  </MetricCard.Header>
+  <MetricCard.Value animated>$12,450</MetricCard.Value>
+  <MetricCard.Trend direction="up">+12.5%</MetricCard.Trend>
+  <MetricCard.Description>vs. last month</MetricCard.Description>
+</MetricCard>
+```
+
+| Prop (Root) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'default' \| 'elevated' \| 'ghost'` | `'default'` | Visual style |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
+| radius | Same as Card + `'none'` | `'xl'` | Border radius |
+
+| Prop (Value) | Type | Default | Description |
+|---|---|---|---|
+| animated | `boolean` | `false` | Number count-up animation |
+
+| Prop (Trend) | Type | Default | Description |
+|---|---|---|---|
+| direction | `'up' \| 'down' \| 'neutral'` | — | Trend arrow + color |
+
+**Sub-components:** MetricCard.Header, MetricCard.Title, MetricCard.Value, MetricCard.Trend, MetricCard.Description, MetricCard.Symbol
+
+---
+
+# ═══ SECTION 4: COMPONENT USAGE GUIDE ═══
+
+## Component Selection
+
+Before creating custom UI, check if 7onic already has it:
+
+| Need | Use This Component |
 |---|---|
-| `shadow-xs` | Barely visible — subtle elevation |
-| `shadow-sm` | Default card shadow |
-| `shadow-md` | Dropdown, popover |
-| `shadow-lg` | Modal, drawer |
-| `shadow-xl` | Floating action |
+| Action trigger | Button, IconButton |
+| Text input | Input (single line), Textarea (multi line) |
+| Selection (one) | RadioGroup, Select, Segmented |
+| Selection (many) | Checkbox, ToggleGroup |
+| Boolean toggle | Switch, Toggle, Checkbox |
+| Container | Card |
+| Data table | Table |
+| Tabs | Tabs |
+| Collapsible | Accordion |
+| Dialog | Modal |
+| Side panel | Drawer |
+| Hint text | Tooltip |
+| Rich hint | Popover |
+| Notification | Toast (imperative), Alert (inline) |
+| Loading | Spinner (indeterminate), Progress (determinate), Skeleton (placeholder) |
+| Navigation | Breadcrumb, Pagination, NavigationMenu |
+| Data visualization | Chart (Line/Area/Bar/Pie), MetricCard |
+| Metric display | MetricCard |
+| Tag / chip | Badge (with `removable`) |
+| Avatar | Avatar |
+| Separator | Divider |
 
-Shadows automatically adapt between light and dark themes.
-
-## Z-Index (named stack)
-
-| Class | Value | Use Case |
-|---|---|---|
-| `z-0` | 0 | Default |
-| `z-10`–`z-50` | 10–50 | Layout layers |
-| `z-sticky` | 100 | Sticky header |
-| `z-dropdown` | 1000 | Dropdown menu |
-| `z-overlay` | 1100 | Overlay/backdrop |
-| `z-modal` | 2000 | Modal dialog |
-| `z-popover` | 2100 | Popover |
-| `z-tooltip` | 2200 | Tooltip |
-| `z-toast` | 3000 | Toast notification |
-
-**Never use arbitrary z-index values.** Always use these named tokens.
-
-## Icon Sizes (6-step scale)
-
-| Class | Size | Use Case |
-|---|---|---|
-| `icon-2xs` | 12px | Badge icon, small indicator |
-| `icon-xs` | 14px | xs/sm button icon, tag |
-| `icon-sm` | 16px | Default button icon, form element |
-| `icon-md` | 20px | Navigation, default icon button |
-| `icon-lg` | 24px | Large icon button, card |
-| `icon-xl` | 32px | Hero, feature icon |
-
-**Never use `w-4 h-4` for icons.** Always use `icon-{size}` classes.
-
-## Duration
-
-| Class | Value | Use Case |
-|---|---|---|
-| `duration-instant` | 0ms | No animation |
-| `duration-fast` | 100ms | Micro interactions |
-| `duration-micro` | 150ms | Button press, toggle |
-| `duration-normal` | 200ms | Default transition |
-| `duration-slow` | 300ms | Panel slide |
-| `duration-slower` | 400ms | Page transition |
-| `duration-slowest` | 500ms | Complex animation |
-| `duration-spin` | 1000ms | Spinner rotation |
-
-## Easing
-
-- `ease-linear` — constant speed
-- `ease-ease` — natural acceleration/deceleration
-- `ease-ease-in` — slow start
-- `ease-ease-out` — slow end
-- `ease-ease-in-out` — slow start and end
-
-## Opacity
-
-21-step scale: `opacity-0`, `opacity-5`, `opacity-10` ... `opacity-95`, `opacity-100`
-Each 5% increment. Values: 0, 0.05, 0.10 ... 0.95, 1.0
-
-## Scale (Transform)
-
-| Class | Value | Use Case |
-|---|---|---|
-| `scale-50` | 0.5 | Half size |
-| `scale-75` | 0.75 | Reduced |
-| `scale-95` | 0.95 | Hover shrink |
-| `scale-pressed` | 0.98 | Button press effect |
-
-## Breakpoints
-
-| Class | Min Width | Use Case |
-|---|---|---|
-| `sm:` | 640px | Mobile landscape |
-| `md:` | 768px | Tablet |
-| `lg:` | 1024px | Desktop |
-| `xl:` | 1280px | Wide desktop |
-| `2xl:` | 1536px | Ultra-wide |
+**If the component exists, use it.** Don't build custom versions with HTML + classes.
 
 ---
 
-# ═══ SECTION 4: TOKEN CUSTOMIZATION ═══
+## Import Pattern
 
-## ⛔ Rule for AI: Use Existing Tokens Only
+```tsx
+// ✅ Single import path
+import { Button, Card, Input, toast } from '@7onic-ui/react'
 
-The token system is comprehensive — semantic colors, primitives, spacing, typography, radius, shadows, z-index, icon sizes, duration, easing, opacity, scale, and breakpoints cover all UI needs.
+// ✅ Chart components use a separate entry point (recharts is optional)
+import { Chart } from '@7onic-ui/react/chart'
 
-**Every visual value you need already exists as a token.** Use it.
+// ❌ Never import from internal paths
+import { Button } from '@7onic-ui/react/components/button'  // WRONG
 
-- **Always use token names** (`bg-primary`, `text-foreground`, `rounded-lg`) — never hardcode values
-- **Never assume specific color values** — token values are defined by the user's project
-- **Never add CSS variables, hex values, or arbitrary Tailwind values**
-- **Token customization is the user's responsibility** — if the user needs custom values, they will handle it separately. See: https://7onic.design/components/theming
-- **Never modify generated token files** — the following files are auto-generated from figma-tokens.json via sync-tokens. AI must never edit, add to, or delete from these files: `variables.css`, `light.css`, `dark.css`, `v3-preset.js`, `v4-theme.css`, `index.js`, `index.mjs`, `index.d.ts`, `tokens.json`
-
-### Self-Check (after writing ANY code)
-
-Before presenting code to the user, scan your own output for violations:
-
-- [ ] Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-white`, `border-gray-*`)
-- [ ] Any arbitrary value? (`p-[*]`, `text-[*]`, `rounded-[*]`, `z-[*]`)
-- [ ] Any inline style? (`style={{ }}`)
-- [ ] Any `dark:` prefix?
-- [ ] Any `w-N h-N` for icons instead of `icon-*`?
-- [ ] Any `divide-*` or `border` without a token color? (`divide-y` alone → `divide-y divide-border`)
-- [ ] Any `opacity-*` on element instead of color modifier? (`bg-primary opacity-10` → `bg-primary/10`)
-
-**If ANY violation is found → fix it before showing code to the user.**
-**Do NOT present code with violations. Fix first, then present.**
+// ❌ Never import Radix directly
+import * as Dialog from '@radix-ui/react-dialog'  // WRONG → use Modal
+```
 
 ---
 
-- **When in doubt, check the documentation** — if token usage is unclear, refer to the official docs:
-  - Token pages: `https://7onic.design/design-tokens/{name}` (e.g., `/design-tokens/colors`, `/design-tokens/spacing`)
-  - Do not guess token values or usage — verify from the documentation first
+## Compound Component Structure
+
+Compound components have **required sub-components**. Missing them causes errors or broken UI.
+
+**Modal — required structure:**
+```tsx
+<Modal>
+  <Modal.Trigger>...</Modal.Trigger>
+  <Modal.Portal>           {/* ← Required for correct z-index */}
+    <Modal.Overlay />      {/* ← Required for backdrop */}
+    <Modal.Content>
+      <Modal.Header>
+        <Modal.Title>...</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>...</Modal.Body>
+    </Modal.Content>
+  </Modal.Portal>
+</Modal>
+```
+
+**Drawer — same pattern as Modal** (Portal + Overlay + Content required)
+
+**Tooltip — Provider required:**
+```tsx
+<Tooltip.Provider>         {/* ← Required, wrap app once */}
+  <Tooltip>
+    <Tooltip.Trigger>...</Tooltip.Trigger>
+    <Tooltip.Portal>
+      <Tooltip.Content>...</Tooltip.Content>
+    </Tooltip.Portal>
+  </Tooltip>
+</Tooltip.Provider>
+```
+
+**Toast — imperative API, no compound structure:**
+```tsx
+// Place Toaster once in layout
+<Toaster />
+// Call toast() anywhere
+toast.success('Done')
+```
+
+---
+
+## asChild Pattern (Slot)
+
+`asChild` replaces the component's DOM element with its child, keeping styles and behavior:
+
+```tsx
+// ❌ Double <a> — broken HTML
+<Link href="/about">
+  <Button>About</Button>
+</Link>
+
+// ✅ Button renders as <a> with Button styles
+<Button asChild>
+  <Link href="/about">About</Link>
+</Button>
+
+// ✅ DropdownMenu item as link
+<DropdownMenu.Item asChild>
+  <Link href="/settings">Settings</Link>
+</DropdownMenu.Item>
+
+// ✅ Breadcrumb as Next.js Link
+<Breadcrumb.Link asChild>
+  <Link href="/">Home</Link>
+</Breadcrumb.Link>
+```
+
+**Use `asChild` when combining 7onic components with routing `<Link>`.**
+Components that support `asChild`: Button, IconButton, Badge, Card, Modal.Trigger, Modal.Close, Drawer.Trigger, Drawer.Close, DropdownMenu.Item, Breadcrumb.Link, NavigationMenu.Link, Tooltip.Trigger, Popover.Trigger
+
+---
+
+## Props Usage
+
+**Always use allowed values.** Don't pass arbitrary strings to variant/size/color props.
+
+```tsx
+// ✅ Correct
+<Button variant="solid" size="default" color="primary" />
+
+// ❌ Wrong — invalid values
+<Button variant="primary" />     // 'primary' is a color, not a variant
+<Button size="medium" />         // Use 'md' or 'default', not 'medium'
+<Button color="blue" />          // Use 'primary', not raw color names
+```
+
+**`className` on components = layout ONLY** (margin, width, flex positioning). All visual styling (color, size, radius, variant) must use Props.
+
+**Style via Props, not className:**
+```tsx
+// ✅ Use Props
+<Button color="primary" size="lg" />
+<Badge color="error" variant="subtle" />
+
+// ❌ Don't override with className
+<Button className="bg-blue-500 text-white" />
+<Badge className="bg-red-100" />
+```
+
+---
+
+## Form Patterns
+
+**Use Field wrapper** for labeled form elements with validation:
+
+```tsx
+import { Field, Input, Textarea, Checkbox } from '@7onic-ui/react'
+
+{/* Text input with label + error */}
+<Field error={errors.email}>
+  <Field.Label required>Email</Field.Label>
+  <Input placeholder="you@example.com" />
+  <Field.Error />
+</Field>
+
+{/* Textarea with character count */}
+<Field>
+  <Field.Label>Bio</Field.Label>
+  <Textarea maxLength={200} />
+  <Field.CharCount />
+</Field>
+```
+
+**Field context auto-connects** to Input, Textarea, Select, Checkbox, RadioGroup:
+- Passes `error` state
+- Passes `disabled` state
+- Auto-generates matching `id` / `htmlFor` / `aria-describedby`
+
+---
+
+## Chart Patterns
+
+**⚠️ recharts is required.** Auto-install when using any Chart component:
+```bash
+npm install recharts
+```
+
+**Always provide chartConfig:**
+```tsx
+const chartConfig = {
+  revenue: { label: 'Revenue', color: 'var(--color-chart-1)' },
+  expenses: { label: 'Expenses', color: 'var(--color-chart-2)' },
+}
+```
+
+**Available chart colors (CSS variables, auto-adapt to light/dark):**
+- `var(--color-chart-1)` — blue
+- `var(--color-chart-2)` — pink
+- `var(--color-chart-3)` — lavender
+- `var(--color-chart-4)` — sky
+- `var(--color-chart-5)` — rose
+
+**Container height is required (layout arbitrary value — allowed):**
+```tsx
+<Chart config={chartConfig} className="h-[300px]">
+```
+
+---
+
+## Overlay Patterns
+
+**All overlays use Portal for correct stacking:**
+```tsx
+<Modal.Portal>
+  <Modal.Overlay />
+  <Modal.Content>...</Modal.Content>
+</Modal.Portal>
+```
+
+**Z-index hierarchy (automatic via tokens) — never set custom z-index:**
+1. `z-dropdown` (1000) — Dropdown, Select
+2. `z-overlay` (1100) — Modal/Drawer overlay
+3. `z-modal` (2000) — Modal/Drawer content
+4. `z-popover` (2100) — Popover
+5. `z-tooltip` (2200) — Tooltip
+6. `z-toast` (3000) — Toast
+
+---
+
+## Accessibility
+
+**Built-in (via Radix UI):** keyboard navigation, focus trap, ARIA attributes, screen reader.
+
+**Do NOT override:**
+```tsx
+// ❌ Never remove focus ring
+<Button className="outline-none focus:outline-none" />
+
+// ✅ Focus ring is managed by the design system
+<Button />
+```
+
+**Always provide labels:**
+```tsx
+<IconButton aria-label="Close"><XIcon /></IconButton>
+
+<Field>
+  <Field.Label>Email</Field.Label>
+  <Input />
+</Field>
+```
+
+---
+
+## Responsive Layout
+
+**Mobile-first with token breakpoints:**
+```tsx
+<div className="flex flex-col md:flex-row gap-4 md:gap-6">
+  <Card className="w-full md:w-1/2">...</Card>
+  <Card className="w-full md:w-1/2">...</Card>
+</div>
+```
+
+**Use component Props for sizing, not className overrides:**
+```tsx
+// ✅ Correct
+<Button size="default" />
+
+// ❌ Wrong
+<Button size="sm" className="md:h-10 md:px-4" />
+```
+
+---
+
+## Performance
+
+**Tree-shaking works automatically:**
+```tsx
+import { Button, Card, Input } from '@7onic-ui/react'
+```
+
+**Don't wrap components unnecessarily:**
+```tsx
+// ❌ Unnecessary
+function MyButton(props) { return <Button {...props} /> }
+
+// ✅ Use directly
+<Button variant="solid" color="primary">Submit</Button>
+```
+
+**Next.js App Router:** 7onic components have `'use client'` internally — they render in Server Components.
+But if YOUR code uses React hooks (`useState`, `useEffect`) or event handlers (`onClick`, `onChange`), add `'use client'` at the top of your file. When in doubt, add `'use client'` — it's always safe.
+
+---
+
+# ═══ SECTION 5: COMPLETE COMPONENT SUMMARY ═══
+
+## Quick Reference Table
+
+| Component | Type | Variants | Sizes | Colors | Key Feature |
+|---|---|---|---|---|---|
+| Button | Standalone | solid/outline/ghost/link | xs/sm/md/default/lg | default/primary/secondary/destructive | loading, icons, press effect |
+| IconButton | Standalone | solid/outline/ghost/subtle | xs/sm/md/default/lg | default/primary/secondary/destructive | Square, icon-only |
+| ButtonGroup | Container | outline/ghost | (inherits) | (inherits) | Context provider, attached |
+| Input | Standalone | default/filled | xs/sm/default/lg/xl | — | leftIcon/rightIcon, error |
+| Textarea | Standalone | default/filled | compact/default | — | resize options |
+| Select | Compound | — | xs/sm/default/lg/xl | — | Trigger + Content + Item |
+| DropdownMenu | Compound | — | sm/md/lg | — | CheckboxItem, RadioItem, Sub |
+| Checkbox | Standalone | — | sm/default/lg | default/primary | indeterminate, label |
+| RadioGroup | Compound | — | sm/default/lg | default/primary | Item with label |
+| Switch | Standalone | — | sm/default/lg | 5 colors | label positions, icons |
+| Toggle | Standalone | default/outline/ghost/outline-ghost | xs/sm/md/default/lg | — | pressed state |
+| ToggleGroup | Compound | default/outline | xs/sm/md/default/lg | — | single/multiple |
+| Segmented | Compound | default/outline/underline/ghost | sm/md/default/lg | — | Tab-like selection |
+| Slider | Standalone | — | sm/default/lg | default/primary | tooltip, range |
+| Field | Compound | — | — | — | Label, Error, CharCount |
+| Avatar | Compound | — | xs/sm/default/lg/xl/2xl | — | colorized fallback, Group |
+| Badge | Standalone | solid/subtle/outline | sm/default/lg | default/primary/success/warning/error/info | dot, removable |
+| Card | Compound | default/outline/ghost | sm/default/lg | — | Image overlay, interactive |
+| Table | Compound | default/bordered/striped | sm/default/lg | — | stickyHeader, sortable |
+| Tabs | Compound | line/enclosed/pill | sm/md/default/lg | default/primary | fitted |
+| Accordion | Compound | default/bordered/splitted | sm/default/lg | — | single/multiple |
+| Divider | Standalone | solid/dashed/dotted | — | default/muted/strong | label |
+| Modal | Compound | — | xs/sm/md/lg/xl/full | — | scrollBehavior |
+| Drawer | Compound | — | sm/md/lg/xl/full | — | 4 sides |
+| Tooltip | Compound | default/inverted | sm/default | — | Provider required |
+| Popover | Compound | default/elevated | sm/default/lg | — | arrow, close button |
+| Alert | Compound | default/outline/filled | sm/default/lg | info/success/warning/error | closable |
+| Toast | Imperative | — | sm/default/lg | 6 types | promise, action |
+| Progress | Standalone | default/striped | sm/default/lg | default/primary | linear/circular |
+| Spinner | Standalone | ring/dots/bars/orbit | sm/default/lg | default/primary/current | 5 orbit styles |
+| Skeleton | Standalone | text/circular/rectangular | — | — | pulse/wave, count |
+| Breadcrumb | Compound | — | sm/default/lg | — | maxItems collapse |
+| Pagination | Compound | default/outline/ghost | xs/sm/default/lg/xl | default/primary | compound or auto |
+| NavigationMenu | Compound | — | sm/md/default/lg | — | horizontal/vertical, collapsed |
+| Chart | Compound | — | — | chart colors | Bar/Line/Area/Pie |
+| MetricCard | Compound | default/elevated/ghost | sm/default/lg | — | animated value, trend |
 
 ---
 
@@ -471,4 +1949,4 @@ Before presenting code to the user, scan your own output for violations:
 - npm (tokens): https://npmjs.com/package/@7onic-ui/tokens
 - npm (react): https://npmjs.com/package/@7onic-ui/react
 - GitHub: https://github.com/itonys/7onic
-- Full AI guide (tokens + components): https://7onic.design/llms-full.txt
+- Tokens-only AI guide: https://7onic.design/llms.txt

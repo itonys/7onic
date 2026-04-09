@@ -1,0 +1,20 @@
+{
+  "name": "7onic",
+  "version": "0.1.0",
+  "description": "CLI for adding 7onic design system components to your project",
+  "bin": {
+    "7onic": "./dist/index.js"
+  },
+  "files": ["dist", "llms.txt"],
+  "engines": { "node": ">=18" },
+  "author": "7onic",
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "design-system",
+    "react",
+    "components",
+    "tailwindcss",
+    "7onic"
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "7onic Configuration",
+  "description": "Configuration file for the 7onic CLI (npx 7onic)",
+  "type": "object",
+  "required": ["tailwind", "aliases"],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "JSON Schema URL for editor autocompletion"
+    },
+    "tailwind": {
+      "type": "object",
+      "required": ["version", "css"],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "enum": [3, 4],
+          "description": "Tailwind CSS version (3 or 4)"
+        },
+        "config": {
+          "type": "string",
+          "description": "Tailwind v3 config file path (e.g., tailwind.config.ts). Not needed for v4."
+        },
+        "css": {
+          "type": "string",
+          "description": "Path to the main CSS file where token imports are added"
+        }
+      },
+      "additionalProperties": false
+    },
+    "aliases": {
+      "type": "object",
+      "required": ["components", "utils"],
+      "properties": {
+        "components": {
+          "type": "string",
+          "description": "Path alias for components directory (e.g., @/components/ui)",
+          "default": "@/components/ui"
+        },
+        "utils": {
+          "type": "string",
+          "description": "Path alias for utils directory (e.g., @/lib/utils)",
+          "default": "@/lib/utils"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

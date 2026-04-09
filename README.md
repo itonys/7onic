@@ -94,6 +94,7 @@ Use components:
 
 ```tsx
 import { Button, Card } from '@7onic-ui/react'
+import { Chart, type ChartConfig } from '@7onic-ui/react/chart'  // charts: separate entry
 
 <Button variant="solid" color="primary">Get Started</Button>
 
@@ -175,6 +176,9 @@ Breaking changes are auto-detected with diff visualization. Backward-compatible 
 | `dist/index.js` | CJS | CommonJS for Node.js / require() |
 | `dist/index.mjs` | ESM | ES Modules for bundlers / import |
 | `dist/index.d.ts` | Types | TypeScript definitions |
+| `dist/chart.js` | CJS | Chart components (separate entry — `@7onic-ui/react/chart`) |
+| `dist/chart.mjs` | ESM | Chart components ESM |
+| `dist/chart.d.ts` | Types | Chart TypeScript definitions |
 | `llms.txt` | Text | AI integration rules (llms.txt standard) |
 
 ### `@7onic-ui/tokens`
@@ -194,6 +198,14 @@ Breaking changes are auto-detected with diff visualization. Backward-compatible 
 | `json/tokens.json` | Flat JSON for custom tooling |
 | `cli/sync.js` | `npx sync-tokens` CLI |
 | `figma-tokens.json` | SSOT — the only file you edit |
+| `llms.txt` | AI integration rules for tokens |
+
+### `7onic` (CLI)
+
+| File | Description |
+|------|-------------|
+| `dist/index.js` | Self-contained CLI bundle |
+| `llms.txt` | AI integration — CLI command reference |
 
 </details>
 
@@ -239,10 +251,10 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.1.0
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.0
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [ ] Theme Customizer (live color preview)
-- [ ] `npx 7onic add` CLI (shadcn-style)
+- [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
 
@@ -257,5 +269,5 @@ MIT
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
   Independently built.<br>
-  <sub>Last updated: 2026-04-08</sub>
+  <sub>Last updated: 2026-04-09</sub>
 </p>

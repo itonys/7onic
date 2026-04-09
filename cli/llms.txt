@@ -1,0 +1,95 @@
+# 7onic CLI
+
+> CLI for adding 7onic design system components to your project
+> Source: https://7onic.design
+> npm: https://www.npmjs.com/package/7onic
+
+## Quick Start
+
+```bash
+npx 7onic init
+npx 7onic add button card input
+```
+
+## Commands
+
+### init
+
+Initialize 7onic in your project. Creates `7onic.json`, installs base dependencies, sets up CSS token imports and `cn()` utility.
+
+```bash
+npx 7onic init
+npx 7onic init --yes    # Skip prompts, use defaults
+```
+
+**What it does:**
+1. Detects Tailwind version (v3: config file exists, v4: no config)
+2. Detects package manager (npm/pnpm/yarn/bun)
+3. Installs: `@7onic-ui/tokens`, `clsx`, `tailwind-merge`, `class-variance-authority`
+4. Creates/updates CSS file with token imports
+5. Creates `cn()` utility at configured path
+6. Writes `7onic.json` config
+
+**Requirements:**
+- TypeScript project (tsconfig.json required)
+- `@/` path alias configured
+
+### add
+
+Add components to your project. Copies `.tsx` source files and installs required dependencies.
+
+```bash
+npx 7onic add <component...>   # Add specific components
+npx 7onic add --all             # Add all 35 components
+npx 7onic add button --yes      # Skip confirmation prompt
+npx 7onic add card --overwrite  # Overwrite existing files
+```
+
+**Dependency resolution:**
+- `add button` → copies button.tsx + button-group.tsx (auto-resolved)
+- `add icon-button` → copies icon-button.tsx + button.tsx + button-group.tsx
+- `add input` → copies input.tsx + field.tsx
+- `add pie-chart` → copies chart.tsx (alias for chart)
+
+**Chart aliases:** `bar-chart`, `line-chart`, `area-chart`, `pie-chart` all resolve to `chart`.
+
+## Config: 7onic.json
+
+```json
+{
+  "$schema": "https://7onic.design/schema/7onic.json",
+  "tailwind": {
+    "version": 3,
+    "config": "tailwind.config.ts",
+    "css": "src/app/globals.css"
+  },
+  "aliases": {
+    "components": "@/components/ui",
+    "utils": "@/lib/utils"
+  }
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| tailwind.version | 3 or 4 |
+| tailwind.config | v3 only — Tailwind config file path |
+| tailwind.css | Main CSS file for token imports |
+| aliases.components | Where components are copied to |
+| aliases.utils | Where cn() utility lives |
+
+## Available Components (35)
+
+accordion, alert, avatar, badge, breadcrumb, button, button-group, card, chart, checkbox, divider, drawer, dropdown, icon-button, input, metric-card, modal, navigation-menu, pagination, popover, progress, radio-group, segmented, select, skeleton, slider, spinner, switch, table, tabs, textarea, toast, toggle, toggle-group, tooltip
+
+## Post-install Setup
+
+- **toast**: Add `<Toaster />` to root layout
+- **tooltip**: Wrap app with `<Tooltip.Provider>`
+
+## Notes
+
+- TypeScript only (.tsx output)
+- Components use `cn()` from `@/lib/utils` (configurable)
+- All components are in a flat directory (no nested imports)
+- Existing files are skipped by default (use `--overwrite` to replace)
