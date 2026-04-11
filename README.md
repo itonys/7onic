@@ -7,6 +7,7 @@
 <p align="center">
   <a href="https://www.npmjs.com/package/@7onic-ui/react"><img src="https://img.shields.io/npm/v/@7onic-ui/react?color=37D8E6&label=react" alt="npm react" /></a>
   <a href="https://www.npmjs.com/package/@7onic-ui/tokens"><img src="https://img.shields.io/npm/v/@7onic-ui/tokens?color=37D8E6&label=tokens" alt="npm tokens" /></a>
+  <a href="https://www.npmjs.com/package/7onic"><img src="https://img.shields.io/npm/v/7onic?color=37D8E6&label=cli" alt="npm cli" /></a>
   <a href="https://github.com/itonys/7onic/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" /></a>
   <a href="https://7onic.design"><img src="https://img.shields.io/badge/docs-7onic.design-black" alt="Documentation" /></a>
 </p>
