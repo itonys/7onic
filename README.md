@@ -266,7 +266,7 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.3
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
-- [ ] Theme Customizer (live color preview)
+- [ ] Theme Customizer — live palette preview + CSS variable export
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
 
