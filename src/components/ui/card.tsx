@@ -310,7 +310,7 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
       <h3
         ref={ref}
         className={cn(
-          'font-semibold text-foreground leading-none tracking-tight',
+          'text-base font-semibold text-foreground tracking-tight',
           icon && 'flex items-center gap-2',
           className
         )}

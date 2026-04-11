@@ -19,7 +19,7 @@ export declare const colors: {
   chart: ShadeRecord;
 };
 
-export declare const spacing: Record<'0' | '0.5' | '1' | '1.5' | '2' | '2.5' | '3' | '4' | '5' | '6' | '7' | '8' | '10' | '12' | '14' | '16' | '20' | '24', string>;
+export declare const spacing: Record<'0' | '0.5' | '1' | '1.5' | '2' | '2.5' | '3' | '3.5' | '4' | '5' | '6' | '7' | '8' | '10' | '12' | '14' | '16' | '20' | '24', string>;
 
 export declare const fontSize: Record<'2xs' | 'xs' | 'sm' | 'md' | 'base' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' | '5xl', { size: string; lineHeight: string }>;
 
@@ -124,6 +124,7 @@ export declare const animation: {
   'spinner-morph': { duration: string; easing: string };
   'skeleton-pulse': { duration: string; easing: string };
   'skeleton-wave': { duration: string; easing: string };
+  'typing-cursor': { duration: string; easing: string };
 };
 
 export declare const typography: {

@@ -11,6 +11,7 @@ const path = require('path')
 
 const outfile = path.resolve(__dirname, '..', 'cli', 'dist', 'index.js')
 const outdir = path.dirname(outfile)
+const cliPkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'cli', 'package.json'), 'utf-8'))
 
 if (!fs.existsSync(outdir)) {
   fs.mkdirSync(outdir, { recursive: true })
@@ -25,6 +26,9 @@ buildSync({
   format: 'cjs',
   banner: {
     js: '#!/usr/bin/env node',
+  },
+  define: {
+    '__CLI_VERSION__': JSON.stringify(cliPkg.version),
   },
 })
 

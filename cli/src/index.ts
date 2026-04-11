@@ -3,7 +3,8 @@ import { add } from './commands/add'
 import { logger } from './utils/logger'
 import pc from 'picocolors'
 
-const VERSION = '0.1.3'
+declare const __CLI_VERSION__: string
+const VERSION = __CLI_VERSION__
 
 const HELP = `
 ${pc.bold('7onic')} — Add 7onic design system components to your project

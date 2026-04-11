@@ -122,7 +122,8 @@ const tokens = {
     "24": "6rem",
     "0.5": "0.125rem",
     "1.5": "0.375rem",
-    "2.5": "0.625rem"
+    "2.5": "0.625rem",
+    "3.5": "0.875rem"
   },
   "fontSize": {
     "2xs": {
@@ -607,6 +608,10 @@ const tokens = {
     "skeleton-wave": {
       "duration": "1000ms",
       "easing": "linear"
+    },
+    "typing-cursor": {
+      "duration": "1000ms",
+      "easing": "ease-in-out"
     }
   },
   "typography": {

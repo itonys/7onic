@@ -459,6 +459,10 @@
         "value": "12",
         "type": "spacing"
       },
+      "3.5": {
+        "value": "14",
+        "type": "spacing"
+      },
       "4": {
         "value": "16",
         "type": "spacing"
@@ -1548,6 +1552,14 @@
         },
         "type": "composition",
         "$extensions": { "animationType": "skeleton-wave" }
+      },
+      "typing-cursor": {
+        "value": {
+          "duration": "{primitive.duration.spin}",
+          "easing": "{primitive.easing.easeInOut}"
+        },
+        "type": "composition",
+        "$extensions": { "animationType": "typing-cursor" }
       }
     },
     "componentSize": {

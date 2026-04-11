@@ -877,3 +877,11 @@
 @utility animate-skeleton-wave {
   animation: skeleton-wave var(--duration-spin) var(--easing-linear) infinite;
 }
+
+@keyframes typing-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+@utility animate-typing-cursor {
+  animation: typing-cursor var(--duration-spin) var(--easing-ease-in-out) infinite;
+}

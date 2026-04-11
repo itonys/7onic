@@ -247,6 +247,7 @@
   --spacing-2: 0.5rem; /* 8px */
   --spacing-2-5: 0.625rem; /* 10px */
   --spacing-3: 0.75rem; /* 12px */
+  --spacing-3-5: 0.875rem; /* 14px */
   --spacing-4: 1rem; /* 16px */
   --spacing-5: 1.25rem; /* 20px */
   --spacing-6: 1.5rem; /* 24px */
@@ -921,4 +922,12 @@
 }
 .animate-skeleton-wave {
   animation: skeleton-wave var(--duration-spin) var(--easing-linear) infinite;
+}
+
+@keyframes typing-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.animate-typing-cursor {
+  animation: typing-cursor var(--duration-spin) var(--easing-ease-in-out) infinite;
 }

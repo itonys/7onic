@@ -31,6 +31,13 @@ const BASE_DEPS = new Set([
 // Chart aliases: these all resolve to chart.tsx
 const CHART_ALIASES = ['bar-chart', 'line-chart', 'area-chart', 'pie-chart']
 
+// Convenience aliases: shorthand names for common components
+const CONVENIENCE_ALIASES: Record<string, string> = {
+  'radio': 'radio-group',
+  'nav': 'navigation-menu',
+  'dropdown-menu': 'dropdown',
+}
+
 // field is internal-only — not exposed as CLI command
 const INTERNAL_ONLY = new Set(['field'])
 
@@ -70,11 +77,16 @@ function parseComponent(filePath: string): ParsedComponent {
     npmDeps.add(match[1])
   }
 
-  // Extract internal registry dependencies (./name imports)
+  // Extract internal registry dependencies (./name and @/components/ui/name imports)
   const registryDeps = new Set<string>()
   const internalRegex = /^import\s+.+\s+from\s+['"]\.\/([^'"]+)['"]/gm
   while ((match = internalRegex.exec(content)) !== null) {
     registryDeps.add(match[1])
+  }
+  const aliasImportRegex = /^import\s+.+\s+from\s+['"]@\/components\/ui\/([^'"]+)['"]/gm
+  while ((match = aliasImportRegex.exec(content)) !== null) {
+    const dep = match[1]
+    if (dep !== name) registryDeps.add(dep)
   }
 
   // Detect Object.assign namespace pattern
@@ -135,11 +147,16 @@ function generateRegistryFile(components: ParsedComponent[]): string {
   lines.push('}')
   lines.push('')
 
-  // Chart alias map
-  lines.push('/** Chart aliases — all resolve to chart registry item */')
-  lines.push('export const CHART_ALIASES: Record<string, string> = {')
+  // Component aliases (chart + convenience)
+  lines.push('/** Aliases — shorthand or alternate names that resolve to real registry items */')
+  lines.push('export const COMPONENT_ALIASES: Record<string, string> = {')
+  lines.push('  // Chart aliases')
   for (const alias of CHART_ALIASES) {
     lines.push(`  '${alias}': 'chart',`)
+  }
+  lines.push('  // Convenience aliases')
+  for (const [alias, target] of Object.entries(CONVENIENCE_ALIASES)) {
+    lines.push(`  '${alias}': '${target}',`)
   }
   lines.push('}')
   lines.push('')

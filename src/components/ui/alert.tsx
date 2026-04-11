@@ -83,9 +83,9 @@ const alertVariants = cva(
   {
     variants: {
       size: {
-        sm: 'gap-2 p-3 text-sm',
-        default: 'gap-2.5 p-4 text-md',
-        lg: 'gap-3 p-5 text-md',
+        sm: 'gap-2 p-2.5 text-sm',
+        default: 'gap-2.5 p-3.5 text-md',
+        lg: 'gap-3 p-4 text-md',
       },
       radius: {
         none: 'rounded-none',
@@ -113,16 +113,23 @@ const ICON_SIZE_MAP = {
   lg: 'icon-md',                // 20px
 } as const
 
+/** Icon wrapper text class — matches title line-height for vertical alignment */
+const ICON_LINE_MAP = {
+  sm: 'text-sm',
+  default: 'text-md',
+  lg: 'text-base',
+} as const
+
 const TITLE_SIZE_MAP = {
-  sm: 'text-sm font-semibold leading-4 tracking-tight',
-  default: 'font-semibold leading-[18px] tracking-tight',
-  lg: 'text-base font-semibold leading-5 tracking-tight',
+  sm: 'text-sm font-semibold tracking-tight',
+  default: 'text-md font-semibold tracking-tight',
+  lg: 'text-base font-semibold tracking-tight',
 } as const
 
 const DESC_SIZE_MAP = {
   sm: 'text-xs mt-0.5',
-  default: 'text-sm mt-1',
-  lg: 'text-md mt-1.5',
+  default: 'text-sm mt-0.5',
+  lg: 'text-md mt-0.5',
 } as const
 
 // ─── Types ───────────────────────────────────────────────────────
@@ -207,7 +214,7 @@ const AlertRoot = React.forwardRef<HTMLDivElement, AlertRootProps>(
         >
           {/* Icon */}
           {!hideIcon && (
-            <span className="shrink-0">
+            <span className={cn('shrink-0 flex items-center min-h-[1lh]', ICON_LINE_MAP[size])}>
               {icon || <StatusIcon className={ICON_SIZE_MAP[size]} />}
             </span>
           )}

@@ -45,6 +45,8 @@ const TOKEN_EXCEPTIONS: Record<string, Set<number>> = {
   'toast.tsx': new Set([33]),
   // Exception #34: Spinner speed inline animationDuration
   'spinner.tsx': new Set([34]),
+  // Exception #38: TypingIndicator speed inline animationDuration
+  'typing-indicator.tsx': new Set([]),
   // Navigation-menu: Radix collapsible inline style + layout constraints
   'navigation-menu.tsx': new Set([]),
   // Progress: value% dynamic inline style
@@ -248,8 +250,12 @@ function checkExports(): Issue[] {
   const componentFiles = fs.readdirSync(UI_DIR)
     .filter((f) => f.endsWith('.tsx') && f !== 'index.ts')
 
+  // Components intentionally excluded from index.ts (separate dist entry points)
+  const SKIP_EXPORT_CHECK = new Set(['chart'])
+
   for (const file of componentFiles) {
     const baseName = file.replace('.tsx', '')
+    if (SKIP_EXPORT_CHECK.has(baseName)) continue
     // Check if the component is exported from index.ts
     if (!indexContent.includes(`'./${baseName}'`) && !indexContent.includes(`"./${baseName}"`)) {
       issues.push({

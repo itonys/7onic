@@ -1830,9 +1830,9 @@ const alertVariants = cva(
   {
     variants: {
       size: {
-        sm: 'gap-2 p-3 text-sm',
-        default: 'gap-2.5 p-4 text-md',
-        lg: 'gap-3 p-5 text-md',
+        sm: 'gap-2 p-2.5 text-sm',
+        default: 'gap-2.5 p-3.5 text-md',
+        lg: 'gap-3 p-4 text-md',
       },
       radius: {
         none: 'rounded-none',
@@ -1860,16 +1860,23 @@ const ICON_SIZE_MAP = {
   lg: 'icon-md',                // 20px
 } as const
 
+/** Icon wrapper text class \u2014 matches title line-height for vertical alignment */
+const ICON_LINE_MAP = {
+  sm: 'text-sm',
+  default: 'text-md',
+  lg: 'text-base',
+} as const
+
 const TITLE_SIZE_MAP = {
-  sm: 'text-sm font-semibold leading-4 tracking-tight',
-  default: 'font-semibold leading-[18px] tracking-tight',
-  lg: 'text-base font-semibold leading-5 tracking-tight',
+  sm: 'text-sm font-semibold tracking-tight',
+  default: 'text-md font-semibold tracking-tight',
+  lg: 'text-base font-semibold tracking-tight',
 } as const
 
 const DESC_SIZE_MAP = {
   sm: 'text-xs mt-0.5',
-  default: 'text-sm mt-1',
-  lg: 'text-md mt-1.5',
+  default: 'text-sm mt-0.5',
+  lg: 'text-md mt-0.5',
 } as const
 
 // \u2500\u2500\u2500 Types \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
@@ -1954,7 +1961,7 @@ const AlertRoot = React.forwardRef<HTMLDivElement, AlertRootProps>(
         >
           {/* Icon */}
           {!hideIcon && (
-            <span className="shrink-0">
+            <span className={cn('shrink-0 flex items-center min-h-[1lh]', ICON_LINE_MAP[size])}>
               {icon || <StatusIcon className={ICON_SIZE_MAP[size]} />}
             </span>
           )}
@@ -3391,7 +3398,7 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
       <h3
         ref={ref}
         className={cn(
-          'font-semibold text-foreground leading-none tracking-tight',
+          'text-base font-semibold text-foreground tracking-tight',
           icon && 'flex items-center gap-2',
           className
         )}
@@ -4408,6 +4415,1036 @@ export {
   ChartYAxis,
   ChartStyle,
   useChart,
+}
+`,
+      type: "ui"
+    }]
+  },
+  "chat-input": {
+    name: "chat-input",
+    dependencies: [],
+    registryDependencies: [],
+    reverseDependencies: [],
+    namespace: true,
+    description: "",
+    files: [{
+      path: "chat-input.tsx",
+      content: `'use client'
+
+import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+
+// ============================================================================
+// Size maps
+// ============================================================================
+
+/** Textarea padding per size */
+const fieldPaddingMap = {
+  sm:      'pt-2.5 px-3 text-md',
+  default: 'pt-3 px-4 text-md',
+  lg:      'pt-4 px-5 text-base',
+} as const
+
+/** Submit row padding per size */
+const submitWrapperMap = {
+  sm:      'px-2.5 pb-2.5',
+  default: 'px-3 pb-3',
+  lg:      'px-4 pb-4',
+} as const
+
+/** Submit button dimensions per size */
+const submitSizeMap = {
+  sm:      'h-7 w-7',
+  default: 'h-8 w-8',
+  lg:      'h-9 w-9',
+} as const
+
+/** Submit button radius \u2014 auto-calculated from container radius (min rounded-md) */
+const submitRadiusMap = {
+  sm:    'rounded-md',
+  md:    'rounded-md',
+  lg:    'rounded-md',
+  xl:    'rounded-lg',
+  '2xl': 'rounded-xl',
+  full:  'rounded-full',
+} as const
+
+/** Submit button radius \u2014 direct class map for explicit buttonRadius prop */
+const buttonRadiusClassMap: Record<ChatInputRadius, string> = {
+  sm:    'rounded-sm',
+  md:    'rounded-md',
+  lg:    'rounded-lg',
+  xl:    'rounded-xl',
+  '2xl': 'rounded-2xl',
+  full:  'rounded-full',
+}
+
+/** Submit icon size class per size */
+const submitIconSizeMap = {
+  sm:      'icon-xs',
+  default: 'icon-xs',
+  lg:      'icon-sm',
+} as const
+
+/** Character count text size per size */
+const countStyleMap = {
+  sm:      'text-xs',
+  default: 'text-xs',
+  lg:      'text-sm',
+} as const
+
+/** Approximate line-height (px) per size for auto-resize */
+const lineHeightMap = {
+  sm:      20,
+  default: 22,
+  lg:      24,
+} as const
+
+/** Field padding in inline layout \u2014 horizontal only (vertical centering via flex) */
+const inlineFieldPaddingMap = {
+  sm:      'px-3 text-md',
+  default: 'px-4 text-md',
+  lg:      'px-5 text-base',
+} as const
+
+/** Submit wrapper padding in inline layout \u2014 symmetric vertical */
+const submitWrapperInlineMap = {
+  sm:      'px-2.5 py-2.5',
+  default: 'px-3 py-3',
+  lg:      'px-4 py-4',
+} as const
+
+// ============================================================================
+// CVA \u2014 root container variants
+// ============================================================================
+
+const chatInputVariants = cva(
+  [
+    'flex flex-col w-full overflow-hidden cursor-text',
+    'transition-colors duration-micro',
+  ].join(' '),
+  {
+    variants: {
+      variant: {
+        outline: [
+          'border border-border bg-background',
+          'hover:border-border-strong',
+          'focus-within:border-border-strong focus-within:hover:border-border-strong',
+        ].join(' '),
+        filled: [
+          'border border-transparent bg-background-muted',
+          'focus-within:border-border',
+        ].join(' '),
+      },
+      radius: {
+        sm:    'rounded-sm',
+        md:    'rounded-md',
+        lg:    'rounded-lg',
+        xl:    'rounded-xl',
+        '2xl': 'rounded-2xl',
+        full:  'rounded-full',
+      },
+    },
+    defaultVariants: {
+      variant: 'outline',
+      radius:  'xl',
+    },
+  }
+)
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export type ChatInputSize    = 'sm' | 'default' | 'lg'
+export type ChatInputVariant = 'outline' | 'filled'
+export type ChatInputRadius  = 'sm' | 'md' | 'lg' | 'xl' | '2xl' | 'full'
+export type ChatInputColor   = 'default' | 'primary'
+export type ChatInputLayout  = 'default' | 'inline'
+
+// ============================================================================
+// Context
+// ============================================================================
+
+interface ChatInputContextValue {
+  size:           ChatInputSize
+  color:          ChatInputColor
+  layout:         ChatInputLayout
+  radius:         ChatInputRadius
+  disabled:       boolean
+  isEmpty:        boolean
+  charCount:      number
+  showCount:      boolean
+  maxLength:      number | undefined
+  _setIsEmpty:    React.Dispatch<React.SetStateAction<boolean>>
+  _setCharCount:  React.Dispatch<React.SetStateAction<number>>
+  _setShowCount:  React.Dispatch<React.SetStateAction<boolean>>
+  _setMaxLength:  React.Dispatch<React.SetStateAction<number | undefined>>
+  _fieldRef:      React.MutableRefObject<HTMLTextAreaElement | null>
+  _handleSubmit:  () => void
+}
+
+const ChatInputContext = React.createContext<ChatInputContextValue>({
+  size:           'default',
+  color:          'default',
+  layout:         'default',
+  radius:         'xl',
+  disabled:       false,
+  isEmpty:        true,
+  charCount:      0,
+  showCount:      false,
+  maxLength:      undefined,
+  _setIsEmpty:    () => {},
+  _setCharCount:  () => {},
+  _setShowCount:  () => {},
+  _setMaxLength:  () => {},
+  _fieldRef:      { current: null },
+  _handleSubmit:  () => {},
+})
+
+// ============================================================================
+// Props interfaces
+// ============================================================================
+
+export interface ChatInputRootProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onSubmit'>,
+    VariantProps<typeof chatInputVariants> {
+  /** Visual style of the container */
+  variant?: ChatInputVariant
+  /** Corner radius */
+  radius?: ChatInputRadius
+  /** Size scale */
+  size?: ChatInputSize
+  /** Submit button color \u2014 default (dark) or primary (brand) */
+  color?: ChatInputColor
+  /** Layout direction \u2014 default (stacked) or inline (field + button side by side) */
+  layout?: ChatInputLayout
+  /** Disable all interaction */
+  disabled?: boolean
+  /** Called when the user submits (Enter key or Submit button) \u2014 receives current field value */
+  onSubmit?: (value: string) => void
+}
+
+export interface ChatInputFieldProps
+  extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'children'> {
+  /** Maximum visible rows before the field scrolls */
+  maxRows?: number
+  /** Show character counter \u2014 requires maxLength to be set */
+  showCount?: boolean
+}
+
+export interface ChatInputSubmitProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Show loading/stop state \u2014 keeps button enabled so user can stop generation */
+  loading?: boolean
+  /** Called when clicked during loading state (e.g., stop generation) */
+  onStop?: () => void
+  /** Override the auto-calculated button radius */
+  buttonRadius?: ChatInputRadius
+}
+
+// ============================================================================
+// ChatInput \u2014 Root container
+// ============================================================================
+
+const ChatInputRoot = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
+  (
+    {
+      className,
+      variant  = 'outline',
+      radius   = 'xl',
+      size     = 'default',
+      color    = 'default',
+      layout   = 'default',
+      disabled = false,
+      onSubmit,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const [isEmpty,    setIsEmpty]    = React.useState(true)
+    const [charCount,  setCharCount]  = React.useState(0)
+    const [showCount,  setShowCount]  = React.useState(false)
+    const [maxLength,  setMaxLength]  = React.useState<number | undefined>(undefined)
+    const fieldRef = React.useRef<HTMLTextAreaElement | null>(null)
+
+    const handleSubmit = React.useCallback(() => {
+      const el = fieldRef.current
+      if (!el || disabled) return
+      const value = el.value.trim()
+      if (!value) return
+      onSubmit?.(value)
+      // Auto-clear in uncontrolled mode
+      // Controlled-mode users should clear value inside their onSubmit callback
+      el.value = ''
+      el.style.height = 'auto'
+      setIsEmpty(true)
+      setCharCount(0)
+    }, [disabled, onSubmit])
+
+    const contextValue = React.useMemo<ChatInputContextValue>(
+      () => ({
+        size,
+        color,
+        layout,
+        radius,
+        disabled,
+        isEmpty,
+        charCount,
+        showCount,
+        maxLength,
+        _setIsEmpty:   setIsEmpty,
+        _setCharCount: setCharCount,
+        _setShowCount: setShowCount,
+        _setMaxLength: setMaxLength,
+        _fieldRef:     fieldRef,
+        _handleSubmit: handleSubmit,
+      }),
+      [size, color, layout, radius, disabled, isEmpty, charCount, showCount, maxLength, handleSubmit]
+    )
+
+    const handleContainerClick = React.useCallback(
+      (e: React.MouseEvent<HTMLDivElement>) => {
+        // Focus the textarea when clicking anywhere in the container (not on a button)
+        if (!disabled && !(e.target as HTMLElement).closest('button')) {
+          fieldRef.current?.focus()
+        }
+      },
+      [disabled]
+    )
+
+    return (
+      <ChatInputContext.Provider value={contextValue}>
+        <div
+          ref={ref}
+          data-disabled={disabled || undefined}
+          onClick={handleContainerClick}
+          className={cn(
+            chatInputVariants({ variant, radius }),
+            layout === 'inline' && 'flex-row',
+            disabled && 'opacity-50 pointer-events-none',
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </div>
+      </ChatInputContext.Provider>
+    )
+  }
+)
+ChatInputRoot.displayName = 'ChatInput'
+
+// ============================================================================
+// ChatInput.Field \u2014 Auto-resizing textarea
+// ============================================================================
+
+const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps>(
+  (
+    {
+      className,
+      maxRows   = 8,
+      showCount = false,
+      maxLength,
+      placeholder,
+      onChange,
+      onKeyDown,
+      disabled,
+      ...props
+    },
+    forwardedRef
+  ) => {
+    const ctx = React.useContext(ChatInputContext)
+    const internalRef = React.useRef<HTMLTextAreaElement | null>(null)
+    const isDisabled = disabled ?? ctx.disabled
+
+    // Sync showCount + maxLength into root context on mount/update
+    React.useEffect(() => {
+      ctx._setShowCount(showCount)
+      ctx._setMaxLength(maxLength)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showCount, maxLength])
+
+    // Merge forwarded ref + internal ref + context field ref
+    const setRef = React.useCallback(
+      (el: HTMLTextAreaElement | null) => {
+        internalRef.current = el
+        ctx._fieldRef.current = el
+        if (typeof forwardedRef === 'function') {
+          forwardedRef(el)
+        } else if (forwardedRef) {
+          (forwardedRef as React.MutableRefObject<HTMLTextAreaElement | null>).current = el
+        }
+      },
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [forwardedRef]
+    )
+
+    // Adjust textarea height to content, bounded by maxRows
+    const autoResize = React.useCallback(() => {
+      const el = internalRef.current
+      if (!el) return
+      el.style.height = 'auto'
+      const maxHeight = maxRows * lineHeightMap[ctx.size]
+      const newHeight = Math.min(el.scrollHeight, maxHeight)
+      el.style.height = \`\${newHeight}px\`
+      el.style.overflowY = el.scrollHeight > maxHeight ? 'auto' : 'hidden'
+    }, [ctx.size, maxRows])
+
+    const handleChange = React.useCallback(
+      (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        const val = e.target.value
+        ctx._setIsEmpty(val.trim() === '')
+        ctx._setCharCount(val.length)
+        autoResize()
+        onChange?.(e)
+      },
+      [ctx, autoResize, onChange]
+    )
+
+    const handleKeyDown = React.useCallback(
+      (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+        // Enter = submit | Shift+Enter = new line
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault()
+          ctx._handleSubmit()
+        }
+        onKeyDown?.(e)
+      },
+      [ctx, onKeyDown]
+    )
+
+    return (
+      <div className={cn('flex-1 min-w-0', ctx.layout === 'inline' && 'flex items-center self-stretch')}>
+        <textarea
+          ref={setRef}
+          rows={1}
+          placeholder={placeholder}
+          maxLength={maxLength}
+          disabled={isDisabled}
+          className={cn(
+            'w-full bg-transparent text-foreground placeholder:text-foreground/30',
+            'resize-none outline-none focus:outline-none',
+            'disabled:cursor-not-allowed',
+            'overflow-hidden',
+            ctx.layout === 'inline' ? inlineFieldPaddingMap[ctx.size] : fieldPaddingMap[ctx.size],
+            className
+          )}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          {...props}
+        />
+      </div>
+    )
+  }
+)
+ChatInputField.displayName = 'ChatInput.Field'
+
+// ============================================================================
+// ChatInput.Submit \u2014 Send / stop button
+// ============================================================================
+
+const ChatInputSubmit = React.forwardRef<HTMLButtonElement, ChatInputSubmitProps>(
+  (
+    {
+      className,
+      loading      = false,
+      onStop,
+      children,
+      disabled,
+      onClick,
+      buttonRadius,
+      ...props
+    },
+    ref
+  ) => {
+    const ctx = React.useContext(ChatInputContext)
+
+    // Disabled: context disabled | user prop | empty field (only when not loading)
+    const isDisabled = (disabled ?? ctx.disabled) || (!loading && ctx.isEmpty)
+
+    const handleClick = React.useCallback(
+      (e: React.MouseEvent<HTMLButtonElement>) => {
+        if (loading) {
+          onStop?.()
+        } else if (!isDisabled) {
+          ctx._handleSubmit()
+        }
+        onClick?.(e)
+      },
+      [ctx, isDisabled, loading, onStop, onClick]
+    )
+
+    return (
+      <div className={cn('flex items-center justify-end gap-2 shrink-0 cursor-default', ctx.layout === 'inline' ? submitWrapperInlineMap[ctx.size] : submitWrapperMap[ctx.size])}>
+        {ctx.showCount && ctx.maxLength != null && (
+          <span className={cn('text-text-subtle select-none', countStyleMap[ctx.size])}>
+            {ctx.charCount} / {ctx.maxLength}
+          </span>
+        )}
+        <button
+          ref={ref}
+          type="button"
+          disabled={isDisabled && !loading}
+          aria-label={loading ? 'Stop generating' : 'Send message'}
+          className={cn(
+            'inline-flex items-center justify-center shrink-0',
+            buttonRadius ? buttonRadiusClassMap[buttonRadius] : submitRadiusMap[ctx.radius],
+            'transition-all duration-fast',
+            'focus-visible:outline-none focus-visible:focus-ring',
+            submitSizeMap[ctx.size],
+            // Loading state \u2014 enabled, pulsing
+            loading && ctx.color === 'default' && 'bg-foreground text-background animate-pulse cursor-pointer',
+            loading && ctx.color === 'primary' && 'bg-primary text-primary-foreground animate-pulse cursor-pointer',
+            // Enabled state
+            !loading && !isDisabled && ctx.color === 'default' && [
+              'bg-foreground text-background',
+              'hover:bg-foreground/90 active:bg-foreground/80 active:scale-pressed cursor-pointer',
+            ],
+            !loading && !isDisabled && ctx.color === 'primary' && [
+              'bg-primary text-primary-foreground',
+              'hover:bg-primary-hover active:scale-pressed cursor-pointer',
+            ],
+            // Disabled state
+            !loading && isDisabled && 'bg-background-muted text-text-subtle pointer-events-none',
+            className
+          )}
+          onClick={handleClick}
+          {...props}
+        >
+          <span
+            aria-hidden="true"
+            className={cn('flex items-center justify-center', submitIconSizeMap[ctx.size])}
+          >
+            {children ?? (loading ? <StopIcon /> : <SendIcon />)}
+          </span>
+        </button>
+      </div>
+    )
+  }
+)
+ChatInputSubmit.displayName = 'ChatInput.Submit'
+
+// ============================================================================
+// Built-in SVG icons \u2014 no external icon dependency
+// ============================================================================
+
+function SendIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="w-full h-full"
+    >
+      <path d="M22 2 11 13" />
+      <path d="M22 2 15 22 11 13 2 9l20-7Z" />
+    </svg>
+  )
+}
+
+function StopIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+      <rect x="5" y="5" width="14" height="14" rx="2" />
+    </svg>
+  )
+}
+
+// ============================================================================
+// Namespace export (compound pattern)
+// ============================================================================
+
+const ChatInput = Object.assign(ChatInputRoot, {
+  Field:  ChatInputField,
+  Submit: ChatInputSubmit,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace ChatInput {
+  export type RootProps   = ChatInputRootProps
+  export type FieldProps  = ChatInputFieldProps
+  export type SubmitProps = ChatInputSubmitProps
+  export type Layout      = ChatInputLayout
+}
+
+export {
+  ChatInput,
+  ChatInputRoot,
+  ChatInputField,
+  ChatInputSubmit,
+  chatInputVariants,
+}
+`,
+      type: "ui"
+    }]
+  },
+  "chat-message": {
+    name: "chat-message",
+    dependencies: [],
+    registryDependencies: ["avatar", "typing-indicator"],
+    reverseDependencies: [],
+    namespace: true,
+    description: "",
+    files: [{
+      path: "chat-message.tsx",
+      content: `'use client'
+
+import * as React from 'react'
+import { cn } from '@/lib/utils'
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
+import { TypingIndicator, type TypingIndicatorProps } from '@/components/ui/typing-indicator'
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export type ChatMessageRole       = 'user' | 'assistant'
+export type ChatMessageVariant    = 'bubble' | 'flat'
+export type ChatMessageColor      = 'default' | 'muted' | 'primary' | 'dark'
+export type ChatMessageSize       = 'sm' | 'default' | 'lg'
+export type ChatMessageRadius     = 'md' | 'lg' | 'xl' | '2xl'
+export type ChatMessageAvatarSize = 'sm' | 'md' | 'lg'
+
+/** Built-in status presets (pass as string to Footer.status for auto-rendering) */
+export type ChatMessageStatus = 'sending' | 'sent' | 'read' | 'error'
+
+// ============================================================================
+// Context \u2014 propagates root props to sub-components
+// ============================================================================
+
+interface ChatMessageContextValue {
+  role:    ChatMessageRole
+  variant: ChatMessageVariant
+  color:   ChatMessageColor
+  size:    ChatMessageSize
+  radius:  ChatMessageRadius
+  tail:    boolean
+  typing:  boolean | Omit<TypingIndicatorProps, 'className'>
+  actions?: React.ReactNode
+}
+
+const ChatMessageContext = React.createContext<ChatMessageContextValue>({
+  role:    'assistant',
+  variant: 'bubble',
+  color:   'default',
+  size:    'default',
+  radius:  '2xl',
+  tail:    true,
+  typing:  false,
+  actions: undefined,
+})
+
+// ============================================================================
+// Size maps
+// ============================================================================
+
+/** Bubble padding per size */
+const bubblePaddingMap: Record<ChatMessageSize, string> = {
+  sm:      'px-3 py-1.5',
+  default: 'px-3.5 py-2',
+  lg:      'px-4 py-2.5',
+}
+
+/** Bubble text class per size */
+const bubbleTextMap: Record<ChatMessageSize, string> = {
+  sm:      'text-sm',
+  default: 'text-md',
+  lg:      'text-base',
+}
+
+/** Footer text size per size */
+const footerTextMap: Record<ChatMessageSize, string> = {
+  sm:      'text-2xs',
+  default: 'text-2xs',
+  lg:      'text-xs',
+}
+
+/** Gap between avatar and content per message size */
+const rowGapMap: Record<ChatMessageSize, string> = {
+  sm:      'gap-2',
+  default: 'gap-2.5',
+  lg:      'gap-3',
+}
+
+/** Gap override when avatarSize is explicitly set */
+const avatarGapMap: Record<ChatMessageAvatarSize, string> = {
+  sm: 'gap-1.5',
+  md: 'gap-2.5',
+  lg: 'gap-3',
+}
+
+// ============================================================================
+// Chat avatar sizes (independent from message size)
+// ============================================================================
+
+const chatAvatarSizeMap: Record<ChatMessageAvatarSize, string> = {
+  sm: 'w-6 h-6',   // 24px
+  md: 'w-7 h-7',   // 28px
+  lg: 'w-8 h-8',   // 32px
+}
+
+const chatAvatarFontMap: Record<ChatMessageAvatarSize, string> = {
+  sm: 'text-2xs',
+  md: 'text-2xs',
+  lg: 'text-xs',
+}
+
+// ============================================================================
+// Bubble radius \u2014 static maps for Tailwind JIT scanner compatibility
+// ============================================================================
+
+/**
+ * Asymmetric with tail: tail corner = rounded-none (0px).
+ * assistant \u2192 tail at bottom-left | user \u2192 tail at bottom-right
+ */
+const bubbleRadiusTailMap: Record<ChatMessageRadius, Record<ChatMessageRole, string>> = {
+  md:    { assistant: 'rounded-tl-md   rounded-tr-md   rounded-br-md   rounded-bl-none', user: 'rounded-tl-md   rounded-tr-md   rounded-br-none rounded-bl-md'   },
+  lg:    { assistant: 'rounded-tl-lg   rounded-tr-lg   rounded-br-lg   rounded-bl-none', user: 'rounded-tl-lg   rounded-tr-lg   rounded-br-none rounded-bl-lg'   },
+  xl:    { assistant: 'rounded-tl-xl   rounded-tr-xl   rounded-br-xl   rounded-bl-none', user: 'rounded-tl-xl   rounded-tr-xl   rounded-br-none rounded-bl-xl'   },
+  '2xl': { assistant: 'rounded-tl-2xl  rounded-tr-2xl  rounded-br-2xl  rounded-bl-none', user: 'rounded-tl-2xl  rounded-tr-2xl  rounded-br-none rounded-bl-2xl'  },
+}
+
+/** Symmetric: all corners same radius */
+const bubbleRadiusSymMap: Record<ChatMessageRadius, string> = {
+  md:    'rounded-md',
+  lg:    'rounded-lg',
+  xl:    'rounded-xl',
+  '2xl': 'rounded-2xl',
+}
+
+// ============================================================================
+// Bubble color helper \u2014 applies to both roles uniformly
+// ============================================================================
+
+function getBubbleColors(color: ChatMessageColor, variant: ChatMessageVariant): string {
+  if (variant === 'flat') {
+    return color === 'muted' ? 'bg-background-muted' : ''
+  }
+  switch (color) {
+    case 'default': return 'bg-background-paper border border-border text-foreground'
+    case 'muted':   return 'bg-background-muted text-foreground'
+    case 'primary': return 'bg-primary text-primary-foreground'
+    case 'dark':    return 'bg-foreground text-background'
+  }
+}
+
+// ============================================================================
+// Built-in status labels
+// ============================================================================
+
+const builtInStatusLabels: Record<string, { label: string; className: string }> = {
+  sending: { label: 'Sending...', className: 'text-text-subtle' },
+  sent:    { label: 'Sent',       className: 'text-text-subtle' },
+  read:    { label: 'Read',       className: 'text-text-subtle' },
+  error:   { label: 'Failed',     className: 'text-error' },
+}
+
+// ============================================================================
+// TypingIndicator size mapping (chat sizes \u2192 indicator sizes)
+// ============================================================================
+
+const typingSizeMap: Record<ChatMessageSize, 'sm' | 'default' | 'lg'> = {
+  sm:      'sm',
+  default: 'sm',
+  lg:      'default',
+}
+
+/** Minimum bubble width when typing \u2014 accounts for dot size + padding per chat size */
+const typingMinWidthMap: Record<ChatMessageSize, string> = {
+  sm:      'min-w-12',
+  default: 'min-w-12',
+  lg:      'min-w-16',
+}
+
+// ============================================================================
+// Props interfaces
+// ============================================================================
+
+export interface ChatMessageRootProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Sender role \u2014 controls alignment (left=assistant, right=user) */
+  role?: ChatMessageRole
+  /** Bubble visual style */
+  variant?: ChatMessageVariant
+  /** Bubble background color */
+  color?: ChatMessageColor
+  /** Size scale \u2014 affects text and padding */
+  size?: ChatMessageSize
+  /** Bubble corner radius */
+  radius?: ChatMessageRadius
+  /** Asymmetric tail corner (radius=0 on the avatar side) */
+  tail?: boolean
+  /** Show typing indicator inside Content. Pass true for defaults, or TypingIndicatorProps for custom. */
+  typing?: boolean | Omit<TypingIndicatorProps, 'className'>
+  /** Avatar size \u2014 overrides default gap between avatar and bubble */
+  avatarSize?: ChatMessageAvatarSize
+  /** Action buttons revealed on hover */
+  actions?: React.ReactNode
+}
+
+export interface ChatMessageAvatarProps {
+  /** Avatar size: sm(24px), md(28px), lg(32px) */
+  size?: ChatMessageAvatarSize
+  /** Image URL */
+  src?: string
+  /** Alt text for avatar image */
+  alt?: string
+  /** Initials to display when no image (1\u20132 characters) */
+  initials?: string
+  /** Custom icon or ReactNode to render inside the avatar */
+  icon?: React.ReactNode
+  /** Additional CSS classes */
+  className?: string
+}
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface ChatMessageContentProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export interface ChatMessageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
+  /** Pre-formatted timestamp string (e.g. "12:34 PM") */
+  timestamp?: string
+  /** Status: built-in preset ('sending' | 'sent' | 'read' | 'error') or custom ReactNode */
+  status?: React.ReactNode
+  /** Size override (defaults to context value from ChatMessage root) */
+  size?: ChatMessageSize
+}
+
+// ============================================================================
+// ChatMessage Root
+// ============================================================================
+
+const ChatMessageRoot = React.forwardRef<HTMLDivElement, ChatMessageRootProps>(
+  (
+    {
+      className,
+      role       = 'assistant',
+      variant    = 'bubble',
+      color      = 'default',
+      size       = 'default',
+      radius     = '2xl',
+      tail       = true,
+      typing     = false,
+      avatarSize,
+      actions,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const ctx = React.useMemo<ChatMessageContextValue>(
+      () => ({ role, variant, color, size, radius, tail, typing, actions }),
+      [role, variant, color, size, radius, tail, typing, actions]
+    )
+
+    const gapClass = avatarSize ? avatarGapMap[avatarSize] : rowGapMap[size]
+
+    return (
+      <ChatMessageContext.Provider value={ctx}>
+        <div
+          ref={ref}
+          className={cn(
+            'group/message flex items-end',
+            gapClass,
+            role === 'user' && variant !== 'flat' ? 'flex-row-reverse' : 'flex-row',
+            className
+          )}
+          {...props}
+        >
+          {children}
+        </div>
+      </ChatMessageContext.Provider>
+    )
+  }
+)
+ChatMessageRoot.displayName = 'ChatMessage'
+
+// ============================================================================
+// Default AI sparkle icon
+// ============================================================================
+
+function DefaultAiIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-3/5 h-3/5" aria-hidden="true">
+      <path d="M12 3l1.8 5.4 5.4 1.8-5.4 1.8L12 17.4l-1.8-5.4L4.8 10.2l5.4-1.8z" />
+      <path d="M19.5 3.5l.8 2.4 2.4.8-2.4.8L19.5 10l-.8-2.5-2.4-.8 2.4-.8z" opacity=".6" />
+      <path d="M4.5 14.5l.7 2 2 .7-2 .7L4.5 20l-.7-2-2-.7 2-.7z" opacity=".4" />
+    </svg>
+  )
+}
+
+// ============================================================================
+// ChatMessage.Avatar \u2014 wraps Avatar component with chat-specific sizes
+// ============================================================================
+
+const ChatMessageAvatar = React.forwardRef<HTMLSpanElement, ChatMessageAvatarProps>(
+  ({ className, size: avatarSize = 'md', src, alt = 'Avatar', initials, icon }, ref) => (
+    <Avatar
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      ref={ref as any}
+      aria-hidden="true"
+      className={cn(chatAvatarSizeMap[avatarSize], 'shrink-0', className)}
+    >
+      {src && <AvatarImage src={src} alt={alt} />}
+      <AvatarFallback className={cn('font-semibold', chatAvatarFontMap[avatarSize])}>
+        {icon ?? (initials || <DefaultAiIcon />)}
+      </AvatarFallback>
+    </Avatar>
+  )
+)
+ChatMessageAvatar.displayName = 'ChatMessage.Avatar'
+
+// ============================================================================
+// ChatMessage.Content
+// ============================================================================
+
+const ChatMessageContent = React.forwardRef<HTMLDivElement, ChatMessageContentProps>(
+  ({ className, children, ...props }, ref) => {
+    const { role, variant, color, size, radius, tail, typing, actions } = React.useContext(ChatMessageContext)
+    const isTyping = !!typing
+    const typingProps = typeof typing === 'object' ? typing : {}
+
+    // Dark bubble backgrounds need inverted typing dot colors
+    const isDarkBg = color === 'primary' || color === 'dark'
+    const invertDots = variant === 'bubble' && isDarkBg
+
+    // flat variant never has a tail (asymmetric corner)
+    const effectiveTail = variant === 'flat' ? false : tail
+    const radiusClasses = effectiveTail
+      ? bubbleRadiusTailMap[radius][role]
+      : bubbleRadiusSymMap[radius]
+
+    const bubble = (
+      <div
+        ref={ref}
+        className={cn(
+          bubbleTextMap[size],
+          variant === 'bubble' && 'max-w-[75%]',
+          isTyping && [typingMinWidthMap[size], 'text-center'],
+          getBubbleColors(color, variant),
+          (variant === 'bubble' || variant === 'flat') && bubblePaddingMap[size],
+          (variant === 'bubble' || (variant === 'flat' && color === 'muted')) && radiusClasses,
+          className
+        )}
+        {...props}
+      >
+        {isTyping ? (
+          <TypingIndicator
+            size={typingSizeMap[size]}
+            color="muted"
+            {...typingProps}
+            className={cn('align-middle', invertDots && '[&>div>div]:bg-current')}
+          />
+        ) : children}
+      </div>
+    )
+
+    if (!actions) return bubble
+
+    return (
+      <div className={cn('flex items-end gap-1.5', role === 'user' && variant !== 'flat' ? 'flex-row-reverse' : 'flex-row')}>
+        {bubble}
+        <div className={cn(
+          'shrink-0 flex items-center gap-1 pb-0.5',
+          'opacity-0 group-hover/message:opacity-100',
+          'transition-opacity duration-normal',
+        )}>
+          {actions}
+        </div>
+      </div>
+    )
+  }
+)
+ChatMessageContent.displayName = 'ChatMessage.Content'
+
+// ============================================================================
+// ChatMessage.Footer
+// ============================================================================
+
+const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProps>(
+  (
+    {
+      className,
+      timestamp,
+      status,
+      role: roleProp,
+      size: sizeProp,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const ctx = React.useContext(ChatMessageContext)
+    const role    = roleProp ?? ctx.role
+    const size    = sizeProp ?? ctx.size
+    const variant = ctx.variant
+
+    // Resolve status: built-in preset string \u2192 label, or pass-through ReactNode
+    const statusContent = React.useMemo(() => {
+      if (status == null) return null
+      if (typeof status === 'string' && status in builtInStatusLabels) {
+        const { label, className: cls } = builtInStatusLabels[status]
+        return <span className={cls}>{label}</span>
+      }
+      return status
+    }, [status])
+
+    return (
+      <div
+        ref={ref}
+        className={cn(
+          'flex items-center gap-1 select-none',
+          footerTextMap[size],
+          'text-text-subtle',
+          role === 'user' && variant !== 'flat' ? 'justify-end' : 'justify-start',
+          className
+        )}
+        {...props}
+      >
+        {children}
+        {statusContent}
+        {timestamp && <span>{timestamp}</span>}
+      </div>
+    )
+  }
+)
+ChatMessageFooter.displayName = 'ChatMessage.Footer'
+
+// ============================================================================
+// Namespace export (compound pattern)
+// ============================================================================
+
+const ChatMessage = Object.assign(ChatMessageRoot, {
+  Avatar:  ChatMessageAvatar,
+  Content: ChatMessageContent,
+  Footer:  ChatMessageFooter,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace ChatMessage {
+  export type RootProps    = ChatMessageRootProps
+  export type AvatarProps  = ChatMessageAvatarProps
+  export type ContentProps = ChatMessageContentProps
+  export type FooterProps  = ChatMessageFooterProps
+  export type Role       = ChatMessageRole
+  export type Variant    = ChatMessageVariant
+  export type Color      = ChatMessageColor
+  export type Size       = ChatMessageSize
+  export type Radius     = ChatMessageRadius
+  export type Status     = ChatMessageStatus
+  export type AvatarSize = ChatMessageAvatarSize
+}
+
+export {
+  ChatMessage,
+  ChatMessageRoot,
+  ChatMessageAvatar,
+  ChatMessageContent,
+  ChatMessageFooter,
 }
 `,
       type: "ui"
@@ -8555,6 +9592,260 @@ export { Progress, linearTrackVariants }
       type: "ui"
     }]
   },
+  "quick-reply": {
+    name: "quick-reply",
+    dependencies: ["@radix-ui/react-slot"],
+    registryDependencies: [],
+    reverseDependencies: [],
+    namespace: true,
+    description: "",
+    files: [{
+      path: "quick-reply.tsx",
+      content: `'use client'
+
+import * as React from 'react'
+import { Slot } from '@radix-ui/react-slot'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+
+// ============================================================================
+// Color mapping per variant \xD7 color
+// ============================================================================
+
+const colorMap = {
+  default: {
+    outline: 'border border-border text-foreground bg-background hover:bg-background-muted',
+    filled:  'bg-background-muted text-foreground hover:bg-background-elevated',
+    ghost:   'text-foreground hover:bg-background-muted',
+  },
+  primary: {
+    outline: 'border border-primary text-text-primary bg-background hover:bg-primary-tint',
+    filled:  'bg-primary-tint text-text-primary hover:bg-primary/20',
+    ghost:   'text-text-primary hover:bg-primary-tint',
+  },
+} as const
+
+// ============================================================================
+// Context \u2014 propagates variant/color/size/radius from Root to Items
+// ============================================================================
+
+type QuickReplyContextValue = {
+  size:    QuickReplySize
+  variant: QuickReplyVariant
+  color:   QuickReplyColor
+  radius:  QuickReplyRadius
+}
+
+const QuickReplyContext = React.createContext<QuickReplyContextValue>({
+  size:    'default',
+  variant: 'outline',
+  color:   'default',
+  radius:  'full',
+})
+
+// ============================================================================
+// Variants (CVA)
+// ============================================================================
+
+const quickReplyRootVariants = cva(
+  'flex items-center',
+  {
+    variants: {
+      layout: {
+        scroll: 'overflow-x-auto',
+        wrap:   'flex-wrap',
+      },
+      gap: {
+        sm:      'gap-1.5',
+        default: 'gap-2',
+        lg:      'gap-2.5',
+      },
+    },
+    defaultVariants: {
+      layout:  'scroll',
+      gap:     'default',
+    },
+  }
+)
+
+const quickReplyItemVariants = cva(
+  [
+    'inline-flex items-center justify-center',
+    'whitespace-nowrap font-semibold shrink-0',
+    'transition-colors duration-fast cursor-pointer',
+    'focus-visible:outline-none focus-visible:focus-ring',
+    'disabled:pointer-events-none disabled:opacity-50',
+    'select-none',
+  ].join(' '),
+  {
+    variants: {
+      size: {
+        sm:      'h-7 px-2.5 text-xs gap-1.5',    // 28px
+        default: 'h-8 px-3 text-sm gap-1.5',       // 32px
+        lg:      'h-9 px-3.5 text-md gap-1.5',     // 36px
+      },
+      radius: {
+        md:   'rounded-md',    // 6px
+        lg:   'rounded-lg',    // 8px
+        full: 'rounded-full',  // 9999px
+      },
+    },
+    defaultVariants: {
+      size:   'default',
+      radius: 'full',
+    },
+  }
+)
+
+// ============================================================================
+// Icon sizes per item size
+// ============================================================================
+
+const iconSizeMap = {
+  sm:      'icon-xs',  // 14px
+  default: 'icon-xs',  // 14px
+  lg:      'icon-sm',  // 16px
+} as const
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export type QuickReplyLayout  = 'scroll' | 'wrap'
+export type QuickReplyVariant = 'outline' | 'filled' | 'ghost'
+export type QuickReplyColor   = 'default' | 'primary'
+export type QuickReplySize    = 'sm' | 'default' | 'lg'
+export type QuickReplyRadius  = 'md' | 'lg' | 'full'
+export type QuickReplyGap     = 'sm' | 'default' | 'lg'
+
+export interface QuickReplyRootProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof quickReplyRootVariants> {
+  /** Layout mode: horizontal scroll or wrap to multiple rows */
+  layout?:  QuickReplyLayout
+  /** Visual style applied to all child Items */
+  variant?: QuickReplyVariant
+  /** Color theme applied to all child Items */
+  color?:   QuickReplyColor
+  /** Chip size applied to all child Items */
+  size?:    QuickReplySize
+  /** Border radius applied to all child Items */
+  radius?:  QuickReplyRadius
+  /** Gap between Items */
+  gap?:     QuickReplyGap
+}
+
+export interface QuickReplyItemProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  /** Leading icon (SVG or ReactNode) */
+  icon?:    React.ReactNode
+  /** Render as child element (Slot pattern) */
+  asChild?: boolean
+}
+
+// ============================================================================
+// QuickReply Root \u2014 group container that propagates style via Context
+// ============================================================================
+
+const QuickReplyRoot = React.forwardRef<HTMLDivElement, QuickReplyRootProps>(
+  (
+    {
+      className,
+      layout  = 'scroll',
+      gap     = 'default',
+      variant = 'outline',
+      color   = 'default',
+      size    = 'default',
+      radius  = 'full',
+      role    = 'group',
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const contextValue = React.useMemo<QuickReplyContextValue>(
+      () => ({ size, variant, color, radius }),
+      [size, variant, color, radius]
+    )
+
+    return (
+      <QuickReplyContext.Provider value={contextValue}>
+        <div
+          ref={ref}
+          role={role}
+          className={cn(quickReplyRootVariants({ layout, gap }), className)}
+          {...props}
+        >
+          {children}
+        </div>
+      </QuickReplyContext.Provider>
+    )
+  }
+)
+QuickReplyRoot.displayName = 'QuickReply'
+
+// ============================================================================
+// QuickReply Item \u2014 individual chip button
+// ============================================================================
+
+const QuickReplyItem = React.forwardRef<HTMLButtonElement, QuickReplyItemProps>(
+  ({ className, icon, asChild = false, children, ...props }, ref) => {
+    const { size, variant, color, radius } = React.useContext(QuickReplyContext)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const Comp = asChild ? (Slot as any) : 'button'
+    const colorClasses = colorMap[color][variant]
+
+    return (
+      <Comp
+        ref={ref}
+        type={!asChild ? 'button' : undefined}
+        {...props}
+        className={cn(
+          quickReplyItemVariants({ size, radius }),
+          colorClasses,
+          className
+        )}
+      >
+        {icon && (
+          <span
+            className={cn('shrink-0 [&>svg]:w-full [&>svg]:h-full', iconSizeMap[size])}
+            aria-hidden="true"
+          >
+            {icon}
+          </span>
+        )}
+        {children}
+      </Comp>
+    )
+  }
+)
+QuickReplyItem.displayName = 'QuickReply.Item'
+
+// ============================================================================
+// Namespace export (compound pattern)
+// ============================================================================
+
+const QuickReply = Object.assign(QuickReplyRoot, {
+  Item: QuickReplyItem,
+})
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace QuickReply {
+  export type RootProps = QuickReplyRootProps
+  export type ItemProps = QuickReplyItemProps
+}
+
+export {
+  QuickReply,
+  QuickReplyRoot,
+  QuickReplyItem,
+  quickReplyRootVariants,
+  quickReplyItemVariants,
+}
+`,
+      type: "ui"
+    }]
+  },
   "radio-group": {
     name: "radio-group",
     dependencies: ["@radix-ui/react-radio-group"],
@@ -12588,6 +13879,208 @@ export {
 `,
       type: "ui"
     }]
+  },
+  "typing-indicator": {
+    name: "typing-indicator",
+    dependencies: [],
+    registryDependencies: [],
+    reverseDependencies: [],
+    namespace: false,
+    description: "",
+    files: [{
+      path: "typing-indicator.tsx",
+      content: `'use client'
+
+import * as React from 'react'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from '@/lib/utils'
+
+// ============================================================================
+// Constants
+// ============================================================================
+
+/** Dot diameter per size (px) */
+const DOT_SIZES = { sm: 4, default: 6, lg: 8 } as const
+
+/** Gap between dots per size (px) */
+const DOT_GAP = { sm: 3, default: 4, lg: 5 } as const
+
+/** Animation speed in ms */
+const SPEED_MS = { slow: 1600, default: 1100, fast: 700 } as const
+
+/** Number of dots */
+const DOT_COUNT = 3
+
+// ============================================================================
+// Color mapping
+// ============================================================================
+
+const bgColorMap = {
+  default: 'bg-foreground',
+  primary: 'bg-primary',
+  muted:   'bg-text-subtle',
+} as const
+
+// ============================================================================
+// Variants (CVA)
+// ============================================================================
+
+const typingIndicatorVariants = cva(
+  'inline-flex items-center',
+  {
+    variants: {
+      size: {
+        sm:      'gap-1.5 text-xs',
+        default: 'gap-2 text-sm',
+        lg:      'gap-2.5 text-base',
+      },
+    },
+    defaultVariants: {
+      size: 'default',
+    },
+  }
+)
+
+// ============================================================================
+// Types
+// ============================================================================
+
+export interface TypingIndicatorProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof typingIndicatorVariants> {
+  /** Animation style */
+  variant?: 'dots' | 'cursor'
+  /** Indicator color */
+  color?: 'default' | 'primary' | 'muted'
+  /** Animation speed */
+  speed?: 'slow' | 'default' | 'fast'
+  /** Accessible label (also shown as visual text when showLabel is true) */
+  label?: string
+  /** Render label text alongside the indicator */
+  showLabel?: boolean
+}
+
+// ============================================================================
+// Component
+// ============================================================================
+
+const TypingIndicator = React.forwardRef<HTMLDivElement, TypingIndicatorProps>(
+  (
+    {
+      className,
+      variant = 'dots',
+      size,
+      color = 'muted',
+      speed = 'default',
+      label = 'Typing',
+      showLabel = false,
+      ...props
+    },
+    ref
+  ) => {
+    const resolvedSize = size ?? 'default'
+
+    return (
+      <div
+        ref={ref}
+        role="status"
+        aria-live="polite"
+        aria-label={label}
+        className={cn(typingIndicatorVariants({ size }), className)}
+        {...props}
+      >
+        {variant === 'dots' && (
+          <DotsIndicator size={resolvedSize} color={color} speed={speed} />
+        )}
+        {variant === 'cursor' && (
+          <CursorIndicator size={resolvedSize} color={color} />
+        )}
+        {showLabel && (
+          <span className="text-text-muted select-none">{label}</span>
+        )}
+      </div>
+    )
+  }
+)
+TypingIndicator.displayName = 'TypingIndicator'
+
+// ============================================================================
+// Dots Indicator \u2014 3 staggered bouncing dots (reuses animate-spinner-dot)
+// ============================================================================
+
+function DotsIndicator({
+  size,
+  color,
+  speed,
+}: {
+  size: 'sm' | 'default' | 'lg'
+  color: 'default' | 'primary' | 'muted'
+  speed: 'slow' | 'default' | 'fast'
+}) {
+  const dotSize = DOT_SIZES[size]
+  const gap = DOT_GAP[size]
+  const duration = SPEED_MS[speed]
+
+  return (
+    <div className="inline-flex items-center" style={{ gap }}>
+      {Array.from({ length: DOT_COUNT }, (_, i) => (
+        <div
+          key={i}
+          className={cn(
+            'rounded-full animate-spinner-dot motion-reduce:animate-none motion-reduce:opacity-60',
+            bgColorMap[color]
+          )}
+          style={{
+            width: dotSize,
+            height: dotSize,
+            animationDuration: \`\${duration}ms\`,
+            animationDelay: \`\${i * (duration / DOT_COUNT / 1.5)}ms\`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+// ============================================================================
+// Cursor sizes per component size
+// ============================================================================
+
+const CURSOR_SIZE = {
+  sm:      { width: 2, height: 14 },
+  default: { width: 2.5, height: 20 },
+  lg:      { width: 3, height: 26 },
+} as const
+
+// ============================================================================
+// Cursor Indicator \u2014 blinking cursor (text-cursor style)
+// ============================================================================
+
+function CursorIndicator({
+  size,
+  color,
+}: {
+  size: 'sm' | 'default' | 'lg'
+  color: 'default' | 'primary' | 'muted'
+}) {
+  const { width, height } = CURSOR_SIZE[size]
+
+  return (
+    <div
+      aria-hidden="true"
+      className={cn(
+        'rounded-full animate-typing-cursor motion-reduce:animate-none motion-reduce:opacity-60',
+        bgColorMap[color]
+      )}
+      style={{ width, height, animationDuration: '1200ms' }}
+    />
+  )
+}
+
+export { TypingIndicator, typingIndicatorVariants }
+`,
+      type: "ui"
+    }]
   }
 };
 var COMPONENT_ALIASES = {
@@ -12611,6 +14104,8 @@ var INSTALLABLE_COMPONENTS = [
   "button",
   "card",
   "chart",
+  "chat-input",
+  "chat-message",
   "checkbox",
   "divider",
   "drawer",
@@ -12623,6 +14118,7 @@ var INSTALLABLE_COMPONENTS = [
   "pagination",
   "popover",
   "progress",
+  "quick-reply",
   "radio-group",
   "segmented",
   "select",
@@ -12636,7 +14132,8 @@ var INSTALLABLE_COMPONENTS = [
   "toast",
   "toggle-group",
   "toggle",
-  "tooltip"
+  "tooltip",
+  "typing-indicator"
 ];
 
 // cli/src/commands/add.ts
@@ -12871,7 +14368,7 @@ function showSetupHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.3";
+var VERSION = "0.1.4";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

@@ -254,6 +254,26 @@ export const componentSEO = {
     ja: '2つのカラー、サイズオプション、スムーズなサム操作対応のスライダー。Radix UIベース。',
     ko: '2가지 컬러, 사이즈 옵션, 부드러운 썸 조작을 지원하는 슬라이더. Radix UI 기반.',
   }),
+  'typing-indicator': page('TypingIndicator', {
+    en: 'Animated typing indicator with 2 variants — dots and cursor — 3 sizes, 3 colors, speed control, and optional label.',
+    ja: 'dots・cursorの2バリアント、3サイズ、3カラー、速度調整、ラベル表示に対応したタイピングインジケーター。',
+    ko: 'dots, cursor 2가지 variant, 3가지 사이즈, 3가지 컬러, 속도 조절, 선택적 레이블을 지원하는 타이핑 인디케이터.',
+  }),
+  'quick-reply': page('QuickReply', {
+    en: 'Suggested reply chip group for chat UIs — 3 variants, 3 sizes, 2 layouts (scroll / wrap), 2 colors, icon support, and asChild composition.',
+    ja: 'チャットUI向けの返答候補チップグループ。3バリアント、3サイズ、2レイアウト（scroll/wrap）、2カラー、アイコン対応。',
+    ko: '채팅 UI용 답변 후보 칩 그룹. 3가지 variant, 3가지 사이즈, 2가지 레이아웃(scroll/wrap), 2가지 컬러, 아이콘 지원.',
+  }),
+  'chat-input': page('ChatInput', {
+    en: 'Compound chat input for AI interfaces — auto-resizing textarea, send/stop button, loading state, character count, 2 variants, 3 sizes, and 6 radius options.',
+    ja: 'AIチャット向けの複合入力コンポーネント。自動リサイズ、送信/停止ボタン、ローディング状態、文字数カウント、2バリアント、3サイズ、6角丸対応。',
+    ko: 'AI 채팅 인터페이스용 복합 입력 컴포넌트. 자동 리사이즈, 전송/중지 버튼, 로딩 상태, 문자 수 카운트, 2가지 variant, 3가지 사이즈, 6가지 radius 지원.',
+  }),
+  'chat-message': page('ChatMessage', {
+    en: 'Compound chat message component — assistant/user roles, bubble and flat variants, typing animation, delivery status, hover actions, 3 sizes, and 4 radius options.',
+    ja: 'AIチャット向けのメッセージ表示コンポーネント。assistant/userロール、bubble/flatバリアント、タイピングアニメーション、配信ステータス、ホバーアクション、3サイズ、4角丸対応。',
+    ko: 'AI 채팅용 메시지 표시 컴포넌트. assistant/user role, bubble/flat variant, 타이핑 애니메이션, 전송 상태, 호버 액션, 3가지 사이즈, 4가지 radius 지원.',
+  }),
   spinner: page('Spinner', {
     en: 'Loading spinner with 4 variants — ring, dots, bars, and orbit with 5 sub-styles including 3D effects.',
     ja: 'ring、dots、bars、orbit（3Dエフェクト含む5種）の4バリアント対応のローディングスピナー。',

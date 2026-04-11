@@ -40,7 +40,7 @@ Add components to your project. Copies `.tsx` source files and installs required
 
 ```bash
 npx 7onic add <component...>   # Add specific components
-npx 7onic add --all             # Add all 35 components
+npx 7onic add --all             # Add all 39 components
 npx 7onic add button --yes      # Skip confirmation prompt
 npx 7onic add card --overwrite  # Overwrite existing files
 ```
@@ -78,9 +78,9 @@ npx 7onic add card --overwrite  # Overwrite existing files
 | aliases.components | Where components are copied to |
 | aliases.utils | Where cn() utility lives |
 
-## Available Components (35)
+## Available Components (39)
 
-accordion, alert, avatar, badge, breadcrumb, button, button-group, card, chart, checkbox, divider, drawer, dropdown, icon-button, input, metric-card, modal, navigation-menu, pagination, popover, progress, radio-group, segmented, select, skeleton, slider, spinner, switch, table, tabs, textarea, toast, toggle, toggle-group, tooltip
+accordion, alert, avatar, badge, breadcrumb, button, button-group, card, chat-input, chat-message, chart, checkbox, divider, drawer, dropdown, icon-button, input, metric-card, modal, navigation-menu, pagination, popover, progress, quick-reply, radio-group, segmented, select, skeleton, slider, spinner, switch, table, tabs, textarea, toast, toggle, toggle-group, tooltip, typing-indicator
 
 ## Post-install Setup
 

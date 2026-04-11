@@ -65,10 +65,10 @@ npx 7onic add button card input
 <summary><strong>Tailwind v3</strong></summary>
 
 ```css
+@import '@7onic-ui/tokens/css/all.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '@7onic-ui/tokens/css/all.css';
 ```
 
 ```js
@@ -122,15 +122,16 @@ import { Chart, type ChartConfig } from '@7onic-ui/react/chart'  // charts: sepa
 
 | Category | Components | Count |
 |----------|-----------|:-----:|
-| **Forms** | Button, IconButton, ButtonGroup, Input, Textarea, Select, Dropdown, Checkbox, Radio, Switch, Toggle, ToggleGroup, Segmented, Slider | 14 |
+| **Forms** | Button, IconButton, ButtonGroup, Input, Textarea, Select, Dropdown, Checkbox, RadioGroup, Switch, Toggle, ToggleGroup, Segmented, Slider | 14 |
 | **Data Display** | Avatar, Badge, Card, Table | 4 |
 | **Charts** | BarChart, LineChart, AreaChart, PieChart, MetricCard | 5 |
 | **Layout** | Tabs, Accordion, Divider | 3 |
 | **Overlay** | Modal, Drawer, Tooltip, Popover | 4 |
 | **Feedback** | Alert, Toast, Progress, Spinner, Skeleton | 5 |
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | 3 |
+| **AI** | TypingIndicator, QuickReply, ChatInput, ChatMessage | 4 |
 
-**38 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, namespace exports (`Card.Header`) + named exports (`CardHeader`).
+**42 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, namespace exports (`Card.Header`) + named exports (`CardHeader`).
 
 ---
 
@@ -140,7 +141,7 @@ import { Chart, type ChartConfig } from '@7onic-ui/react/chart'  // charts: sepa
 |-------|--------|-------------|
 | **Colors** | Semantic system | Brand, status, text, background, border |
 | **Typography** | 11 sizes (11–72px) | CJK-optimized: `md`(14px) for UI, `base`(16px) for body |
-| **Spacing** | 18 values (0–96px) | 2px steps (0–12px), 4px steps (12px+) |
+| **Spacing** | 19 values (0–96px) | 2px steps (0–14px), 4px steps (16px+) |
 | **Radius** | 9 values | `none` through `full` |
 | **Shadows** | 6 primitives | `xs` through `xl` + `primary-glow` |
 | **Duration** | 8 values | `instant` through `spin` |
@@ -255,13 +256,13 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Token sync script with breaking change detection
 - [x] Tailwind v3/v4 dual preset + RGB channel opacity support
 - [x] Light/dark theme with OS auto-detection
-- [x] 38 components with namespace compound exports
+- [x] 42 components with namespace compound exports
 - [x] Documentation site with interactive playgrounds
 - [x] Chart components included (Bar, Line, Area, Pie, MetricCard)
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.2
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.3
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [ ] Theme Customizer (live color preview)
@@ -279,5 +280,5 @@ MIT
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
   Independently built.<br>
-  <sub>Last updated: 2026-04-09</sub>
+  <sub>Last updated: 2026-04-11</sub>
 </p>

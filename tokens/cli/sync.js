@@ -385,7 +385,7 @@ function readAnimationTokens(tokens) {
     const durationVar = `var(--duration-${durationKey})`;
     const easingVar = `var(--easing-${camelToKebab(easingKey)})`;
     const animationType = ext?.animationType;
-    if (animationType === "spin" || animationType === "progress-stripe" || animationType === "spinner-orbit" || animationType === "spinner-dot" || animationType === "spinner-bar" || animationType === "spinner-morph" || animationType === "skeleton-pulse" || animationType === "skeleton-wave") {
+    if (animationType === "spin" || animationType === "progress-stripe" || animationType === "spinner-orbit" || animationType === "spinner-dot" || animationType === "spinner-bar" || animationType === "spinner-morph" || animationType === "skeleton-pulse" || animationType === "skeleton-wave" || animationType === "typing-cursor") {
       result.push({ name, type: animationType, opacity: "", scale: "", translateX: "", translateXNegative: false, translateY: "", translateYNegative: false, heightVar: "", durationVar, easingVar });
       continue;
     }
@@ -513,6 +513,20 @@ function generateAnimationCss(a, format) {
     lines.push(`@keyframes ${a.name} {`);
     lines.push(`  0% { transform: translateX(-100%); }`);
     lines.push(`  100% { transform: translateX(100%); }`);
+    lines.push(`}`);
+    if (format === "v4") {
+      lines.push(`@utility animate-${a.name} {`);
+    } else {
+      lines.push(`.animate-${a.name} {`);
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`);
+    lines.push(`}`);
+    return lines.join("\n");
+  }
+  if (a.type === "typing-cursor") {
+    lines.push(`@keyframes ${a.name} {`);
+    lines.push(`  0%, 100% { opacity: 1; }`);
+    lines.push(`  50% { opacity: 0.4; }`);
     lines.push(`}`);
     if (format === "v4") {
       lines.push(`@utility animate-${a.name} {`);
@@ -1953,6 +1967,11 @@ function generateV3Preset(tokens) {
         lines.push(`          '0%': { 'transform': 'translateX(-100%)' },`);
         lines.push(`          '100%': { 'transform': 'translateX(100%)' },`);
         lines.push(`        },`);
+      } else if (a.type === "typing-cursor") {
+        lines.push(`        '${a.name}': {`);
+        lines.push(`          '0%, 100%': { 'opacity': '1' },`);
+        lines.push(`          '50%': { 'opacity': '0.4' },`);
+        lines.push(`        },`);
       } else {
         const isEnter = a.type === "enter";
         const fromProps = [];
@@ -1989,7 +2008,7 @@ function generateV3Preset(tokens) {
   }
   lines.push(`      },`);
   lines.push(``);
-  const infiniteTypes = /* @__PURE__ */ new Set(["spin", "progress-stripe", "spinner-orbit", "spinner-dot", "spinner-bar", "spinner-morph", "skeleton-pulse", "skeleton-wave"]);
+  const infiniteTypes = /* @__PURE__ */ new Set(["spin", "progress-stripe", "spinner-orbit", "spinner-dot", "spinner-bar", "spinner-morph", "skeleton-pulse", "skeleton-wave", "typing-cursor"]);
   lines.push(`      animation: {`);
   if (v3Anim) {
     for (const a of v3Anim) {

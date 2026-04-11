@@ -2,7 +2,7 @@
 
 ## What is 7onic?
 
-Token-driven React design system with 38 components on Radix UI.
+Token-driven React design system with 42 components on Radix UI.
 Single source of truth — design tokens to code. Use this to build any React service.
 
 - Documentation: https://7onic.design
@@ -56,12 +56,12 @@ npm install @7onic-ui/react @7onic-ui/tokens lucide-react
 **Existing project with Tailwind v3** (detect from tailwind.config.js):
 ```css
 /* globals.css */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 @import '@7onic-ui/tokens/css/variables.css';
 @import '@7onic-ui/tokens/css/themes/light.css';
 @import '@7onic-ui/tokens/css/themes/dark.css';    /* omit ONLY if dark mode = no */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 ```js
 // tailwind.config.js — add preset
@@ -177,6 +177,12 @@ Design freely based on user's project description. Always use 7onic components +
    - Do NOT use `opacity-*` utility as a workaround — it affects the entire element including children
    - `bg-primary/10` ✅ (only background is transparent) / `bg-primary opacity-10` ❌ (children also become transparent)
 
+9. **Token-first rule** — Before adding any Tailwind utility, check if the property is already included in a design token. Typography tokens (`text-sm`, `text-md`, etc.) include both font-size AND line-height as a pair. Do NOT override with Tailwind line-height utilities:
+   - `text-sm` ✅ (token provides font-size + line-height)
+   - `text-sm leading-relaxed` ❌ (overrides token line-height)
+   - `text-sm leading-none` ❌ (overrides token line-height)
+   - `text-sm leading-[18px]` ❌ (hardcodes line-height)
+
 **Everything not in this list is FORBIDDEN.**
 
 ⚠️ **Gradient/visual utilities must use token colors only:** `from-primary to-secondary` ✅ / `from-blue-500 to-purple-600` ❌
@@ -193,7 +199,7 @@ Step 2: Is this a layout/structural element? (flex container, grid, section wrap
   → YES: Use div/section + token classes only.
   → NO: Step 3
 
-Step 3: Re-check the 38 components. Most UI can be built with component combinations.
+Step 3: Re-check the 42 components. Most UI can be built with component combinations.
   → Still no match: Use div + token classes only.
 ```
 
@@ -343,7 +349,7 @@ Strategy: `dark` class on `<html>` element.
 - Border: `border`, `border-subtle`, `border-strong`
 - State: `disabled`, `disabled-text`, `focus-ring`, `focus-ring-error`
 
-**Spacing:** 0, 0.5(2px), 1(4px), 1.5(6px), 2(8px), 2.5(10px), 3(12px), 4(16px), 5(20px), 6(24px), 7(28px), 8(32px), 10(40px), 12(48px), 14(56px), 16(64px), 20(80px), 24(96px)
+**Spacing:** 0, 0.5(2px), 1(4px), 1.5(6px), 2(8px), 2.5(10px), 3(12px), 3.5(14px), 4(16px), 5(20px), 6(24px), 7(28px), 8(32px), 10(40px), 12(48px), 14(56px), 16(64px), 20(80px), 24(96px)
 
 **Font:** `font-sans` (user-defined), `font-mono` (user-defined)
 **Font Sizes:** text-2xs(11px), text-xs(12px), text-sm(13px), text-md(14px), text-base(16px), text-lg(18px), text-xl(20px), text-2xl(24px), text-3xl(30px), text-4xl(36px), text-5xl(48px)
@@ -401,17 +407,17 @@ import { Card } from '@7onic-ui/react'
 import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
 ```
 
-### Compound Components List (21)
+### Compound Components List (24)
 
-Accordion, Alert, Avatar, Breadcrumb, Card, Chart, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
+Accordion, Alert, Avatar, Breadcrumb, Card, ChatInput, ChatMessage, Chart, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, QuickReply, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
 
-### Standalone Components (15)
+### Standalone Components (16)
 
-Badge, Button, ButtonGroup, Checkbox, Divider, IconButton, Input, Progress, Skeleton, Slider, Spinner, Switch, Textarea, Toast, Toggle
+Badge, Button, ButtonGroup, Checkbox, Divider, IconButton, Input, Progress, Skeleton, Slider, Spinner, Switch, Textarea, Toast, Toggle, TypingIndicator
 
 ---
 
-# ═══ SECTION 3: ALL COMPONENTS (38) ═══
+# ═══ SECTION 3: ALL COMPONENTS (42) ═══
 
 ---
 
@@ -1940,6 +1946,266 @@ But if YOUR code uses React hooks (`useState`, `useEffect`) or event handlers (`
 | NavigationMenu | Compound | — | sm/md/default/lg | — | horizontal/vertical, collapsed |
 | Chart | Compound | — | — | chart colors | Bar/Line/Area/Pie |
 | MetricCard | Compound | default/elevated/ghost | sm/default/lg | — | animated value, trend |
+| TypingIndicator | Standalone | dots/cursor | sm/default/lg | default/primary/muted | speed (dots only), animate-typing-cursor, showLabel |
+| QuickReply | Compound | outline/filled/ghost | sm/default/lg | default/primary | layout (scroll/wrap), radius (md/lg/full), gap, icon, asChild |
+| ChatInput | Compound | outline/filled | sm/default/lg | default/primary | layout (default/inline), radius (sm/md/lg/xl/2xl/full), buttonRadius, auto-resize, showCount, loading, onStop |
+| ChatMessage | Compound | bubble/flat | sm/default/lg | default/muted/primary/dark | role (assistant/user), tail, avatarSize, radius (md/lg/xl/2xl), typing, actions, Avatar/Content/Footer sub-components |
+---
+
+### TypingIndicator
+
+```tsx
+import { TypingIndicator } from '@7onic-ui/react'
+
+{/* Default — dots, muted, default size */}
+<TypingIndicator />
+
+{/* Cursor variant */}
+<TypingIndicator variant="cursor" />
+
+{/* Chat bubble */}
+<TypingIndicator variant="dots" color="muted" />
+
+{/* AI response — fast with label */}
+<TypingIndicator
+  variant="dots"
+  color="primary"
+  speed="fast"
+  showLabel
+  label="AI is typing..."
+/>
+
+{/* Large cursor, primary color */}
+<TypingIndicator variant="cursor" size="lg" color="primary" />
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| variant | `'dots' \| 'cursor'` | `'dots'` | Animation style |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Size |
+| color | `'default' \| 'primary' \| 'muted'` | `'muted'` | Color |
+| speed | `'slow' \| 'default' \| 'fast'` | `'default'` | Speed (dots only) |
+| label | `string` | `'Typing'` | aria-label and showLabel text |
+| showLabel | `boolean` | `false` | Show text label alongside indicator |
+
+---
+
+### QuickReply
+
+```tsx
+import { QuickReply } from '@7onic-ui/react'
+
+{/* Basic suggested replies */}
+<QuickReply aria-label="Suggested replies">
+  <QuickReply.Item>About payment</QuickReply.Item>
+  <QuickReply.Item>Shipping info</QuickReply.Item>
+  <QuickReply.Item>Return policy</QuickReply.Item>
+</QuickReply>
+
+{/* Primary color, filled variant */}
+<QuickReply color="primary" variant="filled" aria-label="Quick replies">
+  <QuickReply.Item>Payment</QuickReply.Item>
+  <QuickReply.Item>Shipping</QuickReply.Item>
+</QuickReply>
+
+{/* Wrap layout for FAQ */}
+<QuickReply layout="wrap" aria-label="FAQ topics">
+  <QuickReply.Item>Payments</QuickReply.Item>
+  <QuickReply.Item>Shipping</QuickReply.Item>
+  <QuickReply.Item>Returns</QuickReply.Item>
+  <QuickReply.Item>Account</QuickReply.Item>
+</QuickReply>
+
+{/* With icon */}
+<QuickReply aria-label="Actions">
+  <QuickReply.Item icon={<MessageCircle />}>Contact us</QuickReply.Item>
+  <QuickReply.Item icon={<Package />}>Track order</QuickReply.Item>
+</QuickReply>
+```
+
+| Prop (QuickReply) | Type | Default | Description |
+|---|---|---|---|
+| layout | `'scroll' \| 'wrap'` | `'scroll'` | Chip layout mode |
+| variant | `'outline' \| 'filled' \| 'ghost'` | `'outline'` | Visual style |
+| color | `'default' \| 'primary'` | `'default'` | Color theme |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Chip size |
+| radius | `'md' \| 'lg' \| 'full'` | `'full'` | Border radius |
+| gap | `'sm' \| 'default' \| 'lg'` | `'default'` | Gap between chips |
+
+| Prop (QuickReply.Item) | Type | Default | Description |
+|---|---|---|---|
+| icon | `ReactNode` | — | Leading icon |
+| asChild | `boolean` | `false` | Compose with custom element (Radix Slot) |
+| disabled | `boolean` | `false` | Disable the chip |
+| onClick | `() => void` | — | Click callback |
+
+---
+
+### ChatInput
+
+```tsx
+import { ChatInput } from '@7onic-ui/react'
+
+{/* Basic uncontrolled */}
+<ChatInput onSubmit={(value) => console.log(value)}>
+  <ChatInput.Field placeholder="Ask me anything..." />
+  <ChatInput.Submit />
+</ChatInput>
+
+{/* Controlled mode */}
+const [value, setValue] = useState('')
+<ChatInput onSubmit={(v) => { handleSend(v); setValue('') }}>
+  <ChatInput.Field
+    value={value}
+    onChange={(e) => setValue(e.target.value)}
+    placeholder="Ask me anything..."
+  />
+  <ChatInput.Submit />
+</ChatInput>
+
+{/* With loading state + stop */}
+<ChatInput onSubmit={handleSubmit}>
+  <ChatInput.Field placeholder="Ask me anything..." />
+  <ChatInput.Submit
+    loading={isLoading}
+    onStop={() => abortController.abort()}
+  />
+</ChatInput>
+
+{/* Character count */}
+<ChatInput onSubmit={(value) => console.log(value)}>
+  <ChatInput.Field placeholder="Ask me anything..." showCount maxLength={500} />
+  <ChatInput.Submit />
+</ChatInput>
+
+{/* Filled variant, large, custom radius */}
+<ChatInput variant="filled" size="lg" radius="2xl" onSubmit={(v) => console.log(v)}>
+  <ChatInput.Field placeholder="Ask me anything..." maxRows={6} />
+  <ChatInput.Submit />
+</ChatInput>
+
+{/* Inline layout (single-line field + button side by side) */}
+<ChatInput layout="inline" radius="full" onSubmit={(value) => console.log(value)}>
+  <ChatInput.Field placeholder="Message..." />
+  <ChatInput.Submit />
+</ChatInput>
+
+{/* Inline with custom button radius */}
+<ChatInput layout="inline" radius="xl" onSubmit={handleSubmit}>
+  <ChatInput.Field placeholder="Message..." />
+  <ChatInput.Submit buttonRadius="full" loading={isLoading} onStop={handleStop} />
+</ChatInput>
+```
+
+| Prop (ChatInput) | Type | Default | Description |
+|---|---|---|---|
+| variant | `'outline' \| 'filled'` | `'outline'` | Visual style |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Size scale |
+| radius | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| 'full'` | `'xl'` | Corner radius (`'full'` available in inline layout) |
+| color | `'default' \| 'primary'` | `'default'` | Submit button color |
+| layout | `'default' \| 'inline'` | `'default'` | `'inline'` renders field and button side by side |
+| disabled | `boolean` | `false` | Disable input and submit |
+| onSubmit | `(value: string) => void` | — | Submit callback |
+
+| Prop (ChatInput.Field) | Type | Default | Description |
+|---|---|---|---|
+| maxRows | `number` | `8` | Max rows before scrolling |
+| showCount | `boolean` | `false` | Show character counter (default layout only) |
+| maxLength | `number` | — | Max characters |
+| placeholder | `string` | — | Placeholder text |
+
+| Prop (ChatInput.Submit) | Type | Default | Description |
+|---|---|---|---|
+| loading | `boolean` | `false` | Switch to stop icon — button stays enabled |
+| onStop | `() => void` | — | Called on click when loading |
+| buttonRadius | `'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| 'full'` | — | Override button radius (default: auto from container radius) |
+| children | `ReactNode` | — | Custom icon (default: send arrow) |
+
+### ChatMessage
+
+```tsx
+import { ChatMessage } from '@7onic-ui/react'
+
+{/* Assistant message */}
+<ChatMessage role="assistant">
+  <ChatMessage.Avatar />
+  <div className="flex flex-col gap-1">
+    <ChatMessage.Content>How can I help you today?</ChatMessage.Content>
+    <ChatMessage.Footer timestamp="12:34" />
+  </div>
+</ChatMessage>
+
+{/* User message with status */}
+<ChatMessage role="user">
+  <div className="flex flex-col gap-1 items-end">
+    <ChatMessage.Content>Thank you for your help!</ChatMessage.Content>
+    <ChatMessage.Footer timestamp="12:34" status="read" />
+  </div>
+</ChatMessage>
+
+{/* Typing animation */}
+<ChatMessage role="assistant" typing>
+  <ChatMessage.Avatar />
+  <ChatMessage.Content />
+</ChatMessage>
+
+{/* Custom avatar + hover actions */}
+<ChatMessage
+  role="assistant"
+  actions={<button aria-label="Copy">...</button>}
+>
+  <ChatMessage.Avatar initials="AI" />
+  <div className="flex flex-col gap-1">
+    <ChatMessage.Content>Response text here.</ChatMessage.Content>
+    <ChatMessage.Footer timestamp="12:34" />
+  </div>
+</ChatMessage>
+
+{/* User bubble with muted color (common pattern) */}
+<ChatMessage role="user" color="muted">
+  <div className="flex flex-col gap-1 items-end">
+    <ChatMessage.Content>Message text</ChatMessage.Content>
+    <ChatMessage.Footer timestamp="12:34" status="read" />
+  </div>
+</ChatMessage>
+
+{/* History (flat) layout — full-width, no footer */}
+<div className="flex flex-col gap-3">
+  <ChatMessage role="assistant" variant="flat">
+    <ChatMessage.Avatar />
+    <ChatMessage.Content className="w-full">Here is the answer.</ChatMessage.Content>
+  </ChatMessage>
+  <ChatMessage role="user" variant="flat" color="muted">
+    <ChatMessage.Content className="w-full">Thanks!</ChatMessage.Content>
+  </ChatMessage>
+</div>
+```
+
+| Prop (ChatMessage) | Type | Default | Description |
+|---|---|---|---|
+| role | `'assistant' \| 'user'` | `'assistant'` | Aligns left (assistant) or right (user) |
+| variant | `'bubble' \| 'flat'` | `'bubble'` | Bubble style with background/border, or flat with no fill |
+| color | `'default' \| 'muted' \| 'primary' \| 'dark'` | `'default'` | Bubble background color |
+| size | `'sm' \| 'default' \| 'lg'` | `'default'` | Size scale affecting padding and font |
+| radius | `'md' \| 'lg' \| 'xl' \| '2xl'` | `'2xl'` | Bubble corner radius |
+| tail | `boolean` | `true` | Asymmetric tail corner (sharp on avatar side) — bubble only |
+| avatarSize | `'sm' \| 'md' \| 'lg'` | — | Avatar size — also adjusts gap between avatar and bubble |
+| typing | `boolean` | `false` | Show animated typing dots inside Content |
+| actions | `ReactNode` | — | Hover-reveal action buttons (copy, react, etc.) |
+
+| Prop (ChatMessage.Avatar) | Type | Default | Description |
+|---|---|---|---|
+| size | `'sm' \| 'md' \| 'lg'` | `'md'` | Avatar size: 24/28/32px |
+| src | `string` | — | Avatar image URL |
+| alt | `string` | `'Avatar'` | Alt text |
+| initials | `string` | — | 1–2 character initials (fallback) |
+| icon | `ReactNode` | — | Custom icon (fallback) |
+
+| Prop (ChatMessage.Footer) | Type | Default | Description |
+|---|---|---|---|
+| timestamp | `string` | — | Pre-formatted time string |
+| status | `'sending' \| 'sent' \| 'read' \| 'error' \| ReactNode` | — | Delivery status (built-in presets or custom node) |
+| size | `'sm' \| 'default' \| 'lg'` | — | Size override (defaults to context value from root) |
 
 ---
 

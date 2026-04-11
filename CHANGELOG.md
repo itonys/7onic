@@ -6,6 +6,29 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.3] — 2026-04-11
+
+### @7onic-ui/react
+
+#### Added
+- `TypingIndicator` component — animated typing indicator with dots/cursor variants, 3 sizes, label support
+- `QuickReply` component — quick reply chip list with icon support, 3 sizes, compound pattern (`QuickReply` + `QuickReply.Item`)
+- `ChatInput` component — compound AI chat input with auto-resizing textarea, send/stop toggle, loading state, character count, 2 variants, 3 sizes, 6 radius options (`ChatInput` + `ChatInput.Field` + `ChatInput.Submit`)
+- `ChatMessage` component — compound AI chat message display with assistant/user roles, bubble/flat variants, typing animation, 4 delivery status options, hover actions, 3 sizes, 4 radius options (`ChatMessage` + `ChatMessage.Avatar` + `ChatMessage.Content` + `ChatMessage.Footer`)
+
+#### Fixed
+- Documentation CSS examples: `@import` now correctly precedes `@tailwind` directives (CSS spec compliance)
+
+#### Removed
+- Unused `src/index.ts` barrel file (build entry is `src/components/ui/index.ts`)
+
+### @7onic-ui/tokens
+
+#### Added
+- `spacing-3.5` (14px / `--spacing-3-5`) — completes the 2px sub-grid for the 0–14px range
+
+---
+
 ## [0.2.2] — 2026-04-10
 
 ### @7onic-ui/react

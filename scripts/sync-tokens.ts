@@ -632,7 +632,7 @@ function warnUnknownThemeCategories(themeColor: Record<string, Record<string, To
  */
 interface AnimationToken {
   name: string
-  type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin' | 'progress-stripe' | 'spinner-orbit' | 'spinner-dot' | 'spinner-bar' | 'spinner-morph' | 'skeleton-pulse' | 'skeleton-wave'
+  type: 'enter' | 'exit' | 'height-expand' | 'height-collapse' | 'spin' | 'progress-stripe' | 'spinner-orbit' | 'spinner-dot' | 'spinner-bar' | 'spinner-morph' | 'skeleton-pulse' | 'skeleton-wave' | 'typing-cursor'
   opacity: string         // raw value e.g. "0" (empty if not used)
   scale: string           // raw value e.g. "0.75" (empty if not used)
   translateX: string      // raw value e.g. "100%" or "8" in px (empty if not used)
@@ -671,7 +671,7 @@ function readAnimationTokens(tokens: FigmaTokens): AnimationToken[] | null {
 
     // Special types
     const animationType = ext?.animationType as string | undefined
-    if (animationType === 'spin' || animationType === 'progress-stripe' || animationType === 'spinner-orbit' || animationType === 'spinner-dot' || animationType === 'spinner-bar' || animationType === 'spinner-morph' || animationType === 'skeleton-pulse' || animationType === 'skeleton-wave') {
+    if (animationType === 'spin' || animationType === 'progress-stripe' || animationType === 'spinner-orbit' || animationType === 'spinner-dot' || animationType === 'spinner-bar' || animationType === 'spinner-morph' || animationType === 'skeleton-pulse' || animationType === 'skeleton-wave' || animationType === 'typing-cursor') {
       result.push({ name, type: animationType as AnimationToken['type'], opacity: '', scale: '', translateX: '', translateXNegative: false, translateY: '', translateYNegative: false, heightVar: '', durationVar, easingVar })
       continue
     }
@@ -842,6 +842,23 @@ function generateAnimationCss(a: AnimationToken, format: 'css' | 'v4'): string {
     lines.push(`@keyframes ${a.name} {`)
     lines.push(`  0% { transform: translateX(-100%); }`)
     lines.push(`  100% { transform: translateX(100%); }`)
+    lines.push(`}`)
+
+    if (format === 'v4') {
+      lines.push(`@utility animate-${a.name} {`)
+    } else {
+      lines.push(`.animate-${a.name} {`)
+    }
+    lines.push(`  animation: ${a.name} ${a.durationVar} ${a.easingVar} infinite;`)
+    lines.push(`}`)
+    return lines.join('\n')
+  }
+
+  // Typing cursor (blinking cursor — opacity fade)
+  if (a.type === 'typing-cursor') {
+    lines.push(`@keyframes ${a.name} {`)
+    lines.push(`  0%, 100% { opacity: 1; }`)
+    lines.push(`  50% { opacity: 0.4; }`)
     lines.push(`}`)
 
     if (format === 'v4') {
@@ -2569,6 +2586,11 @@ function generateV3Preset(tokens: FigmaTokens): string {
         lines.push(`          '0%': { 'transform': 'translateX(-100%)' },`)
         lines.push(`          '100%': { 'transform': 'translateX(100%)' },`)
         lines.push(`        },`)
+      } else if (a.type === 'typing-cursor') {
+        lines.push(`        '${a.name}': {`)
+        lines.push(`          '0%, 100%': { 'opacity': '1' },`)
+        lines.push(`          '50%': { 'opacity': '0.4' },`)
+        lines.push(`        },`)
       } else {
         const isEnter = a.type === 'enter'
         const fromProps: string[] = []
@@ -2589,7 +2611,7 @@ function generateV3Preset(tokens: FigmaTokens): string {
   lines.push(`      },`)
   lines.push(``)
 
-  const infiniteTypes = new Set(['spin', 'progress-stripe', 'spinner-orbit', 'spinner-dot', 'spinner-bar', 'spinner-morph', 'skeleton-pulse', 'skeleton-wave'])
+  const infiniteTypes = new Set(['spin', 'progress-stripe', 'spinner-orbit', 'spinner-dot', 'spinner-bar', 'spinner-morph', 'skeleton-pulse', 'skeleton-wave', 'typing-cursor'])
   lines.push(`      animation: {`)
   if (v3Anim) {
     for (const a of v3Anim) {

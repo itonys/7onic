@@ -4,6 +4,17 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.4] — 2026-04-11
+
+### 7onic
+
+#### Added
+- `typing-indicator`, `quick-reply`, `chat-input`, `chat-message` — 4 AI components available via `7onic add`
+- `chat-message` auto-installs `avatar` + `typing-indicator` as registry dependencies
+
+#### Fixed
+- `--version` now auto-reads from package.json (no more hardcoded version string)
+
 ---
 
 ## [0.1.3] — 2026-04-10

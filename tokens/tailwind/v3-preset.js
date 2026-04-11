@@ -230,6 +230,7 @@ module.exports = {
         '2': 'var(--spacing-2)',
         '2.5': 'var(--spacing-2-5)',
         '3': 'var(--spacing-3)',
+        '3.5': 'var(--spacing-3-5)',
         '4': 'var(--spacing-4)',
         '5': 'var(--spacing-5)',
         '6': 'var(--spacing-6)',
@@ -550,6 +551,10 @@ module.exports = {
           '0%': { 'transform': 'translateX(-100%)' },
           '100%': { 'transform': 'translateX(100%)' },
         },
+        'typing-cursor': {
+          '0%, 100%': { 'opacity': '1' },
+          '50%': { 'opacity': '0.4' },
+        },
       },
 
       animation: {
@@ -607,6 +612,7 @@ module.exports = {
         'spinner-morph': 'spinner-morph var(--duration-spin) var(--easing-ease-in-out) infinite',
         'skeleton-pulse': 'skeleton-pulse var(--duration-spin) var(--easing-ease-in-out) infinite',
         'skeleton-wave': 'skeleton-wave var(--duration-spin) var(--easing-linear) infinite',
+        'typing-cursor': 'typing-cursor var(--duration-spin) var(--easing-ease-in-out) infinite',
       },
     },
   },
@@ -695,6 +701,7 @@ module.exports = {
         '.animate-spinner-morph': { 'animation': 'spinner-morph var(--duration-spin) var(--easing-ease-in-out) infinite' },
         '.animate-skeleton-pulse': { 'animation': 'skeleton-pulse var(--duration-spin) var(--easing-ease-in-out) infinite' },
         '.animate-skeleton-wave': { 'animation': 'skeleton-wave var(--duration-spin) var(--easing-linear) infinite' },
+        '.animate-typing-cursor': { 'animation': 'typing-cursor var(--duration-spin) var(--easing-ease-in-out) infinite' },
       })
     },
   ],
