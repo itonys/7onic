@@ -37,6 +37,7 @@ next-env.d.ts
 # IDE / Editor
 .claude/*
 !.claude/commands/
+.cursor/
 .playwright-mcp/
 .idea/
 .vscode/
