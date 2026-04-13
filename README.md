@@ -272,6 +272,12 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 
 ---
 
+## Contributing
+
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a PR.
+
+---
+
 ## License
 
 MIT

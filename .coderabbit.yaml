@@ -1,0 +1,70 @@
+# CodeRabbit Configuration
+# https://docs.coderabbit.ai/guides/configuration
+
+language: en-US
+tone_instructions: "Be direct and specific. Flag token violations clearly."
+
+reviews:
+  profile: assertive
+  high_level_summary: true
+
+  # High-level review instructions
+  instructions: |
+    This is a design system project. The #1 rule is: **no hardcoded visual values**.
+    All colors, spacing, font sizes, border radius, z-index, and durations must use design tokens.
+
+    Quick reference for common violations:
+    - Colors: `bg-primary` not `bg-gray-500`
+    - Spacing: `p-4` not `p-[17px]`
+    - Font size: `text-sm` not `text-[13px]`
+    - Font weight: only `font-normal`(400) / `font-semibold`(600) / `font-bold`(700) — `font-medium` does NOT exist
+    - Icon size: `icon-sm` not `w-4 h-4`
+    - Border radius: `rounded-md` not `rounded-[7px]`
+    - Z-index: `z-modal` not `z-[999]`
+    - Duration: `duration-fast` not `duration-150`
+
+    Some hardcoded values are intentionally allowed (SVG attributes, Recharts numeric props, etc.).
+    These files have eslint-disable comments with explanations. Don't flag those as violations.
+
+  # Path-specific review instructions
+  path_instructions:
+    - path: "src/components/ui/**"
+      instructions: |
+        Component code rules:
+        1. Must use Radix UI Primitives as base (where applicable)
+        2. Must use CVA (class-variance-authority) for variants
+        3. Must use forwardRef
+        4. Must have 'use client' directive
+        5. Compound components use Object.assign namespace pattern:
+           `const Card = Object.assign(CardRoot, { Header, Content })`
+        6. Existing named exports must be preserved (backward compatibility)
+        7. No hardcoded colors, spacing, font sizes — use design tokens
+        8. Icon sizes must use icon-2xs/xs/sm/md/lg/xl classes, not w-N h-N
+        9. flex icon+text alignment must use items-center, not items-start
+        10. eslint-disable comments for no-namespace and no-explicit-any are intentional — don't flag them
+
+    - path: "tokens/figma-tokens.json"
+      instructions: |
+        This is the single source of truth for all design tokens.
+        Changes here require running `npm run sync-tokens` to regenerate 11 distribution files.
+        Do NOT add description, $description, or usage fields — this file is for data only.
+        Structural changes need maintainer discussion.
+
+    - path: "cli/**"
+      instructions: |
+        CLI tool for copying component source files into user projects (like shadcn).
+        Key concerns: cross-platform path handling, Tailwind v3/v4 detection,
+        import rewriting (@/lib/utils), and dependency resolution.
+        Registry file (cli/src/registry/index.ts) is auto-generated — do not edit manually.
+
+    - path: "scripts/**"
+      instructions: |
+        Build and sync scripts. Key scripts:
+        - sync-tokens: generates 11 distribution files from figma-tokens.json
+        - generate-registry: embeds component source into CLI registry
+        - verify-components: checks for hardcoded values in components
+        Do not remove safety checks or .git protection filters.
+
+  auto_review:
+    enabled: true
+    drafts: false
