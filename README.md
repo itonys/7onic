@@ -276,6 +276,8 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a PR.
 
+> 7onic is a solo project — your star or kind word genuinely helps. ⭐
+
 ---
 
 ## License
