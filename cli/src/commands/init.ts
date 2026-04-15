@@ -106,17 +106,43 @@ export async function init(args: string[]): Promise<void> {
     } catch { /* file not found, continue */ }
   }
 
+  // Detect Vite project (has tsconfig.app.json + vite.config.ts/js)
+  const viteConfigPath =
+    fs.existsSync(path.join(projectRoot, 'vite.config.ts'))
+      ? path.join(projectRoot, 'vite.config.ts')
+      : fs.existsSync(path.join(projectRoot, 'vite.config.js'))
+        ? path.join(projectRoot, 'vite.config.js')
+        : null
+  const isViteProject =
+    fs.existsSync(path.join(projectRoot, 'tsconfig.app.json')) && viteConfigPath !== null
+
+  let needsTypesNode = false
+
   if (!hasPathAlias) {
-    p.log.warn(
-      'No @/ path alias detected in tsconfig.\n' +
-      '  Components use @/lib/utils — make sure your project has path aliases configured.\n' +
-      '  Next.js: automatic (no action needed)\n' +
-      '  Vite: add to both files:\n\n' +
-      '    // tsconfig.app.json → "compilerOptions.paths"\n' +
-      '    { "@/*": ["./src/*"] }\n\n' +
-      '    // vite.config.ts → "resolve.alias"\n' +
-      '    { "@": path.resolve(__dirname, "./src") }'
-    )
+    if (isViteProject) {
+      // Auto-patch tsconfig.app.json
+      const tscPatch = patchTsconfigApp(path.join(projectRoot, 'tsconfig.app.json'))
+      // Auto-patch vite.config.ts
+      const vitePatch = patchViteConfig(viteConfigPath!)
+      if (vitePatch) needsTypesNode = true
+
+      if (tscPatch || vitePatch) {
+        p.log.success('Configured @/ path alias in tsconfig.app.json and vite.config.ts')
+      } else {
+        p.log.warn(
+          'Could not auto-configure @/ path alias. Add manually:\n' +
+          '  tsconfig.app.json → compilerOptions.paths: { "@/*": ["./src/*"] }\n' +
+          '  vite.config.ts → resolve: { alias: { "@": path.resolve(__dirname, "./src") } }'
+        )
+      }
+    } else {
+      // Next.js handles aliases automatically — no action needed
+      p.log.warn(
+        'No @/ path alias detected.\n' +
+        '  Next.js: automatic (no action needed)\n' +
+        '  Other: configure compilerOptions.paths in tsconfig.json'
+      )
+    }
   }
 
   // 7. Check @7onic-ui/react coexistence
@@ -199,6 +225,9 @@ export async function init(args: string[]): Promise<void> {
   s.start(`Installing dependencies (${pm})...`)
   try {
     installDeps(baseDeps, { cwd: projectRoot, pm })
+    if (needsTypesNode) {
+      installDeps(['@types/node'], { cwd: projectRoot, pm, dev: true })
+    }
     s.stop('Dependencies installed')
   } catch (err) {
     s.stop('Failed to install dependencies')
@@ -309,6 +338,75 @@ export async function init(args: string[]): Promise<void> {
   p.log.success('Created 7onic.json')
 
   p.outro('Done! Run ' + pc.cyan('npx 7onic add <component>') + ' to add components.')
+}
+
+/**
+ * Patch tsconfig.app.json to add @/* path alias (JSONC-safe).
+ * Returns true if the file was modified.
+ */
+function patchTsconfigApp(tsconfigPath: string): boolean {
+  try {
+    const raw = fs.readFileSync(tsconfigPath, 'utf-8')
+    // Strip JSONC comments and trailing commas before parsing
+    const clean = raw
+      .replace(/\/\*[\s\S]*?\*\//g, '')
+      .replace(/\/\/.*$/gm, '')
+      .replace(/,(\s*[}\]])/g, '$1')
+    const tc = JSON.parse(clean)
+    if (!tc.compilerOptions) tc.compilerOptions = {}
+    const existingPaths = tc.compilerOptions.paths ?? {}
+    if (existingPaths['@/*']) return false // already configured
+    tc.compilerOptions.paths = { '@/*': ['./src/*'], ...existingPaths }
+    fs.writeFileSync(tsconfigPath, JSON.stringify(tc, null, 2), 'utf-8')
+    return true
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Patch vite.config.ts to add path import and resolve.alias for @/*.
+ * Returns true if the file was modified.
+ */
+function patchViteConfig(viteConfigPath: string): boolean {
+  try {
+    let content = fs.readFileSync(viteConfigPath, 'utf-8')
+
+    // Already has @ alias — skip
+    if (
+      content.includes("'@'") || content.includes('"@"') ||
+      content.includes("'@/*'") || content.includes('"@/*"') ||
+      content.includes('resolve:')
+    ) return false
+
+    // Add `import path from 'path'` after last import statement
+    if (
+      !content.includes("import path from 'path'") &&
+      !content.includes('import path from "path"')
+    ) {
+      const importMatches = [...content.matchAll(/^import .+$/gm)]
+      const lastImport = importMatches.at(-1)
+      if (lastImport?.index !== undefined) {
+        const insertAt = lastImport.index + lastImport[0].length
+        content = content.slice(0, insertAt) + "\nimport path from 'path'" + content.slice(insertAt)
+      }
+    }
+
+    // Add resolve.alias before the final }) of defineConfig
+    const lastClose = content.lastIndexOf('\n})')
+    if (lastClose === -1) return false
+
+    const beforeClose = content.slice(0, lastClose).trimEnd()
+    const comma = beforeClose.endsWith(',') ? '' : ','
+    const resolveBlock =
+      `${comma}\n  resolve: {\n    alias: { '@': path.resolve(__dirname, './src') },\n  },`
+    content = content.slice(0, lastClose) + resolveBlock + content.slice(lastClose)
+
+    fs.writeFileSync(viteConfigPath, content, 'utf-8')
+    return true
+  } catch {
+    return false
+  }
 }
 
 /**

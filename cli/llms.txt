@@ -25,14 +25,15 @@ npx 7onic init --tailwind v3 --yes    # Explicit v3, skip prompts
 **What it does:**
 1. Detects Tailwind version (v3: config file exists, v4: no config) — or uses `--tailwind` flag
 2. Detects package manager (npm/pnpm/yarn/bun)
-3. Installs: `@7onic-ui/tokens`, `clsx`, `tailwind-merge`, `class-variance-authority`
-4. Creates/updates CSS file with token imports
-5. Creates `cn()` utility at configured path
-6. Writes `7onic.json` config
+3. **Vite projects**: auto-configures `@/` path alias — patches `tsconfig.app.json` (JSONC-safe) and `vite.config.ts` (adds `import path` + `resolve.alias`), installs `@types/node`
+4. Installs: `@7onic-ui/tokens`, `lucide-react`, `clsx`, `tailwind-merge`, `class-variance-authority`
+5. Creates/updates CSS file with token imports (v4: auto-injects `@import "tailwindcss"` if missing)
+6. Creates `cn()` utility at configured path
+7. Writes `7onic.json` config
 
 **Requirements:**
 - TypeScript project (tsconfig.json required)
-- `@/` path alias configured
+- `@/` path alias — auto-configured for Vite; Next.js handles this automatically
 
 ### add
 

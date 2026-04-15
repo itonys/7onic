@@ -4,6 +4,15 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.6] — 2026-04-15
+
+### 7onic
+
+#### Fixed
+- `init` — auto-configure `@/` path alias for Vite projects: patches `tsconfig.app.json` (JSONC-safe) and `vite.config.ts` (adds `import path` + `resolve.alias`), installs `@types/node` as devDep
+
+---
+
 ## [0.1.5] — 2026-04-15
 
 ### 7onic

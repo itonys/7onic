@@ -92,37 +92,19 @@ test_vite_tw4() {
 
   run_step "Install dependencies" "$log" npm install || return 1
   run_step "Install Tailwind v4" "$log" npm install tailwindcss @tailwindcss/vite || return 1
-  run_step "Install @types/node" "$log" npm install -D @types/node || return 1
 
-  # vite.config.ts — Tailwind plugin + path alias
+  # vite.config.ts — Tailwind plugin only (CLI init will auto-add @/ alias + @types/node)
   cat > vite.config.ts << 'CONF'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-import path from 'path'
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  resolve: {
-    alias: { '@': path.resolve(__dirname, './src') },
-  },
 })
 CONF
 
-  # tsconfig.app.json — path alias (JSONC: strip comments + trailing commas)
-  run_step "Configure path alias + vite" "$log" node -e "
-    const fs = require('fs');
-    const raw = fs.readFileSync('tsconfig.app.json', 'utf-8');
-    const clean = raw
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '')
-      .replace(/,(\s*[}\]])/g, '\$1');
-    const tc = JSON.parse(clean);
-    tc.compilerOptions.paths = { '@/*': ['./src/*'] };
-    fs.writeFileSync('tsconfig.app.json', JSON.stringify(tc, null, 2));
-  " || return 1
-
-  run_step "CLI init" "$log" node "$CLI" init --yes || return 1
+  run_step "CLI init (auto-alias)" "$log" node "$CLI" init --yes || return 1
   run_step "CLI add (button card input)" "$log" node "$CLI" add button card input --yes || return 1
   run_step "CLI add (toast tooltip)" "$log" node "$CLI" add toast tooltip --yes || return 1
   run_step "CLI add (chart)" "$log" node "$CLI" add chart --yes || return 1
@@ -147,21 +129,6 @@ test_vite_tw3() {
 
   run_step "Install dependencies" "$log" npm install || return 1
   run_step "Install Tailwind v3" "$log" npm install tailwindcss@3 postcss autoprefixer || return 1
-  run_step "Install @types/node" "$log" npm install -D @types/node || return 1
-
-  # vite.config.ts — path alias only (no tailwind plugin for v3)
-  cat > vite.config.ts << 'CONF'
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import path from 'path'
-
-export default defineConfig({
-  plugins: [react()],
-  resolve: {
-    alias: { '@': path.resolve(__dirname, './src') },
-  },
-})
-CONF
 
   # postcss.config.cjs — CJS required (Vite template has type: "module")
   cat > postcss.config.cjs << 'CONF'
@@ -185,20 +152,8 @@ module.exports = {
 }
 CONF
 
-  # tsconfig.app.json — path alias (JSONC: strip comments + trailing commas)
-  run_step "Configure path alias + tailwind" "$log" node -e "
-    const fs = require('fs');
-    const raw = fs.readFileSync('tsconfig.app.json', 'utf-8');
-    const clean = raw
-      .replace(/\/\*[\s\S]*?\*\//g, '')
-      .replace(/\/\/.*$/gm, '')
-      .replace(/,(\s*[}\]])/g, '\$1');
-    const tc = JSON.parse(clean);
-    tc.compilerOptions.paths = { '@/*': ['./src/*'] };
-    fs.writeFileSync('tsconfig.app.json', JSON.stringify(tc, null, 2));
-  " || return 1
-
-  run_step "CLI init (TW v3)" "$log" node "$CLI" init --tailwind v3 --yes || return 1
+  # vite.config.ts stays as default — CLI init will auto-add @/ alias + @types/node
+  run_step "CLI init (TW v3, auto-alias)" "$log" node "$CLI" init --tailwind v3 --yes || return 1
   run_step "CLI add (button card input)" "$log" node "$CLI" add button card input --yes || return 1
   run_step "CLI add (toast tooltip)" "$log" node "$CLI" add toast tooltip --yes || return 1
   run_step "CLI add (chart)" "$log" node "$CLI" add chart --yes || return 1

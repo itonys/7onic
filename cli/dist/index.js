@@ -1296,10 +1296,26 @@ async function init(args) {
     } catch {
     }
   }
+  const viteConfigPath = import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, "vite.config.ts")) ? import_node_path4.default.join(projectRoot, "vite.config.ts") : import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, "vite.config.js")) ? import_node_path4.default.join(projectRoot, "vite.config.js") : null;
+  const isViteProject = import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, "tsconfig.app.json")) && viteConfigPath !== null;
+  let needsTypesNode = false;
   if (!hasPathAlias) {
-    O2.warn(
-      'No @/ path alias detected in tsconfig.\n  Components use @/lib/utils \u2014 make sure your project has path aliases configured.\n  Next.js: automatic (no action needed)\n  Vite: add to both files:\n\n    // tsconfig.app.json \u2192 "compilerOptions.paths"\n    { "@/*": ["./src/*"] }\n\n    // vite.config.ts \u2192 "resolve.alias"\n    { "@": path.resolve(__dirname, "./src") }'
-    );
+    if (isViteProject) {
+      const tscPatch = patchTsconfigApp(import_node_path4.default.join(projectRoot, "tsconfig.app.json"));
+      const vitePatch = patchViteConfig(viteConfigPath);
+      if (vitePatch) needsTypesNode = true;
+      if (tscPatch || vitePatch) {
+        O2.success("Configured @/ path alias in tsconfig.app.json and vite.config.ts");
+      } else {
+        O2.warn(
+          'Could not auto-configure @/ path alias. Add manually:\n  tsconfig.app.json \u2192 compilerOptions.paths: { "@/*": ["./src/*"] }\n  vite.config.ts \u2192 resolve: { alias: { "@": path.resolve(__dirname, "./src") } }'
+        );
+      }
+    } else {
+      O2.warn(
+        "No @/ path alias detected.\n  Next.js: automatic (no action needed)\n  Other: configure compilerOptions.paths in tsconfig.json"
+      );
+    }
   }
   try {
     const pkgJson = JSON.parse(import_node_fs4.default.readFileSync(import_node_path4.default.join(projectRoot, "package.json"), "utf-8"));
@@ -1363,6 +1379,9 @@ async function init(args) {
   s.start(`Installing dependencies (${pm})...`);
   try {
     installDeps(baseDeps, { cwd: projectRoot, pm });
+    if (needsTypesNode) {
+      installDeps(["@types/node"], { cwd: projectRoot, pm, dev: true });
+    }
     s.stop("Dependencies installed");
   } catch (err) {
     s.stop("Failed to install dependencies");
@@ -1455,6 +1474,48 @@ async function init(args) {
   writeConfig(projectRoot, finalConfig);
   O2.success("Created 7onic.json");
   gt("Done! Run " + import_picocolors2.default.cyan("npx 7onic add <component>") + " to add components.");
+}
+function patchTsconfigApp(tsconfigPath) {
+  try {
+    const raw = import_node_fs4.default.readFileSync(tsconfigPath, "utf-8");
+    const clean = raw.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "").replace(/,(\s*[}\]])/g, "$1");
+    const tc = JSON.parse(clean);
+    if (!tc.compilerOptions) tc.compilerOptions = {};
+    const existingPaths = tc.compilerOptions.paths ?? {};
+    if (existingPaths["@/*"]) return false;
+    tc.compilerOptions.paths = { "@/*": ["./src/*"], ...existingPaths };
+    import_node_fs4.default.writeFileSync(tsconfigPath, JSON.stringify(tc, null, 2), "utf-8");
+    return true;
+  } catch {
+    return false;
+  }
+}
+function patchViteConfig(viteConfigPath) {
+  try {
+    let content = import_node_fs4.default.readFileSync(viteConfigPath, "utf-8");
+    if (content.includes("'@'") || content.includes('"@"') || content.includes("'@/*'") || content.includes('"@/*"') || content.includes("resolve:")) return false;
+    if (!content.includes("import path from 'path'") && !content.includes('import path from "path"')) {
+      const importMatches = [...content.matchAll(/^import .+$/gm)];
+      const lastImport = importMatches.at(-1);
+      if (lastImport?.index !== void 0) {
+        const insertAt = lastImport.index + lastImport[0].length;
+        content = content.slice(0, insertAt) + "\nimport path from 'path'" + content.slice(insertAt);
+      }
+    }
+    const lastClose = content.lastIndexOf("\n})");
+    if (lastClose === -1) return false;
+    const beforeClose = content.slice(0, lastClose).trimEnd();
+    const comma = beforeClose.endsWith(",") ? "" : ",";
+    const resolveBlock = `${comma}
+  resolve: {
+    alias: { '@': path.resolve(__dirname, './src') },
+  },`;
+    content = content.slice(0, lastClose) + resolveBlock + content.slice(lastClose);
+    import_node_fs4.default.writeFileSync(viteConfigPath, content, "utf-8");
+    return true;
+  } catch {
+    return false;
+  }
 }
 function resolveAliasPath(projectRoot, alias) {
   if (!alias.startsWith("@/")) return null;
@@ -14418,7 +14479,7 @@ function showSetupHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.5";
+var VERSION = "0.1.6";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

@@ -6,6 +6,15 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.5] — 2026-04-15
+
+### 7onic (CLI)
+
+#### Fixed
+- `init` — auto-configure `@/` path alias for Vite projects: patches `tsconfig.app.json` (JSONC-safe) and `vite.config.ts` (adds `import path` + `resolve.alias`), installs `@types/node` as devDep automatically
+
+---
+
 ## [0.2.4] — 2026-04-15
 
 ### @7onic-ui/react

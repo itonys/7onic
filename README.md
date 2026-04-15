@@ -263,10 +263,10 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.4
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.5
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
-- [x] `npx 7onic init` Vite support — `tsconfig.app.json` detection, `@import "tailwindcss"` + `@source` auto-inject
+- [x] `npx 7onic init` Vite support — `tsconfig.app.json` detection, `@import "tailwindcss"` + `@source` auto-inject, `@/` path alias auto-configure
 - [ ] Theme Customizer — live palette preview + CSS variable export
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
@@ -290,5 +290,5 @@ MIT
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
   Independently built.<br>
-  <sub>Last updated: 2026-04-15</sub>
+  <sub>Last updated: 2026-04-15 (v0.2.5)</sub>
 </p>

@@ -45,13 +45,15 @@ npm install @7onic-ui/react @7onic-ui/tokens lucide-react
 
 **New project (Tailwind v4):**
 ```css
-/* globals.css — ALL imports are required, do not skip any */
+/* globals.css (Next.js) or src/index.css (Vite) — ALL imports are required, do not skip any */
 @import "tailwindcss";
 @import "@7onic-ui/tokens/css/variables.css";
 @import "@7onic-ui/tokens/css/themes/light.css";
 @import "@7onic-ui/tokens/css/themes/dark.css";    /* omit ONLY if dark mode = no */
 @import "@7onic-ui/tokens/tailwind/v4-theme.css";
 ```
+
+> **Vite + Tailwind v4**: `npx 7onic init` auto-injects `@import "tailwindcss"` if not present, and automatically configures the `@/` path alias (patches `tsconfig.app.json` + `vite.config.ts`, installs `@types/node`). `npx 7onic add` auto-injects `@source "./components/ui"` (or relative path) so Tailwind scans your component files. No manual setup needed.
 
 **Existing project with Tailwind v3** (detect from tailwind.config.js):
 ```css

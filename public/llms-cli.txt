@@ -39,8 +39,9 @@ npx 7onic init
 
 This automatically:
 - Detects Tailwind v3/v4
+- **Vite projects**: configures `@/` path alias in `tsconfig.app.json` and `vite.config.ts`, installs `@types/node`
 - Installs base dependencies (@7onic-ui/tokens, lucide-react, class-variance-authority, clsx, tailwind-merge)
-- Sets up globals.css with all required token imports
+- Sets up globals.css with all required token imports (v4: auto-injects `@import "tailwindcss"` if missing)
 - Creates `cn()` utility at `lib/utils.ts`
 - Generates `7onic.json` config
 
@@ -1933,6 +1934,11 @@ But if YOUR code uses React hooks (`useState`, `useEffect`) or event handlers (`
 | Progress | Standalone | default/striped | sm/default/lg | default/primary | linear/circular |
 | Spinner | Standalone | ring/dots/bars/orbit | sm/default/lg | default/primary/current | 5 orbit styles |
 | Skeleton | Standalone | text/circular/rectangular | — | — | pulse/wave, count |
+| Breadcrumb | Compound | — | sm/default/lg | — | maxItems collapse |
+| Pagination | Compound | default/outline/ghost | xs/sm/default/lg/xl | default/primary | compound or auto |
+| NavigationMenu | Compound | — | sm/md/default/lg | — | horizontal/vertical, collapsed |
+| Chart | Compound | — | — | chart colors | Bar/Line/Area/Pie |
+| MetricCard | Compound | default/elevated/ghost | sm/default/lg | — | animated value, trend |
 | TypingIndicator | Standalone | dots/cursor | sm/default/lg | default/primary/muted | speed (dots only), animate-typing-cursor, showLabel |
 | QuickReply | Compound | outline/filled/ghost | sm/default/lg | default/primary | layout (scroll/wrap), radius (md/lg/full), gap, icon, asChild |
 | ChatInput | Compound | outline/filled | sm/default/lg | default/primary | layout (default/inline), radius (sm/md/lg/xl/2xl/full), buttonRadius, auto-resize, showCount, loading, onStop |
@@ -2193,14 +2199,6 @@ import { ChatMessage } from '@/components/ui/chat-message'
 | timestamp | `string` | — | Pre-formatted time string |
 | status | `'sending' \| 'sent' \| 'read' \| 'error' \| ReactNode` | — | Delivery status (built-in presets or custom node) |
 | size | `'sm' \| 'default' \| 'lg'` | — | Size override (defaults to context value from root) |
-
----
-
-| Breadcrumb | Compound | — | sm/default/lg | — | maxItems collapse |
-| Pagination | Compound | default/outline/ghost | xs/sm/default/lg/xl | default/primary | compound or auto |
-| NavigationMenu | Compound | — | sm/md/default/lg | — | horizontal/vertical, collapsed |
-| Chart | Compound | — | — | chart colors | Bar/Line/Area/Pie |
-| MetricCard | Compound | default/elevated/ghost | sm/default/lg | — | animated value, trend |
 
 ---
 
