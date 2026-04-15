@@ -361,7 +361,6 @@ const ToastItem = React.memo(function ToastItem({
 }: ToastItemProps) {
   const [isExiting, setIsExiting] = React.useState(false)
   const [isEntered, setIsEntered] = React.useState(false)
-  const [isPaused, setIsPaused] = React.useState(false) // eslint-disable-line @typescript-eslint/no-unused-vars
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const remainingRef = React.useRef<number>(0)
   const startTimeRef = React.useRef<number>(0)
@@ -428,10 +427,9 @@ const ToastItem = React.memo(function ToastItem({
     }
   }, [duration, handleAutoClose])
 
-  // Pause/resume on hover
+  // Pause/resume on hover (ref-only — no state update needed, avoids unnecessary re-renders)
   const handleMouseEnter = React.useCallback(() => {
     if (duration <= 0) return
-    setIsPaused(true)
     if (timerRef.current) {
       clearTimeout(timerRef.current)
       remainingRef.current -= Date.now() - startTimeRef.current
@@ -440,7 +438,6 @@ const ToastItem = React.memo(function ToastItem({
 
   const handleMouseLeave = React.useCallback(() => {
     if (duration <= 0) return
-    setIsPaused(false)
     startTimeRef.current = Date.now()
     timerRef.current = setTimeout(handleAutoClose, Math.max(remainingRef.current, TOAST_MIN_RESUME_MS))
   }, [duration, handleAutoClose])

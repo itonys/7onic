@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "target": "ES2020",
+    "paths": { "@/*": ["./src/*"] },
+    "baseUrl": ".",
+    "skipLibCheck": true
+  },
+  "include": ["src/components/ui/**/*.tsx"]
+}

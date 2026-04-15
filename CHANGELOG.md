@@ -6,6 +6,40 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.4] — 2026-04-15
+
+### @7onic-ui/react
+
+#### Fixed
+- `card.tsx` — removed unused `sizePaddingMap` (caused `noUnusedLocals` error in Vite strict tsconfig)
+- `pagination.tsx` — `withControls`/`withEdges` extracted via rest pattern (caused `noUnusedLocals` error in Vite strict tsconfig)
+- `toast.tsx` — `isPaused` changed to `[, setIsPaused]` destructuring (caused `noUnusedLocals` error in Vite strict tsconfig)
+
+### 7onic (CLI)
+
+#### Fixed
+- `init` — detect `@/` path alias in `tsconfig.app.json` (Vite split tsconfig support)
+- `init` — auto-inject `@import "tailwindcss"` for Tailwind v4 (skip if already present)
+- `init` — improved Vite-specific warning message with both `tsconfig.app.json` and `vite.config.ts` guidance
+- `add` — auto-inject `@source` directive for Tailwind v4 CSS (relative path from CSS entry to components dir)
+- `install-deps` — add `--ignore-engines` flag for yarn install compatibility
+
+#### Added
+- `tsconfig.strict-check.json` — consumer-environment tsc verification (`noUnusedLocals: true`)
+- `smoke-test.sh` — release smoke test script; 3 environments (Next.js 15 + TW v4 / Vite + TW v4 / Vite + TW v3), 7 scenarios each (init → add → build); runs via `npm run smoke`, auto-runs in `prepublishOnly`
+
+### Documentation
+
+#### Added
+- CLI page: Next.js / Vite framework selector in 7onic.json config example
+- CLI page: Vite note card under init section (tsconfig.app.json detection + `@import "tailwindcss"` auto-inject)
+- CLI page: Tailwind v4 + Vite note card under add section (`@source` auto-inject)
+- CLI page: Added 4 AI components to Available Components list (`chat-input`, `chat-message`, `quick-reply`, `typing-indicator`)
+- Token Installation Font tab: Japanese and Korean Fontsource `filename` now shows both Next.js and Vite paths
+- `llms.txt`: Vite Fontsource font setup pattern + `@source` auto-inject note
+
+---
+
 ## [0.2.3] — 2026-04-11
 
 ### @7onic-ui/react

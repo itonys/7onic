@@ -1766,12 +1766,6 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
 CardRoot.displayName = 'Card'
 
 // ── Size-based padding map (responsive: mobile → desktop) ──
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const sizePaddingMap = {
-  sm: 'p-4',                // 16px
-  default: 'p-4 sm:p-6',   // 16px → 24px
-  lg: 'p-6 sm:p-8',        // 24px → 32px
-} as const
 
 const sizePaddingXMap = {
   sm: 'px-4',               // 16px
@@ -7323,8 +7317,9 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
     color = 'default',
     radius = 'md',
     disabled = false,
-    withControls = true, // eslint-disable-line @typescript-eslint/no-unused-vars
-    withEdges = false, // eslint-disable-line @typescript-eslint/no-unused-vars
+    // Pre-declared API; conditional auto-rendering is tracked in COMPONENT-IMPROVEMENTS.md.
+    withControls: _withControls = true,
+    withEdges: _withEdges = false,
     loop = false,
     children,
     ...props
@@ -11571,7 +11566,6 @@ const ToastItem = React.memo(function ToastItem({
 }: ToastItemProps) {
   const [isExiting, setIsExiting] = React.useState(false)
   const [isEntered, setIsEntered] = React.useState(false)
-  const [isPaused, setIsPaused] = React.useState(false) // eslint-disable-line @typescript-eslint/no-unused-vars
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const remainingRef = React.useRef<number>(0)
   const startTimeRef = React.useRef<number>(0)
@@ -11638,10 +11632,9 @@ const ToastItem = React.memo(function ToastItem({
     }
   }, [duration, handleAutoClose])
 
-  // Pause/resume on hover
+  // Pause/resume on hover (ref-only — no state update needed, avoids unnecessary re-renders)
   const handleMouseEnter = React.useCallback(() => {
     if (duration <= 0) return
-    setIsPaused(true)
     if (timerRef.current) {
       clearTimeout(timerRef.current)
       remainingRef.current -= Date.now() - startTimeRef.current
@@ -11650,7 +11643,6 @@ const ToastItem = React.memo(function ToastItem({
 
   const handleMouseLeave = React.useCallback(() => {
     if (duration <= 0) return
-    setIsPaused(false)
     startTimeRef.current = Date.now()
     timerRef.current = setTimeout(handleAutoClose, Math.max(remainingRef.current, TOAST_MIN_RESUME_MS))
   }, [duration, handleAutoClose])

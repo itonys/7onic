@@ -32,8 +32,14 @@ const CSS_V3_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
 @import '@7onic-ui/tokens/css/themes/dark.css';
 `
 
-// v4 CSS token imports
-const CSS_V4_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
+// v4 CSS token imports (for new file creation — includes @import "tailwindcss")
+const CSS_V4_IMPORTS = `@import "tailwindcss";
+@import '@7onic-ui/tokens/css/variables.css';
+@import '@7onic-ui/tokens/tailwind/v4.css';
+`
+
+// v4 token-only imports (for injection into existing files that may already have @import "tailwindcss")
+const CSS_V4_TOKEN_ONLY = `@import '@7onic-ui/tokens/css/variables.css';
 @import '@7onic-ui/tokens/tailwind/v4.css';
 `
 
@@ -87,18 +93,29 @@ export async function init(args: string[]): Promise<void> {
   // 5. Detect package manager
   const pm = detectPackageManager(projectRoot)
 
-  // 6. Check @/ path alias
+  // 6. Check @/ path alias (check both tsconfig.json and tsconfig.app.json for Vite)
   let hasPathAlias = false
-  try {
-    const tsConfigRaw = fs.readFileSync(path.join(projectRoot, 'tsconfig.json'), 'utf-8')
-    hasPathAlias = tsConfigRaw.includes('"@/')
-  } catch { /* ignore */ }
+  const TSCONFIG_CANDIDATES = ['tsconfig.json', 'tsconfig.app.json']
+  for (const tc of TSCONFIG_CANDIDATES) {
+    try {
+      const raw = fs.readFileSync(path.join(projectRoot, tc), 'utf-8')
+      if (raw.includes('"@/')) {
+        hasPathAlias = true
+        break
+      }
+    } catch { /* file not found, continue */ }
+  }
 
   if (!hasPathAlias) {
     p.log.warn(
-      'No @/ path alias detected in tsconfig.json.\n' +
+      'No @/ path alias detected in tsconfig.\n' +
       '  Components use @/lib/utils — make sure your project has path aliases configured.\n' +
-      '  Next.js: automatic. Vite: add resolve.alias in vite.config.ts'
+      '  Next.js: automatic (no action needed)\n' +
+      '  Vite: add to both files:\n\n' +
+      '    // tsconfig.app.json → "compilerOptions.paths"\n' +
+      '    { "@/*": ["./src/*"] }\n\n' +
+      '    // vite.config.ts → "resolve.alias"\n' +
+      '    { "@": path.resolve(__dirname, "./src") }'
     )
   }
 
@@ -191,21 +208,39 @@ export async function init(args: string[]): Promise<void> {
 
   // 10. CSS file processing
   const cssFullPath = path.join(projectRoot, config.cssPath)
-  const cssImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_IMPORTS
 
   if (!fs.existsSync(cssFullPath)) {
-    // Create CSS file with token imports
+    // Create new CSS file with token imports (v4 includes @import "tailwindcss")
     const cssDir = path.dirname(cssFullPath)
     if (!fs.existsSync(cssDir)) {
       fs.mkdirSync(cssDir, { recursive: true })
     }
+    const cssImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_IMPORTS
     fs.writeFileSync(cssFullPath, cssImports, 'utf-8')
     p.log.success(`Created ${config.cssPath} with token imports`)
   } else {
-    // Add token imports if not present
+    // Inject token imports into existing file
     const cssContent = fs.readFileSync(cssFullPath, 'utf-8')
     if (!cssContent.includes('@7onic-ui/tokens')) {
-      fs.writeFileSync(cssFullPath, cssImports + '\n' + cssContent, 'utf-8')
+      const tokenImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_TOKEN_ONLY
+
+      if (tailwindVersion === 4) {
+        // v4: token imports must come AFTER @import "tailwindcss"
+        const twMatch = cssContent.match(/@import\s+["']tailwindcss["'].*\n/)
+        if (twMatch) {
+          // Insert token imports right after existing @import "tailwindcss"
+          const insertAt = twMatch.index! + twMatch[0].length
+          const updated = cssContent.slice(0, insertAt) + tokenImports + cssContent.slice(insertAt)
+          fs.writeFileSync(cssFullPath, updated, 'utf-8')
+        } else {
+          // No tailwindcss import — prepend everything (tailwindcss + tokens)
+          fs.writeFileSync(cssFullPath, CSS_V4_IMPORTS + '\n' + cssContent, 'utf-8')
+        }
+      } else {
+        // v3: prepend token imports
+        fs.writeFileSync(cssFullPath, tokenImports + '\n' + cssContent, 'utf-8')
+      }
+
       p.log.success(`Added token imports to ${config.cssPath}`)
     } else {
       p.log.info(`Token imports already present in ${config.cssPath}`)

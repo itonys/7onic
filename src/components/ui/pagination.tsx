@@ -286,8 +286,9 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
     color = 'default',
     radius = 'md',
     disabled = false,
-    withControls = true, // eslint-disable-line @typescript-eslint/no-unused-vars
-    withEdges = false, // eslint-disable-line @typescript-eslint/no-unused-vars
+    // Pre-declared API; conditional auto-rendering is tracked in COMPONENT-IMPROVEMENTS.md.
+    withControls: _withControls = true,
+    withEdges: _withEdges = false,
     loop = false,
     children,
     ...props

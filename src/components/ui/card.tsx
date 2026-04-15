@@ -135,12 +135,6 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
 CardRoot.displayName = 'Card'
 
 // ── Size-based padding map (responsive: mobile → desktop) ──
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const sizePaddingMap = {
-  sm: 'p-4',                // 16px
-  default: 'p-4 sm:p-6',   // 16px → 24px
-  lg: 'p-6 sm:p-8',        // 24px → 32px
-} as const
 
 const sizePaddingXMap = {
   sm: 'px-4',               // 16px

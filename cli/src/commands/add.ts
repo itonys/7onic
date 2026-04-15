@@ -170,6 +170,51 @@ export async function add(args: string[]): Promise<void> {
     logger.success(`${entry.exists ? 'Overwrote' : 'Added'} ${entry.fileName}`)
   }
 
+  // v4: inject @source for component directory (ensures Tailwind scans copied files)
+  if (config.tailwind.version === 4 && addedCount > 0) {
+    try {
+      const cssFullPath = path.join(projectRoot, config.tailwind.css)
+      if (fs.existsSync(cssFullPath)) {
+        const cssContent = fs.readFileSync(cssFullPath, 'utf-8')
+
+        // Calculate relative path from CSS file to components directory
+        const cssDir = path.dirname(cssFullPath)
+        const relRaw = path.relative(cssDir, componentsDir).replace(/\\/g, '/')
+        const relSource = relRaw.startsWith('.') ? relRaw : `./${relRaw}`
+
+        const sourcePattern = new RegExp(`@source\\s+["']${relSource.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["']`)
+        if (!sourcePattern.test(cssContent)) {
+          // Insert @source after the last @7onic-ui/tokens import line
+          const marker = '@7onic-ui/tokens'
+          const lastIdx = cssContent.lastIndexOf(marker)
+
+          if (lastIdx !== -1) {
+            const lineEnd = cssContent.indexOf('\n', lastIdx)
+            const insertAt = lineEnd !== -1 ? lineEnd + 1 : cssContent.length
+            const updated =
+              cssContent.slice(0, insertAt) +
+              `@source "${relSource}";\n` +
+              cssContent.slice(insertAt)
+            fs.writeFileSync(cssFullPath, updated, 'utf-8')
+            p.log.success(`Added @source "${relSource}" to ${config.tailwind.css}`)
+          } else {
+            p.log.warn(
+              `Could not find @7onic-ui/tokens import in ${config.tailwind.css}.\n` +
+              `  Run ${pc.cyan('npx 7onic init')} first, or manually add to your CSS:\n\n` +
+              `    @source "${relSource}";`
+            )
+          }
+        }
+      }
+    } catch (err) {
+      if (err instanceof Error && 'code' in err && (err as NodeJS.ErrnoException).code === 'ENOENT') {
+        // CSS file not found — skip silently (init may not have been run)
+      } else {
+        p.log.warn(`Failed to inject @source into ${config.tailwind.css}: ${err}`)
+      }
+    }
+  }
+
   // Install npm dependencies
   if (depsToInstall.length > 0) {
     const pm = detectPackageManager(projectRoot)

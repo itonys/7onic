@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/react",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -52,7 +52,8 @@
     "verify:i18n:html": "tsx scripts/verify-i18n-html.ts",
     "verify:components": "tsx scripts/verify-components.ts",
     "verify:publish": "tsx scripts/verify-publish.ts",
-    "prepublishOnly": "npm run build:lib && npm run verify:publish"
+    "smoke": "bash scripts/smoke-test.sh",
+    "prepublishOnly": "npm run build:lib && npm run verify:publish && npm run smoke"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",

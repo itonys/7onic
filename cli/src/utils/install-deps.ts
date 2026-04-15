@@ -13,7 +13,7 @@ export function installDeps(
   const commands: Record<PackageManager, string> = {
     npm: `npm install${devFlag} ${deps.join(' ')}`,
     pnpm: `pnpm add${devFlag} ${deps.join(' ')}`,
-    yarn: `yarn add${devFlag} ${deps.join(' ')}`,
+    yarn: `yarn add --ignore-engines${devFlag} ${deps.join(' ')}`,
     bun: `bun add${devFlag} ${deps.join(' ')}`,
   }
 

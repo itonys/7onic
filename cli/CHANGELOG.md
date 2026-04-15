@@ -4,6 +4,23 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.5] — 2026-04-15
+
+### 7onic
+
+#### Added
+- `init` — auto-inject `@import "tailwindcss"` into CSS file for Tailwind v4 (skipped if already present)
+- `add` — auto-inject `@source` directive for Tailwind v4 CSS (relative path from CSS entry to components dir)
+- `smoke-test.sh` — release smoke test script: 3 environments (Next.js 15 + TW v4 / Vite + TW v4 / Vite + TW v3), 7 scenarios each (init → add → build)
+- `npm run smoke` script + `prepublishOnly` auto-run
+
+#### Fixed
+- `init` — detect `@/` path alias in `tsconfig.app.json` (Vite split-tsconfig support)
+- `init` — improved Vite-specific warning with both `tsconfig.app.json` and `vite.config.ts` guidance
+- `install-deps` — add `--ignore-engines` flag for yarn compatibility
+
+---
+
 ## [0.1.4] — 2026-04-11
 
 ### 7onic
@@ -47,9 +64,6 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 #### Fixed
 - `init` now installs `lucide-react` as base dependency
-
-#### Added
-- Convenience aliases: `radio` → `radio-group`, `nav` → `navigation-menu`, `dropdown-menu` → `dropdown`
 
 ---
 

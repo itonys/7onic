@@ -1198,7 +1198,7 @@ function installDeps(deps, options) {
   const commands = {
     npm: `npm install${devFlag} ${deps.join(" ")}`,
     pnpm: `pnpm add${devFlag} ${deps.join(" ")}`,
-    yarn: `yarn add${devFlag} ${deps.join(" ")}`,
+    yarn: `yarn add --ignore-engines${devFlag} ${deps.join(" ")}`,
     bun: `bun add${devFlag} ${deps.join(" ")}`
   };
   (0, import_node_child_process.execSync)(commands[pm], { cwd, stdio: "pipe" });
@@ -1246,7 +1246,11 @@ var CSS_V3_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
 @import '@7onic-ui/tokens/css/themes/light.css';
 @import '@7onic-ui/tokens/css/themes/dark.css';
 `;
-var CSS_V4_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
+var CSS_V4_IMPORTS = `@import "tailwindcss";
+@import '@7onic-ui/tokens/css/variables.css';
+@import '@7onic-ui/tokens/tailwind/v4.css';
+`;
+var CSS_V4_TOKEN_ONLY = `@import '@7onic-ui/tokens/css/variables.css';
 @import '@7onic-ui/tokens/tailwind/v4.css';
 `;
 async function init(args) {
@@ -1281,14 +1285,20 @@ async function init(args) {
   const tw = detectTailwindVersion(projectRoot);
   const pm = detectPackageManager(projectRoot);
   let hasPathAlias = false;
-  try {
-    const tsConfigRaw = import_node_fs4.default.readFileSync(import_node_path4.default.join(projectRoot, "tsconfig.json"), "utf-8");
-    hasPathAlias = tsConfigRaw.includes('"@/');
-  } catch {
+  const TSCONFIG_CANDIDATES = ["tsconfig.json", "tsconfig.app.json"];
+  for (const tc of TSCONFIG_CANDIDATES) {
+    try {
+      const raw = import_node_fs4.default.readFileSync(import_node_path4.default.join(projectRoot, tc), "utf-8");
+      if (raw.includes('"@/')) {
+        hasPathAlias = true;
+        break;
+      }
+    } catch {
+    }
   }
   if (!hasPathAlias) {
     O2.warn(
-      "No @/ path alias detected in tsconfig.json.\n  Components use @/lib/utils \u2014 make sure your project has path aliases configured.\n  Next.js: automatic. Vite: add resolve.alias in vite.config.ts"
+      'No @/ path alias detected in tsconfig.\n  Components use @/lib/utils \u2014 make sure your project has path aliases configured.\n  Next.js: automatic (no action needed)\n  Vite: add to both files:\n\n    // tsconfig.app.json \u2192 "compilerOptions.paths"\n    { "@/*": ["./src/*"] }\n\n    // vite.config.ts \u2192 "resolve.alias"\n    { "@": path.resolve(__dirname, "./src") }'
     );
   }
   try {
@@ -1360,18 +1370,30 @@ async function init(args) {
     process.exit(1);
   }
   const cssFullPath = import_node_path4.default.join(projectRoot, config.cssPath);
-  const cssImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_IMPORTS;
   if (!import_node_fs4.default.existsSync(cssFullPath)) {
     const cssDir = import_node_path4.default.dirname(cssFullPath);
     if (!import_node_fs4.default.existsSync(cssDir)) {
       import_node_fs4.default.mkdirSync(cssDir, { recursive: true });
     }
+    const cssImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_IMPORTS;
     import_node_fs4.default.writeFileSync(cssFullPath, cssImports, "utf-8");
     O2.success(`Created ${config.cssPath} with token imports`);
   } else {
     const cssContent = import_node_fs4.default.readFileSync(cssFullPath, "utf-8");
     if (!cssContent.includes("@7onic-ui/tokens")) {
-      import_node_fs4.default.writeFileSync(cssFullPath, cssImports + "\n" + cssContent, "utf-8");
+      const tokenImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_TOKEN_ONLY;
+      if (tailwindVersion === 4) {
+        const twMatch = cssContent.match(/@import\s+["']tailwindcss["'].*\n/);
+        if (twMatch) {
+          const insertAt = twMatch.index + twMatch[0].length;
+          const updated = cssContent.slice(0, insertAt) + tokenImports + cssContent.slice(insertAt);
+          import_node_fs4.default.writeFileSync(cssFullPath, updated, "utf-8");
+        } else {
+          import_node_fs4.default.writeFileSync(cssFullPath, CSS_V4_IMPORTS + "\n" + cssContent, "utf-8");
+        }
+      } else {
+        import_node_fs4.default.writeFileSync(cssFullPath, tokenImports + "\n" + cssContent, "utf-8");
+      }
       O2.success(`Added token imports to ${config.cssPath}`);
     } else {
       O2.info(`Token imports already present in ${config.cssPath}`);
@@ -3223,12 +3245,6 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
 CardRoot.displayName = 'Card'
 
 // \u2500\u2500 Size-based padding map (responsive: mobile \u2192 desktop) \u2500\u2500
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const sizePaddingMap = {
-  sm: 'p-4',                // 16px
-  default: 'p-4 sm:p-6',   // 16px \u2192 24px
-  lg: 'p-6 sm:p-8',        // 24px \u2192 32px
-} as const
 
 const sizePaddingXMap = {
   sm: 'px-4',               // 16px
@@ -8780,8 +8796,9 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
     color = 'default',
     radius = 'md',
     disabled = false,
-    withControls = true, // eslint-disable-line @typescript-eslint/no-unused-vars
-    withEdges = false, // eslint-disable-line @typescript-eslint/no-unused-vars
+    // Pre-declared API; conditional auto-rendering is tracked in COMPONENT-IMPROVEMENTS.md.
+    withControls: _withControls = true,
+    withEdges: _withEdges = false,
     loop = false,
     children,
     ...props
@@ -13028,7 +13045,6 @@ const ToastItem = React.memo(function ToastItem({
 }: ToastItemProps) {
   const [isExiting, setIsExiting] = React.useState(false)
   const [isEntered, setIsEntered] = React.useState(false)
-  const [isPaused, setIsPaused] = React.useState(false) // eslint-disable-line @typescript-eslint/no-unused-vars
   const timerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
   const remainingRef = React.useRef<number>(0)
   const startTimeRef = React.useRef<number>(0)
@@ -13095,10 +13111,9 @@ const ToastItem = React.memo(function ToastItem({
     }
   }, [duration, handleAutoClose])
 
-  // Pause/resume on hover
+  // Pause/resume on hover (ref-only \u2014 no state update needed, avoids unnecessary re-renders)
   const handleMouseEnter = React.useCallback(() => {
     if (duration <= 0) return
-    setIsPaused(true)
     if (timerRef.current) {
       clearTimeout(timerRef.current)
       remainingRef.current -= Date.now() - startTimeRef.current
@@ -13107,7 +13122,6 @@ const ToastItem = React.memo(function ToastItem({
 
   const handleMouseLeave = React.useCallback(() => {
     if (duration <= 0) return
-    setIsPaused(false)
     startTimeRef.current = Date.now()
     timerRef.current = setTimeout(handleAutoClose, Math.max(remainingRef.current, TOAST_MIN_RESUME_MS))
   }, [duration, handleAutoClose])
@@ -14255,6 +14269,42 @@ async function add(args) {
     addedCount++;
     logger.success(`${entry.exists ? "Overwrote" : "Added"} ${entry.fileName}`);
   }
+  if (config.tailwind.version === 4 && addedCount > 0) {
+    try {
+      const cssFullPath = import_node_path5.default.join(projectRoot, config.tailwind.css);
+      if (import_node_fs5.default.existsSync(cssFullPath)) {
+        const cssContent = import_node_fs5.default.readFileSync(cssFullPath, "utf-8");
+        const cssDir = import_node_path5.default.dirname(cssFullPath);
+        const relRaw = import_node_path5.default.relative(cssDir, componentsDir).replace(/\\/g, "/");
+        const relSource = relRaw.startsWith(".") ? relRaw : `./${relRaw}`;
+        const sourcePattern = new RegExp(`@source\\s+["']${relSource.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`);
+        if (!sourcePattern.test(cssContent)) {
+          const marker = "@7onic-ui/tokens";
+          const lastIdx = cssContent.lastIndexOf(marker);
+          if (lastIdx !== -1) {
+            const lineEnd = cssContent.indexOf("\n", lastIdx);
+            const insertAt = lineEnd !== -1 ? lineEnd + 1 : cssContent.length;
+            const updated = cssContent.slice(0, insertAt) + `@source "${relSource}";
+` + cssContent.slice(insertAt);
+            import_node_fs5.default.writeFileSync(cssFullPath, updated, "utf-8");
+            O2.success(`Added @source "${relSource}" to ${config.tailwind.css}`);
+          } else {
+            O2.warn(
+              `Could not find @7onic-ui/tokens import in ${config.tailwind.css}.
+  Run ${import_picocolors3.default.cyan("npx 7onic init")} first, or manually add to your CSS:
+
+    @source "${relSource}";`
+            );
+          }
+        }
+      }
+    } catch (err) {
+      if (err instanceof Error && "code" in err && err.code === "ENOENT") {
+      } else {
+        O2.warn(`Failed to inject @source into ${config.tailwind.css}: ${err}`);
+      }
+    }
+  }
   if (depsToInstall.length > 0) {
     const pm = detectPackageManager(projectRoot);
     const s = fe();
@@ -14368,7 +14418,7 @@ function showSetupHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.4";
+var VERSION = "0.1.5";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 
