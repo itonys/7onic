@@ -267,6 +267,7 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [x] `npx 7onic init` Vite support — `tsconfig.app.json` detection, `@import "tailwindcss"` + `@source` auto-inject, `@/` path alias auto-configure
+- [x] Technical blog — [blog.7onic.design](https://blog.7onic.design) ("Design to Code" series)
 - [ ] Theme Customizer — live palette preview + CSS variable export
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
