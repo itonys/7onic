@@ -8857,9 +8857,8 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
     color = 'default',
     radius = 'md',
     disabled = false,
-    // Pre-declared API; conditional auto-rendering is tracked in COMPONENT-IMPROVEMENTS.md.
-    withControls: _withControls = true,
-    withEdges: _withEdges = false,
+    withControls = true,
+    withEdges = false,
     loop = false,
     children,
     ...props
@@ -8902,7 +8901,15 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
           className={cn('', className)}
           {...props}
         >
-          {children}
+          {children ?? (
+            <PaginationContent>
+              {withEdges && <PaginationItem><PaginationFirst /></PaginationItem>}
+              {withControls && <PaginationItem><PaginationPrevious /></PaginationItem>}
+              <PaginationItems />
+              {withControls && <PaginationItem><PaginationNext /></PaginationItem>}
+              {withEdges && <PaginationItem><PaginationLast /></PaginationItem>}
+            </PaginationContent>
+          )}
         </nav>
       </PaginationContext.Provider>
     )
@@ -14479,7 +14486,7 @@ function showSetupHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.6";
+var VERSION = "0.1.7";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

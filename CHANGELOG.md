@@ -6,6 +6,15 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.6] — 2026-04-16
+
+### @7onic-ui/react
+
+#### Fixed
+- `pagination.tsx` — `withControls` / `withEdges` props now work: when no `children` provided, auto-renders `Previous`/`Next` (withControls) and `First`/`Last` (withEdges) buttons. Compound mode (with children) is unchanged.
+
+---
+
 ## [0.2.5] — 2026-04-15
 
 ### 7onic (CLI)

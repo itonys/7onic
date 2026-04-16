@@ -4,6 +4,15 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.7] — 2026-04-16
+
+### 7onic
+
+#### Changed
+- `registry` — updated `Pagination` component: `withControls`/`withEdges` props now auto-render Previous/Next and First/Last buttons when no `children` are provided (compound mode unchanged)
+
+---
+
 ## [0.1.6] — 2026-04-15
 
 ### 7onic

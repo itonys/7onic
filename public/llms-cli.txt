@@ -1370,10 +1370,12 @@ import { Breadcrumb } from '@/components/ui/breadcrumb'
 ```tsx
 import { Pagination } from '@/components/ui/pagination'
 
-{/* Quick mode */}
+{/* Quick mode — withControls (default: true), withEdges (default: false) */}
 <Pagination total={10} defaultValue={1} />
+<Pagination total={10} defaultValue={1} withEdges />
+<Pagination total={10} defaultValue={1} withControls={false} />
 
-{/* Compound mode */}
+{/* Compound mode (custom layout) */}
 <Pagination total={20} value={page} onChange={setPage}>
   <Pagination.Content>
     <Pagination.Previous />
@@ -1394,7 +1396,9 @@ import { Pagination } from '@/components/ui/pagination'
 | variant | `'default' \| 'outline' \| 'ghost'` | `'default'` | Visual style |
 | color | `'default' \| 'primary'` | `'default'` | Active page color |
 | size | `'xs' \| 'sm' \| 'default' \| 'lg' \| 'xl'` | `'default'` | Button size |
-| radius | `'none' \| 'sm' \| 'md' \| 'default' \| 'lg' \| 'full'` | `'default'` | Border radius |
+| radius | `'sm' \| 'base' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Border radius |
+| withControls | `boolean` | `true` | Auto-render previous/next buttons |
+| withEdges | `boolean` | `false` | Auto-render first/last jump buttons |
 | loop | `boolean` | `false` | Wrap around |
 | disabled | `boolean` | `false` | Disabled state |
 
