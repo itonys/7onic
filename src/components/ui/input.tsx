@@ -8,7 +8,7 @@ import { useFieldContext } from './field'
 const inputVariants = cva(
   [
     'flex w-full bg-background text-foreground placeholder:text-foreground/30',
-    'border transition-colors duration-micro',
+    'border transition-colors duration-micro outline-transparent',
     'focus:[outline:2px_solid_transparent]',
     'disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-background-muted',
     'file:border-0 file:bg-transparent file:text-sm file:font-semibold',

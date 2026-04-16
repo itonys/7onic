@@ -164,7 +164,7 @@ const SelectTrigger = React.forwardRef<
         'flex w-full items-center justify-between bg-background text-foreground hover:bg-background-muted',
         'border border-border',
         triggerRadiusMap[radius],
-        'transition-colors duration-micro',
+        'transition-colors duration-micro outline-transparent',
         'focus-visible:shadow-[0_0_0_2px_var(--color-focus-ring)] focus:[outline:2px_solid_transparent]',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'data-[placeholder]:text-foreground/30',
@@ -245,7 +245,7 @@ const SelectContent = React.forwardRef<
             onCloseAutoFocus?.(e)
           }}
           className={cn(
-            'relative z-dropdown min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background shadow-lg',
+            'relative z-dropdown min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background text-foreground shadow-lg',
             flush ? 'py-1' : 'p-1',
             contentRadiusMap[contentRadius],
             position === 'popper' &&

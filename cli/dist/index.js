@@ -6000,7 +6000,7 @@ const DrawerContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          'fixed z-modal flex flex-col bg-background shadow-xl',
+          'fixed z-modal flex flex-col bg-background text-foreground shadow-xl',
           'focus:outline-none',
           SIDE_POSITION[side],
           isHorizontal ? 'max-w-full h-full' : 'max-h-full w-full',
@@ -6253,7 +6253,7 @@ const DropdownMenuContent = React.forwardRef<
           onCloseAutoFocus?.(e)
         }}
         className={cn(
-          'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background shadow-lg',
+          'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
           flush ? 'py-1' : 'p-1',
           contentRadiusMap[radius],
           className
@@ -6445,7 +6445,7 @@ const DropdownMenuSubContent = React.forwardRef<
     <DropdownMenuPrimitive.SubContent
       ref={ref}
       className={cn(
-        'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background shadow-lg',
+        'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
         flush ? 'py-1' : 'p-1',
         contentRadiusMap[radius],
         className
@@ -6821,7 +6821,7 @@ import { useFieldContext } from './field'
 const inputVariants = cva(
   [
     'flex w-full bg-background text-foreground placeholder:text-foreground/30',
-    'border transition-colors duration-micro',
+    'border transition-colors duration-micro outline-transparent',
     'focus:[outline:2px_solid_transparent]',
     'disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-background-muted',
     'file:border-0 file:bg-transparent file:text-sm file:font-semibold',
@@ -7490,7 +7490,7 @@ const ModalContent = React.forwardRef<
               <div className="flex min-h-full items-center justify-center p-4">
                 <div
                   className={cn(
-                    'relative w-full rounded-xl bg-background shadow-xl overflow-hidden',
+                    'relative w-full rounded-xl bg-background text-foreground shadow-xl overflow-hidden',
                     modalContentVariants({ size }),
                     className,
                   )}
@@ -7516,7 +7516,7 @@ const ModalContent = React.forwardRef<
           <DialogPrimitive.Content
             ref={ref}
             className={cn(
-              'relative w-full rounded-xl bg-background shadow-xl overflow-hidden',
+              'relative w-full rounded-xl bg-background text-foreground shadow-xl overflow-hidden',
               'focus:outline-none',
               'data-[state=open]:animate-modal-content-enter data-[state=closed]:animate-modal-content-exit',
               modalContentVariants({ size }),
@@ -7668,7 +7668,7 @@ const AlertModalContent = React.forwardRef<
       <AlertDialogPrimitive.Content
         ref={ref}
         className={cn(
-          'relative w-full rounded-xl bg-background shadow-xl',
+          'relative w-full rounded-xl bg-background text-foreground shadow-xl',
           'focus:outline-none',
           'data-[state=open]:animate-modal-content-enter data-[state=closed]:animate-modal-content-exit',
           alertModalContentVariants({ size }),
@@ -9273,8 +9273,8 @@ const popoverContentVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-background-paper border border-border shadow-lg',
-        elevated: 'bg-background-paper/95 border border-border-subtle shadow-xl backdrop-blur-sm',
+        default: 'bg-background-paper text-foreground border border-border shadow-lg',
+        elevated: 'bg-background-paper/95 text-foreground border border-border-subtle shadow-xl backdrop-blur-sm',
       },
       size: {
         sm: 'text-sm p-3 rounded-lg',
@@ -10538,7 +10538,7 @@ const SelectTrigger = React.forwardRef<
         'flex w-full items-center justify-between bg-background text-foreground hover:bg-background-muted',
         'border border-border',
         triggerRadiusMap[radius],
-        'transition-colors duration-micro',
+        'transition-colors duration-micro outline-transparent',
         'focus-visible:shadow-[0_0_0_2px_var(--color-focus-ring)] focus:[outline:2px_solid_transparent]',
         'disabled:cursor-not-allowed disabled:opacity-50',
         'data-[placeholder]:text-foreground/30',
@@ -10619,7 +10619,7 @@ const SelectContent = React.forwardRef<
             onCloseAutoFocus?.(e)
           }}
           className={cn(
-            'relative z-dropdown min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background shadow-lg',
+            'relative z-dropdown min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background text-foreground shadow-lg',
             flush ? 'py-1' : 'p-1',
             contentRadiusMap[contentRadius],
             position === 'popper' &&
@@ -12593,7 +12593,7 @@ import { useFieldContext } from './field'
 const textareaVariants = cva(
   [
     'flex w-full bg-background text-foreground placeholder:text-foreground/30',
-    'border transition-colors duration-micro',
+    'border transition-colors duration-micro outline-transparent',
     'focus:[outline:2px_solid_transparent]',
     'disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-background-muted',
   ].join(' '),
@@ -14486,7 +14486,7 @@ function showSetupHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.7";
+var VERSION = "0.1.8";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

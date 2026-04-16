@@ -4,6 +4,16 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.8] — 2026-04-16
+
+### 7onic
+
+#### Fixed
+- `registry` — add `outline-transparent` to Input/Textarea/Select (Tailwind v4 focus flash fix)
+- `registry` — add `text-foreground` to Portal content containers: Dropdown, Select, Modal, Drawer, Popover (dark mode text color fix)
+
+---
+
 ## [0.1.7] — 2026-04-16
 
 ### 7onic

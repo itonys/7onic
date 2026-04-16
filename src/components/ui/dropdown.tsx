@@ -105,7 +105,7 @@ const DropdownMenuContent = React.forwardRef<
           onCloseAutoFocus?.(e)
         }}
         className={cn(
-          'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background shadow-lg',
+          'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
           flush ? 'py-1' : 'p-1',
           contentRadiusMap[radius],
           className
@@ -297,7 +297,7 @@ const DropdownMenuSubContent = React.forwardRef<
     <DropdownMenuPrimitive.SubContent
       ref={ref}
       className={cn(
-        'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background shadow-lg',
+        'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
         flush ? 'py-1' : 'p-1',
         contentRadiusMap[radius],
         className

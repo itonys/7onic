@@ -129,7 +129,7 @@ const DrawerContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          'fixed z-modal flex flex-col bg-background shadow-xl',
+          'fixed z-modal flex flex-col bg-background text-foreground shadow-xl',
           'focus:outline-none',
           SIDE_POSITION[side],
           isHorizontal ? 'max-w-full h-full' : 'max-h-full w-full',

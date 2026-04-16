@@ -134,7 +134,7 @@ const ModalContent = React.forwardRef<
               <div className="flex min-h-full items-center justify-center p-4">
                 <div
                   className={cn(
-                    'relative w-full rounded-xl bg-background shadow-xl overflow-hidden',
+                    'relative w-full rounded-xl bg-background text-foreground shadow-xl overflow-hidden',
                     modalContentVariants({ size }),
                     className,
                   )}
@@ -160,7 +160,7 @@ const ModalContent = React.forwardRef<
           <DialogPrimitive.Content
             ref={ref}
             className={cn(
-              'relative w-full rounded-xl bg-background shadow-xl overflow-hidden',
+              'relative w-full rounded-xl bg-background text-foreground shadow-xl overflow-hidden',
               'focus:outline-none',
               'data-[state=open]:animate-modal-content-enter data-[state=closed]:animate-modal-content-exit',
               modalContentVariants({ size }),
@@ -312,7 +312,7 @@ const AlertModalContent = React.forwardRef<
       <AlertDialogPrimitive.Content
         ref={ref}
         className={cn(
-          'relative w-full rounded-xl bg-background shadow-xl',
+          'relative w-full rounded-xl bg-background text-foreground shadow-xl',
           'focus:outline-none',
           'data-[state=open]:animate-modal-content-enter data-[state=closed]:animate-modal-content-exit',
           alertModalContentVariants({ size }),

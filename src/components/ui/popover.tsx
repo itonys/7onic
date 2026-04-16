@@ -36,8 +36,8 @@ const popoverContentVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-background-paper border border-border shadow-lg',
-        elevated: 'bg-background-paper/95 border border-border-subtle shadow-xl backdrop-blur-sm',
+        default: 'bg-background-paper text-foreground border border-border shadow-lg',
+        elevated: 'bg-background-paper/95 text-foreground border border-border-subtle shadow-xl backdrop-blur-sm',
       },
       size: {
         sm: 'text-sm p-3 rounded-lg',

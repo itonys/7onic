@@ -6,6 +6,16 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.7] — 2026-04-16
+
+### @7onic-ui/react
+
+#### Fixed
+- `input.tsx`, `textarea.tsx`, `select.tsx` — add `outline-transparent` to prevent focus outline flash on Tailwind v4 (`transition-colors` now includes `outline-color`)
+- `dropdown.tsx`, `select.tsx`, `modal.tsx`, `drawer.tsx`, `popover.tsx` — add `text-foreground` to Portal content containers for correct dark mode text color
+
+---
+
 ## [0.2.6] — 2026-04-16
 
 ### @7onic-ui/react
