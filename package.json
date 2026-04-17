@@ -119,7 +119,7 @@
     "tailwindcss-animate": "^1.0.7",
     "tsup": "^8.1.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.4.0"
+    "typescript": "^5.4.0",
   },
   "keywords": [
     "react",
