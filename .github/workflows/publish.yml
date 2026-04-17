@@ -18,6 +18,9 @@ jobs:
   publish-tokens:
     if: inputs.package == 'both' || inputs.package == 'tokens-only' || inputs.package == 'all'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -28,7 +31,7 @@ jobs:
 
       - name: Publish @7onic-ui/tokens
         working-directory: tokens
-        run: npm publish --access public
+        run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -36,6 +39,9 @@ jobs:
     needs: publish-tokens
     if: always() && (inputs.package == 'both' || inputs.package == 'react-only' || inputs.package == 'all') && (needs.publish-tokens.result == 'success' || needs.publish-tokens.result == 'skipped')
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -46,19 +52,22 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: rm -f package-lock.json && npm install --legacy-peer-deps
+        run: npm ci
 
       - name: Build component library
         run: npm run build:lib
 
       - name: Publish @7onic-ui/react
-        run: npm publish --access public
+        run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-cli:
     if: inputs.package == 'cli-only' || inputs.package == 'all'
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
 
@@ -69,6 +78,6 @@ jobs:
 
       - name: Publish 7onic (CLI)
         working-directory: cli
-        run: npm publish --access public
+        run: npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

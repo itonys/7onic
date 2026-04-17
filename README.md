@@ -33,6 +33,7 @@
 | **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
 | **🤖** | **AI-ready** | Ships with `llms.txt` — AI builds with design tokens, not hardcoded values. Zero config for Claude, Cursor, Copilot. |
 | **🌏** | **CJK-first typography** | Type scale tuned for Japanese kanji, Korean hangul, and Latin — not an afterthought. |
+| **🔐** | **Supply chain verified** | Cryptographically signed releases (npm provenance), automated vulnerability scanning in CI, reproducible builds. You can verify every package came from this exact GitHub commit — not a hijacked account. |
 | **🔥** | **Relentlessly updated** | Actively maintained with continuous research, refinement, and new features. Not abandoned — ever. |
 
 ---
@@ -268,6 +269,7 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [x] `npx 7onic init` Vite support — `tsconfig.app.json` detection, `@import "tailwindcss"` + `@source` auto-inject, `@/` path alias auto-configure
 - [x] Technical blog — [blog.7onic.design](https://blog.7onic.design) ("Design to Code" series)
+- [x] Enterprise-grade supply chain security — cryptographically signed releases (npm provenance), automated vulnerability scanning on every build, reproducible installs. Protection against npm package hijacking attacks (like the 2026 axios incident)
 - [ ] Theme Customizer — live palette preview + CSS variable export
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates

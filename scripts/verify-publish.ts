@@ -162,6 +162,21 @@ try {
   fail(`Chart import crashed with recharts: ${e.message?.split('\n')[0]}`)
 }
 
+// Test 4: Real bundle test — catches missing transitive deps (e.g. react-is)
+// require() alone doesn't trigger deep module resolution; bundler does.
+run('npm install esbuild --no-save --ignore-scripts 2>/dev/null', TMP)
+try {
+  run(`cat > bundle-test.mjs << 'EOF'
+import { Chart, ChartContainer } from '@7onic-ui/react/chart'
+console.log(typeof Chart, typeof ChartContainer)
+EOF`, TMP)
+  run(`./node_modules/.bin/esbuild bundle-test.mjs --bundle --platform=browser --external:react --external:react-dom --outfile=bundle-out.js 2>&1`, TMP)
+  pass('Chart bundle test OK — all transitive deps resolvable')
+} catch (e: any) {
+  const msg = (e.stderr || e.message || '').split('\n').find((l: string) => /error|can't resolve/i.test(l)) || 'unknown error'
+  fail(`Chart bundle failed — missing transitive dep: ${msg.trim()}`)
+}
+
 // ── Step 5: Type declarations ───────────────────────────────────────────────
 
 console.log('\n[5/5] Checking type declarations...')
