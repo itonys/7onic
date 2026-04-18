@@ -42,3 +42,6 @@ next-env.d.ts
 .idea/
 .vscode/
 
+
+# docs audit reports (local only)
+scripts/docs/audit-*.txt
