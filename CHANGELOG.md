@@ -6,6 +6,31 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.9] — 2026-04-22
+
+### @7onic-ui/react
+
+#### Fixed — Next.js App Router RSC compatibility
+
+Previously, installing 7onic in a Next.js 15+/16 App Router project and importing from a Server Component failed with `TypeError: d.createContext is not a function`, because `dist/index.mjs` lacked a top-level `'use client'` directive and the barrel used `export *` (which React/Next.js cannot track across a client boundary). Named imports (`import { Card, CardHeader } from '@7onic-ui/react'`) now work inside Server Components out of the box, matching the behaviour of shadcn/ui, Radix Primitives, Chakra v3, and Mantine v7.
+
+- `src/components/ui/index.ts`: add top-level `'use client'` directive; replace every `export * from './X'` with explicit `export { Named, … } from './X'` + `export type { … } from './X'` for types. Each of the 39 component files already carries `'use client'`, so per-component behaviour is unchanged — only the barrel was missing the directive.
+
+Namespace/compound access (`<Card.Header />`) still cannot be used inside Server Components due to a React Client Manifest limitation around `Object.assign`-attached properties. Use Named imports in RSC; Namespace continues to work in Client Components. This is documented in `llms.txt` and the Installation page.
+
+### Docs
+
+- `public/llms.txt` + `public/llms-full.txt` + `public/llms-cli.txt` + `llms.txt` (root): expand Compound section into Pattern A (Namespace, Client Components) / Pattern B (Named, everywhere) with Next.js Server Components warning and rule of thumb.
+- `scripts/generate-llms-cli.ts`: generator template updated so regenerated `llms-cli.txt` matches the new RSC guidance.
+- `app/[locale]/components/installation`: replace the outdated *"add `'use client'` when consuming"* callout with a neutral note explaining that Namespace access falls back to Named Export inside Server Components.
+- `messages/{ja,en,ko}.json`: remove the obsolete `nextjsNote` key, add the new `rscNote` copy.
+
+### @7onic-ui/tokens
+
+- Version synced to 0.2.9 (no functional changes).
+
+---
+
 ## [0.2.8] — 2026-04-21
 
 ### @7onic-ui/react

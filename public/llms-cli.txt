@@ -374,14 +374,15 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/toast'
 ```
 
-## Namespace Pattern (Compound Components)
+## Compound Component Import Patterns
 
-21 compound components use namespace imports. Access sub-components via dot notation:
+24 compound components support **two equivalent import patterns** — choose based on your rendering context:
+
+### Pattern A: Namespace (dot notation) — Client Components
 
 ```tsx
 import { Card } from '@/components/ui/card'
 
-// ✅ Namespace usage (preferred)
 <Card>
   <Card.Header>
     <Card.Title>Title</Card.Title>
@@ -390,10 +391,54 @@ import { Card } from '@/components/ui/card'
   <Card.Content>Content</Card.Content>
   <Card.Footer>Footer</Card.Footer>
 </Card>
-
-// ✅ Named exports also work (backwards compatible)
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 ```
+
+Better name grouping and readability. Works in files with `'use client'` directive.
+
+### Pattern B: Named imports — works everywhere (including Server Components)
+
+```tsx
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
+
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+    <CardDescription>Description</CardDescription>
+  </CardHeader>
+  <CardContent>Content</CardContent>
+  <CardFooter>Footer</CardFooter>
+</Card>
+```
+
+### ⚠️ Next.js Server Components — use Pattern B
+
+**Namespace pattern (`<Card.Header />`) does NOT work inside Server Components** due to a Next.js Client Manifest limitation (sub-component references cannot be tracked through `Object.assign`).
+
+```tsx
+// ❌ Server Component (default in App Router) — throws "Unsupported Server Component type: undefined"
+export default function Page() {
+  return (
+    <Card>
+      <Card.Header>...</Card.Header>
+    </Card>
+  )
+}
+
+// ✅ Server Component — use named imports
+import { Card, CardHeader } from '@/components/ui/card'
+
+export default function Page() {
+  return (
+    <Card>
+      <CardHeader>...</CardHeader>
+    </Card>
+  )
+}
+```
+
+**Rule of thumb:**
+- File has `'use client'` at top → either pattern works, namespace preferred
+- File has no directive (Server Component default in Next.js App Router) → named imports only
 
 ---
 

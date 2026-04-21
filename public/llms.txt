@@ -395,14 +395,15 @@ For detailed token reference, see: https://7onic.design/llms.txt
 import { Button, Card, Input, Toast } from '@7onic-ui/react'
 ```
 
-## Namespace Pattern (Compound Components)
+## Compound Component Import Patterns
 
-21 compound components use namespace imports. Access sub-components via dot notation:
+24 compound components support **two equivalent import patterns** — choose based on your rendering context:
+
+### Pattern A: Namespace (dot notation) — Client Components
 
 ```tsx
 import { Card } from '@7onic-ui/react'
 
-// ✅ Namespace usage (preferred)
 <Card>
   <Card.Header>
     <Card.Title>Title</Card.Title>
@@ -411,14 +412,60 @@ import { Card } from '@7onic-ui/react'
   <Card.Content>Content</Card.Content>
   <Card.Footer>Footer</Card.Footer>
 </Card>
-
-// ✅ Named exports also work (backwards compatible)
-import { Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
 ```
+
+Better name grouping and readability. Works in files with `'use client'` directive.
+
+### Pattern B: Named imports — works everywhere (including Server Components)
+
+```tsx
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@7onic-ui/react'
+
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+    <CardDescription>Description</CardDescription>
+  </CardHeader>
+  <CardContent>Content</CardContent>
+  <CardFooter>Footer</CardFooter>
+</Card>
+```
+
+### ⚠️ Next.js Server Components — use Pattern B
+
+**Namespace pattern (`<Card.Header />`) does NOT work inside Server Components** due to a Next.js Client Manifest limitation (sub-component references cannot be tracked through `Object.assign`).
+
+```tsx
+// ❌ Server Component (default in App Router) — throws "Unsupported Server Component type: undefined"
+export default function Page() {
+  return (
+    <Card>
+      <Card.Header>...</Card.Header>
+    </Card>
+  )
+}
+
+// ✅ Server Component — use named imports
+import { Card, CardHeader } from '@7onic-ui/react'
+
+export default function Page() {
+  return (
+    <Card>
+      <CardHeader>...</CardHeader>
+    </Card>
+  )
+}
+```
+
+**Rule of thumb:**
+- File has `'use client'` at top → either pattern works, namespace preferred
+- File has no directive (Server Component default in Next.js App Router) → named imports only
 
 ### Compound Components List (24)
 
 Accordion, Alert, Avatar, Breadcrumb, Card, ChatInput, ChatMessage, Chart, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, QuickReply, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
+
+Each compound component's sub-components can be imported as named exports. Example: `Card.Header` ↔ `CardHeader`, `Modal.Content` ↔ `ModalContent`, `Tabs.List` ↔ `TabsList`, etc. The code examples below use the namespace pattern; convert dots to camelCase for named imports when needed for Server Components.
 
 ### Standalone Components (16)
 
