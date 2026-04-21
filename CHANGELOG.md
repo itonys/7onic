@@ -6,6 +6,53 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.2.8] — Unreleased
+
+### @7onic-ui/react
+
+#### Fixed — `llms.txt` Props defaults audit
+
+Full source verification revealed 18 incorrect Props defaults, 9 missing Props/sub-tables, and 1 type mismatch in the bundled `llms.txt` AI guide. Component source code and deployed `dist/` were already correct — only the AI documentation was wrong, which misled AI tools generating user code.
+
+**Fixed defaults (18)**:
+- Accordion: `type` (`required` → `'single'`), `collapsible` (`false` → `true`)
+- Breadcrumb: `separator` (`'/'` → `<ChevronRightIcon />`)
+- ButtonGroup: `attached` (`false` → `true`)
+- Dropdown.Content: `radius` (`'lg'` → `'md'`)
+- MetricCard: `radius` (`'xl'` → `'default'`) with explicit 9-value options
+- Modal.Content: `size` (`'md'` → `'sm'`), `scrollBehavior` (`'inside'` → `'outside'`)
+- NavigationMenu: `radius` (`'default'` → `'lg'`)
+- Popover.Content: `showArrow` (`false` → `true`)
+- Slider: `showTooltip` (`'auto'` → `'never'`)
+- Tabs.List: `radius` default (`'default'` → `'md'`), options expanded 6 → 9 values
+- Toaster: `richColors` (`false` → `true`), `visibleToasts` (`3` → `5`)
+- Tooltip.Content: `showArrow` (`false` → `true`), `sideOffset` (`4` → `6`)
+- Pagination: `total` (`required` → `1`)
+
+**Added Props (9)**:
+- NavigationMenu: `delayDuration=200`, `skipDelayDuration=300`
+- NavigationMenu.Item: `defaultOpen=false` (new sub-table)
+- NavigationMenu.Indicator: `color='default'` (new sub-table)
+- Pagination: `withControls=true`, `withEdges=false` + quick-mode example
+- Textarea: `rows=4`
+- Chart.Pie: `paddingAngle=0`, `cornerRadius=0`, `startAngle=90`, `endAngle=-270`, `innerRadius`
+- Toaster: `offset=24`, `gap=8`
+- Modal.Content: `closeIcon`
+- TableCell: `align='left'` (new sub-table)
+
+**Type correction (1)**:
+- Avatar.Fallback: `colorized` type `boolean` → `string` (source: `colorized?: string`)
+
+**Added section**: AlertModal full section with sub-components + usage example.
+
+Files updated: `llms.txt` (shipped in npm package), `public/llms.txt`, `public/llms-full.txt`, `public/llms-cli.txt` (served on docs site).
+
+### @7onic-ui/tokens
+
+Version sync bump to keep parity with `@7onic-ui/react` per VERSIONING policy. No content changes.
+
+---
+
 ## [0.2.7] — 2026-04-16
 
 ### @7onic-ui/react

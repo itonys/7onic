@@ -5,7 +5,7 @@
   "sideEffects": [
     "*.css"
   ],
-  "description": "React component library with automated design token pipeline — from Figma to code",
+  "description": "React component library where design and code never drift — automated Figma token pipeline",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

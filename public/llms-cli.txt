@@ -479,7 +479,7 @@ import { ButtonGroup } from '@/components/ui/button-group'
 | radius | Button radius values | — | Applied to all children |
 | fontWeight | `'normal' \| 'semibold'` | — | Applied to all children |
 | orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction |
-| attached | `boolean` | `false` | Overlapping borders |
+| attached | `boolean` | `true` | Overlapping borders |
 | disabled | `boolean` | `false` | Disable all children |
 
 Provides context — child Buttons inherit variant/size/radius automatically.
@@ -526,6 +526,7 @@ import { Textarea } from '@/components/ui/textarea'
 | resize | `'none' \| 'vertical' \| 'horizontal' \| 'both'` | `'vertical'` | Resize handle |
 | error | `boolean` | `false` | Error state |
 | focusRing | `boolean` | `false` | Explicit focus ring |
+| rows | `number` | `4` | Initial row count |
 
 ---
 
@@ -581,7 +582,7 @@ import { DropdownMenu } from '@/components/ui/dropdown'
 
 | Prop (Content) | Type | Default | Description |
 |---|---|---|---|
-| radius | `'md' \| 'lg' \| 'xl'` | `'lg'` | Border radius |
+| radius | `'md' \| 'lg' \| 'xl'` | `'md'` | Border radius |
 | size | `'sm' \| 'md' \| 'lg'` | `'md'` | Item density |
 | flush | `boolean` | `false` | Full-width items (no padding) |
 | sideOffset | `number` | `4` | Gap from trigger |
@@ -760,7 +761,7 @@ import { Slider } from '@/components/ui/slider'
 |---|---|---|---|
 | size | `'sm' \| 'default' \| 'lg'` | `'default'` | Track/thumb size |
 | color | `'default' \| 'primary'` | `'default'` | Active track color |
-| showTooltip | `'auto' \| 'always' \| 'never'` | `'auto'` | Tooltip display |
+| showTooltip | `'auto' \| 'always' \| 'never'` | `'never'` | Tooltip display |
 | formatLabel | `(value: number) => string` | — | Tooltip value formatter |
 | startContent | `ReactNode` | — | Left content (label/icon) |
 | endContent | `ReactNode` | — | Right content (label/icon) |
@@ -834,7 +835,7 @@ import { Avatar } from '@/components/ui/avatar'
 | Prop (Fallback) | Type | Default | Description |
 |---|---|---|---|
 | name | `string` | — | Auto-generates initials |
-| colorized | `boolean` | `false` | Deterministic color from name hash |
+| colorized | `string` | — | Pass a name/key string to enable deterministic colored fallback |
 | colorVariant | `'vivid' \| 'soft'` | `'vivid'` | Color intensity |
 
 | Prop (Group) | Type | Default | Description |
@@ -945,6 +946,10 @@ import { Table } from '@/components/ui/table'
 | interactive | `boolean` | `false` | Hover highlight |
 | selected | `boolean` | `false` | Selected state |
 
+| Prop (Cell) | Type | Default | Description |
+|---|---|---|---|
+| align | `'left' \| 'center' \| 'right'` | `'left'` | Text alignment |
+
 **Sub-components:** Table.Header, Table.Body, Table.Footer, Table.Row, Table.Head, Table.Cell, Table.Caption
 
 ---
@@ -972,7 +977,7 @@ import { Tabs } from '@/components/ui/tabs'
 | size | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Tab size |
 | fitted | `boolean` | `false` | Full width tabs |
 | color | `'default' \| 'primary'` | `'default'` | Active tab color |
-| radius | `'none' \| 'sm' \| 'md' \| 'default' \| 'lg' \| 'full'` | `'default'` | Border radius (enclosed/pill) |
+| radius | `'none' \| 'sm' \| 'base' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| 'full'` | `'md'` | Border radius (enclosed/pill) |
 
 **Sub-components:** Tabs.List, Tabs.Trigger, Tabs.Content
 
@@ -997,11 +1002,11 @@ import { Accordion } from '@/components/ui/accordion'
 
 | Prop (Root) | Type | Default | Description |
 |---|---|---|---|
-| type | `'single' \| 'multiple'` | required | Expansion mode |
+| type | `'single' \| 'multiple'` | `'single'` | Expansion mode |
 | variant | `'default' \| 'bordered' \| 'splitted'` | `'default'` | Visual style |
 | size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
 | iconPosition | `'left' \| 'right'` | `'right'` | Chevron placement |
-| collapsible | `boolean` | `false` | Allow all closed (single only) |
+| collapsible | `boolean` | `true` | Allow all closed (single only) |
 
 **Sub-components:** Accordion.Item, Accordion.Trigger (with `icon` prop), Accordion.Content
 
@@ -1060,13 +1065,49 @@ import { Button } from '@/components/ui/button'
 
 | Prop (Content) | Type | Default | Description |
 |---|---|---|---|
-| size | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Modal width |
-| scrollBehavior | `'inside' \| 'outside'` | `'inside'` | Scroll target |
+| size | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'sm'` | Modal width |
+| scrollBehavior | `'inside' \| 'outside'` | `'outside'` | Scroll target |
 | showCloseButton | `boolean` | `true` | Show X button |
 
 **Sub-components:** Modal.Trigger, Modal.Portal, Modal.Overlay, Modal.Content, Modal.Header, Modal.Title, Modal.Description, Modal.Body, Modal.Footer, Modal.Close
 
 **Required structure:** Portal → Overlay + Content. Don't forget Portal and Overlay.
+
+---
+
+### AlertModal
+
+```tsx
+import { AlertModal, Button } from '@7onic-ui/react'
+
+<AlertModal>
+  <AlertModal.Trigger asChild>
+    <Button color="destructive">Delete</Button>
+  </AlertModal.Trigger>
+  <AlertModal.Portal>
+    <AlertModal.Overlay />
+    <AlertModal.Content size="sm">
+      <AlertModal.Header>
+        <AlertModal.Title>Delete item?</AlertModal.Title>
+        <AlertModal.Description>This action cannot be undone.</AlertModal.Description>
+      </AlertModal.Header>
+      <AlertModal.Body>Further confirmation details</AlertModal.Body>
+      <AlertModal.Footer>
+        <AlertModal.Cancel asChild><Button variant="outline">Cancel</Button></AlertModal.Cancel>
+        <AlertModal.Action asChild><Button color="destructive">Delete</Button></AlertModal.Action>
+      </AlertModal.Footer>
+    </AlertModal.Content>
+  </AlertModal.Portal>
+</AlertModal>
+```
+
+| Prop (Content) | Type | Default | Description |
+|---|---|---|---|
+| size | `'xs' \| 'sm'` | `'sm'` | AlertModal width (smaller than Modal by design) |
+
+**Sub-components:** AlertModal.Trigger, AlertModal.Portal, AlertModal.Overlay, AlertModal.Content, AlertModal.Header, AlertModal.Title, AlertModal.Description, AlertModal.Body, AlertModal.Footer, AlertModal.Action, AlertModal.Cancel
+
+**Required structure:** Portal → Overlay + Content (same as Modal). Use for destructive confirmations — renders as `role="alertdialog"` via Radix AlertDialog primitive. No close button by default (force user to Action or Cancel).
 
 ---
 
@@ -1134,8 +1175,8 @@ import { Tooltip } from '@/components/ui/tooltip'
 | variant | `'default' \| 'inverted'` | `'default'` | Dark/light bg |
 | size | `'sm' \| 'default'` | `'default'` | Padding scale |
 | side | `'top' \| 'right' \| 'bottom' \| 'left'` | `'top'` | Placement |
-| showArrow | `boolean` | `false` | Show arrow |
-| sideOffset | `number` | `4` | Gap from trigger |
+| showArrow | `boolean` | `true` | Show arrow |
+| sideOffset | `number` | `6` | Gap from trigger |
 
 **⚠️ Tooltip.Provider is required** — wrap your app or section with it.
 **Sub-components:** Tooltip.Provider, Tooltip.Trigger, Tooltip.Content, Tooltip.Arrow, Tooltip.Portal
@@ -1166,7 +1207,7 @@ import { Button } from '@/components/ui/button'
 | variant | `'default' \| 'elevated'` | `'default'` | Shadow style |
 | size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
 | side | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Placement |
-| showArrow | `boolean` | `false` | Show arrow |
+| showArrow | `boolean` | `true` | Show arrow |
 | showClose | `boolean` | `false` | Show X button |
 
 **Sub-components:** Popover.Trigger, Popover.Content, Popover.Arrow, Popover.Close, Popover.Anchor, Popover.Portal
@@ -1247,9 +1288,9 @@ toast.dismiss()      // Dismiss all
 | size | `'sm' \| 'default' \| 'lg'` | `'default'` | Toast size |
 | duration | `number` | `4000` | Auto-dismiss ms (0 = persistent) |
 | closeButton | `boolean` | `false` | Show close button |
-| richColors | `boolean` | `false` | Filled color backgrounds |
+| richColors | `boolean` | `true` | Filled color backgrounds |
 | expand | `boolean` | `false` | Show all toasts expanded |
-| visibleToasts | `number` | `3` | Max visible at once |
+| visibleToasts | `number` | `5` | Max visible at once |
 
 **⚠️ No Portal needed.** Just place `<Toaster />` in your root layout. Call `toast()` from anywhere.
 
@@ -1355,7 +1396,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb'
 
 | Prop (Root) | Type | Default | Description |
 |---|---|---|---|
-| separator | `ReactNode` | `'/'` | Custom separator |
+| separator | `ReactNode` | `<ChevronRightIcon />` | Custom separator (default: chevron right icon) |
 | size | `'sm' \| 'default' \| 'lg'` | `'default'` | Text size |
 | maxItems | `number` | — | Collapse threshold |
 | itemsBeforeCollapse | `number` | `1` | Items before ellipsis |
@@ -1387,7 +1428,7 @@ import { Pagination } from '@/components/ui/pagination'
 
 | Prop (Root) | Type | Default | Description |
 |---|---|---|---|
-| total | `number` | required | Total pages |
+| total | `number` | `1` | Total pages |
 | value | `number` | — | Controlled page |
 | defaultValue | `number` | `1` | Uncontrolled default |
 | onChange | `(page: number) => void` | — | Change handler |
@@ -1445,14 +1486,25 @@ import { NavigationMenu } from '@/components/ui/navigation-menu'
 | orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout mode |
 | size | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Item size |
 | collapsed | `boolean` | `false` | Icon-only mode (vertical) |
-| radius | Same as Button | `'default'` | Border radius |
+| radius | Same as Button | `'lg'` | Border radius |
 | fontWeight | `'normal' \| 'semibold'` | `'normal'` | Font weight |
+| delayDuration | `number` | `200` | Hover delay before content opens (horizontal only, ms) |
+| skipDelayDuration | `number` | `300` | Reset delay when moving between triggers (horizontal only, ms) |
 
 | Prop (Link) | Type | Default | Description |
 |---|---|---|---|
 | active | `boolean` | `false` | Current page indicator |
 | icon | `ReactNode` | — | Leading icon |
 | asChild | `boolean` | `false` | Slot pattern |
+
+| Prop (Item) | Type | Default | Description |
+|---|---|---|---|
+| value | `string` | — | Identifier for controlled state (horizontal menus) |
+| defaultOpen | `boolean` | `false` | Initial open state for vertical collapsible item |
+
+| Prop (Indicator) | Type | Default | Description |
+|---|---|---|---|
+| color | `'default' \| 'primary'` | `'default'` | Indicator color (horizontal variant only) |
 
 **Sub-components:** NavigationMenu.List, NavigationMenu.Item, NavigationMenu.Trigger, NavigationMenu.Content, NavigationMenu.Link, NavigationMenu.Group (vertical only, with `label`), NavigationMenu.Indicator (horizontal only), NavigationMenu.Viewport
 
@@ -1539,6 +1591,11 @@ const chartConfig = {
 | label | `'none' \| 'outside' \| 'inside'` | `'none'` | Label display |
 | labelContent | `'value' \| 'percent'` | `'value'` | Label format |
 | activeShape | `boolean` | `true` | Expand on hover |
+| paddingAngle | `number` | `0` | Gap between slices (degrees) |
+| cornerRadius | `number` | `0` | Slice corner radius (px) |
+| startAngle | `number` | `90` | Start angle (degrees, 12 o'clock = 90) |
+| endAngle | `number` | `-270` | End angle (degrees, full circle = 90→-270) |
+| innerRadius | `number` | — | Override donut inner radius (default auto by variant) |
 
 **Chart Colors (CSS variables):**
 `--color-chart-1` (blue), `--color-chart-2` (pink), `--color-chart-3` (lavender), `--color-chart-4` (sky), `--color-chart-5` (rose)
@@ -1579,7 +1636,7 @@ import { MetricCard } from '@/components/ui/metric-card'
 |---|---|---|---|
 | variant | `'default' \| 'elevated' \| 'ghost'` | `'default'` | Visual style |
 | size | `'sm' \| 'default' \| 'lg'` | `'default'` | Padding scale |
-| radius | Same as Card + `'none'` | `'xl'` | Border radius |
+| radius | `'none' \| 'sm' \| 'base' \| 'default' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| 'full'` | `'default'` | Border radius |
 
 | Prop (Value) | Type | Default | Description |
 |---|---|---|---|
