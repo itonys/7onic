@@ -9,6 +9,15 @@
   "engines": { "node": ">=18" },
   "author": "7onic",
   "license": "MIT",
+  "homepage": "https://7onic.design",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itonys/7onic",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/itonys/7onic/issues"
+  },
   "keywords": [
     "cli",
     "design-system",
