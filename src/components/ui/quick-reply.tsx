@@ -144,7 +144,7 @@ export interface QuickReplyItemProps
 // QuickReply Root — group container that propagates style via Context
 // ============================================================================
 
-const QuickReplyRoot = React.forwardRef<HTMLDivElement, QuickReplyRootProps>(
+const QuickReply = React.forwardRef<HTMLDivElement, QuickReplyRootProps>(
   (
     {
       className,
@@ -179,7 +179,7 @@ const QuickReplyRoot = React.forwardRef<HTMLDivElement, QuickReplyRootProps>(
     )
   }
 )
-QuickReplyRoot.displayName = 'QuickReply'
+QuickReply.displayName = 'QuickReply'
 
 // ============================================================================
 // QuickReply Item — individual chip button
@@ -216,25 +216,10 @@ const QuickReplyItem = React.forwardRef<HTMLButtonElement, QuickReplyItemProps>(
     )
   }
 )
-QuickReplyItem.displayName = 'QuickReply.Item'
-
-// ============================================================================
-// Namespace export (compound pattern)
-// ============================================================================
-
-const QuickReply = Object.assign(QuickReplyRoot, {
-  Item: QuickReplyItem,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace QuickReply {
-  export type RootProps = QuickReplyRootProps
-  export type ItemProps = QuickReplyItemProps
-}
+QuickReplyItem.displayName = 'QuickReplyItem'
 
 export {
   QuickReply,
-  QuickReplyRoot,
   QuickReplyItem,
   quickReplyRootVariants,
   quickReplyItemVariants,

@@ -40,7 +40,7 @@ export interface FieldProps
   disabled?: boolean
 }
 
-const FieldRoot = React.forwardRef<HTMLDivElement, FieldProps>(
+const Field = React.forwardRef<HTMLDivElement, FieldProps>(
   ({ className, gap, error, disabled, children, ...props }, ref) => {
     const id = React.useId()
 
@@ -59,7 +59,7 @@ const FieldRoot = React.forwardRef<HTMLDivElement, FieldProps>(
     )
   }
 )
-FieldRoot.displayName = 'Field'
+Field.displayName = 'Field'
 
 // Field Label
 export interface FieldLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
@@ -133,17 +133,5 @@ const FieldCharCount = React.forwardRef<
   )
 })
 FieldCharCount.displayName = 'FieldCharCount'
-
-// ─── Namespace ──────────────────────────────────────────
-const Field = Object.assign(FieldRoot, {
-  Label: FieldLabel,
-  Error: FieldError,
-  CharCount: FieldCharCount,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Field {
-  export type LabelProps = FieldLabelProps
-}
 
 export { Field, FieldLabel, FieldError, FieldCharCount, useFieldContext }

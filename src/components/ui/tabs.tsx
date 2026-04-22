@@ -235,21 +235,7 @@ TabsContent.displayName = 'TabsContent'
 
 // ─── Tabs (Root) ─────────────────────────────────────────────
 
-const TabsRoot = TabsPrimitive.Root
-
-// ─── Namespace ──────────────────────────────────────────
-const Tabs = Object.assign(TabsRoot, {
-  List: TabsList,
-  Trigger: TabsTrigger,
-  Content: TabsContent,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Tabs {
-  export type ListProps = TabsListProps
-  export type TriggerProps = TabsTriggerProps
-  export type ContentProps = TabsContentProps
-}
+const Tabs = TabsPrimitive.Root
 
 export {
   Tabs,

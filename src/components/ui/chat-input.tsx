@@ -217,7 +217,7 @@ export interface ChatInputSubmitProps
 // ChatInput — Root container
 // ============================================================================
 
-const ChatInputRoot = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
+const ChatInput = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
   (
     {
       className,
@@ -304,10 +304,10 @@ const ChatInputRoot = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
     )
   }
 )
-ChatInputRoot.displayName = 'ChatInput'
+ChatInput.displayName = 'ChatInput'
 
 // ============================================================================
-// ChatInput.Field — Auto-resizing textarea
+// ChatInputField — Auto-resizing textarea
 // ============================================================================
 
 const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps>(
@@ -409,10 +409,10 @@ const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps
     )
   }
 )
-ChatInputField.displayName = 'ChatInput.Field'
+ChatInputField.displayName = 'ChatInputField'
 
 // ============================================================================
-// ChatInput.Submit — Send / stop button
+// ChatInputSubmit — Send / stop button
 // ============================================================================
 
 const ChatInputSubmit = React.forwardRef<HTMLButtonElement, ChatInputSubmitProps>(
@@ -494,7 +494,7 @@ const ChatInputSubmit = React.forwardRef<HTMLButtonElement, ChatInputSubmitProps
     )
   }
 )
-ChatInputSubmit.displayName = 'ChatInput.Submit'
+ChatInputSubmit.displayName = 'ChatInputSubmit'
 
 // ============================================================================
 // Built-in SVG icons — no external icon dependency
@@ -525,26 +525,8 @@ function StopIcon() {
   )
 }
 
-// ============================================================================
-// Namespace export (compound pattern)
-// ============================================================================
-
-const ChatInput = Object.assign(ChatInputRoot, {
-  Field:  ChatInputField,
-  Submit: ChatInputSubmit,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace ChatInput {
-  export type RootProps   = ChatInputRootProps
-  export type FieldProps  = ChatInputFieldProps
-  export type SubmitProps = ChatInputSubmitProps
-  export type Layout      = ChatInputLayout
-}
-
 export {
   ChatInput,
-  ChatInputRoot,
   ChatInputField,
   ChatInputSubmit,
   chatInputVariants,

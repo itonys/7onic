@@ -50,13 +50,14 @@ const ARROW_FILL: Record<string, string> = {
 // ─── TooltipProvider ─────────────────────────────────────────
 const TooltipProvider = TooltipPrimitive.Provider
 
-// ─── Tooltip (Root) — wrapper to avoid Object.assign mutating Radix primitive ──
+// ─── Tooltip (Root) — Props type ──
 export interface TooltipRootProps extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root> {
   /** Delay in ms before tooltip appears */
   delayDuration?: number
 }
 
-function TooltipRoot({ delayDuration = 200, ...props }: TooltipRootProps) {
+// ─── Tooltip (Root) — thin wrapper to expose as named export with default delayDuration ──
+function Tooltip({ delayDuration = 200, ...props }: TooltipRootProps) {
   return <TooltipPrimitive.Root delayDuration={delayDuration} {...props} />
 }
 
@@ -122,25 +123,9 @@ const TooltipArrow = React.forwardRef<
 ))
 TooltipArrow.displayName = 'TooltipArrow'
 
-// ─── Namespace: Tooltip ──────────────────────────────────────
-const Tooltip = Object.assign(TooltipRoot, {
-  Trigger: TooltipTrigger,
-  Content: TooltipContent,
-  Arrow: TooltipArrow,
-  Portal: TooltipPortal,
-  Provider: TooltipProvider,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Tooltip {
-  export type ContentProps = TooltipContentProps
-  export type RootProps = TooltipRootProps
-}
-
 // ─── Exports ────────────────────────────────────────────────
 export {
   Tooltip,
-  TooltipRoot,
   TooltipTrigger,
   TooltipContent,
   TooltipArrow,

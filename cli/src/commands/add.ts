@@ -354,13 +354,13 @@ function showSetupHints(names: string[]): void {
 
   if (names.includes('tooltip')) {
     p.note(
-      `Wrap your app with ${pc.cyan('<Tooltip.Provider>')}:\n\n` +
-      pc.dim(`  import { Tooltip } from '${pc.reset('@/components/ui/tooltip')}'\n\n`) +
+      `Wrap your app with ${pc.cyan('<TooltipProvider>')}:\n\n` +
+      pc.dim(`  import { TooltipProvider } from '${pc.reset('@/components/ui/tooltip')}'\n\n`) +
       pc.dim(`  export default function Layout({ children }) {\n`) +
       pc.dim(`    return (\n`) +
-      pc.green(`      <Tooltip.Provider>\n`) +
+      pc.green(`      <TooltipProvider>\n`) +
       pc.dim(`        {children}\n`) +
-      pc.green(`      </Tooltip.Provider>\n`) +
+      pc.green(`      </TooltipProvider>\n`) +
       pc.dim(`    )\n`) +
       pc.dim(`  }`),
       'Tooltip Setup'

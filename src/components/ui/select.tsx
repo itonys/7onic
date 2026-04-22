@@ -132,7 +132,7 @@ const SelectStyleContext = React.createContext<{
 }>({ contentRadius: 'xl', itemSize: 'md', flush: false })
 
 // Root — state management + size/radius context
-const SelectRoot = ({
+const Select = ({
   size = 'default',
   radius = 'default',
   ...props
@@ -345,17 +345,6 @@ const SelectSeparator = React.forwardRef<
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 export type { SelectRadius, SelectSize }
-
-// ─── Namespace ──────────────────────────────────────────
-const Select = Object.assign(SelectRoot, {
-  Trigger: SelectTrigger,
-  Value: SelectValue,
-  Content: SelectContent,
-  Item: SelectItem,
-  Group: SelectGroup,
-  Label: SelectLabel,
-  Separator: SelectSeparator,
-})
 
 export {
   Select,

@@ -72,7 +72,7 @@ const DropdownMenuStyleContext = React.createContext<{
 }>({ radius: 'lg', flush: false, size: 'md' })
 
 // Root — state management (controlled / uncontrolled)
-const DropdownMenuRoot = DropdownMenuPrimitive.Root
+const DropdownMenu = DropdownMenuPrimitive.Root
 
 // Trigger — the element that toggles the menu
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
@@ -323,23 +323,6 @@ function DropdownMenuShortcut({
 DropdownMenuShortcut.displayName = 'DropdownMenuShortcut'
 
 export type { DropdownMenuRadius, DropdownMenuSize }
-
-// ─── Namespace ──────────────────────────────────────────
-const DropdownMenu = Object.assign(DropdownMenuRoot, {
-  Trigger: DropdownMenuTrigger,
-  Content: DropdownMenuContent,
-  Item: DropdownMenuItem,
-  CheckboxItem: DropdownMenuCheckboxItem,
-  RadioGroup: DropdownMenuRadioGroup,
-  RadioItem: DropdownMenuRadioItem,
-  Label: DropdownMenuLabel,
-  Separator: DropdownMenuSeparator,
-  Group: DropdownMenuGroup,
-  Sub: DropdownMenuSub,
-  SubTrigger: DropdownMenuSubTrigger,
-  SubContent: DropdownMenuSubContent,
-  Shortcut: DropdownMenuShortcut,
-})
 
 export {
   DropdownMenu,

@@ -68,10 +68,10 @@ const ARROW_ELEVATED = 'fill-background-paper drop-shadow-sm'
 // Popover
 // ═══════════════════════════════════════════════════════════════
 
-// ─── PopoverRoot — wrapper to avoid Object.assign mutating Radix primitive ──
+// ─── Popover (Root) — thin wrapper to expose as named export ──
 export interface PopoverRootProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root> {}
 
-function PopoverRoot(props: PopoverRootProps) {
+function Popover(props: PopoverRootProps) {
   return <PopoverPrimitive.Root {...props} />
 }
 
@@ -165,26 +165,9 @@ const PopoverArrow = React.forwardRef<
 ))
 PopoverArrow.displayName = 'PopoverArrow'
 
-// ─── Namespace: Popover ──────────────────────────────────────
-const Popover = Object.assign(PopoverRoot, {
-  Trigger: PopoverTrigger,
-  Content: PopoverContent,
-  Arrow: PopoverArrow,
-  Close: PopoverClose,
-  Anchor: PopoverAnchor,
-  Portal: PopoverPortal,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Popover {
-  export type ContentProps = PopoverContentProps
-  export type RootProps = PopoverRootProps
-}
-
 // ─── Exports ────────────────────────────────────────────────
 export {
   Popover,
-  PopoverRoot,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,

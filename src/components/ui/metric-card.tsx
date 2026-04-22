@@ -84,7 +84,7 @@ export interface MetricCardProps
   animated?: boolean
 }
 
-const MetricCardRoot = React.forwardRef<HTMLDivElement, MetricCardProps>(
+const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(
   ({ className, variant, size, radius, animated = false, children, ...props }, ref) => {
     const resolvedSize = (size || 'default') as MetricCardSize
     return (
@@ -100,7 +100,7 @@ const MetricCardRoot = React.forwardRef<HTMLDivElement, MetricCardProps>(
     )
   }
 )
-MetricCardRoot.displayName = 'MetricCard'
+MetricCard.displayName = 'MetricCard'
 
 // ── MetricCardHeader ──
 
@@ -255,27 +255,6 @@ const MetricCardSymbol = React.forwardRef<HTMLDivElement, MetricCardSymbolProps>
 MetricCardSymbol.displayName = 'MetricCardSymbol'
 
 // ── Exports ──
-
-// ─── Namespace ──────────────────────────────────────────
-const MetricCard = Object.assign(MetricCardRoot, {
-  Header: MetricCardHeader,
-  Title: MetricCardTitle,
-  Value: MetricCardValue,
-  Trend: MetricCardTrend,
-  Description: MetricCardDescription,
-  Symbol: MetricCardSymbol,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace MetricCard {
-  export type HeaderProps = MetricCardHeaderProps
-  export type TitleProps = MetricCardTitleProps
-  export type ValueProps = MetricCardValueProps
-  export type TrendProps = MetricCardTrendProps
-  export type DescriptionProps = MetricCardDescriptionProps
-  export type SymbolProps = MetricCardSymbolProps
-}
-
 export {
   MetricCard,
   MetricCardHeader,

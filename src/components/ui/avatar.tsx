@@ -125,7 +125,7 @@ export interface AvatarProps
   status?: AvatarStatus
 }
 
-const AvatarRoot = React.forwardRef<
+const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   AvatarProps
 >(({ className, size, shape, status, children, ...props }, ref) => {
@@ -163,7 +163,7 @@ const AvatarRoot = React.forwardRef<
     </span>
   )
 })
-AvatarRoot.displayName = 'Avatar'
+Avatar.displayName = 'Avatar'
 
 export interface AvatarImageProps
   extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> {}
@@ -241,28 +241,14 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
       >
         {visibleChildren}
         {overflowCount > 0 && (
-          <AvatarRoot size={size} shape={shape}>
+          <Avatar size={size} shape={shape}>
             <AvatarFallback size={size}>+{overflowCount}</AvatarFallback>
-          </AvatarRoot>
+          </Avatar>
         )}
       </div>
     )
   }
 )
 AvatarGroup.displayName = 'AvatarGroup'
-
-// ─── Namespace ──────────────────────────────────────────
-const Avatar = Object.assign(AvatarRoot, {
-  Image: AvatarImage,
-  Fallback: AvatarFallback,
-  Group: AvatarGroup,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Avatar {
-  export type ImageProps = AvatarImageProps
-  export type FallbackProps = AvatarFallbackProps
-  export type GroupProps = AvatarGroupProps
-}
 
 export { Avatar, AvatarImage, AvatarFallback, AvatarGroup, avatarVariants, avatarColors, getAvatarColor, getAvatarInitials }

@@ -68,7 +68,7 @@ export interface TableProps
   wrapperClassName?: string
 }
 
-const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(
+const Table = React.forwardRef<HTMLTableElement, TableProps>(
   ({ className, size = 'default', variant = 'default', stickyHeader = false, wrapperClassName, ...props }, ref) => (
     <TableContext.Provider value={{ size, variant, stickyHeader }}>
       <div className={cn('relative w-full overflow-auto', wrapperClassName)}>
@@ -81,7 +81,7 @@ const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(
     </TableContext.Provider>
   )
 )
-TableRoot.displayName = 'Table'
+Table.displayName = 'Table'
 
 // ─── Header ──────────────────────────────────────────────────────
 const TableHeader = React.forwardRef<
@@ -293,24 +293,6 @@ const TableCaption = React.forwardRef<
 TableCaption.displayName = 'TableCaption'
 
 export type { TableSize, TableVariant, SortDirection }
-
-// ─── Namespace ──────────────────────────────────────────
-const Table = Object.assign(TableRoot, {
-  Header: TableHeader,
-  Body: TableBody,
-  Footer: TableFooter,
-  Row: TableRow,
-  Head: TableHead,
-  Cell: TableCell,
-  Caption: TableCaption,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Table {
-  export type RowProps = TableRowProps
-  export type HeadProps = TableHeadProps
-  export type CellProps = TableCellProps
-}
 
 export {
   Table,

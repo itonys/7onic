@@ -4,6 +4,17 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.9] — 2026-04-22
+
+### 7onic
+
+#### Changed
+
+- `registry` — regenerated from the `@7onic-ui/react` v0.3.0 source refactor. All 40 component source files copied by `7onic add` now use Named exports only: zero `Object.assign` blocks, zero `namespace X {}` TypeScript merges, zero runtime `*Root` naming. Sub-components (`CardHeader`, `ModalContent`, `TabsList`, etc.) remain as individual Named exports, so `7onic add card` produces a shadcn-style transparent source file.
+- Synced with `@7onic-ui/react` 0.3.0 Named-Primary migration.
+
+---
+
 ## [0.1.8] — 2026-04-16
 
 ### 7onic

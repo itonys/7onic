@@ -223,7 +223,7 @@ export interface ChatMessageFooterProps extends React.HTMLAttributes<HTMLDivElem
 // ChatMessage Root
 // ============================================================================
 
-const ChatMessageRoot = React.forwardRef<HTMLDivElement, ChatMessageRootProps>(
+const ChatMessage = React.forwardRef<HTMLDivElement, ChatMessageRootProps>(
   (
     {
       className,
@@ -266,7 +266,7 @@ const ChatMessageRoot = React.forwardRef<HTMLDivElement, ChatMessageRootProps>(
     )
   }
 )
-ChatMessageRoot.displayName = 'ChatMessage'
+ChatMessage.displayName = 'ChatMessage'
 
 // ============================================================================
 // Default AI sparkle icon
@@ -283,7 +283,7 @@ function DefaultAiIcon() {
 }
 
 // ============================================================================
-// ChatMessage.Avatar — wraps Avatar component with chat-specific sizes
+// ChatMessageAvatar — wraps Avatar component with chat-specific sizes
 // ============================================================================
 
 const ChatMessageAvatar = React.forwardRef<HTMLSpanElement, ChatMessageAvatarProps>(
@@ -301,10 +301,10 @@ const ChatMessageAvatar = React.forwardRef<HTMLSpanElement, ChatMessageAvatarPro
     </Avatar>
   )
 )
-ChatMessageAvatar.displayName = 'ChatMessage.Avatar'
+ChatMessageAvatar.displayName = 'ChatMessageAvatar'
 
 // ============================================================================
-// ChatMessage.Content
+// ChatMessageContent
 // ============================================================================
 
 const ChatMessageContent = React.forwardRef<HTMLDivElement, ChatMessageContentProps>(
@@ -364,10 +364,10 @@ const ChatMessageContent = React.forwardRef<HTMLDivElement, ChatMessageContentPr
     )
   }
 )
-ChatMessageContent.displayName = 'ChatMessage.Content'
+ChatMessageContent.displayName = 'ChatMessageContent'
 
 // ============================================================================
-// ChatMessage.Footer
+// ChatMessageFooter
 // ============================================================================
 
 const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProps>(
@@ -417,36 +417,10 @@ const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProp
     )
   }
 )
-ChatMessageFooter.displayName = 'ChatMessage.Footer'
-
-// ============================================================================
-// Namespace export (compound pattern)
-// ============================================================================
-
-const ChatMessage = Object.assign(ChatMessageRoot, {
-  Avatar:  ChatMessageAvatar,
-  Content: ChatMessageContent,
-  Footer:  ChatMessageFooter,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace ChatMessage {
-  export type RootProps    = ChatMessageRootProps
-  export type AvatarProps  = ChatMessageAvatarProps
-  export type ContentProps = ChatMessageContentProps
-  export type FooterProps  = ChatMessageFooterProps
-  export type Role       = ChatMessageRole
-  export type Variant    = ChatMessageVariant
-  export type Color      = ChatMessageColor
-  export type Size       = ChatMessageSize
-  export type Radius     = ChatMessageRadius
-  export type Status     = ChatMessageStatus
-  export type AvatarSize = ChatMessageAvatarSize
-}
+ChatMessageFooter.displayName = 'ChatMessageFooter'
 
 export {
   ChatMessage,
-  ChatMessageRoot,
   ChatMessageAvatar,
   ChatMessageContent,
   ChatMessageFooter,

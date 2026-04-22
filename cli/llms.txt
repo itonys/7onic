@@ -86,7 +86,7 @@ accordion, alert, avatar, badge, breadcrumb, button, button-group, card, chat-in
 ## Post-install Setup
 
 - **toast**: Add `<Toaster />` to root layout
-- **tooltip**: Wrap app with `<Tooltip.Provider>`
+- **tooltip**: Wrap app with `<TooltipProvider>`
 
 ## Notes
 

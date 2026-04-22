@@ -133,7 +133,7 @@ import { Chart, type ChartConfig } from '@7onic-ui/react/chart'  // charts: sepa
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | 3 |
 | **AI** | TypingIndicator, QuickReply, ChatInput, ChatMessage | 4 |
 
-**42 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, namespace exports (`Card.Header`) + named exports (`CardHeader`).
+**42 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, and **Named exports** (`CardHeader`, `ModalContent`, `TabsList`, ...). If you prefer dot-notation (`<Card.Header>`), drop in the 5-line [Compound Recipe wrapper](docs/decisions/NAMED-PRIMARY-MIGRATION.md) — opt-in, Client Components only.
 
 ---
 
@@ -258,7 +258,7 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Token sync script with breaking change detection
 - [x] Tailwind v3/v4 dual preset + RGB channel opacity support
 - [x] Light/dark theme with OS auto-detection
-- [x] 42 components with namespace compound exports
+- [x] 42 components with Named exports (Compound Recipe available for opt-in dot-notation)
 - [x] Documentation site with interactive playgrounds
 - [x] Chart components included (Bar, Line, Area, Pie, MetricCard)
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)

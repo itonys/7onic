@@ -36,11 +36,12 @@ Components follow these conventions:
 - **`forwardRef`** on all components
 - **`'use client'`** directive at top
 - **Controlled + Uncontrolled** support
-- **Namespace export** for compound components:
+- **Named exports** for all components and sub-components (v0.3.0+):
   ```tsx
-  // Compound: Card.Header, Card.Content, etc.
-  const Card = Object.assign(CardRoot, { Header, Content, Footer })
+  // Each sub-component is its own named export
+  import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@7onic-ui/react'
   ```
+  Compound JSX (`<Card.Header>`) is not emitted by the library. Users who prefer dot-notation can add a 5-line Compound Recipe wrapper in their own project. See `docs/decisions/NAMED-PRIMARY-MIGRATION.md`.
 
 ### Font Weight
 

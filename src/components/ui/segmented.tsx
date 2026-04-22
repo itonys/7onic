@@ -150,7 +150,7 @@ export interface SegmentedProps
   extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>,
     VariantProps<typeof segmentedVariants> {}
 
-const SegmentedRoot = React.forwardRef<
+const Segmented = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   SegmentedProps
 >(({ className, variant, size, radius, fontWeight, ...props }, ref) => {
@@ -167,7 +167,7 @@ const SegmentedRoot = React.forwardRef<
     </SegmentedContext.Provider>
   )
 })
-SegmentedRoot.displayName = 'Segmented'
+Segmented.displayName = 'Segmented'
 
 // Icon size for segmented control (4-step scale, Icon+Text mode)
 // sm: 14px, md~default~lg: 16px
@@ -205,15 +205,5 @@ const SegmentedItem = React.forwardRef<
   )
 })
 SegmentedItem.displayName = 'SegmentedItem'
-
-// ─── Namespace ──────────────────────────────────────────
-const Segmented = Object.assign(SegmentedRoot, {
-  Item: SegmentedItem,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Segmented {
-  export type ItemProps = SegmentedItemProps
-}
 
 export { Segmented, SegmentedItem, segmentedVariants, segmentedItemVariants }

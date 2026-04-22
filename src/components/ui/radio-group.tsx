@@ -50,7 +50,7 @@ export interface RadioGroupProps
   color?: RadioColor
 }
 
-const RadioGroupRoot = React.forwardRef<
+const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   RadioGroupProps
 >(({ className, orientation, size = 'default', weight = 'bold', color = 'default', disabled, ...props }, ref) => {
@@ -69,7 +69,7 @@ const RadioGroupRoot = React.forwardRef<
     </RadioGroupContext.Provider>
   )
 })
-RadioGroupRoot.displayName = 'RadioGroup'
+RadioGroup.displayName = 'RadioGroup'
 
 // RadioGroupItem circle variants
 const radioItemVariants = cva(
@@ -173,15 +173,5 @@ const RadioGroupItem = React.forwardRef<
   )
 })
 RadioGroupItem.displayName = 'RadioGroupItem'
-
-// ─── Namespace ──────────────────────────────────────────
-const RadioGroup = Object.assign(RadioGroupRoot, {
-  Item: RadioGroupItem,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace RadioGroup {
-  export type ItemProps = RadioGroupItemProps
-}
 
 export { RadioGroup, RadioGroupItem, radioGroupVariants, radioItemVariants }

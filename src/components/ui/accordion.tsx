@@ -55,7 +55,7 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean
 }
 
-const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionProps>(
+const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   ({ className, variant = 'default', size = 'default', iconPosition = 'right', type = 'single', collapsible = true, defaultValue, value, onValueChange, disabled, ...props }, ref) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Radix single/multiple union type conflict
     const restProps = props as any
@@ -90,7 +90,7 @@ const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionProps>(
     )
   }
 )
-AccordionRoot.displayName = 'Accordion'
+Accordion.displayName = 'Accordion'
 
 // ─── AccordionItem ───────────────────────────────────────────
 
@@ -237,21 +237,6 @@ const AccordionContent = React.forwardRef<
 AccordionContent.displayName = 'AccordionContent'
 
 // ─── Exports ─────────────────────────────────────────────────
-
-// ─── Namespace ──────────────────────────────────────────
-const Accordion = Object.assign(AccordionRoot, {
-  Item: AccordionItem,
-  Trigger: AccordionTrigger,
-  Content: AccordionContent,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Accordion {
-  export type ItemProps = AccordionItemProps
-  export type TriggerProps = AccordionTriggerProps
-  export type ContentProps = AccordionContentProps
-}
-
 export {
   Accordion,
   AccordionItem,

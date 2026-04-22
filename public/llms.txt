@@ -395,28 +395,9 @@ For detailed token reference, see: https://7onic.design/llms.txt
 import { Button, Card, Input, Toast } from '@7onic-ui/react'
 ```
 
-## Compound Component Import Patterns
+## Component Import
 
-24 compound components support **two equivalent import patterns** — choose based on your rendering context:
-
-### Pattern A: Namespace (dot notation) — Client Components
-
-```tsx
-import { Card } from '@7onic-ui/react'
-
-<Card>
-  <Card.Header>
-    <Card.Title>Title</Card.Title>
-    <Card.Description>Description</Card.Description>
-  </Card.Header>
-  <Card.Content>Content</Card.Content>
-  <Card.Footer>Footer</Card.Footer>
-</Card>
-```
-
-Better name grouping and readability. Works in files with `'use client'` directive.
-
-### Pattern B: Named imports — works everywhere (including Server Components)
+All components use Named imports. Works in every environment (Next.js App Router RSC, Client Components, Pages Router, Vite, CRA, CJS).
 
 ```tsx
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@7onic-ui/react'
@@ -431,41 +412,13 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 </Card>
 ```
 
-### ⚠️ Next.js Server Components — use Pattern B
+### Compound Components (24)
 
-**Namespace pattern (`<Card.Header />`) does NOT work inside Server Components** due to a Next.js Client Manifest limitation (sub-component references cannot be tracked through `Object.assign`).
-
-```tsx
-// ❌ Server Component (default in App Router) — throws "Unsupported Server Component type: undefined"
-export default function Page() {
-  return (
-    <Card>
-      <Card.Header>...</Card.Header>
-    </Card>
-  )
-}
-
-// ✅ Server Component — use named imports
-import { Card, CardHeader } from '@7onic-ui/react'
-
-export default function Page() {
-  return (
-    <Card>
-      <CardHeader>...</CardHeader>
-    </Card>
-  )
-}
-```
-
-**Rule of thumb:**
-- File has `'use client'` at top → either pattern works, namespace preferred
-- File has no directive (Server Component default in Next.js App Router) → named imports only
-
-### Compound Components List (24)
+Components that provide sub-components. Each sub is a Named export (`CardHeader`, `ModalContent`, `TabsList`, etc.).
 
 Accordion, Alert, Avatar, Breadcrumb, Card, ChatInput, ChatMessage, Chart, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, QuickReply, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
 
-Each compound component's sub-components can be imported as named exports. Example: `Card.Header` ↔ `CardHeader`, `Modal.Content` ↔ `ModalContent`, `Tabs.List` ↔ `TabsList`, etc. The code examples below use the namespace pattern; convert dots to camelCase for named imports when needed for Server Components.
+Prefer dot-notation (`<Card.Header>`)? See **Compound Recipe** section at end of this document.
 
 ### Standalone Components (16)
 
@@ -2323,6 +2276,35 @@ import { ChatMessage } from '@7onic-ui/react'
 | timestamp | `string` | — | Pre-formatted time string |
 | status | `'sending' \| 'sent' \| 'read' \| 'error' \| ReactNode` | — | Delivery status (built-in presets or custom node) |
 | size | `'sm' \| 'default' \| 'lg'` | — | Size override (defaults to context value from root) |
+
+---
+
+## Compound Recipe (opt-in self-wrapper)
+
+v0.3.0+ library exports Named only (`<CardHeader>`). To restore dot-notation (`<Card.Header>`) in your project, add a 5-line wrapper file:
+
+```tsx
+// lib/card.tsx
+'use client'
+import {
+  Card as CardBase,
+  CardHeader, CardTitle, CardDescription,
+  CardContent, CardFooter, CardImage, CardAction,
+} from '@7onic-ui/react'
+
+export const Card = Object.assign(CardBase, {
+  Header: CardHeader, Title: CardTitle,
+  Description: CardDescription, Content: CardContent,
+  Footer: CardFooter, Image: CardImage, Action: CardAction,
+})
+// Then: <Card.Header>, <Card.Title>, etc. — Client Components only.
+```
+
+**Rules**:
+- Wrapper file must start with `'use client'` — Next.js Client Manifest cannot track `Object.assign` properties across RSC boundaries.
+- Recipe works only in Client Components. Server Components must use Named imports (`<CardHeader>`).
+- If you don't need dot-notation, skip this entirely — Named imports (`<CardHeader>`) work everywhere: RSC, Client, Vite, CRA, CJS.
+- Compound namespaces (component families with sub-components): Accordion, Alert, AlertModal, Avatar, Breadcrumb, Card, Chart, ChatInput, ChatMessage, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, QuickReply, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip.
 
 ---
 

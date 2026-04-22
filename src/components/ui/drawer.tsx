@@ -62,8 +62,8 @@ const drawerSizeVertical = cva('', {
 // Drawer
 // ═══════════════════════════════════════════════════════════════
 
-// ─── Drawer (Root) — wrapper to avoid Object.assign mutating DialogPrimitive.Root ──
-function DrawerRoot(props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
+// ─── Drawer (Root) — thin wrapper to expose as named export ──
+function Drawer(props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root {...props} />
 }
 
@@ -226,29 +226,9 @@ const DrawerFooter = React.forwardRef<
 ))
 DrawerFooter.displayName = 'DrawerFooter'
 
-// ─── Namespace: Drawer ──────────────────────────────────────
-const Drawer = Object.assign(DrawerRoot, {
-  Trigger: DrawerTrigger,
-  Portal: DrawerPortal,
-  Overlay: DrawerOverlay,
-  Content: DrawerContent,
-  Header: DrawerHeader,
-  Title: DrawerTitle,
-  Description: DrawerDescription,
-  Body: DrawerBody,
-  Footer: DrawerFooter,
-  Close: DrawerClose,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Drawer {
-  export type ContentProps = DrawerContentProps
-}
-
 // ─── Exports ────────────────────────────────────────────────
 export {
   Drawer,
-  DrawerRoot,
   DrawerTrigger,
   DrawerPortal,
   DrawerOverlay,

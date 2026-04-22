@@ -67,7 +67,7 @@ export interface BreadcrumbProps extends React.ComponentPropsWithoutRef<'nav'> {
   itemsAfterCollapse?: number
 }
 
-const BreadcrumbRoot = React.forwardRef<HTMLElement, BreadcrumbProps>(
+const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({ className, separator, size = 'default', ...props }, ref) => (
     <BreadcrumbContext.Provider value={{ size, separator }}>
       <nav
@@ -79,7 +79,7 @@ const BreadcrumbRoot = React.forwardRef<HTMLElement, BreadcrumbProps>(
     </BreadcrumbContext.Provider>
   )
 )
-BreadcrumbRoot.displayName = 'Breadcrumb'
+Breadcrumb.displayName = 'Breadcrumb'
 
 // ─── BreadcrumbList ───────────────────────────────────────
 
@@ -203,22 +203,6 @@ const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, BreadcrumbEllipsisP
 BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis'
 
 // ─── Exports ──────────────────────────────────────────────
-
-// ─── Namespace ──────────────────────────────────────────
-const Breadcrumb = Object.assign(BreadcrumbRoot, {
-  List: BreadcrumbList,
-  Item: BreadcrumbItem,
-  Link: BreadcrumbLink,
-  Page: BreadcrumbPage,
-  Separator: BreadcrumbSeparator,
-  Ellipsis: BreadcrumbEllipsis,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Breadcrumb {
-  export type LinkProps = BreadcrumbLinkProps
-  export type EllipsisProps = BreadcrumbEllipsisProps
-}
 
 export {
   Breadcrumb,

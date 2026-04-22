@@ -9,7 +9,7 @@ export const registry: Registry = {
     dependencies: ["@radix-ui/react-accordion"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'accordion.tsx',
@@ -70,7 +70,7 @@ export interface AccordionProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean
 }
 
-const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionProps>(
+const Accordion = React.forwardRef<HTMLDivElement, AccordionProps>(
   ({ className, variant = 'default', size = 'default', iconPosition = 'right', type = 'single', collapsible = true, defaultValue, value, onValueChange, disabled, ...props }, ref) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Radix single/multiple union type conflict
     const restProps = props as any
@@ -105,7 +105,7 @@ const AccordionRoot = React.forwardRef<HTMLDivElement, AccordionProps>(
     )
   }
 )
-AccordionRoot.displayName = 'Accordion'
+Accordion.displayName = 'Accordion'
 
 // ─── AccordionItem ───────────────────────────────────────────
 
@@ -252,21 +252,6 @@ const AccordionContent = React.forwardRef<
 AccordionContent.displayName = 'AccordionContent'
 
 // ─── Exports ─────────────────────────────────────────────────
-
-// ─── Namespace ──────────────────────────────────────────
-const Accordion = Object.assign(AccordionRoot, {
-  Item: AccordionItem,
-  Trigger: AccordionTrigger,
-  Content: AccordionContent,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Accordion {
-  export type ItemProps = AccordionItemProps
-  export type TriggerProps = AccordionTriggerProps
-  export type ContentProps = AccordionContentProps
-}
-
 export {
   Accordion,
   AccordionItem,
@@ -284,7 +269,7 @@ export {
     dependencies: [],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'alert.tsx',
@@ -448,7 +433,7 @@ function useAlertContext() {
 // Alert
 // ═══════════════════════════════════════════════════════════════════
 
-// ─── AlertRoot ───────────────────────────────────────────────────
+// ─── Alert ───────────────────────────────────────────────────────
 export interface AlertRootProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof alertVariants> {
@@ -470,7 +455,7 @@ export interface AlertRootProps
   hideIcon?: boolean
 }
 
-const AlertRoot = React.forwardRef<HTMLDivElement, AlertRootProps>(
+const Alert = React.forwardRef<HTMLDivElement, AlertRootProps>(
   ({
     className,
     variant = 'default',
@@ -536,7 +521,7 @@ const AlertRoot = React.forwardRef<HTMLDivElement, AlertRootProps>(
     )
   }
 )
-AlertRoot.displayName = 'AlertRoot'
+Alert.displayName = 'Alert'
 
 // ─── AlertTitle ──────────────────────────────────────────────────
 export interface AlertTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
@@ -577,23 +562,9 @@ const AlertDescription = React.forwardRef<HTMLParagraphElement, AlertDescription
 )
 AlertDescription.displayName = 'AlertDescription'
 
-// ─── Namespace: Alert ────────────────────────────────────────────
-const Alert = Object.assign(AlertRoot, {
-  Title: AlertTitle,
-  Description: AlertDescription,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Alert {
-  export type RootProps = AlertRootProps
-  export type TitleProps = AlertTitleProps
-  export type DescriptionProps = AlertDescriptionProps
-}
-
 // ─── Exports ─────────────────────────────────────────────────────
 export {
   Alert,
-  AlertRoot,
   AlertTitle,
   AlertDescription,
   alertVariants,
@@ -607,7 +578,7 @@ export {
     dependencies: ["@radix-ui/react-avatar"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'avatar.tsx',
@@ -738,7 +709,7 @@ export interface AvatarProps
   status?: AvatarStatus
 }
 
-const AvatarRoot = React.forwardRef<
+const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   AvatarProps
 >(({ className, size, shape, status, children, ...props }, ref) => {
@@ -776,7 +747,7 @@ const AvatarRoot = React.forwardRef<
     </span>
   )
 })
-AvatarRoot.displayName = 'Avatar'
+Avatar.displayName = 'Avatar'
 
 export interface AvatarImageProps
   extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image> {}
@@ -854,29 +825,15 @@ const AvatarGroup = React.forwardRef<HTMLDivElement, AvatarGroupProps>(
       >
         {visibleChildren}
         {overflowCount > 0 && (
-          <AvatarRoot size={size} shape={shape}>
+          <Avatar size={size} shape={shape}>
             <AvatarFallback size={size}>+{overflowCount}</AvatarFallback>
-          </AvatarRoot>
+          </Avatar>
         )}
       </div>
     )
   }
 )
 AvatarGroup.displayName = 'AvatarGroup'
-
-// ─── Namespace ──────────────────────────────────────────
-const Avatar = Object.assign(AvatarRoot, {
-  Image: AvatarImage,
-  Fallback: AvatarFallback,
-  Group: AvatarGroup,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Avatar {
-  export type ImageProps = AvatarImageProps
-  export type FallbackProps = AvatarFallbackProps
-  export type GroupProps = AvatarGroupProps
-}
 
 export { Avatar, AvatarImage, AvatarFallback, AvatarGroup, avatarVariants, avatarColors, getAvatarColor, getAvatarInitials }
 `,
@@ -1096,7 +1053,7 @@ export { Badge, badgeVariants }
     dependencies: ["@radix-ui/react-slot"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'breadcrumb.tsx',
@@ -1169,7 +1126,7 @@ export interface BreadcrumbProps extends React.ComponentPropsWithoutRef<'nav'> {
   itemsAfterCollapse?: number
 }
 
-const BreadcrumbRoot = React.forwardRef<HTMLElement, BreadcrumbProps>(
+const Breadcrumb = React.forwardRef<HTMLElement, BreadcrumbProps>(
   ({ className, separator, size = 'default', ...props }, ref) => (
     <BreadcrumbContext.Provider value={{ size, separator }}>
       <nav
@@ -1181,7 +1138,7 @@ const BreadcrumbRoot = React.forwardRef<HTMLElement, BreadcrumbProps>(
     </BreadcrumbContext.Provider>
   )
 )
-BreadcrumbRoot.displayName = 'Breadcrumb'
+Breadcrumb.displayName = 'Breadcrumb'
 
 // ─── BreadcrumbList ───────────────────────────────────────
 
@@ -1305,22 +1262,6 @@ const BreadcrumbEllipsis = React.forwardRef<HTMLSpanElement, BreadcrumbEllipsisP
 BreadcrumbEllipsis.displayName = 'BreadcrumbEllipsis'
 
 // ─── Exports ──────────────────────────────────────────────
-
-// ─── Namespace ──────────────────────────────────────────
-const Breadcrumb = Object.assign(BreadcrumbRoot, {
-  List: BreadcrumbList,
-  Item: BreadcrumbItem,
-  Link: BreadcrumbLink,
-  Page: BreadcrumbPage,
-  Separator: BreadcrumbSeparator,
-  Ellipsis: BreadcrumbEllipsis,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Breadcrumb {
-  export type LinkProps = BreadcrumbLinkProps
-  export type EllipsisProps = BreadcrumbEllipsisProps
-}
 
 export {
   Breadcrumb,
@@ -1625,7 +1566,7 @@ export { Button, buttonVariants }
     dependencies: ["@radix-ui/react-slot"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'card.tsx',
@@ -1707,7 +1648,7 @@ export interface CardProps
   asChild?: boolean
 }
 
-const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
+const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({
     className,
     variant = 'default',
@@ -1763,7 +1704,7 @@ const CardRoot = React.forwardRef<HTMLDivElement, CardProps>(
     )
   }
 )
-CardRoot.displayName = 'Card'
+Card.displayName = 'Card'
 
 // ── Size-based padding map (responsive: mobile → desktop) ──
 
@@ -2027,28 +1968,6 @@ const CardFooter = React.forwardRef<HTMLDivElement, CardFooterProps>(
 )
 CardFooter.displayName = 'CardFooter'
 
-// ─── Namespace ──────────────────────────────────────────
-const Card = Object.assign(CardRoot, {
-  Image: CardImage,
-  Header: CardHeader,
-  Title: CardTitle,
-  Description: CardDescription,
-  Action: CardAction,
-  Content: CardContent,
-  Footer: CardFooter,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Card {
-  export type ImageProps = CardImageProps
-  export type HeaderProps = CardHeaderProps
-  export type TitleProps = CardTitleProps
-  export type DescriptionProps = CardDescriptionProps
-  export type ActionProps = CardActionProps
-  export type ContentProps = CardContentProps
-  export type FooterProps = CardFooterProps
-}
-
 export {
   Card,
   CardImage,
@@ -2069,7 +1988,7 @@ export {
     dependencies: ["recharts"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     aliases: ["bar-chart","line-chart","area-chart","pie-chart"],
     files: [{
@@ -2922,24 +2841,9 @@ function ChartPie({
 
 // ─────────────────────────────────────────────────────────────────────────────
 
-// ─── Namespace ──────────────────────────────────────────
-const Chart = Object.assign(ChartContainer, {
-  Bar: ChartBar,
-  Line: ChartLine,
-  Area: ChartArea,
-  Pie: ChartPie,
-  Tooltip: ChartTooltip,
-  TooltipContent: ChartTooltipContent,
-  Legend: ChartLegend,
-  LegendContent: ChartLegendContent,
-  XAxis: ChartXAxis,
-  YAxis: ChartYAxis,
-  Style: ChartStyle,
-})
-
 export {
-  Chart,
   ChartContainer,
+  ChartContainer as Chart,
   ChartBar,
   ChartLine,
   ChartArea,
@@ -2962,7 +2866,7 @@ export {
     dependencies: [],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'chat-input.tsx',
@@ -3185,7 +3089,7 @@ export interface ChatInputSubmitProps
 // ChatInput — Root container
 // ============================================================================
 
-const ChatInputRoot = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
+const ChatInput = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
   (
     {
       className,
@@ -3272,10 +3176,10 @@ const ChatInputRoot = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
     )
   }
 )
-ChatInputRoot.displayName = 'ChatInput'
+ChatInput.displayName = 'ChatInput'
 
 // ============================================================================
-// ChatInput.Field — Auto-resizing textarea
+// ChatInputField — Auto-resizing textarea
 // ============================================================================
 
 const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps>(
@@ -3377,10 +3281,10 @@ const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps
     )
   }
 )
-ChatInputField.displayName = 'ChatInput.Field'
+ChatInputField.displayName = 'ChatInputField'
 
 // ============================================================================
-// ChatInput.Submit — Send / stop button
+// ChatInputSubmit — Send / stop button
 // ============================================================================
 
 const ChatInputSubmit = React.forwardRef<HTMLButtonElement, ChatInputSubmitProps>(
@@ -3462,7 +3366,7 @@ const ChatInputSubmit = React.forwardRef<HTMLButtonElement, ChatInputSubmitProps
     )
   }
 )
-ChatInputSubmit.displayName = 'ChatInput.Submit'
+ChatInputSubmit.displayName = 'ChatInputSubmit'
 
 // ============================================================================
 // Built-in SVG icons — no external icon dependency
@@ -3493,26 +3397,8 @@ function StopIcon() {
   )
 }
 
-// ============================================================================
-// Namespace export (compound pattern)
-// ============================================================================
-
-const ChatInput = Object.assign(ChatInputRoot, {
-  Field:  ChatInputField,
-  Submit: ChatInputSubmit,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace ChatInput {
-  export type RootProps   = ChatInputRootProps
-  export type FieldProps  = ChatInputFieldProps
-  export type SubmitProps = ChatInputSubmitProps
-  export type Layout      = ChatInputLayout
-}
-
 export {
   ChatInput,
-  ChatInputRoot,
   ChatInputField,
   ChatInputSubmit,
   chatInputVariants,
@@ -3526,7 +3412,7 @@ export {
     dependencies: [],
     registryDependencies: ["avatar","typing-indicator"],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'chat-message.tsx',
@@ -3755,7 +3641,7 @@ export interface ChatMessageFooterProps extends React.HTMLAttributes<HTMLDivElem
 // ChatMessage Root
 // ============================================================================
 
-const ChatMessageRoot = React.forwardRef<HTMLDivElement, ChatMessageRootProps>(
+const ChatMessage = React.forwardRef<HTMLDivElement, ChatMessageRootProps>(
   (
     {
       className,
@@ -3798,7 +3684,7 @@ const ChatMessageRoot = React.forwardRef<HTMLDivElement, ChatMessageRootProps>(
     )
   }
 )
-ChatMessageRoot.displayName = 'ChatMessage'
+ChatMessage.displayName = 'ChatMessage'
 
 // ============================================================================
 // Default AI sparkle icon
@@ -3815,7 +3701,7 @@ function DefaultAiIcon() {
 }
 
 // ============================================================================
-// ChatMessage.Avatar — wraps Avatar component with chat-specific sizes
+// ChatMessageAvatar — wraps Avatar component with chat-specific sizes
 // ============================================================================
 
 const ChatMessageAvatar = React.forwardRef<HTMLSpanElement, ChatMessageAvatarProps>(
@@ -3833,10 +3719,10 @@ const ChatMessageAvatar = React.forwardRef<HTMLSpanElement, ChatMessageAvatarPro
     </Avatar>
   )
 )
-ChatMessageAvatar.displayName = 'ChatMessage.Avatar'
+ChatMessageAvatar.displayName = 'ChatMessageAvatar'
 
 // ============================================================================
-// ChatMessage.Content
+// ChatMessageContent
 // ============================================================================
 
 const ChatMessageContent = React.forwardRef<HTMLDivElement, ChatMessageContentProps>(
@@ -3896,10 +3782,10 @@ const ChatMessageContent = React.forwardRef<HTMLDivElement, ChatMessageContentPr
     )
   }
 )
-ChatMessageContent.displayName = 'ChatMessage.Content'
+ChatMessageContent.displayName = 'ChatMessageContent'
 
 // ============================================================================
-// ChatMessage.Footer
+// ChatMessageFooter
 // ============================================================================
 
 const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProps>(
@@ -3949,36 +3835,10 @@ const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProp
     )
   }
 )
-ChatMessageFooter.displayName = 'ChatMessage.Footer'
-
-// ============================================================================
-// Namespace export (compound pattern)
-// ============================================================================
-
-const ChatMessage = Object.assign(ChatMessageRoot, {
-  Avatar:  ChatMessageAvatar,
-  Content: ChatMessageContent,
-  Footer:  ChatMessageFooter,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace ChatMessage {
-  export type RootProps    = ChatMessageRootProps
-  export type AvatarProps  = ChatMessageAvatarProps
-  export type ContentProps = ChatMessageContentProps
-  export type FooterProps  = ChatMessageFooterProps
-  export type Role       = ChatMessageRole
-  export type Variant    = ChatMessageVariant
-  export type Color      = ChatMessageColor
-  export type Size       = ChatMessageSize
-  export type Radius     = ChatMessageRadius
-  export type Status     = ChatMessageStatus
-  export type AvatarSize = ChatMessageAvatarSize
-}
+ChatMessageFooter.displayName = 'ChatMessageFooter'
 
 export {
   ChatMessage,
-  ChatMessageRoot,
   ChatMessageAvatar,
   ChatMessageContent,
   ChatMessageFooter,
@@ -4325,7 +4185,7 @@ export { Divider, dividerVariants }
     dependencies: ["@radix-ui/react-dialog"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'drawer.tsx',
@@ -4393,8 +4253,8 @@ const drawerSizeVertical = cva('', {
 // Drawer
 // ═══════════════════════════════════════════════════════════════
 
-// ─── Drawer (Root) — wrapper to avoid Object.assign mutating DialogPrimitive.Root ──
-function DrawerRoot(props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
+// ─── Drawer (Root) — thin wrapper to expose as named export ──
+function Drawer(props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root {...props} />
 }
 
@@ -4557,29 +4417,9 @@ const DrawerFooter = React.forwardRef<
 ))
 DrawerFooter.displayName = 'DrawerFooter'
 
-// ─── Namespace: Drawer ──────────────────────────────────────
-const Drawer = Object.assign(DrawerRoot, {
-  Trigger: DrawerTrigger,
-  Portal: DrawerPortal,
-  Overlay: DrawerOverlay,
-  Content: DrawerContent,
-  Header: DrawerHeader,
-  Title: DrawerTitle,
-  Description: DrawerDescription,
-  Body: DrawerBody,
-  Footer: DrawerFooter,
-  Close: DrawerClose,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Drawer {
-  export type ContentProps = DrawerContentProps
-}
-
 // ─── Exports ────────────────────────────────────────────────
 export {
   Drawer,
-  DrawerRoot,
   DrawerTrigger,
   DrawerPortal,
   DrawerOverlay,
@@ -4602,7 +4442,7 @@ export {
     dependencies: ["@radix-ui/react-dropdown-menu"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'dropdown.tsx',
@@ -4680,7 +4520,7 @@ const DropdownMenuStyleContext = React.createContext<{
 }>({ radius: 'lg', flush: false, size: 'md' })
 
 // Root — state management (controlled / uncontrolled)
-const DropdownMenuRoot = DropdownMenuPrimitive.Root
+const DropdownMenu = DropdownMenuPrimitive.Root
 
 // Trigger — the element that toggles the menu
 const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
@@ -4932,23 +4772,6 @@ DropdownMenuShortcut.displayName = 'DropdownMenuShortcut'
 
 export type { DropdownMenuRadius, DropdownMenuSize }
 
-// ─── Namespace ──────────────────────────────────────────
-const DropdownMenu = Object.assign(DropdownMenuRoot, {
-  Trigger: DropdownMenuTrigger,
-  Content: DropdownMenuContent,
-  Item: DropdownMenuItem,
-  CheckboxItem: DropdownMenuCheckboxItem,
-  RadioGroup: DropdownMenuRadioGroup,
-  RadioItem: DropdownMenuRadioItem,
-  Label: DropdownMenuLabel,
-  Separator: DropdownMenuSeparator,
-  Group: DropdownMenuGroup,
-  Sub: DropdownMenuSub,
-  SubTrigger: DropdownMenuSubTrigger,
-  SubContent: DropdownMenuSubContent,
-  Shortcut: DropdownMenuShortcut,
-})
-
 export {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -4974,7 +4797,7 @@ export {
     dependencies: [],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'field.tsx',
@@ -5020,7 +4843,7 @@ export interface FieldProps
   disabled?: boolean
 }
 
-const FieldRoot = React.forwardRef<HTMLDivElement, FieldProps>(
+const Field = React.forwardRef<HTMLDivElement, FieldProps>(
   ({ className, gap, error, disabled, children, ...props }, ref) => {
     const id = React.useId()
 
@@ -5039,7 +4862,7 @@ const FieldRoot = React.forwardRef<HTMLDivElement, FieldProps>(
     )
   }
 )
-FieldRoot.displayName = 'Field'
+Field.displayName = 'Field'
 
 // Field Label
 export interface FieldLabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
@@ -5113,18 +4936,6 @@ const FieldCharCount = React.forwardRef<
   )
 })
 FieldCharCount.displayName = 'FieldCharCount'
-
-// ─── Namespace ──────────────────────────────────────────
-const Field = Object.assign(FieldRoot, {
-  Label: FieldLabel,
-  Error: FieldError,
-  CharCount: FieldCharCount,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Field {
-  export type LabelProps = FieldLabelProps
-}
 
 export { Field, FieldLabel, FieldError, FieldCharCount, useFieldContext }
 `,
@@ -5509,7 +5320,7 @@ export { Input, inputVariants }
     dependencies: [],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'metric-card.tsx',
@@ -5599,7 +5410,7 @@ export interface MetricCardProps
   animated?: boolean
 }
 
-const MetricCardRoot = React.forwardRef<HTMLDivElement, MetricCardProps>(
+const MetricCard = React.forwardRef<HTMLDivElement, MetricCardProps>(
   ({ className, variant, size, radius, animated = false, children, ...props }, ref) => {
     const resolvedSize = (size || 'default') as MetricCardSize
     return (
@@ -5615,7 +5426,7 @@ const MetricCardRoot = React.forwardRef<HTMLDivElement, MetricCardProps>(
     )
   }
 )
-MetricCardRoot.displayName = 'MetricCard'
+MetricCard.displayName = 'MetricCard'
 
 // ── MetricCardHeader ──
 
@@ -5770,27 +5581,6 @@ const MetricCardSymbol = React.forwardRef<HTMLDivElement, MetricCardSymbolProps>
 MetricCardSymbol.displayName = 'MetricCardSymbol'
 
 // ── Exports ──
-
-// ─── Namespace ──────────────────────────────────────────
-const MetricCard = Object.assign(MetricCardRoot, {
-  Header: MetricCardHeader,
-  Title: MetricCardTitle,
-  Value: MetricCardValue,
-  Trend: MetricCardTrend,
-  Description: MetricCardDescription,
-  Symbol: MetricCardSymbol,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace MetricCard {
-  export type HeaderProps = MetricCardHeaderProps
-  export type TitleProps = MetricCardTitleProps
-  export type ValueProps = MetricCardValueProps
-  export type TrendProps = MetricCardTrendProps
-  export type DescriptionProps = MetricCardDescriptionProps
-  export type SymbolProps = MetricCardSymbolProps
-}
-
 export {
   MetricCard,
   MetricCardHeader,
@@ -5810,7 +5600,7 @@ export {
     dependencies: ["@radix-ui/react-alert-dialog","@radix-ui/react-dialog"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'modal.tsx',
@@ -5848,8 +5638,8 @@ const ModalStyleContext = React.createContext<ModalStyleContextValue>({
 // Modal (Dialog)
 // ═══════════════════════════════════════════════════════════════
 
-// ─── Modal (Root) — wrapper to avoid Object.assign mutating DialogPrimitive.Root ──
-function ModalRoot(props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
+// ─── Modal (Root) — thin wrapper to expose as named export without mutating DialogPrimitive.Root ──
+function Modal(props: React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root>) {
   return <DialogPrimitive.Root {...props} />
 }
 
@@ -6076,7 +5866,7 @@ ModalFooter.displayName = 'ModalFooter'
 // ═══════════════════════════════════════════════════════════════
 
 // ─── AlertModal (Root) ──────────────────────────────────────
-const AlertModalRoot = AlertDialogPrimitive.Root
+const AlertModal = AlertDialogPrimitive.Root
 
 // ─── AlertModalTrigger ──────────────────────────────────────
 const AlertModalTrigger = AlertDialogPrimitive.Trigger
@@ -6237,45 +6027,6 @@ const AlertModalCancel = React.forwardRef<
 ))
 AlertModalCancel.displayName = 'AlertModalCancel'
 
-// ─── Namespace: Modal ────────────────────────────────────
-const Modal = Object.assign(ModalRoot, {
-  Trigger: ModalTrigger,
-  Portal: ModalPortal,
-  Overlay: ModalOverlay,
-  Content: ModalContent,
-  Header: ModalHeader,
-  Title: ModalTitle,
-  Description: ModalDescription,
-  Body: ModalBody,
-  Footer: ModalFooter,
-  Close: ModalClose,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Modal {
-  export type ContentProps = ModalContentProps
-}
-
-// ─── Namespace: AlertModal ──────────────────────────────
-const AlertModal = Object.assign(AlertModalRoot, {
-  Trigger: AlertModalTrigger,
-  Portal: AlertModalPortal,
-  Overlay: AlertModalOverlay,
-  Content: AlertModalContent,
-  Header: AlertModalHeader,
-  Title: AlertModalTitle,
-  Description: AlertModalDescription,
-  Body: AlertModalBody,
-  Footer: AlertModalFooter,
-  Action: AlertModalAction,
-  Cancel: AlertModalCancel,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace AlertModal {
-  export type ContentProps = AlertModalContentProps
-}
-
 // ─── Exports ────────────────────────────────────────────────
 export {
   Modal,
@@ -6313,7 +6064,7 @@ export {
     dependencies: ["@radix-ui/react-collapsible","@radix-ui/react-navigation-menu","@radix-ui/react-slot"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'navigation-menu.tsx',
@@ -6453,7 +6204,7 @@ export interface NavigationMenuProps extends React.HTMLAttributes<HTMLElement> {
   onValueChange?: (value: string) => void
 }
 
-const NavigationMenuRoot = React.forwardRef<HTMLElement, NavigationMenuProps>(
+const NavigationMenu = React.forwardRef<HTMLElement, NavigationMenuProps>(
   ({
     className,
     orientation = 'horizontal',
@@ -6520,7 +6271,7 @@ const NavigationMenuRoot = React.forwardRef<HTMLElement, NavigationMenuProps>(
     )
   }
 )
-NavigationMenuRoot.displayName = 'NavigationMenu'
+NavigationMenu.displayName = 'NavigationMenu'
 
 // ─── NavigationMenuList ───────────────────────────────────
 
@@ -6978,31 +6729,6 @@ const NavigationMenuViewport = React.forwardRef<HTMLDivElement, NavigationMenuVi
 NavigationMenuViewport.displayName = 'NavigationMenuViewport'
 
 // ─── Exports ──────────────────────────────────────────────
-
-// ─── Namespace ──────────────────────────────────────────
-const NavigationMenu = Object.assign(NavigationMenuRoot, {
-  List: NavigationMenuList,
-  Item: NavigationMenuItem,
-  Trigger: NavigationMenuTrigger,
-  Content: NavigationMenuContent,
-  Link: NavigationMenuLink,
-  Group: NavigationMenuGroup,
-  Indicator: NavigationMenuIndicator,
-  Viewport: NavigationMenuViewport,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace NavigationMenu {
-  export type ListProps = NavigationMenuListProps
-  export type ItemProps = NavigationMenuItemProps
-  export type TriggerProps = NavigationMenuTriggerProps
-  export type ContentProps = NavigationMenuContentProps
-  export type LinkProps = NavigationMenuLinkProps
-  export type GroupProps = NavigationMenuGroupProps
-  export type IndicatorProps = NavigationMenuIndicatorProps
-  export type ViewportProps = NavigationMenuViewportProps
-}
-
 export {
   NavigationMenu,
   NavigationMenuList,
@@ -7025,7 +6751,7 @@ export {
     dependencies: [],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'pagination.tsx',
@@ -7303,7 +7029,7 @@ export interface PaginationProps extends Omit<React.ComponentPropsWithoutRef<'na
   loop?: boolean
 }
 
-const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
+const Pagination = React.forwardRef<HTMLElement, PaginationProps>(
   ({
     className,
     total = 1,
@@ -7375,7 +7101,7 @@ const PaginationRoot = React.forwardRef<HTMLElement, PaginationProps>(
     )
   }
 )
-PaginationRoot.displayName = 'Pagination'
+Pagination.displayName = 'Pagination'
 
 // ─── PaginationContent ───────────────────────────────────
 
@@ -7645,29 +7371,6 @@ const PaginationItems = React.forwardRef<HTMLDivElement, React.ComponentPropsWit
 PaginationItems.displayName = 'PaginationItems'
 
 // ─── Exports ─────────────────────────────────────────────
-
-// ─── Namespace ──────────────────────────────────────────
-const Pagination = Object.assign(PaginationRoot, {
-  Content: PaginationContent,
-  Item: PaginationItem,
-  Link: PaginationLink,
-  Previous: PaginationPrevious,
-  Next: PaginationNext,
-  First: PaginationFirst,
-  Last: PaginationLast,
-  Ellipsis: PaginationEllipsis,
-  Items: PaginationItems,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Pagination {
-  export type LinkProps = PaginationLinkProps
-  export type PreviousProps = PaginationPreviousProps
-  export type NextProps = PaginationNextProps
-  export type FirstProps = PaginationFirstProps
-  export type LastProps = PaginationLastProps
-}
-
 export {
   Pagination,
   PaginationContent,
@@ -7691,7 +7394,7 @@ export {
     dependencies: ["@radix-ui/react-popover"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'popover.tsx',
@@ -7765,10 +7468,10 @@ const ARROW_ELEVATED = 'fill-background-paper drop-shadow-sm'
 // Popover
 // ═══════════════════════════════════════════════════════════════
 
-// ─── PopoverRoot — wrapper to avoid Object.assign mutating Radix primitive ──
+// ─── Popover (Root) — thin wrapper to expose as named export ──
 export interface PopoverRootProps extends React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root> {}
 
-function PopoverRoot(props: PopoverRootProps) {
+function Popover(props: PopoverRootProps) {
   return <PopoverPrimitive.Root {...props} />
 }
 
@@ -7862,26 +7565,9 @@ const PopoverArrow = React.forwardRef<
 ))
 PopoverArrow.displayName = 'PopoverArrow'
 
-// ─── Namespace: Popover ──────────────────────────────────────
-const Popover = Object.assign(PopoverRoot, {
-  Trigger: PopoverTrigger,
-  Content: PopoverContent,
-  Arrow: PopoverArrow,
-  Close: PopoverClose,
-  Anchor: PopoverAnchor,
-  Portal: PopoverPortal,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Popover {
-  export type ContentProps = PopoverContentProps
-  export type RootProps = PopoverRootProps
-}
-
 // ─── Exports ────────────────────────────────────────────────
 export {
   Popover,
-  PopoverRoot,
   PopoverTrigger,
   PopoverContent,
   PopoverArrow,
@@ -8142,7 +7828,7 @@ export { Progress, linearTrackVariants }
     dependencies: ["@radix-ui/react-slot"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'quick-reply.tsx',
@@ -8292,7 +7978,7 @@ export interface QuickReplyItemProps
 // QuickReply Root — group container that propagates style via Context
 // ============================================================================
 
-const QuickReplyRoot = React.forwardRef<HTMLDivElement, QuickReplyRootProps>(
+const QuickReply = React.forwardRef<HTMLDivElement, QuickReplyRootProps>(
   (
     {
       className,
@@ -8327,7 +8013,7 @@ const QuickReplyRoot = React.forwardRef<HTMLDivElement, QuickReplyRootProps>(
     )
   }
 )
-QuickReplyRoot.displayName = 'QuickReply'
+QuickReply.displayName = 'QuickReply'
 
 // ============================================================================
 // QuickReply Item — individual chip button
@@ -8364,25 +8050,10 @@ const QuickReplyItem = React.forwardRef<HTMLButtonElement, QuickReplyItemProps>(
     )
   }
 )
-QuickReplyItem.displayName = 'QuickReply.Item'
-
-// ============================================================================
-// Namespace export (compound pattern)
-// ============================================================================
-
-const QuickReply = Object.assign(QuickReplyRoot, {
-  Item: QuickReplyItem,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace QuickReply {
-  export type RootProps = QuickReplyRootProps
-  export type ItemProps = QuickReplyItemProps
-}
+QuickReplyItem.displayName = 'QuickReplyItem'
 
 export {
   QuickReply,
-  QuickReplyRoot,
   QuickReplyItem,
   quickReplyRootVariants,
   quickReplyItemVariants,
@@ -8396,7 +8067,7 @@ export {
     dependencies: ["@radix-ui/react-radio-group"],
     registryDependencies: ["field"],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'radio-group.tsx',
@@ -8452,7 +8123,7 @@ export interface RadioGroupProps
   color?: RadioColor
 }
 
-const RadioGroupRoot = React.forwardRef<
+const RadioGroup = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   RadioGroupProps
 >(({ className, orientation, size = 'default', weight = 'bold', color = 'default', disabled, ...props }, ref) => {
@@ -8471,7 +8142,7 @@ const RadioGroupRoot = React.forwardRef<
     </RadioGroupContext.Provider>
   )
 })
-RadioGroupRoot.displayName = 'RadioGroup'
+RadioGroup.displayName = 'RadioGroup'
 
 // RadioGroupItem circle variants
 const radioItemVariants = cva(
@@ -8576,16 +8247,6 @@ const RadioGroupItem = React.forwardRef<
 })
 RadioGroupItem.displayName = 'RadioGroupItem'
 
-// ─── Namespace ──────────────────────────────────────────
-const RadioGroup = Object.assign(RadioGroupRoot, {
-  Item: RadioGroupItem,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace RadioGroup {
-  export type ItemProps = RadioGroupItemProps
-}
-
 export { RadioGroup, RadioGroupItem, radioGroupVariants, radioItemVariants }
 `,
       type: 'ui',
@@ -8596,7 +8257,7 @@ export { RadioGroup, RadioGroupItem, radioGroupVariants, radioItemVariants }
     dependencies: ["@radix-ui/react-radio-group"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'segmented.tsx',
@@ -8752,7 +8413,7 @@ export interface SegmentedProps
   extends React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>,
     VariantProps<typeof segmentedVariants> {}
 
-const SegmentedRoot = React.forwardRef<
+const Segmented = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Root>,
   SegmentedProps
 >(({ className, variant, size, radius, fontWeight, ...props }, ref) => {
@@ -8769,7 +8430,7 @@ const SegmentedRoot = React.forwardRef<
     </SegmentedContext.Provider>
   )
 })
-SegmentedRoot.displayName = 'Segmented'
+Segmented.displayName = 'Segmented'
 
 // Icon size for segmented control (4-step scale, Icon+Text mode)
 // sm: 14px, md~default~lg: 16px
@@ -8808,16 +8469,6 @@ const SegmentedItem = React.forwardRef<
 })
 SegmentedItem.displayName = 'SegmentedItem'
 
-// ─── Namespace ──────────────────────────────────────────
-const Segmented = Object.assign(SegmentedRoot, {
-  Item: SegmentedItem,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Segmented {
-  export type ItemProps = SegmentedItemProps
-}
-
 export { Segmented, SegmentedItem, segmentedVariants, segmentedItemVariants }
 `,
       type: 'ui',
@@ -8828,7 +8479,7 @@ export { Segmented, SegmentedItem, segmentedVariants, segmentedItemVariants }
     dependencies: ["@radix-ui/react-select"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'select.tsx',
@@ -8966,7 +8617,7 @@ const SelectStyleContext = React.createContext<{
 }>({ contentRadius: 'xl', itemSize: 'md', flush: false })
 
 // Root — state management + size/radius context
-const SelectRoot = ({
+const Select = ({
   size = 'default',
   radius = 'default',
   ...props
@@ -9179,17 +8830,6 @@ const SelectSeparator = React.forwardRef<
 SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 export type { SelectRadius, SelectSize }
-
-// ─── Namespace ──────────────────────────────────────────
-const Select = Object.assign(SelectRoot, {
-  Trigger: SelectTrigger,
-  Value: SelectValue,
-  Content: SelectContent,
-  Item: SelectItem,
-  Group: SelectGroup,
-  Label: SelectLabel,
-  Separator: SelectSeparator,
-})
 
 export {
   Select,
@@ -10428,7 +10068,7 @@ export { Switch, switchVariants }
     dependencies: [],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'table.tsx',
@@ -10502,7 +10142,7 @@ export interface TableProps
   wrapperClassName?: string
 }
 
-const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(
+const Table = React.forwardRef<HTMLTableElement, TableProps>(
   ({ className, size = 'default', variant = 'default', stickyHeader = false, wrapperClassName, ...props }, ref) => (
     <TableContext.Provider value={{ size, variant, stickyHeader }}>
       <div className={cn('relative w-full overflow-auto', wrapperClassName)}>
@@ -10515,7 +10155,7 @@ const TableRoot = React.forwardRef<HTMLTableElement, TableProps>(
     </TableContext.Provider>
   )
 )
-TableRoot.displayName = 'Table'
+Table.displayName = 'Table'
 
 // ─── Header ──────────────────────────────────────────────────────
 const TableHeader = React.forwardRef<
@@ -10728,24 +10368,6 @@ TableCaption.displayName = 'TableCaption'
 
 export type { TableSize, TableVariant, SortDirection }
 
-// ─── Namespace ──────────────────────────────────────────
-const Table = Object.assign(TableRoot, {
-  Header: TableHeader,
-  Body: TableBody,
-  Footer: TableFooter,
-  Row: TableRow,
-  Head: TableHead,
-  Cell: TableCell,
-  Caption: TableCaption,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Table {
-  export type RowProps = TableRowProps
-  export type HeadProps = TableHeadProps
-  export type CellProps = TableCellProps
-}
-
 export {
   Table,
   TableHeader,
@@ -10765,7 +10387,7 @@ export {
     dependencies: ["@radix-ui/react-tabs"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'tabs.tsx',
@@ -11006,21 +10628,7 @@ TabsContent.displayName = 'TabsContent'
 
 // ─── Tabs (Root) ─────────────────────────────────────────────
 
-const TabsRoot = TabsPrimitive.Root
-
-// ─── Namespace ──────────────────────────────────────────
-const Tabs = Object.assign(TabsRoot, {
-  List: TabsList,
-  Trigger: TabsTrigger,
-  Content: TabsContent,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Tabs {
-  export type ListProps = TabsListProps
-  export type TriggerProps = TabsTriggerProps
-  export type ContentProps = TabsContentProps
-}
+const Tabs = TabsPrimitive.Root
 
 export {
   Tabs,
@@ -11883,7 +11491,7 @@ export type {
     dependencies: ["@radix-ui/react-toggle-group"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'toggle-group.tsx',
@@ -11989,7 +11597,7 @@ export type ToggleGroupProps = ToggleGroupBaseProps &
   VariantProps<typeof toggleGroupItemVariants> &
   (ToggleGroupSingleProps | ToggleGroupMultipleProps)
 
-const ToggleGroupRoot = React.forwardRef<
+const ToggleGroup = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
   ToggleGroupProps
 >(({ className, orientation, variant, size, radius, fontWeight, children, ...props }, ref) => (
@@ -12028,7 +11636,7 @@ const ToggleGroupRoot = React.forwardRef<
     </ToggleGroupContext.Provider>
   </ToggleGroupPrimitive.Root>
 ))
-ToggleGroupRoot.displayName = ToggleGroupPrimitive.Root.displayName
+ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
 export interface ToggleGroupItemProps
   extends React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Item>,
@@ -12073,16 +11681,6 @@ const ToggleGroupItem = React.forwardRef<
   )
 })
 ToggleGroupItem.displayName = ToggleGroupPrimitive.Item.displayName
-
-// ─── Namespace ──────────────────────────────────────────
-const ToggleGroup = Object.assign(ToggleGroupRoot, {
-  Item: ToggleGroupItem,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace ToggleGroup {
-  export type ItemProps = ToggleGroupItemProps
-}
 
 export { ToggleGroup, ToggleGroupItem, toggleGroupVariants, toggleGroupItemVariants }
 `,
@@ -12264,7 +11862,7 @@ export { Toggle, toggleVariants }
     dependencies: ["@radix-ui/react-tooltip"],
     registryDependencies: [],
     reverseDependencies: [],
-    namespace: true,
+    namespace: false,
     description: '',
     files: [{
       path: 'tooltip.tsx',
@@ -12320,13 +11918,14 @@ const ARROW_FILL: Record<string, string> = {
 // ─── TooltipProvider ─────────────────────────────────────────
 const TooltipProvider = TooltipPrimitive.Provider
 
-// ─── Tooltip (Root) — wrapper to avoid Object.assign mutating Radix primitive ──
+// ─── Tooltip (Root) — Props type ──
 export interface TooltipRootProps extends React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root> {
   /** Delay in ms before tooltip appears */
   delayDuration?: number
 }
 
-function TooltipRoot({ delayDuration = 200, ...props }: TooltipRootProps) {
+// ─── Tooltip (Root) — thin wrapper to expose as named export with default delayDuration ──
+function Tooltip({ delayDuration = 200, ...props }: TooltipRootProps) {
   return <TooltipPrimitive.Root delayDuration={delayDuration} {...props} />
 }
 
@@ -12392,25 +11991,9 @@ const TooltipArrow = React.forwardRef<
 ))
 TooltipArrow.displayName = 'TooltipArrow'
 
-// ─── Namespace: Tooltip ──────────────────────────────────────
-const Tooltip = Object.assign(TooltipRoot, {
-  Trigger: TooltipTrigger,
-  Content: TooltipContent,
-  Arrow: TooltipArrow,
-  Portal: TooltipPortal,
-  Provider: TooltipProvider,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Tooltip {
-  export type ContentProps = TooltipContentProps
-  export type RootProps = TooltipRootProps
-}
-
 // ─── Exports ────────────────────────────────────────────────
 export {
   Tooltip,
-  TooltipRoot,
   TooltipTrigger,
   TooltipContent,
   TooltipArrow,

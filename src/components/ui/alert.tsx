@@ -158,7 +158,7 @@ function useAlertContext() {
 // Alert
 // ═══════════════════════════════════════════════════════════════════
 
-// ─── AlertRoot ───────────────────────────────────────────────────
+// ─── Alert ───────────────────────────────────────────────────────
 export interface AlertRootProps
   extends React.HTMLAttributes<HTMLDivElement>,
     VariantProps<typeof alertVariants> {
@@ -180,7 +180,7 @@ export interface AlertRootProps
   hideIcon?: boolean
 }
 
-const AlertRoot = React.forwardRef<HTMLDivElement, AlertRootProps>(
+const Alert = React.forwardRef<HTMLDivElement, AlertRootProps>(
   ({
     className,
     variant = 'default',
@@ -246,7 +246,7 @@ const AlertRoot = React.forwardRef<HTMLDivElement, AlertRootProps>(
     )
   }
 )
-AlertRoot.displayName = 'AlertRoot'
+Alert.displayName = 'Alert'
 
 // ─── AlertTitle ──────────────────────────────────────────────────
 export interface AlertTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {}
@@ -287,23 +287,9 @@ const AlertDescription = React.forwardRef<HTMLParagraphElement, AlertDescription
 )
 AlertDescription.displayName = 'AlertDescription'
 
-// ─── Namespace: Alert ────────────────────────────────────────────
-const Alert = Object.assign(AlertRoot, {
-  Title: AlertTitle,
-  Description: AlertDescription,
-})
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
-namespace Alert {
-  export type RootProps = AlertRootProps
-  export type TitleProps = AlertTitleProps
-  export type DescriptionProps = AlertDescriptionProps
-}
-
 // ─── Exports ─────────────────────────────────────────────────────
 export {
   Alert,
-  AlertRoot,
   AlertTitle,
   AlertDescription,
   alertVariants,
