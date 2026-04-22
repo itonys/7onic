@@ -105,16 +105,16 @@ Apply base theme colors to `<body>` — enables dark mode and consistent backgro
 Use components:
 
 ```tsx
-import { Button, Card } from '@7onic-ui/react'
+import { Button, Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
 import { Chart, type ChartConfig } from '@7onic-ui/react/chart'  // charts: separate entry
 
 <Button variant="solid" color="primary">Get Started</Button>
 
 <Card>
-  <Card.Header>
-    <Card.Title>Settings</Card.Title>
-  </Card.Header>
-  <Card.Content>...</Card.Content>
+  <CardHeader>
+    <CardTitle>Settings</CardTitle>
+  </CardHeader>
+  <CardContent>...</CardContent>
 </Card>
 ```
 
