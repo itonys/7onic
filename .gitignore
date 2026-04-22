@@ -40,6 +40,10 @@ next-env.d.ts
 # IDE / Editor
 .claude/*
 !.claude/commands/
+!.claude/settings.json
+.claude/settings.local.json
+.claude/skill-state.json
+.claude/gates/
 .cursor/
 .playwright-mcp/
 .idea/

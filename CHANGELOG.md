@@ -12,62 +12,60 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 #### Breaking Changes
 
-- Compound JSX (`<Card.Header />`) removed — use Named imports (`<CardHeader />`). Applies to all 25 compound namespaces (Card, Modal, Drawer, Tabs, Accordion, etc.)
-- TypeScript namespace type access (`Card.HeaderProps`) removed — use `CardHeaderProps` directly
-- Migration: `import { Card, CardHeader, CardTitle } from '@7onic-ui/react'` then `<Card><CardHeader><CardTitle>...</CardTitle></CardHeader></Card>`
-- Prefer dot-notation? Add a 5-line Compound Recipe wrapper in your own project (`'use client'` required). See ADR [NAMED-PRIMARY-MIGRATION](docs/decisions/NAMED-PRIMARY-MIGRATION.md) §Appendix A for all 25 namespaces
-- Rollback: `npm dist-tag add @7onic-ui/react@0.2.9 latest` (if critical issue surfaces)
+- Compound JSX removed — use Named imports. `<Card.Header />` → `<CardHeader />`
+- TypeScript namespace types removed — `Card.HeaderProps` → `CardHeaderProps`
+- Applies to all 25 compound namespaces (Card, Modal, Drawer, Tabs, Accordion, etc.)
+- Rollback if needed: `npm dist-tag add @7onic-ui/react@0.2.9 latest`
 
-#### Why — Namespace removed, consolidated on Named export
+#### Migration
 
-- **Consistent user experience** — Named imports produce the same result in every environment (RSC, Client Components, Pages Router, Vite, CRA, CJS). Namespace access previously broke in Next.js App Router Server Components due to React Client Manifest limitations around `Object.assign`-attached properties
-- **Tree-shaking reliability** — `Object.assign(CardRoot, { Header, ... })` defeats bundler static analysis; Named exports map 1:1 to dead-code elimination so only the sub-components you import ship
-- **Lower future version-management cost** — Previously each compound file had to keep 3 places in sync (runtime `*Root`, `Object.assign` attachments, `namespace X {}` merge). Post Option D, adding a sub-component is one Named export
-- **Preserve AI-optimized baseline** — AI training data mixes Named (shadcn) and Compound (Chakra/Mantine). When both were supported, AI tools randomly emitted Compound which crashed in RSC. Collapsing to Named makes AI-generated code deterministically RSC-safe
+- `import { Card, CardHeader, CardTitle } from '@7onic-ui/react'`
+- `<Card><CardHeader><CardTitle>...</CardTitle></CardHeader></Card>`
+- Prefer dot-notation? Add a 5-line Compound Recipe wrapper in your project (`'use client'` required). All 25 wrappers documented in the migration ADR
 
-#### Source & Refactor
+#### Why
 
-- `src/components/ui/*.tsx` (24 compound files): `Object.assign`, `namespace X {}` blocks, runtime `*Root` naming — **all removed**. Each file is now shadcn-style Named-export-only
-- Docs (32 pages) + test-v4 (20 files): **5,600+** Compound JSX and type references rewritten to Named (via `scripts/phase4-rewrite.js`, kept as a durable artifact)
-- Radix UI Dialog accessibility fix: added `DialogTitle` in Modal sidebar layout at 5 locations where it was missing
+- **Same behavior everywhere** — Named imports work identically in RSC, Client Components, Pages Router, Vite, CRA, CJS. Compound JSX previously broke inside Next.js App Router Server Components
+- **Reliable tree-shaking** — Named exports map 1:1 to dead-code elimination; only the sub-components you import ship to the bundle
+- **Simpler maintenance** — adding a sub-component is now one export, not three synchronized locations
+- **AI-ready** — AI tools no longer randomly emit compound syntax that crashes in RSC
 
-#### Fixed — generateCode per-branch minimal imports
+#### Source
 
-- `scripts/fix-generatecode-imports.ts` added. Phase 4 rewrite had aggregated sub-component names as a file-wide union, so every `generateCode()` branch shipped the same maximal import list (e.g. Dropdown `menuType === 'simple'` imported 14 names while rendering only 5)
-- Fix scans each branch's template literal (plus `${varname}` interpolations like pie-chart `patternConfig`), keeps exactly the identifiers that actually appear, and rewrites the import line
-- Result: **17 pages · 52 import lines · 119 unused names removed**. Verified with tsc `strict` + `noUnusedLocals` (pre-fix dropdown sample produced 9 TS6133 errors, post-fix produces 0)
+- 24 compound component files rewritten as shadcn-style Named-export-only. No more `Object.assign`, `namespace X {}`, or runtime `*Root` aliases
+- Radix Dialog accessibility fix: added `DialogTitle` to 5 Modal sidebar examples that were missing it
 
-#### Fixed — Playground generateCode root refactor (structural 1:1 guarantee)
+#### Fixed — Playground code output matches rendered JSX 1:1
 
-- Root cause of the earlier fix's gap: `lines.push('import ...')` pattern (30+ pages) hardcoded imports independently of the JSX body, so per-state correctness was a manual maintenance burden
-- New helper `src/lib/code-generator.ts` (`importUsed` / `extractUsedNames`) derives imports **from** the emitted JSX body — makes over-imports structurally impossible
-- All 42 component Playground pages refactored to the helper pattern. Every `generateCode()` now builds the JSX body first, then calls `importUsed(jsxBody, CANDIDATES, pkg)` so the import line ships exactly the identifiers the JSX uses
-- Chart pages (`area-chart`, `bar-chart`, `line-chart`, `pie-chart`) had a critical under-import bug: hardcoded `{ Chart, type ChartConfig }` only, but emitted JSX used 6–8 Chart sub-components (`ChartArea`, `ChartTooltip`, `ChartTooltipContent`, `ChartLegend`, `ChartLegendContent`, `ChartXAxis`, `ChartYAxis`). Post-refactor imports auto-grow with the JSX
-- Additional static-CodeBlock under-import bugs fixed: `pagination` `use-pagination-hook.tsx` example was missing `useState` import; `typing-indicator` `ai-streaming.tsx` example had unused `useState`; `quick-reply` L556/L949 ComponentPreview/CodeBlock snippets were missing the 7onic-ui-react import for the QuickReply compound
+- Playground previously shipped unused imports. Dropdown `simple` menu imported 14 sub-components while using only 5. Users who copy-pasted got `noUnusedLocals` warnings
+- Import list now derived from the rendered JSX body at generation time. Generated code contains exactly the identifiers used — no more, no less
+- All 42 Playground pages refactored to this pattern. Over-imports are now structurally impossible
+- Chart pages had a mirror bug in the other direction — hardcoded `{ Chart }` only, but rendered 6–8 sub-components. Imports now auto-grow with the JSX
+- Static example fixes: `pagination` `usePagination` hook missing `useState`; `typing-indicator` had unused `useState`; `quick-reply` icon / FAQ examples missing the 7onic import
 
-#### Fixed — Verified by live browser audit
+#### Verified
 
-- `scripts/verify-playground-live.ts` + `scripts/verify-pages-live.ts` added. Opens each docs page via Playwright, exercises Playground tabs (JSX / Full / CLI) and ContentTabs Design / Code tabs, captures every `<pre><code>` block, and verifies that each `import { ... }` line's names appear as JSX tags or identifiers in the surrounding code. Also flags under-imports
-- Final audit: **60 pages · 351+ import lines checked · 0 unused · 0 under-import**. Components (42), design-tokens (15), guidelines (3). tsc strict + noUnusedLocals compilation of sample JSX-tab outputs passes
+- End-to-end browser audit opens every docs page in Playwright, exercises the Playground tabs (JSX / Full / CLI) and the Code tab, captures every code block, and checks every `import` line against the surrounding code
+- **60 pages · 351+ import lines checked · 0 unused · 0 under-import**
+- Sample outputs compile cleanly with tsc `strict` + `noUnusedLocals`
 
-#### Docs — Unnecessary information removed (AI optimization)
+#### Docs cleanup
 
-- `public/llms.txt` + `public/llms-full.txt` + `public/llms-cli.txt` + root `llms.txt`: dropped the "Compound Component Import Patterns" section (Pattern A/B + Client Manifest warning) and replaced it with a concise "Component Import" section plus a dedicated "Compound Recipe (opt-in self-wrapper)" section. **~47 lines shorter per file**
-- `messages/{ja,en,ko}.json`: deleted 21 orphan install keys (`usageDesc`, `namespaceNote`, `rscNote`, `standaloneNote`, `compat`, `namedExportNote`, `recommended`), rewrote **200 dot-notation strings to Named**, plus 24 locale-specific phrase rewrites
-- `app/[locale]/components/installation/page.tsx`: removed 6 stale blocks (Namespace card, `rscNote`, `standaloneNote`, `usageDesc`, `namedExportNote`) → collapsed to a single "Import & Usage" card
-- `CLAUDE.md` §Component Implementation Patterns: "Namespace Export (compound)" rule replaced by "Named Export single (v0.3.0+)"
+- Root `llms.txt` + `public/llms*.txt`: replaced the old "Compound Import Patterns" section with a concise "Component Import" + opt-in "Compound Recipe" section. ~47 lines shorter per file
+- Locale JSON files: removed 21 obsolete install keys, rewrote 200 dot-notation strings to Named, plus 24 locale-specific phrase updates
+- Installation docs: collapsed into a single "Import & Usage" card
 
 #### Architecture Decision Records
 
-- New: `docs/decisions/NAMED-PRIMARY-MIGRATION.md` — covers Option D rationale, keep/remove verdicts, Appendix A with 25 compound Recipe snippets, and the rollback plan
-- Superseded: `docs/decisions/NAMESPACE-COMPOUND-EXPORT.md` — retained as a historical v0.2.x record
+- New ADR: Named-Primary Migration — covers the rationale, keep/remove decisions, and all 25 Compound Recipe snippets
+- Previous ADR "Namespace Compound Export" marked Superseded (kept as v0.2.x historical record)
 
 ### @7onic/cli
 
 #### Changed
 
-- `cli/src/registry/index.ts` regenerated (40 components, 0 namespace blocks, 8 internal deps)
-- `cli/package.json`: 0.1.8 → 0.1.9 (registry sync + `repository`/`bugs`/`homepage` fields added for npm provenance)
+- Registry regenerated from the v0.3.0 Named-export source (40 components, 0 namespace blocks, 8 internal deps)
+- Added `repository` / `bugs` / `homepage` fields to cli/package.json for npm provenance
 
 ---
 
