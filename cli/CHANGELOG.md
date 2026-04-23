@@ -20,7 +20,7 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 #### Why
 
-Follows `@7onic-ui/tokens@0.3.1` rollout of framework compatibility. Users running `npx 7onic init` on a new Next.js 15 or Vite project now get zero-config framework compatibility automatically — no more silent light/dark breakage on Next.js, no centered-body on Vite, no missing utilities on v3.
+- Follows `@7onic-ui/tokens@0.3.1` rollout of framework compatibility. Users running `npx 7onic init` on a new Next.js 15 or Vite project now get zero-config framework compatibility automatically — no more silent light/dark breakage on Next.js, no centered-body on Vite, no missing utilities on v3.
 
 ---
 
