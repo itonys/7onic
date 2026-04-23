@@ -1242,9 +1242,13 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 `;
-var CSS_V3_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
-@import '@7onic-ui/tokens/css/themes/light.css';
-@import '@7onic-ui/tokens/css/themes/dark.css';
+var CSS_V3_IMPORTS = `@import '@7onic-ui/tokens/css/all.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+`;
+var CSS_V3_TOKEN_ONLY = `@import '@7onic-ui/tokens/css/all.css';
 `;
 var CSS_V4_IMPORTS = `@import "tailwindcss";
 @import '@7onic-ui/tokens/css/variables.css';
@@ -1400,18 +1404,19 @@ async function init(args) {
   } else {
     const cssContent = import_node_fs4.default.readFileSync(cssFullPath, "utf-8");
     if (!cssContent.includes("@7onic-ui/tokens")) {
-      const tokenImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_TOKEN_ONLY;
       if (tailwindVersion === 4) {
         const twMatch = cssContent.match(/@import\s+["']tailwindcss["'].*\n/);
         if (twMatch) {
           const insertAt = twMatch.index + twMatch[0].length;
-          const updated = cssContent.slice(0, insertAt) + tokenImports + cssContent.slice(insertAt);
+          const updated = cssContent.slice(0, insertAt) + CSS_V4_TOKEN_ONLY + cssContent.slice(insertAt);
           import_node_fs4.default.writeFileSync(cssFullPath, updated, "utf-8");
         } else {
           import_node_fs4.default.writeFileSync(cssFullPath, CSS_V4_IMPORTS + "\n" + cssContent, "utf-8");
         }
       } else {
-        import_node_fs4.default.writeFileSync(cssFullPath, tokenImports + "\n" + cssContent, "utf-8");
+        const hasTailwindDirectives = /@tailwind\s+(base|components|utilities)/.test(cssContent);
+        const v3Imports = hasTailwindDirectives ? CSS_V3_TOKEN_ONLY : CSS_V3_IMPORTS;
+        import_node_fs4.default.writeFileSync(cssFullPath, v3Imports + "\n" + cssContent, "utf-8");
       }
       O2.success(`Added token imports to ${config.cssPath}`);
     } else {
@@ -14069,7 +14074,7 @@ function showSetupHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.9";
+var VERSION = "0.1.10";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

@@ -77,22 +77,16 @@ module.exports = {
 }
 ```
 
-**2-3. Set body classes:**
-```html
-<body class="bg-background text-foreground">
-```
-
-**2-4. Apply user's answers:**
+**2-3. Apply user's answers:**
 
 - Dark mode = yes → implement dark mode toggle (see below)
 - Custom font → load font (next/font for Next.js, CDN for Vite) + set `--font-family-sans`
 - Locale includes Japanese → load Noto Sans JP font
 - Locale includes Korean → load Noto Sans KR font
 
-**2-5. Verify setup is complete before writing any UI code:**
+**2-4. Verify setup is complete before writing any UI code:**
 - [ ] Packages installed (@7onic-ui/react, @7onic-ui/tokens, lucide-react)
 - [ ] globals.css has ALL required imports in correct order
-- [ ] Body has `bg-background text-foreground`
 - [ ] Dark mode toggle (if selected)
 - [ ] Font loaded (if custom)
 - [ ] CJK fonts loaded (if applicable)
@@ -121,7 +115,7 @@ Place `<Toaster />` once in your root layout file. Without this, `toast()` calls
 import { Toaster } from '@7onic-ui/react'
 
 // In your root layout (e.g., app/layout.tsx)
-<body className="bg-background text-foreground">
+<body>
   {children}
   <Toaster position="bottom-right" />
 </body>
@@ -279,7 +273,7 @@ The token system covers all UI needs out of the box. As AI, use existing tokens 
 If the user needs custom values beyond existing tokens, they will handle it separately.
 Customization guide: https://7onic.design/components/theming
 
-**Never modify generated token files** — these are auto-generated from figma-tokens.json via sync-tokens. AI must never edit, add to, or delete from: `variables.css`, `light.css`, `dark.css`, `v3-preset.js`, `v4-theme.css`, `index.js`, `index.mjs`, `index.d.ts`, `tokens.json`
+**Never modify generated token files** — these are auto-generated from figma-tokens.json via sync-tokens. AI must never edit, add to, or delete from: `variables.css`, `light.css`, `dark.css`, `reset.css`, `v3-preset.js`, `v4-theme.css`, `index.js`, `index.mjs`, `index.d.ts`, `tokens.json`
 
 ### Self-Check (after writing ANY code)
 

@@ -31,6 +31,7 @@ import {
   generateNormalizedJson,
   generateCssBundle,
   generateV4Bundle,
+  generateResetCss,
   parseExistingVars,
   detectBreakingChanges,
   formatBreakingChanges,
@@ -98,6 +99,7 @@ Generated files:
   css/variables.css          All CSS custom properties
   css/themes/light.css       Light theme semantic colors
   css/themes/dark.css        Dark theme semantic colors
+  css/reset.css              Framework template baseline (bundled into all.css + v4.css)
   css/all.css                All-in-one CSS bundle
   tailwind/v3-preset.js      Tailwind CSS v3 preset
   tailwind/v4-theme.css      Tailwind CSS v4 theme
@@ -116,13 +118,31 @@ Example:
 // File Writer (output-relative)
 // ============================================================
 
-function writeOutputFile(outputDir: string, relativePath: string, content: string): void {
+type WriteStatus = 'new' | 'updated' | 'unchanged'
+
+function writeOutputFile(outputDir: string, relativePath: string, content: string): WriteStatus {
   const fullPath = path.resolve(outputDir, relativePath)
   const dir = path.dirname(fullPath)
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }
+
+  let status: WriteStatus
+  if (!fs.existsSync(fullPath)) {
+    status = 'new'
+  } else {
+    const existing = fs.readFileSync(fullPath, 'utf-8')
+    status = existing === content ? 'unchanged' : 'updated'
+  }
+
   fs.writeFileSync(fullPath, content)
+  return status
+}
+
+function formatStatusBadge(status: WriteStatus): string {
+  if (status === 'new') return '(NEW)'
+  if (status === 'updated') return '(updated)'
+  return '(unchanged)'
 }
 
 // ============================================================
@@ -216,6 +236,7 @@ async function cliMain(): Promise<void> {
   const jsTokens = generateJsTokens(tokens)
   const typeDefs = generateTypeDefinitions(tokens)
   const normalizedJson = generateNormalizedJson(tokens)
+  const resetCss = generateResetCss()
   const cssBundle = generateCssBundle()
   const v4Bundle = generateV4Bundle()
 
@@ -226,6 +247,7 @@ async function cliMain(): Promise<void> {
     console.log('   📄 css/variables.css')
     console.log('   📄 css/themes/light.css')
     console.log('   📄 css/themes/dark.css')
+    console.log('   📄 css/reset.css')
     console.log('   📄 tailwind/v3-preset.js')
     console.log('   📄 tailwind/v4-theme.css')
     console.log('   📄 js/index.js')
@@ -238,41 +260,41 @@ async function cliMain(): Promise<void> {
     return
   }
 
-  // Write files
-  writeOutputFile(outputDir, 'css/variables.css', variablesCss)
-  writeOutputFile(outputDir, 'css/themes/light.css', themeLight)
-  writeOutputFile(outputDir, 'css/themes/dark.css', themeDark)
-  writeOutputFile(outputDir, 'tailwind/v3-preset.js', v3Preset)
-  writeOutputFile(outputDir, 'tailwind/v4-theme.css', v4Theme)
-  writeOutputFile(outputDir, 'js/index.js', jsTokens.cjs)
-  writeOutputFile(outputDir, 'js/index.mjs', jsTokens.esm)
-  writeOutputFile(outputDir, 'types/index.d.ts', typeDefs)
-  writeOutputFile(outputDir, 'json/tokens.json', normalizedJson)
-  writeOutputFile(outputDir, 'css/all.css', cssBundle)
-  writeOutputFile(outputDir, 'tailwind/v4.css', v4Bundle)
+  // Write files — collect status per file for clear user visibility
+  const statuses: Array<{ label: string; status: WriteStatus }> = [
+    { label: 'css/variables.css',         status: writeOutputFile(outputDir, 'css/variables.css', variablesCss) },
+    { label: 'css/themes/light.css',      status: writeOutputFile(outputDir, 'css/themes/light.css', themeLight) },
+    { label: 'css/themes/dark.css',       status: writeOutputFile(outputDir, 'css/themes/dark.css', themeDark) },
+    { label: 'css/reset.css',             status: writeOutputFile(outputDir, 'css/reset.css', resetCss) },
+    { label: 'tailwind/v3-preset.js',     status: writeOutputFile(outputDir, 'tailwind/v3-preset.js', v3Preset) },
+    { label: 'tailwind/v4-theme.css',     status: writeOutputFile(outputDir, 'tailwind/v4-theme.css', v4Theme) },
+    { label: 'js/index.js',               status: writeOutputFile(outputDir, 'js/index.js', jsTokens.cjs) },
+    { label: 'js/index.mjs',              status: writeOutputFile(outputDir, 'js/index.mjs', jsTokens.esm) },
+    { label: 'types/index.d.ts',          status: writeOutputFile(outputDir, 'types/index.d.ts', typeDefs) },
+    { label: 'json/tokens.json',          status: writeOutputFile(outputDir, 'json/tokens.json', normalizedJson) },
+    { label: 'css/all.css (bundle)',      status: writeOutputFile(outputDir, 'css/all.css', cssBundle) },
+    { label: 'tailwind/v4.css (bundle)',  status: writeOutputFile(outputDir, 'tailwind/v4.css', v4Bundle) },
+  ]
 
   // Write deprecated aliases if any renames detected
   if (deprecatedCss) {
-    writeOutputFile(outputDir, 'css/deprecated.css', deprecatedCss)
+    const depStatus = writeOutputFile(outputDir, 'css/deprecated.css', deprecatedCss)
+    statuses.push({ label: 'css/deprecated.css (backwards compat)', status: depStatus })
   }
 
   printTokenWarnings(tokenWarnings)
 
+  // Summary: count per status + per-file listing
+  const newCount = statuses.filter(s => s.status === 'new').length
+  const updatedCount = statuses.filter(s => s.status === 'updated').length
+  const unchangedCount = statuses.filter(s => s.status === 'unchanged').length
+
   console.log('')
-  console.log('✅ sync-tokens complete:')
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'css/variables.css'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'css/themes/light.css'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'css/themes/dark.css'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'tailwind/v3-preset.js'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'tailwind/v4-theme.css'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'js/index.js'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'js/index.mjs'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'types/index.d.ts'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'json/tokens.json'))}`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'css/all.css'))} (bundle)`)
-  console.log(`   📄 ${path.relative('.', path.join(outputDir, 'tailwind/v4.css'))} (bundle)`)
-  if (deprecatedCss) {
-    console.log(`   📄 ${path.relative('.', path.join(outputDir, 'css/deprecated.css'))} (backwards compat)`)
+  console.log(`✅ sync-tokens complete: ${newCount} new, ${updatedCount} updated, ${unchangedCount} unchanged`)
+  for (const { label, status } of statuses) {
+    const fullLabel = path.relative('.', path.join(outputDir, label.replace(/ \(.*\)/, '')))
+    const suffix = label.includes('(bundle)') ? ' (bundle)' : label.includes('(backwards compat)') ? ' (backwards compat)' : ''
+    console.log(`   📄 ${fullLabel}${suffix} ${formatStatusBadge(status)}`)
   }
 }
 

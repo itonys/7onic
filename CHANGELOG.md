@@ -6,6 +6,49 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.1] — 2026-04-23
+
+> **Critical patch** — Fixes Next.js 15 + Vite framework template compatibility. All three issues were 100% reproducible on v0.3.0. Users on v0.3.0 should upgrade.
+
+### @7onic-ui/tokens
+
+#### Added
+
+- `css/reset.css` — new bundled file. Framework template baseline. Applies `html body { background-color; color; display:block; place-items:initial; min-width:auto; margin:0 }`. Bundled into `all.css` and `tailwind/v4.css` — users importing either bundle automatically get the reset. Selector specificity `(0,0,2)` > `body` `(0,0,1)` wins over Vite/Next.js template defaults. **Override paths**: (1) Tailwind class on `<body>` — `.flex` `(0,1,0)` wins, (2) same-selector CSS after our import — source order wins, (3) skip bundle + import individual files for complete opt-out.
+- `css/variables.css` — `html:root { --background: var(--color-background); --foreground: var(--color-foreground) }` alias block appended at end. Specificity `(0,1,1)` wins over Next.js default `:root { --background: #fff }` `(0,1,0)` without source order dependency. Makes Next.js's `@theme inline { --color-background: var(--background) }` convention automatically flow through our semantic tokens.
+- `package.json` exports — `./css/reset.css` subpath export added.
+- Distribution file count: **11 → 12** (reset.css added).
+
+### @7onic-ui/react
+
+No code changes. Version bumped to maintain sync with `@7onic-ui/tokens`.
+
+### Changed
+
+- `npx sync-tokens` (and internal `npm run sync-tokens`) now shows **per-file status** after generation: `(NEW)` for files created for the first time, `(updated)` for files whose content changed, `(unchanged)` for identical regenerations. Top-line summary also shows counts — `✅ sync-tokens complete: 1 new, 3 updated, 10 unchanged`. Makes v0.3.0 → v0.3.1 upgrade transparent (users see `reset.css (NEW)` + bundle files `(updated)`) and alerts users who modified generated files directly (against the "Never modify generated files" rule) before their changes get overwritten. Info-level log only — no prompt added (follows npm / cargo / pip convention for additive changes). Breaking Changes (W3 — removed or renamed CSS variables) still prompt `y/n` as before.
+
+### Fixed
+
+- **Next.js 15 + Tailwind v4 light/dark mode broken** — compiled CSS showed `.bg-background { background-color: var(--background) }` referencing Next.js template variable (OS dark mode forced `#0a0a0a`) instead of our token. `data-theme="light"` toggle was silently overridden. Fixed by `html:root` alias in `variables.css` — cascade specificity wins regardless of source order.
+- **Vite + Tailwind v4/v3 body layout broken** — Vite template's `body { display: flex; place-items: center; min-width: 320px }` force-centered all content. Fixed by `html body` baseline in new `reset.css` — overrides with higher specificity.
+- **Vite + Tailwind v3 UI not rendering** — CLI `CSS_V3_IMPORTS` was missing `@tailwind base/components/utilities` directives, so v3 generated zero utility classes. Fixed by adding directives to CLI v3 imports (see 7onic CLI 0.1.10).
+
+### Architecture Decision
+
+- `docs/decisions/NEXTJS-FRAMEWORK-COMPAT-STRATEGY.md` — new ADR documenting the problem mechanism (`@theme inline` override cascade), 6 considered alternatives, chosen solution, 4-scenario CSS cascade proof, and industry comparison (shadcn/HeroUI/Radix/Mantine/Chakra/DaisyUI).
+
+### Why this is uniquely 7onic
+
+Industry first combination:
+- ✅ Zero-config install (import → done)
+- ✅ No React Provider wrapper
+- ✅ Preserves user's `globals.css` (no file replacement)
+- ✅ Standard Tailwind naming (`bg-background`, `text-foreground`)
+
+No existing library satisfies all four — shadcn wipes `globals.css`, HeroUI/Radix require Provider + namespaced vars, Mantine/Chakra use CSS-in-JS.
+
+---
+
 ## [0.3.0] — 2026-04-22
 
 ### @7onic-ui/react & @7onic-ui/tokens

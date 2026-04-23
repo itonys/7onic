@@ -28,6 +28,7 @@
 | **🧩** | **shadcn freedom + MUI convenience** | shadcn's customization with none of its missing features. MUI's built-in power with none of its styling constraints. Both, by design. |
 | **⚡** | **npm or CLI — your choice** | `npm install` for packages, `npx 7onic add` for local copy. Same components, two workflows. |
 | **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
+| **🪄** | **Zero-config framework compat** | Works with Next.js 15 + Vite defaults out of the box. No Provider wrapper, no `globals.css` replacement, no body class setup. Install → import → done. |
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
 | **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
@@ -96,12 +97,6 @@ module.exports = {
 ```
 </details>
 
-Apply base theme colors to `<body>` — enables dark mode and consistent backgrounds:
-
-```html
-<body class="bg-background text-foreground">
-```
-
 Use components:
 
 ```tsx
@@ -168,6 +163,7 @@ figma-tokens.json                    ← SSOT (the only file you edit)
     ├── css/variables.css            ← CSS variables (all primitives)
     ├── css/themes/light.css         ← Light theme semantics
     ├── css/themes/dark.css          ← Dark theme semantics
+    ├── css/reset.css                ← Framework template baseline
     ├── css/all.css                  ← All-in-one bundle
     ├── tailwind/v3-preset.js        ← Tailwind v3 preset
     ├── tailwind/v4-theme.css        ← Tailwind v4 theme
@@ -198,10 +194,11 @@ Breaking changes are auto-detected with diff visualization. Backward-compatible 
 
 | File | Description |
 |------|-------------|
-| `css/all.css` | All-in-one bundle (variables + light + dark) |
+| `css/all.css` | All-in-one bundle (variables + light + dark + reset) |
 | `css/variables.css` | Primitive tokens only |
 | `css/themes/light.css` | Light theme semantics |
 | `css/themes/dark.css` | Dark theme semantics |
+| `css/reset.css` | Framework template baseline (bundled into `all.css` + `v4.css`) |
 | `tailwind/v4.css` | All-in-one Tailwind v4 |
 | `tailwind/v3-preset.js` | Tailwind v3 preset |
 | `tailwind/v4-theme.css` | Tailwind v4 theme definitions |

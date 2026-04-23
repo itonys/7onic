@@ -26,10 +26,17 @@ export function cn(...inputs: ClassValue[]) {
 }
 `
 
-// v3 CSS token imports
-const CSS_V3_IMPORTS = `@import '@7onic-ui/tokens/css/variables.css';
-@import '@7onic-ui/tokens/css/themes/light.css';
-@import '@7onic-ui/tokens/css/themes/dark.css';
+// v3 CSS token imports + Tailwind directives (for new file or files missing @tailwind)
+// Uses all.css bundle (includes variables + themes + reset.css framework baseline)
+const CSS_V3_IMPORTS = `@import '@7onic-ui/tokens/css/all.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+`
+
+// v3 token-only imports (for injection into existing files that already have @tailwind directives)
+const CSS_V3_TOKEN_ONLY = `@import '@7onic-ui/tokens/css/all.css';
 `
 
 // v4 CSS token imports (for new file creation — includes @import "tailwindcss")
@@ -251,23 +258,23 @@ export async function init(args: string[]): Promise<void> {
     // Inject token imports into existing file
     const cssContent = fs.readFileSync(cssFullPath, 'utf-8')
     if (!cssContent.includes('@7onic-ui/tokens')) {
-      const tokenImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_TOKEN_ONLY
-
       if (tailwindVersion === 4) {
         // v4: token imports must come AFTER @import "tailwindcss"
         const twMatch = cssContent.match(/@import\s+["']tailwindcss["'].*\n/)
         if (twMatch) {
           // Insert token imports right after existing @import "tailwindcss"
           const insertAt = twMatch.index! + twMatch[0].length
-          const updated = cssContent.slice(0, insertAt) + tokenImports + cssContent.slice(insertAt)
+          const updated = cssContent.slice(0, insertAt) + CSS_V4_TOKEN_ONLY + cssContent.slice(insertAt)
           fs.writeFileSync(cssFullPath, updated, 'utf-8')
         } else {
           // No tailwindcss import — prepend everything (tailwindcss + tokens)
           fs.writeFileSync(cssFullPath, CSS_V4_IMPORTS + '\n' + cssContent, 'utf-8')
         }
       } else {
-        // v3: prepend token imports
-        fs.writeFileSync(cssFullPath, tokenImports + '\n' + cssContent, 'utf-8')
+        // v3: check if @tailwind directives already exist; use full or token-only variant
+        const hasTailwindDirectives = /@tailwind\s+(base|components|utilities)/.test(cssContent)
+        const v3Imports = hasTailwindDirectives ? CSS_V3_TOKEN_ONLY : CSS_V3_IMPORTS
+        fs.writeFileSync(cssFullPath, v3Imports + '\n' + cssContent, 'utf-8')
       }
 
       p.log.success(`Added token imports to ${config.cssPath}`)

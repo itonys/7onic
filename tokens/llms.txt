@@ -443,7 +443,7 @@ The token system is comprehensive — semantic colors, primitives, spacing, typo
 - **Never assume specific color values** — token values are defined by the user's project
 - **Never add CSS variables, hex values, or arbitrary Tailwind values**
 - **Token customization is the user's responsibility** — if the user needs custom values, they will handle it separately. See: https://7onic.design/components/theming
-- **Never modify generated token files** — the following files are auto-generated from figma-tokens.json via sync-tokens. AI must never edit, add to, or delete from these files: `variables.css`, `light.css`, `dark.css`, `v3-preset.js`, `v4-theme.css`, `index.js`, `index.mjs`, `index.d.ts`, `tokens.json`
+- **Never modify generated token files** — the following files are auto-generated from figma-tokens.json via sync-tokens. AI must never edit, add to, or delete from these files: `variables.css`, `light.css`, `dark.css`, `reset.css`, `v3-preset.js`, `v4-theme.css`, `index.js`, `index.mjs`, `index.d.ts`, `tokens.json`
 
 ### Self-Check (after writing ANY code)
 

@@ -931,3 +931,15 @@
 .animate-typing-cursor {
   animation: typing-cursor var(--duration-spin) var(--easing-ease-in-out) infinite;
 }
+
+/* ========================================
+   Framework Compat Aliases
+   Next.js 15 / Tailwind v4 convention mapping.
+   html:root (0,1,1) > :root (0,1,0) — wins cascade
+   regardless of source order vs framework defaults.
+   ======================================== */
+
+html:root {
+  --background: var(--color-background);
+  --foreground: var(--color-foreground);
+}

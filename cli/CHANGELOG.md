@@ -4,6 +4,26 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.10] — 2026-04-23
+
+### 7onic
+
+#### Fixed
+
+- **v3 init missing `@tailwind` directives (Critical)** — `CSS_V3_IMPORTS` constant was only injecting `@import '@7onic-ui/tokens/css/variables.css'` and theme files, but not the `@tailwind base; @tailwind components; @tailwind utilities;` directives that Tailwind v3 requires to generate any utility class. Result: `npx 7onic init --tailwind v3` produced a CSS file where no utilities rendered. Fixed by rewriting `CSS_V3_IMPORTS` to use the `@7onic-ui/tokens/css/all.css` bundle plus the three `@tailwind` directives.
+
+#### Changed
+
+- `CSS_V3_IMPORTS` now uses `all.css` bundle + `@tailwind base/components/utilities` (3 directives). The bundle includes `reset.css` framework baseline automatically.
+- New constant `CSS_V3_TOKEN_ONLY` added for the injection path when the target file already contains `@tailwind` directives — prevents directive duplication.
+- Init injection logic for v3 now detects existing `@tailwind utilities` presence via regex and switches between `CSS_V3_IMPORTS` (full) and `CSS_V3_TOKEN_ONLY` (token-only) accordingly.
+
+#### Why
+
+Follows `@7onic-ui/tokens@0.3.1` rollout of framework compatibility. Users running `npx 7onic init` on a new Next.js 15 or Vite project now get zero-config framework compatibility automatically — no more silent light/dark breakage on Next.js, no centered-body on Vite, no missing utilities on v3.
+
+---
+
 ## [0.1.9] — 2026-04-22
 
 ### 7onic
