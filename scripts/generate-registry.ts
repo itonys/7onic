@@ -46,6 +46,15 @@ const REVERSE_DEPS: Record<string, string[]> = {
   'button-group': ['button'],
 }
 
+// Companion hints shown after `add X` — suggests related components the user
+// may also want. Unlike registryDependencies, these are NOT auto-installed.
+// Each component in the CLI page is individually copyable (independent design),
+// but pairs with no code-level import relationship benefit from a nudge.
+export const COMPANION_HINTS: Record<string, string[]> = {
+  'toggle': ['toggle-group'],
+  'toggle-group': ['toggle'],
+}
+
 interface ParsedComponent {
   name: string
   dependencies: string[]

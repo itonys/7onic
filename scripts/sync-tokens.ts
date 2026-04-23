@@ -62,7 +62,6 @@ const TYPES_PATH = path.join(ROOT, 'tokens/types/index.d.ts')
 const JSON_PATH = path.join(ROOT, 'tokens/json/tokens.json')
 const CSS_ALL_PATH = path.join(ROOT, 'tokens/css/all.css')
 const V4_ALL_PATH = path.join(ROOT, 'tokens/tailwind/v4.css')
-const CSS_RESET_PATH = path.join(ROOT, 'tokens/css/reset.css')
 const BRANDS_DIR = path.join(ROOT, 'tokens/brands')
 const DOCS_SITE_CSS_PATH = path.join(ROOT, 'src/styles/docs-site.css')
 
@@ -1335,22 +1334,40 @@ function generateVariablesCss(tokens: FigmaTokens): string {
     }
   }
 
-  // --- Framework Compat Aliases ---
-  // Maps Next.js 15 / Tailwind v4 conventions (--background, --foreground)
-  // to our semantic tokens. html:root specificity (0,1,1) wins over plain
-  // :root (0,1,0) from framework default globals.css, so Next.js's
-  // @theme inline { --color-background: var(--background) } maps back to our tokens.
-  // See: docs/decisions/NEXTJS-FRAMEWORK-COMPAT-STRATEGY.md
+  // --- Framework Compat Aliases (single-direction chain) ---
+  // Source internal. User docs: docs/decisions/NEXTJS-FRAMEWORK-COMPAT-STRATEGY.md.
+  // Keep: --background / --foreground / --color-text / --color-background variable names.
+  // Avoid circular: point --foreground → --color-text (not --color-foreground)
+  // so Next.js @theme inline can't create a loop with our alias.
   lines.push(`/* ========================================`)
   lines.push(`   Framework Compat Aliases`)
-  lines.push(`   Next.js 15 / Tailwind v4 convention mapping.`)
-  lines.push(`   html:root (0,1,1) > :root (0,1,0) — wins cascade`)
-  lines.push(`   regardless of source order vs framework defaults.`)
+  lines.push(`   Maps Next.js 15 / Tailwind v4 convention`)
+  lines.push(`   (--background, --foreground) to our tokens.`)
   lines.push(`   ======================================== */`)
   lines.push(``)
   lines.push(`html:root {`)
   lines.push(`  --background: var(--color-background);`)
-  lines.push(`  --foreground: var(--color-foreground);`)
+  lines.push(`  --foreground: var(--color-text);`)
+  lines.push(`  color-scheme: light dark;`)
+  lines.push(`}`)
+  lines.push(``)
+
+  // Body baseline — overrides framework default body rules
+  // html body (0,0,2) > body (0,0,1) wins regardless of source order.
+  // Sets tokens-based background/color.
+  lines.push(`/* ========================================`)
+  lines.push(`   Body Baseline`)
+  lines.push(`   Overrides framework default body rules.`)
+  lines.push(`   ======================================== */`)
+  lines.push(``)
+  lines.push(`html body {`)
+  lines.push(`  background-color: var(--color-background);`)
+  lines.push(`  color: var(--color-foreground);`)
+  lines.push(`  font-family: var(--font-family-sans);`)
+  lines.push(`  display: block;`)
+  lines.push(`  place-items: initial;`)
+  lines.push(`  min-width: auto;`)
+  lines.push(`  margin: 0;`)
   lines.push(`}`)
   lines.push(``)
 
@@ -1370,7 +1387,7 @@ function generateThemeLight(tokens: FigmaTokens): string {
   lines.push(` * Usage: @import '@7onic-ui/tokens/css/themes/light.css';`)
   lines.push(` */`)
   lines.push(``)
-  lines.push(`:root {`)
+  lines.push(`html:root {`)
 
   const lightColor = tokens.light.color
   const semanticColorOrder = orderedKeys(lightColor, { type: 'known', order: KNOWN_ORDERS.semanticColorCategories }, 'light.color')
@@ -1480,14 +1497,14 @@ function generateThemeDark(tokens: FigmaTokens): string {
 
   // Strategy 1: OS auto-detection (excludes manual light override)
   lines.push(`@media (prefers-color-scheme: dark) {`)
-  lines.push(`  :root:not([data-theme="light"]) {`)
+  lines.push(`  html:root:not([data-theme="light"]) {`)
   lines.push(mediaDeclarations)
   lines.push(`  }`)
   lines.push(`}`)
   lines.push(``)
   // Strategy 2: Manual dark override (.dark class or data-theme attribute)
-  lines.push(`:root[data-theme="dark"],`)
-  lines.push(`:root.dark {`)
+  lines.push(`html:root[data-theme="dark"],`)
+  lines.push(`html:root.dark {`)
   lines.push(declarations)
   lines.push(`}`)
   lines.push(``)
@@ -2564,7 +2581,7 @@ function generateV3Preset(tokens: FigmaTokens): string {
   // --- scale (from primitive.scale) ---
   const scaleData = p.scale as Record<string, TokenValue>
   lines.push(`      scale: {`)
-  for (const [name, token] of Object.entries(scaleData)) {
+  for (const name of Object.keys(scaleData)) {
     if (name.startsWith('$')) continue
     lines.push(`        '${name}': 'var(--scale-${name})',`)
   }
@@ -3035,7 +3052,7 @@ function generateV4Theme(tokens: FigmaTokens): string {
   // Scale utilities (from primitive.scale)
   lines.push(`/* Scale — var() references to variables.css */`)
   const v4ScaleData = p.scale as Record<string, TokenValue>
-  for (const [name, token] of Object.entries(v4ScaleData)) {
+  for (const name of Object.keys(v4ScaleData)) {
     if (name.startsWith('$')) continue
     lines.push(`@utility scale-${name} {`)
     lines.push(`  scale: var(--scale-${name});`)
@@ -3107,12 +3124,11 @@ function generateV4Theme(tokens: FigmaTokens): string {
 function generateCssBundle(): string {
   const lines: string[] = []
   lines.push(`/* Auto-generated by sync-tokens — DO NOT EDIT */`)
-  lines.push(`/* All-in-one CSS bundle: variables + light/dark themes + framework baseline */`)
+  lines.push(`/* All-in-one CSS bundle: variables + light/dark themes */`)
   lines.push(``)
   lines.push(`@import './variables.css';`)
   lines.push(`@import './themes/light.css';`)
   lines.push(`@import './themes/dark.css';`)
-  lines.push(`@import './reset.css';`)
   lines.push(``)
   return lines.join('\n')
 }
@@ -3120,54 +3136,12 @@ function generateCssBundle(): string {
 function generateV4Bundle(): string {
   const lines: string[] = []
   lines.push(`/* Auto-generated by sync-tokens — DO NOT EDIT */`)
-  lines.push(`/* All-in-one Tailwind v4 bundle: variables + themes + reset + v4 mapping */`)
+  lines.push(`/* All-in-one Tailwind v4 bundle: variables + themes + v4 mapping */`)
   lines.push(``)
   lines.push(`@import '../css/variables.css';`)
   lines.push(`@import '../css/themes/light.css';`)
   lines.push(`@import '../css/themes/dark.css';`)
-  lines.push(`@import '../css/reset.css';`)
   lines.push(`@import './v4-theme.css';`)
-  lines.push(``)
-  return lines.join('\n')
-}
-
-// ============================================================
-// Phase 2D: Generate tokens/css/reset.css
-// Framework template baseline — bundled into all.css and v4.css.
-// - html body (0,0,2) > body (0,0,1) — wins cascade over Vite/Next.js defaults.
-// - Resets Vite template's display:flex / place-items:center / min-width:320px.
-// - Sets background/color using our semantic tokens (light/dark auto-switch).
-// See: docs/decisions/NEXTJS-FRAMEWORK-COMPAT-STRATEGY.md
-// ============================================================
-
-function generateResetCss(): string {
-  const lines: string[] = []
-  lines.push(`/**`)
-  lines.push(` * Framework template baseline reset`)
-  lines.push(` * ⚠️ Auto-generated — DO NOT EDIT`)
-  lines.push(` *`)
-  lines.push(` * Bundled into all.css and tailwind/v4.css.`)
-  lines.push(` * Opt-out: import individual files (variables.css + themes/*) instead of bundle.`)
-  lines.push(` *`)
-  lines.push(` * Selector specificity: html body (0,0,2) > body (0,0,1)`)
-  lines.push(` * Wins over Vite/Next.js default body rules regardless of source order.`)
-  lines.push(` *`)
-  lines.push(` * Override paths:`)
-  lines.push(` *   1. Tailwind class on <body> — most common, most idiomatic`)
-  lines.push(` *   2. Same-selector CSS after our import — source order wins`)
-  lines.push(` *   3. Skip bundle, import individual files — complete opt-out`)
-  lines.push(` *`)
-  lines.push(` * See: docs/decisions/NEXTJS-FRAMEWORK-COMPAT-STRATEGY.md`)
-  lines.push(` */`)
-  lines.push(``)
-  lines.push(`html body {`)
-  lines.push(`  background-color: var(--color-background);`)
-  lines.push(`  color: var(--color-foreground);`)
-  lines.push(`  display: block;`)
-  lines.push(`  place-items: initial;`)
-  lines.push(`  min-width: auto;`)
-  lines.push(`  margin: 0;`)
-  lines.push(`}`)
   lines.push(``)
   return lines.join('\n')
 }
@@ -3662,9 +3636,6 @@ async function main(): Promise<void> {
   console.log('📝 Generating tokens/json/tokens.json...')
   const normalizedJson = generateNormalizedJson(tokens)
 
-  console.log('📝 Generating tokens/css/reset.css...')
-  const resetCss = generateResetCss()
-
   console.log('📝 Generating tokens/css/all.css...')
   const cssBundle = generateCssBundle()
 
@@ -3695,7 +3666,6 @@ async function main(): Promise<void> {
     { label: 'tokens/js/index.mjs',           status: writeTextFile(JS_ESM_PATH, jsTokens.esm) },
     { label: 'tokens/types/index.d.ts',       status: writeTextFile(TYPES_PATH, typeDefs) },
     { label: 'tokens/json/tokens.json',       status: writeTextFile(JSON_PATH, normalizedJson) },
-    { label: 'tokens/css/reset.css',          status: writeTextFile(CSS_RESET_PATH, resetCss) },
     { label: 'tokens/css/all.css (bundle)',   status: writeTextFile(CSS_ALL_PATH, cssBundle) },
     { label: 'tokens/tailwind/v4.css (bundle)', status: writeTextFile(V4_ALL_PATH, v4Bundle) },
     { label: 'src/styles/globals.css',        status: writeTextFile(GLOBALS_CSS_PATH, globalsCss) },
@@ -3738,7 +3708,6 @@ export {
   generateNormalizedJson,
   generateCssBundle,
   generateV4Bundle,
-  generateResetCss,
   generateForceLightBlock,
   injectIntoDocsSiteCss,
   parseExistingVars,

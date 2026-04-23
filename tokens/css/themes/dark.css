@@ -11,7 +11,7 @@
  */
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  html:root:not([data-theme="light"]) {
     /* Background */
     --color-background: var(--color-gray-900);
     --color-background-rgb: 34 34 37;
@@ -155,8 +155,8 @@
   }
 }
 
-:root[data-theme="dark"],
-:root.dark {
+html:root[data-theme="dark"],
+html:root.dark {
   /* Background */
   --color-background: var(--color-gray-900);
   --color-background-rgb: 34 34 37;

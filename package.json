@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/react",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -49,9 +49,11 @@
     "generate:registry": "tsx scripts/generate-registry.ts",
     "verify:registry": "tsx scripts/generate-registry.ts && git diff --exit-code cli/src/registry/index.ts",
     "verify:components": "tsx scripts/verify-components.ts",
+    "verify:framework-compat": "tsx scripts/verify-framework-compat.ts",
+    "verify:llms-examples": "tsx scripts/verify-llms-examples.ts",
     "verify:publish": "tsx scripts/verify-publish.ts",
     "smoke": "bash scripts/smoke-test.sh",
-    "prepublishOnly": "npm run build:lib && npm run verify:publish && npm run smoke"
+    "prepublishOnly": "npm run verify:framework-compat && npm run verify:llms-examples && npm run build:lib && npm run verify:publish && npm run smoke"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",

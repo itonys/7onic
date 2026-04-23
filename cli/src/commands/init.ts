@@ -7,6 +7,7 @@ import { detectTailwindVersion } from '../utils/detect-tailwind'
 import { detectPackageManager } from '../utils/detect-pm'
 import { installDeps } from '../utils/install-deps'
 import { logger } from '../utils/logger'
+import { scanViteTemplate, applyCleanup } from '../utils/vite-template-cleanup'
 
 // Common CSS file locations to auto-detect
 const CSS_CANDIDATES = [
@@ -27,7 +28,7 @@ export function cn(...inputs: ClassValue[]) {
 `
 
 // v3 CSS token imports + Tailwind directives (for new file or files missing @tailwind)
-// Uses all.css bundle (includes variables + themes + reset.css framework baseline)
+// Uses all.css bundle (includes variables + themes)
 const CSS_V3_IMPORTS = `@import '@7onic-ui/tokens/css/all.css';
 
 @tailwind base;
@@ -280,6 +281,44 @@ export async function init(args: string[]): Promise<void> {
       p.log.success(`Added token imports to ${config.cssPath}`)
     } else {
       p.log.info(`Token imports already present in ${config.cssPath}`)
+    }
+  }
+
+  // 10b. Vite template cleanup
+  // Vite's `npm create vite` ships with unlayered CSS in src/index.css + src/App.css
+  // that overrides all our Tailwind utilities (button bg, :root font-family, a color, h1 size, etc.).
+  // Scan for exact pristine template blocks; if matched, offer to remove.
+  if (isViteProject) {
+    const scanResults = scanViteTemplate(projectRoot)
+    if (scanResults.length > 0) {
+      const totalMatches = scanResults.reduce((sum, r) => sum + r.matches.length, 0)
+      const fileList = scanResults.map(r => {
+        const blockLines = r.matches.map(m => `    • ${m.name} (L${m.startLine}–${m.endLine})`).join('\n')
+        return `  ${pc.bold(r.file)}\n${blockLines}`
+      }).join('\n')
+      p.note(
+        `Detected ${totalMatches} Vite template block${totalMatches === 1 ? '' : 's'} that override 7onic utilities:\n\n` +
+        fileList + '\n\n' +
+        pc.dim('  These blocks are from `npm create vite` boilerplate.\n') +
+        pc.dim('  A .bak backup will be created before changes.'),
+        'Vite Template Cleanup'
+      )
+      const approve = flagYes ? true : await p.confirm({
+        message: 'Remove Vite template boilerplate?',
+        initialValue: true,
+      })
+      if (p.isCancel(approve)) {
+        p.cancel('Init cancelled.')
+        process.exit(0)
+      }
+      if (approve) {
+        for (const result of scanResults) {
+          applyCleanup(result)
+          p.log.success(`Cleaned ${result.file} (${result.matches.length} block${result.matches.length === 1 ? '' : 's'}) — backup at ${result.file}.bak`)
+        }
+      } else {
+        p.log.info('Kept Vite template blocks. You may see style conflicts.')
+      }
     }
   }
 

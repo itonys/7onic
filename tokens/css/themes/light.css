@@ -5,7 +5,7 @@
  * Usage: @import '@7onic-ui/tokens/css/themes/light.css';
  */
 
-:root {
+html:root {
   /* Background */
   --color-background: var(--color-white);
   --color-background-rgb: 255 255 255;

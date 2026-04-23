@@ -4,6 +4,20 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.11] — 2026-04-23
+
+### 7onic
+
+#### Added
+
+- **Vite template auto-cleanup** — `npx 7onic init` on a Vite project now detects and removes the `npm create vite` default CSS boilerplate from `src/index.css` and `src/App.css`. Up to 9 blocks from `index.css` (`:root` font/color/bg, `a`, `a:hover`, `body` flex-centering, `h1` 3.2em, `button` dark bg, `button:hover`, `button:focus`, `@media light`) and 8 blocks from `App.css` (`#root` max-width, `.logo` + spin animation, `.card`, `.read-the-docs`). Each file gets a `.bak` backup before changes. User confirmation prompt (`y/n`, default `y`) unless `--yes` flag.
+
+#### Why
+
+- Vite's default template ships with unlayered CSS (e.g., `button { background-color: #1a1a1a }`) that overrides Tailwind v4 layered utilities regardless of source order. This meant `<Button variant="primary">` rendered as Vite's dark gray instead of the token's teal, even after `npx 7onic init` configured imports correctly. CLI auto-cleanup makes Vite projects work out of the box — no manual edits required.
+
+---
+
 ## [0.1.10] — 2026-04-23
 
 ### 7onic

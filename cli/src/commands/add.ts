@@ -232,6 +232,7 @@ export async function add(args: string[]): Promise<void> {
   // Post-install setup hints
   const addedNames = [...new Set(newFiles.map(f => f.name))]
   showSetupHints(addedNames)
+  showCompanionHints(addedNames)
 
   // Summary
   if (skippedFiles.length > 0) {
@@ -364,6 +365,31 @@ function showSetupHints(names: string[]): void {
       pc.dim(`    )\n`) +
       pc.dim(`  }`),
       'Tooltip Setup'
+    )
+  }
+}
+
+/**
+ * Companion component hints — not auto-installed to respect user intent
+ * (each component on the CLI page is individually copyable). Just nudge.
+ */
+const COMPANION_HINTS: Record<string, string[]> = {
+  'toggle': ['toggle-group'],
+  'toggle-group': ['toggle'],
+}
+
+function showCompanionHints(names: string[]): void {
+  const added = new Set(names)
+  const suggested = new Set<string>()
+  for (const name of names) {
+    for (const companion of COMPANION_HINTS[name] || []) {
+      if (added.has(companion)) continue
+      suggested.add(companion)
+    }
+  }
+  for (const name of suggested) {
+    logger.info(
+      `${pc.dim('Tip:')} also using ${pc.cyan(name)}? Run: ${pc.green(`npx 7onic add ${name}`)}`
     )
   }
 }

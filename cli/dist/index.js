@@ -155,8 +155,8 @@ var require_picocolors = __commonJS({
 });
 
 // cli/src/commands/init.ts
-var import_node_fs4 = __toESM(require("node:fs"));
-var import_node_path4 = __toESM(require("node:path"));
+var import_node_fs5 = __toESM(require("node:fs"));
+var import_node_path5 = __toESM(require("node:path"));
 
 // node_modules/@clack/core/dist/index.mjs
 var import_node_util = require("node:util");
@@ -1227,6 +1227,127 @@ var logger = {
   }
 };
 
+// cli/src/utils/vite-template-cleanup.ts
+var import_node_fs4 = __toESM(require("node:fs"));
+var import_node_path4 = __toESM(require("node:path"));
+var VITE_INDEX_CSS_PATTERNS = [
+  {
+    name: ":root (font/color/bg defaults)",
+    pattern: /:root\s*\{[^}]*font-family:\s*system-ui,\s*Avenir,\s*Helvetica,\s*Arial,\s*sans-serif;[^}]*color-scheme:\s*light dark;[^}]*background-color:\s*#242424;[^}]*\}\s*/m
+  },
+  {
+    name: "a (link colors)",
+    pattern: /a\s*\{\s*font-weight:\s*500;\s*color:\s*#646cff;\s*text-decoration:\s*inherit;\s*\}\s*/m
+  },
+  {
+    name: "a:hover",
+    pattern: /a:hover\s*\{\s*color:\s*#535bf2;\s*\}\s*/m
+  },
+  {
+    name: "body (flex centering)",
+    pattern: /body\s*\{\s*margin:\s*0;\s*display:\s*flex;\s*place-items:\s*center;\s*min-width:\s*320px;\s*min-height:\s*100vh;\s*\}\s*/m
+  },
+  {
+    name: "h1 (huge size)",
+    pattern: /h1\s*\{\s*font-size:\s*3\.2em;\s*line-height:\s*1\.1;\s*\}\s*/m
+  },
+  {
+    name: "button (default styles)",
+    pattern: /button\s*\{\s*border-radius:\s*8px;\s*border:\s*1px solid transparent;\s*padding:\s*0\.6em 1\.2em;[^}]*background-color:\s*#1a1a1a;[^}]*\}\s*/m
+  },
+  {
+    name: "button:hover",
+    pattern: /button:hover\s*\{\s*border-color:\s*#646cff;\s*\}\s*/m
+  },
+  {
+    name: "button:focus",
+    pattern: /button:focus,\s*button:focus-visible\s*\{\s*outline:\s*4px auto -webkit-focus-ring-color;\s*\}\s*/m
+  },
+  {
+    name: "@media light mode overrides",
+    pattern: /@media\s*\(prefers-color-scheme:\s*light\)\s*\{\s*:root\s*\{\s*color:\s*#213547;\s*background-color:\s*#ffffff;\s*\}[^@]*?button\s*\{\s*background-color:\s*#f9f9f9;\s*\}\s*\}\s*/m
+  }
+];
+var VITE_APP_CSS_PATTERNS = [
+  {
+    name: "#root (max-width + text-align:center)",
+    pattern: /#root\s*\{\s*max-width:\s*1280px;\s*margin:\s*0 auto;\s*padding:\s*2rem;\s*text-align:\s*center;\s*\}\s*/m
+  },
+  {
+    name: ".logo (spin animation set)",
+    pattern: /\.logo\s*\{[^}]*height:\s*6em;[^}]*padding:\s*1\.5em;[^}]*will-change:\s*filter;[^}]*\}\s*/m
+  },
+  {
+    name: ".logo:hover",
+    pattern: /\.logo:hover\s*\{\s*filter:\s*drop-shadow\(0 0 2em #646cffaa\);\s*\}\s*/m
+  },
+  {
+    name: ".logo.react:hover",
+    pattern: /\.logo\.react:hover\s*\{\s*filter:\s*drop-shadow\(0 0 2em #61dafbaa\);\s*\}\s*/m
+  },
+  {
+    name: "@keyframes logo-spin",
+    pattern: /@keyframes\s+logo-spin\s*\{\s*from\s*\{\s*transform:\s*rotate\(0deg\);\s*\}\s*to\s*\{\s*transform:\s*rotate\(360deg\);\s*\}\s*\}\s*/m
+  },
+  {
+    name: "@media logo-spin animation",
+    pattern: /@media\s*\(prefers-reduced-motion:\s*no-preference\)\s*\{\s*a:nth-of-type\(2\)\s*\.logo\s*\{\s*animation:\s*logo-spin[^}]*\}\s*\}\s*/m
+  },
+  {
+    name: ".card",
+    pattern: /\.card\s*\{\s*padding:\s*2em;\s*\}\s*/m
+  },
+  {
+    name: ".read-the-docs",
+    pattern: /\.read-the-docs\s*\{\s*color:\s*#888;\s*\}\s*/m
+  }
+];
+function scanFile(fullPath, relPath, patterns) {
+  if (!import_node_fs4.default.existsSync(fullPath)) return null;
+  const originalContent = import_node_fs4.default.readFileSync(fullPath, "utf-8");
+  let cleanedContent = originalContent;
+  const matches = [];
+  for (const { name, pattern } of patterns) {
+    const match = cleanedContent.match(pattern);
+    if (match && match.index !== void 0) {
+      const linesBefore = cleanedContent.slice(0, match.index).split("\n").length;
+      const linesInMatch = match[0].split("\n").length;
+      matches.push({
+        file: relPath,
+        name,
+        startLine: linesBefore,
+        endLine: linesBefore + linesInMatch - 1,
+        preview: match[0].split("\n")[0].trim().slice(0, 60)
+      });
+      cleanedContent = cleanedContent.slice(0, match.index) + cleanedContent.slice(match.index + match[0].length);
+    }
+  }
+  if (matches.length === 0) return null;
+  cleanedContent = cleanedContent.replace(/\n{3,}/g, "\n\n").replace(/^\s+\n/gm, "\n").trimStart();
+  return {
+    file: relPath,
+    fullPath,
+    originalContent,
+    cleanedContent,
+    matches
+  };
+}
+function scanViteTemplate(projectRoot) {
+  const results = [];
+  const indexCssPath = import_node_path4.default.join(projectRoot, "src/index.css");
+  const indexResult = scanFile(indexCssPath, "src/index.css", VITE_INDEX_CSS_PATTERNS);
+  if (indexResult) results.push(indexResult);
+  const appCssPath = import_node_path4.default.join(projectRoot, "src/App.css");
+  const appResult = scanFile(appCssPath, "src/App.css", VITE_APP_CSS_PATTERNS);
+  if (appResult) results.push(appResult);
+  return results;
+}
+function applyCleanup(result) {
+  const backupPath = result.fullPath + ".bak";
+  import_node_fs4.default.writeFileSync(backupPath, result.originalContent, "utf-8");
+  import_node_fs4.default.writeFileSync(result.fullPath, result.cleanedContent, "utf-8");
+}
+
 // cli/src/commands/init.ts
 var CSS_CANDIDATES = [
   "src/app/globals.css",
@@ -1281,7 +1402,7 @@ async function init(args) {
       process.exit(0);
     }
   }
-  const hasTsConfig = import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, "tsconfig.json"));
+  const hasTsConfig = import_node_fs5.default.existsSync(import_node_path5.default.join(projectRoot, "tsconfig.json"));
   if (!hasTsConfig) {
     pt("tsconfig.json not found. 7onic requires TypeScript.");
     process.exit(1);
@@ -1292,7 +1413,7 @@ async function init(args) {
   const TSCONFIG_CANDIDATES = ["tsconfig.json", "tsconfig.app.json"];
   for (const tc of TSCONFIG_CANDIDATES) {
     try {
-      const raw = import_node_fs4.default.readFileSync(import_node_path4.default.join(projectRoot, tc), "utf-8");
+      const raw = import_node_fs5.default.readFileSync(import_node_path5.default.join(projectRoot, tc), "utf-8");
       if (raw.includes('"@/')) {
         hasPathAlias = true;
         break;
@@ -1300,12 +1421,12 @@ async function init(args) {
     } catch {
     }
   }
-  const viteConfigPath = import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, "vite.config.ts")) ? import_node_path4.default.join(projectRoot, "vite.config.ts") : import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, "vite.config.js")) ? import_node_path4.default.join(projectRoot, "vite.config.js") : null;
-  const isViteProject = import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, "tsconfig.app.json")) && viteConfigPath !== null;
+  const viteConfigPath = import_node_fs5.default.existsSync(import_node_path5.default.join(projectRoot, "vite.config.ts")) ? import_node_path5.default.join(projectRoot, "vite.config.ts") : import_node_fs5.default.existsSync(import_node_path5.default.join(projectRoot, "vite.config.js")) ? import_node_path5.default.join(projectRoot, "vite.config.js") : null;
+  const isViteProject = import_node_fs5.default.existsSync(import_node_path5.default.join(projectRoot, "tsconfig.app.json")) && viteConfigPath !== null;
   let needsTypesNode = false;
   if (!hasPathAlias) {
     if (isViteProject) {
-      const tscPatch = patchTsconfigApp(import_node_path4.default.join(projectRoot, "tsconfig.app.json"));
+      const tscPatch = patchTsconfigApp(import_node_path5.default.join(projectRoot, "tsconfig.app.json"));
       const vitePatch = patchViteConfig(viteConfigPath);
       if (vitePatch) needsTypesNode = true;
       if (tscPatch || vitePatch) {
@@ -1322,7 +1443,7 @@ async function init(args) {
     }
   }
   try {
-    const pkgJson = JSON.parse(import_node_fs4.default.readFileSync(import_node_path4.default.join(projectRoot, "package.json"), "utf-8"));
+    const pkgJson = JSON.parse(import_node_fs5.default.readFileSync(import_node_path5.default.join(projectRoot, "package.json"), "utf-8"));
     const allDeps = { ...pkgJson.dependencies, ...pkgJson.devDependencies };
     if (allDeps["@7onic-ui/react"]) {
       O2.info(
@@ -1331,7 +1452,7 @@ async function init(args) {
     }
   } catch {
   }
-  const cssDefault = CSS_CANDIDATES.find((c2) => import_node_fs4.default.existsSync(import_node_path4.default.join(projectRoot, c2))) || "src/app/globals.css";
+  const cssDefault = CSS_CANDIDATES.find((c2) => import_node_fs5.default.existsSync(import_node_path5.default.join(projectRoot, c2))) || "src/app/globals.css";
   let config;
   if (flagYes) {
     const resolvedVersion = forcedTailwindVersion ?? tw.version;
@@ -1392,41 +1513,74 @@ async function init(args) {
     logger.error(String(err));
     process.exit(1);
   }
-  const cssFullPath = import_node_path4.default.join(projectRoot, config.cssPath);
-  if (!import_node_fs4.default.existsSync(cssFullPath)) {
-    const cssDir = import_node_path4.default.dirname(cssFullPath);
-    if (!import_node_fs4.default.existsSync(cssDir)) {
-      import_node_fs4.default.mkdirSync(cssDir, { recursive: true });
+  const cssFullPath = import_node_path5.default.join(projectRoot, config.cssPath);
+  if (!import_node_fs5.default.existsSync(cssFullPath)) {
+    const cssDir = import_node_path5.default.dirname(cssFullPath);
+    if (!import_node_fs5.default.existsSync(cssDir)) {
+      import_node_fs5.default.mkdirSync(cssDir, { recursive: true });
     }
     const cssImports = tailwindVersion === 3 ? CSS_V3_IMPORTS : CSS_V4_IMPORTS;
-    import_node_fs4.default.writeFileSync(cssFullPath, cssImports, "utf-8");
+    import_node_fs5.default.writeFileSync(cssFullPath, cssImports, "utf-8");
     O2.success(`Created ${config.cssPath} with token imports`);
   } else {
-    const cssContent = import_node_fs4.default.readFileSync(cssFullPath, "utf-8");
+    const cssContent = import_node_fs5.default.readFileSync(cssFullPath, "utf-8");
     if (!cssContent.includes("@7onic-ui/tokens")) {
       if (tailwindVersion === 4) {
         const twMatch = cssContent.match(/@import\s+["']tailwindcss["'].*\n/);
         if (twMatch) {
           const insertAt = twMatch.index + twMatch[0].length;
           const updated = cssContent.slice(0, insertAt) + CSS_V4_TOKEN_ONLY + cssContent.slice(insertAt);
-          import_node_fs4.default.writeFileSync(cssFullPath, updated, "utf-8");
+          import_node_fs5.default.writeFileSync(cssFullPath, updated, "utf-8");
         } else {
-          import_node_fs4.default.writeFileSync(cssFullPath, CSS_V4_IMPORTS + "\n" + cssContent, "utf-8");
+          import_node_fs5.default.writeFileSync(cssFullPath, CSS_V4_IMPORTS + "\n" + cssContent, "utf-8");
         }
       } else {
         const hasTailwindDirectives = /@tailwind\s+(base|components|utilities)/.test(cssContent);
         const v3Imports = hasTailwindDirectives ? CSS_V3_TOKEN_ONLY : CSS_V3_IMPORTS;
-        import_node_fs4.default.writeFileSync(cssFullPath, v3Imports + "\n" + cssContent, "utf-8");
+        import_node_fs5.default.writeFileSync(cssFullPath, v3Imports + "\n" + cssContent, "utf-8");
       }
       O2.success(`Added token imports to ${config.cssPath}`);
     } else {
       O2.info(`Token imports already present in ${config.cssPath}`);
     }
   }
+  if (isViteProject) {
+    const scanResults = scanViteTemplate(projectRoot);
+    if (scanResults.length > 0) {
+      const totalMatches = scanResults.reduce((sum, r) => sum + r.matches.length, 0);
+      const fileList = scanResults.map((r) => {
+        const blockLines = r.matches.map((m) => `    \u2022 ${m.name} (L${m.startLine}\u2013${m.endLine})`).join("\n");
+        return `  ${import_picocolors2.default.bold(r.file)}
+${blockLines}`;
+      }).join("\n");
+      wt(
+        `Detected ${totalMatches} Vite template block${totalMatches === 1 ? "" : "s"} that override 7onic utilities:
+
+` + fileList + "\n\n" + import_picocolors2.default.dim("  These blocks are from `npm create vite` boilerplate.\n") + import_picocolors2.default.dim("  A .bak backup will be created before changes."),
+        "Vite Template Cleanup"
+      );
+      const approve = flagYes ? true : await ot2({
+        message: "Remove Vite template boilerplate?",
+        initialValue: true
+      });
+      if (q(approve)) {
+        pt("Init cancelled.");
+        process.exit(0);
+      }
+      if (approve) {
+        for (const result of scanResults) {
+          applyCleanup(result);
+          O2.success(`Cleaned ${result.file} (${result.matches.length} block${result.matches.length === 1 ? "" : "s"}) \u2014 backup at ${result.file}.bak`);
+        }
+      } else {
+        O2.info("Kept Vite template blocks. You may see style conflicts.");
+      }
+    }
+  }
   if (tailwindVersion === 3 && tw.configPath) {
-    const configFullPath = import_node_path4.default.join(projectRoot, tw.configPath);
-    if (import_node_fs4.default.existsSync(configFullPath)) {
-      const configContent = import_node_fs4.default.readFileSync(configFullPath, "utf-8");
+    const configFullPath = import_node_path5.default.join(projectRoot, tw.configPath);
+    if (import_node_fs5.default.existsSync(configFullPath)) {
+      const configContent = import_node_fs5.default.readFileSync(configFullPath, "utf-8");
       if (!configContent.includes("@7onic-ui/tokens/tailwind/v3-preset")) {
         wt(
           `Add the 7onic preset to your ${tw.configPath}:
@@ -1445,18 +1599,18 @@ async function init(args) {
   const utilsPath = resolveAliasPath(projectRoot, config.utilsAlias);
   if (utilsPath) {
     const utilsFullPath = utilsPath + ".ts";
-    if (!import_node_fs4.default.existsSync(utilsFullPath)) {
-      const utilsDir = import_node_path4.default.dirname(utilsFullPath);
-      if (!import_node_fs4.default.existsSync(utilsDir)) {
-        import_node_fs4.default.mkdirSync(utilsDir, { recursive: true });
+    if (!import_node_fs5.default.existsSync(utilsFullPath)) {
+      const utilsDir = import_node_path5.default.dirname(utilsFullPath);
+      if (!import_node_fs5.default.existsSync(utilsDir)) {
+        import_node_fs5.default.mkdirSync(utilsDir, { recursive: true });
       }
-      import_node_fs4.default.writeFileSync(utilsFullPath, CN_UTIL, "utf-8");
-      O2.success(`Created ${import_node_path4.default.relative(projectRoot, utilsFullPath)}`);
+      import_node_fs5.default.writeFileSync(utilsFullPath, CN_UTIL, "utf-8");
+      O2.success(`Created ${import_node_path5.default.relative(projectRoot, utilsFullPath)}`);
     } else {
-      const utilsContent = import_node_fs4.default.readFileSync(utilsFullPath, "utf-8");
+      const utilsContent = import_node_fs5.default.readFileSync(utilsFullPath, "utf-8");
       if (!utilsContent.includes("tailwind-merge")) {
         O2.warn(
-          `${import_node_path4.default.relative(projectRoot, utilsFullPath)} exists but does not import tailwind-merge.
+          `${import_node_path5.default.relative(projectRoot, utilsFullPath)} exists but does not import tailwind-merge.
   7onic components require cn() with tailwind-merge.`
         );
       } else {
@@ -1482,14 +1636,14 @@ async function init(args) {
 }
 function patchTsconfigApp(tsconfigPath) {
   try {
-    const raw = import_node_fs4.default.readFileSync(tsconfigPath, "utf-8");
+    const raw = import_node_fs5.default.readFileSync(tsconfigPath, "utf-8");
     const clean = raw.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "").replace(/,(\s*[}\]])/g, "$1");
     const tc = JSON.parse(clean);
     if (!tc.compilerOptions) tc.compilerOptions = {};
     const existingPaths = tc.compilerOptions.paths ?? {};
     if (existingPaths["@/*"]) return false;
     tc.compilerOptions.paths = { "@/*": ["./src/*"], ...existingPaths };
-    import_node_fs4.default.writeFileSync(tsconfigPath, JSON.stringify(tc, null, 2), "utf-8");
+    import_node_fs5.default.writeFileSync(tsconfigPath, JSON.stringify(tc, null, 2), "utf-8");
     return true;
   } catch {
     return false;
@@ -1497,7 +1651,7 @@ function patchTsconfigApp(tsconfigPath) {
 }
 function patchViteConfig(viteConfigPath) {
   try {
-    let content = import_node_fs4.default.readFileSync(viteConfigPath, "utf-8");
+    let content = import_node_fs5.default.readFileSync(viteConfigPath, "utf-8");
     if (content.includes("'@'") || content.includes('"@"') || content.includes("'@/*'") || content.includes('"@/*"') || content.includes("resolve:")) return false;
     if (!content.includes("import path from 'path'") && !content.includes('import path from "path"')) {
       const importMatches = [...content.matchAll(/^import .+$/gm)];
@@ -1516,7 +1670,7 @@ function patchViteConfig(viteConfigPath) {
     alias: { '@': path.resolve(__dirname, './src') },
   },`;
     content = content.slice(0, lastClose) + resolveBlock + content.slice(lastClose);
-    import_node_fs4.default.writeFileSync(viteConfigPath, content, "utf-8");
+    import_node_fs5.default.writeFileSync(viteConfigPath, content, "utf-8");
     return true;
   } catch {
     return false;
@@ -1526,17 +1680,17 @@ function resolveAliasPath(projectRoot, alias) {
   if (!alias.startsWith("@/")) return null;
   const relative = alias.slice(2);
   for (const srcDir of ["src", "app", "."]) {
-    const candidate = import_node_path4.default.join(projectRoot, srcDir, relative);
-    if (import_node_fs4.default.existsSync(import_node_path4.default.dirname(candidate)) || srcDir === "src") {
-      return import_node_path4.default.join(projectRoot, srcDir, relative);
+    const candidate = import_node_path5.default.join(projectRoot, srcDir, relative);
+    if (import_node_fs5.default.existsSync(import_node_path5.default.dirname(candidate)) || srcDir === "src") {
+      return import_node_path5.default.join(projectRoot, srcDir, relative);
     }
   }
-  return import_node_path4.default.join(projectRoot, "src", relative);
+  return import_node_path5.default.join(projectRoot, "src", relative);
 }
 
 // cli/src/commands/add.ts
-var import_node_fs5 = __toESM(require("node:fs"));
-var import_node_path5 = __toESM(require("node:path"));
+var import_node_fs6 = __toESM(require("node:fs"));
+var import_node_path6 = __toESM(require("node:path"));
 var import_picocolors3 = __toESM(require_picocolors());
 
 // cli/src/utils/rewrite-imports.ts
@@ -13868,8 +14022,8 @@ async function add(args) {
   for (const name of allComponents) {
     const item = registry[name];
     for (const file of item.files) {
-      const filePath = import_node_path5.default.join(componentsDir, file.path);
-      toAdd.push({ name, fileName: file.path, content: file.content, filePath, exists: import_node_fs5.default.existsSync(filePath) });
+      const filePath = import_node_path6.default.join(componentsDir, file.path);
+      toAdd.push({ name, fileName: file.path, content: file.content, filePath, exists: import_node_fs6.default.existsSync(filePath) });
     }
   }
   const newFiles = toAdd.filter((f) => !f.exists || flagOverwrite);
@@ -13884,8 +14038,8 @@ async function add(args) {
       allNpmDeps.add(dep);
     }
   }
-  const pkgJsonPath = import_node_path5.default.join(projectRoot, "package.json");
-  const pkgJson = JSON.parse(import_node_fs5.default.readFileSync(pkgJsonPath, "utf-8"));
+  const pkgJsonPath = import_node_path6.default.join(projectRoot, "package.json");
+  const pkgJson = JSON.parse(import_node_fs6.default.readFileSync(pkgJsonPath, "utf-8"));
   const installedDeps = { ...pkgJson.dependencies, ...pkgJson.devDependencies };
   const depsToInstall = [...allNpmDeps].filter((d3) => !installedDeps[d3]);
   if (!flagYes) {
@@ -13914,24 +14068,24 @@ async function add(args) {
       process.exit(0);
     }
   }
-  if (!import_node_fs5.default.existsSync(componentsDir)) {
-    import_node_fs5.default.mkdirSync(componentsDir, { recursive: true });
+  if (!import_node_fs6.default.existsSync(componentsDir)) {
+    import_node_fs6.default.mkdirSync(componentsDir, { recursive: true });
   }
   let addedCount = 0;
   for (const entry of toAdd) {
     if (entry.exists && !flagOverwrite) continue;
     const content = rewriteImports(entry.content, config.aliases.utils);
-    import_node_fs5.default.writeFileSync(entry.filePath, content, "utf-8");
+    import_node_fs6.default.writeFileSync(entry.filePath, content, "utf-8");
     addedCount++;
     logger.success(`${entry.exists ? "Overwrote" : "Added"} ${entry.fileName}`);
   }
   if (config.tailwind.version === 4 && addedCount > 0) {
     try {
-      const cssFullPath = import_node_path5.default.join(projectRoot, config.tailwind.css);
-      if (import_node_fs5.default.existsSync(cssFullPath)) {
-        const cssContent = import_node_fs5.default.readFileSync(cssFullPath, "utf-8");
-        const cssDir = import_node_path5.default.dirname(cssFullPath);
-        const relRaw = import_node_path5.default.relative(cssDir, componentsDir).replace(/\\/g, "/");
+      const cssFullPath = import_node_path6.default.join(projectRoot, config.tailwind.css);
+      if (import_node_fs6.default.existsSync(cssFullPath)) {
+        const cssContent = import_node_fs6.default.readFileSync(cssFullPath, "utf-8");
+        const cssDir = import_node_path6.default.dirname(cssFullPath);
+        const relRaw = import_node_path6.default.relative(cssDir, componentsDir).replace(/\\/g, "/");
         const relSource = relRaw.startsWith(".") ? relRaw : `./${relRaw}`;
         const sourcePattern = new RegExp(`@source\\s+["']${relSource.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}["']`);
         if (!sourcePattern.test(cssContent)) {
@@ -13942,7 +14096,7 @@ async function add(args) {
             const insertAt = lineEnd !== -1 ? lineEnd + 1 : cssContent.length;
             const updated = cssContent.slice(0, insertAt) + `@source "${relSource}";
 ` + cssContent.slice(insertAt);
-            import_node_fs5.default.writeFileSync(cssFullPath, updated, "utf-8");
+            import_node_fs6.default.writeFileSync(cssFullPath, updated, "utf-8");
             O2.success(`Added @source "${relSource}" to ${config.tailwind.css}`);
           } else {
             O2.warn(
@@ -13975,6 +14129,7 @@ async function add(args) {
   }
   const addedNames = [...new Set(newFiles.map((f) => f.name))];
   showSetupHints(addedNames);
+  showCompanionHints(addedNames);
   if (skippedFiles.length > 0) {
     logger.info(`${skippedFiles.length} file(s) skipped (already exist)`);
   }
@@ -14004,14 +14159,14 @@ function resolveDependencies(names) {
 }
 function resolveAliasToDir(projectRoot, alias) {
   if (!alias.startsWith("@/")) {
-    return import_node_path5.default.join(projectRoot, alias);
+    return import_node_path6.default.join(projectRoot, alias);
   }
   const relative = alias.slice(2);
   for (const srcDir of ["src", "app", "."]) {
-    const candidate = import_node_path5.default.join(projectRoot, srcDir, relative);
-    if (import_node_fs5.default.existsSync(candidate)) return candidate;
+    const candidate = import_node_path6.default.join(projectRoot, srcDir, relative);
+    if (import_node_fs6.default.existsSync(candidate)) return candidate;
   }
-  return import_node_path5.default.join(projectRoot, "src", relative);
+  return import_node_path6.default.join(projectRoot, "src", relative);
 }
 function findSimilar(input, candidates) {
   let best = null;
@@ -14071,10 +14226,29 @@ function showSetupHints(names) {
     );
   }
 }
+var COMPANION_HINTS = {
+  "toggle": ["toggle-group"],
+  "toggle-group": ["toggle"]
+};
+function showCompanionHints(names) {
+  const added = new Set(names);
+  const suggested = /* @__PURE__ */ new Set();
+  for (const name of names) {
+    for (const companion of COMPANION_HINTS[name] || []) {
+      if (added.has(companion)) continue;
+      suggested.add(companion);
+    }
+  }
+  for (const name of suggested) {
+    logger.info(
+      `${import_picocolors3.default.dim("Tip:")} also using ${import_picocolors3.default.cyan(name)}? Run: ${import_picocolors3.default.green(`npx 7onic add ${name}`)}`
+    );
+  }
+}
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.10";
+var VERSION = "0.1.11";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

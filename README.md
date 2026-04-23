@@ -28,7 +28,7 @@
 | **🧩** | **shadcn freedom + MUI convenience** | shadcn's customization with none of its missing features. MUI's built-in power with none of its styling constraints. Both, by design. |
 | **⚡** | **npm or CLI — your choice** | `npm install` for packages, `npx 7onic add` for local copy. Same components, two workflows. |
 | **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
-| **🪄** | **Zero-config framework compat** | Works with Next.js 15 + Vite defaults out of the box. No Provider wrapper, no `globals.css` replacement, no body class setup. Install → import → done. |
+| **🪄** | **Framework-aware setup** | Next.js 15 works out of the box. `npx 7onic init` auto-cleans Vite template boilerplate (or delete a few blocks manually). No Provider wrapper, no `globals.css` replacement, no body class setup. |
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
 | **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
@@ -128,7 +128,7 @@ import { Chart, type ChartConfig } from '@7onic-ui/react/chart'  // charts: sepa
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | 3 |
 | **AI** | TypingIndicator, QuickReply, ChatInput, ChatMessage | 4 |
 
-**42 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, and **Named exports** (`CardHeader`, `ModalContent`, `TabsList`, ...). If you prefer dot-notation (`<Card.Header>`), drop in the 5-line [Compound Recipe wrapper](docs/decisions/NAMED-PRIMARY-MIGRATION.md) — opt-in, Client Components only.
+**42 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, and **Named exports** (`CardHeader`, `ModalContent`, `TabsList`, ...). If you prefer dot-notation (`<Card.Header>`), drop in a [Compound Recipe wrapper](docs/decisions/NAMED-PRIMARY-MIGRATION.md) — opt-in, Client Components only.
 
 ---
 
@@ -160,10 +160,9 @@ figma-tokens.json                    ← SSOT (the only file you edit)
     │
     │  npx sync-tokens
     │
-    ├── css/variables.css            ← CSS variables (all primitives)
+    ├── css/variables.css            ← CSS variables + framework baseline (html body reset)
     ├── css/themes/light.css         ← Light theme semantics
     ├── css/themes/dark.css          ← Dark theme semantics
-    ├── css/reset.css                ← Framework template baseline
     ├── css/all.css                  ← All-in-one bundle
     ├── tailwind/v3-preset.js        ← Tailwind v3 preset
     ├── tailwind/v4-theme.css        ← Tailwind v4 theme
@@ -194,11 +193,10 @@ Breaking changes are auto-detected with diff visualization. Backward-compatible 
 
 | File | Description |
 |------|-------------|
-| `css/all.css` | All-in-one bundle (variables + light + dark + reset) |
-| `css/variables.css` | Primitive tokens only |
+| `css/all.css` | All-in-one bundle (variables + light + dark) |
+| `css/variables.css` | Primitive tokens + framework baseline (`html body` reset) |
 | `css/themes/light.css` | Light theme semantics |
 | `css/themes/dark.css` | Dark theme semantics |
-| `css/reset.css` | Framework template baseline (bundled into `all.css` + `v4.css`) |
 | `tailwind/v4.css` | All-in-one Tailwind v4 |
 | `tailwind/v3-preset.js` | Tailwind v3 preset |
 | `tailwind/v4-theme.css` | Tailwind v4 theme definitions |
@@ -261,7 +259,7 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.2.7
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.2
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [x] `npx 7onic init` Vite support — `tsconfig.app.json` detection, `@import "tailwindcss"` + `@source` auto-inject, `@/` path alias auto-configure
@@ -290,5 +288,5 @@ MIT
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
   Independently built.<br>
-  <sub>Last updated: 2026-04-16 (v0.2.7)</sub>
+  <sub>Last updated: 2026-04-23 (v0.3.2)</sub>
 </p>

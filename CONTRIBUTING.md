@@ -41,7 +41,7 @@ Components follow these conventions:
   // Each sub-component is its own named export
   import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@7onic-ui/react'
   ```
-  Compound JSX (`<Card.Header>`) is not emitted by the library. Users who prefer dot-notation can add a 5-line Compound Recipe wrapper in their own project. See `docs/decisions/NAMED-PRIMARY-MIGRATION.md`.
+  Compound JSX (`<Card.Header>`) is not emitted by the library. Users who prefer dot-notation can add a Compound Recipe wrapper in their own project. See `docs/decisions/NAMED-PRIMARY-MIGRATION.md`.
 
 ### Font Weight
 

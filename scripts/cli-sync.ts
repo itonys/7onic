@@ -31,7 +31,6 @@ import {
   generateNormalizedJson,
   generateCssBundle,
   generateV4Bundle,
-  generateResetCss,
   parseExistingVars,
   detectBreakingChanges,
   formatBreakingChanges,
@@ -96,10 +95,9 @@ Options:
   --help, -h        Show this help message
 
 Generated files:
-  css/variables.css          All CSS custom properties
+  css/variables.css          All CSS custom properties + framework baseline (html body reset)
   css/themes/light.css       Light theme semantic colors
   css/themes/dark.css        Dark theme semantic colors
-  css/reset.css              Framework template baseline (bundled into all.css + v4.css)
   css/all.css                All-in-one CSS bundle
   tailwind/v3-preset.js      Tailwind CSS v3 preset
   tailwind/v4-theme.css      Tailwind CSS v4 theme
@@ -236,7 +234,6 @@ async function cliMain(): Promise<void> {
   const jsTokens = generateJsTokens(tokens)
   const typeDefs = generateTypeDefinitions(tokens)
   const normalizedJson = generateNormalizedJson(tokens)
-  const resetCss = generateResetCss()
   const cssBundle = generateCssBundle()
   const v4Bundle = generateV4Bundle()
 
@@ -247,7 +244,6 @@ async function cliMain(): Promise<void> {
     console.log('   📄 css/variables.css')
     console.log('   📄 css/themes/light.css')
     console.log('   📄 css/themes/dark.css')
-    console.log('   📄 css/reset.css')
     console.log('   📄 tailwind/v3-preset.js')
     console.log('   📄 tailwind/v4-theme.css')
     console.log('   📄 js/index.js')
@@ -265,7 +261,6 @@ async function cliMain(): Promise<void> {
     { label: 'css/variables.css',         status: writeOutputFile(outputDir, 'css/variables.css', variablesCss) },
     { label: 'css/themes/light.css',      status: writeOutputFile(outputDir, 'css/themes/light.css', themeLight) },
     { label: 'css/themes/dark.css',       status: writeOutputFile(outputDir, 'css/themes/dark.css', themeDark) },
-    { label: 'css/reset.css',             status: writeOutputFile(outputDir, 'css/reset.css', resetCss) },
     { label: 'tailwind/v3-preset.js',     status: writeOutputFile(outputDir, 'tailwind/v3-preset.js', v3Preset) },
     { label: 'tailwind/v4-theme.css',     status: writeOutputFile(outputDir, 'tailwind/v4-theme.css', v4Theme) },
     { label: 'js/index.js',               status: writeOutputFile(outputDir, 'js/index.js', jsTokens.cjs) },

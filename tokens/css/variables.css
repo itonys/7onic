@@ -934,12 +934,27 @@
 
 /* ========================================
    Framework Compat Aliases
-   Next.js 15 / Tailwind v4 convention mapping.
-   html:root (0,1,1) > :root (0,1,0) — wins cascade
-   regardless of source order vs framework defaults.
+   Maps Next.js 15 / Tailwind v4 convention
+   (--background, --foreground) to our tokens.
    ======================================== */
 
 html:root {
   --background: var(--color-background);
-  --foreground: var(--color-foreground);
+  --foreground: var(--color-text);
+  color-scheme: light dark;
+}
+
+/* ========================================
+   Body Baseline
+   Overrides framework default body rules.
+   ======================================== */
+
+html body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-family-sans);
+  display: block;
+  place-items: initial;
+  min-width: auto;
+  margin: 0;
 }

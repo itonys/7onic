@@ -6,6 +6,28 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.2] — 2026-04-23
+
+> **Critical patch** — Fixes v0.3.1 circular reference regression + Next.js font-family override + Vite CLI auto-cleanup. Users on v0.3.1 must upgrade.
+
+### @7onic-ui/react & @7onic-ui/tokens
+
+#### Fixed
+
+- **v0.3.1 circular CSS variable reference** — `variables.css` had `--foreground: var(--color-foreground)` and Next.js `@theme inline` emitted `--color-foreground: var(--foreground)`, creating an infinite loop that browsers resolve to `unset`. Fixed by Approach Z: single-direction chain — `--foreground` now points to `--color-text` (safe island variable) instead of `--color-foreground`. No breaking change for users.
+- **Next.js 15 + Vite font-family override** — Next.js `create-next-app` template ships with `body { font-family: Arial, Helvetica, sans-serif }` unlayered. Vite ships with `:root { font-family: system-ui, Avenir, ... }`. Both override our Inter token. Fixed by adding `font-family: var(--font-family-sans)` to existing `html body` baseline block in `variables.css` (specificity `0,0,2` > `body` `0,0,1`).
+
+#### Changed
+
+- `tokens/css/reset.css` — **removed as separate file**. The `html body` baseline (background-color, color, font-family, display, margin, etc.) is now embedded directly in `variables.css` at the end (Body Baseline section). Bundle files (`all.css`, `tailwind/v4.css`) no longer import `reset.css`. Users importing `variables.css` get the baseline automatically. Distribution file count: **12 → 11**.
+- `tokens/package.json` exports — `./css/reset.css` subpath export removed.
+
+### @7onic/cli
+
+See [cli/CHANGELOG.md](./cli/CHANGELOG.md).
+
+---
+
 ## [0.3.1] — 2026-04-23
 
 > **Critical patch** — Fixes Next.js 15 + Vite framework template compatibility. All three issues were 100% reproducible on v0.3.0. Users on v0.3.0 should upgrade.
@@ -55,7 +77,7 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 - `import { Card, CardHeader, CardTitle } from '@7onic-ui/react'`
 - `<Card><CardHeader><CardTitle>...</CardTitle></CardHeader></Card>`
-- Prefer dot-notation? Add a 5-line Compound Recipe wrapper in your project (`'use client'` required). All 25 wrappers documented in the migration ADR
+- Prefer dot-notation? Add a Compound Recipe wrapper in your project (`'use client'` required). All 25 wrappers documented in the migration ADR
 
 #### Why
 
