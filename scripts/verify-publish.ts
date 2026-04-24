@@ -11,14 +11,14 @@
  */
 
 import { execSync } from 'child_process'
-import { mkdirSync, writeFileSync, rmSync, existsSync, readdirSync } from 'fs'
+import { mkdirSync, writeFileSync, rmSync, existsSync, readdirSync, readFileSync } from 'fs'
 import { join } from 'path'
 
 import { tmpdir } from 'os'
 
 const ROOT = process.cwd()
 const TMP = join(tmpdir(), 'verify-publish-tmp')
-const pkg = require(join(ROOT, 'package.json'))
+const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf-8'))
 
 let passed = 0
 let failed = 0

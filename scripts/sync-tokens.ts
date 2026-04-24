@@ -248,6 +248,7 @@ function pxToRem(px: number | string): string {
   return `${parseFloat(rem.toFixed(4))}rem`
 }
 
+// eslint-disable-next-line no-irregular-whitespace -- ZWSP escapes '*/' inside JSDoc to prevent block comment termination
 /** Inline px comment for rem values. e.g. pxComment(11) → "/* 11px *​/" */
 function pxComment(px: number | string): string {
   const n = typeof px === 'string' ? parseFloat(px) : px

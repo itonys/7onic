@@ -1,0 +1,12 @@
+dist/
+cli/dist/
+.next/
+next-env.d.ts
+tokens/css/
+tokens/js/
+tokens/tailwind/
+tokens/types/
+tokens/json/
+node_modules/
+cli/src/registry/index.ts
+scripts/user-test/templates/
