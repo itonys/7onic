@@ -958,3 +958,9 @@ html body {
   min-width: auto;
   margin: 0;
 }
+
+html body code,
+html body pre,
+html body kbd {
+  font-family: var(--font-family-mono);
+}

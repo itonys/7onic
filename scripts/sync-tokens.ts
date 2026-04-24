@@ -1370,6 +1370,12 @@ function generateVariablesCss(tokens: FigmaTokens): string {
   lines.push(`  margin: 0;`)
   lines.push(`}`)
   lines.push(``)
+  lines.push(`html body code,`)
+  lines.push(`html body pre,`)
+  lines.push(`html body kbd {`)
+  lines.push(`  font-family: var(--font-family-mono);`)
+  lines.push(`}`)
+  lines.push(``)
 
   return lines.join('\n')
 }

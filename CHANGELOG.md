@@ -6,6 +6,16 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/tokens
+
+#### Fixed
+
+- **Monospace font baseline** — `html body code`, `html body pre`, `html body kbd` now explicitly set `font-family: var(--font-family-mono)`. Prevents browser default `monospace` from overriding the token-defined mono font in documentation and code snippets.
+
+---
+
 ## [0.3.2] — 2026-04-23
 
 > **Critical patch** — Fixes v0.3.1 circular reference regression + Next.js font-family override + Vite CLI auto-cleanup. Users on v0.3.1 must upgrade.
