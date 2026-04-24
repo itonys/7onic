@@ -39,7 +39,7 @@ npx 7onic init
 
 This automatically:
 - Detects Tailwind v3/v4
-- **Vite projects**: configures `@/` path alias in `tsconfig.app.json` and `vite.config.ts`, installs `@types/node`
+- **Vite projects**: configures `@/` path alias in `tsconfig.app.json` and `vite.config.ts`, installs `@types/node`; **removes `create vite` boilerplate CSS blocks** from `src/index.css` + `src/App.css` (unlayered rules like `:root { font-family: system-ui }`, `button { color: #1a1a1a }` that override 7onic tokens) — prompts user, creates `.bak` backup
 - Installs base dependencies (@7onic-ui/tokens, lucide-react, class-variance-authority, clsx, tailwind-merge)
 - Sets up globals.css with all required token imports (v4: auto-injects `@import "tailwindcss"` if missing)
 - Creates `cn()` utility at `lib/utils.ts`

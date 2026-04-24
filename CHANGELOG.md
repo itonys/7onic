@@ -8,11 +8,26 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ## [Unreleased]
 
+---
+
+## [0.3.3] — 2026-04-24
+
 ### @7onic-ui/tokens
 
 #### Fixed
 
 - **Monospace font baseline** — `html body code`, `html body pre`, `html body kbd` now explicitly set `font-family: var(--font-family-mono)`. Prevents browser default `monospace` from overriding the token-defined mono font in documentation and code snippets.
+
+#### Improved
+
+- **`llms.txt` font baseline documentation** — Added "Font baseline (automatic)" section explaining that `variables.css` auto-applies `html body font-family-sans` and `code/pre/kbd font-family-mono`. AI should not add manual `body { font-family }` rules.
+
+### @7onic-ui/react
+
+#### Improved
+
+- **`llms.txt` font loading instructions** — Per-framework detail for custom fonts (Next.js: `next/font/google`, Vite/Remix: Fontsource or CDN) and CJK font setup (noto-sans-jp/kr).
+- **`llms.txt` Quick Reference Table note** — Clarifies 40 table entries vs 42 documentation pages (4 chart types share one source; field is a form utility sub-component).
 
 ---
 
