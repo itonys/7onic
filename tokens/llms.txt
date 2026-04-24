@@ -78,6 +78,17 @@ module.exports = {
 <body class="bg-background text-foreground">
 ```
 
+**Font baseline (automatic — do NOT add manually):**
+`variables.css` import automatically applies:
+- `html body { font-family: var(--font-family-sans) }` — Inter by default
+- `html body code, pre, kbd { font-family: var(--font-family-mono) }` — monospace
+
+Do NOT write `body { font-family: ... }` manually — it is already handled by the token import.
+To use a custom font, override the CSS variable instead:
+```css
+:root { --font-family-sans: 'Your Font', sans-serif; }
+```
+
 **2-4. Apply user's answers:**
 
 - Dark mode = yes → implement dark mode toggle (see below)
