@@ -934,7 +934,7 @@ function generateVariablesCss(tokens) {
   lines.push(``);
   lines.push(`html body {`);
   lines.push(`  background-color: var(--color-background);`);
-  lines.push(`  color: var(--foreground);`);
+  lines.push(`  color: var(--color-text);`);
   lines.push(`  font-family: var(--font-family-sans);`);
   lines.push(`  display: block;`);
   lines.push(`  place-items: initial;`);

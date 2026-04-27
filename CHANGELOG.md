@@ -6,6 +6,25 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.5] — 2026-04-28
+
+### @7onic-ui/tokens
+
+#### Fixed
+
+- **Body Baseline `color` — Figma direct reference (SSOT)** — `html body { color }` previously resolved through the `--foreground` Next.js compat alias (v0.3.4 workaround). Now references `var(--color-text)` directly, the Figma-defined token in `themes/light.css` (`gray-900`) and `themes/dark.css` (`gray-100`). Behavioral result identical (both produce the same color), but Figma SSOT is honored without alias indirection. Why this matters: `variables.css` is distributed standalone (Tailwind v3 users, no-Tailwind users) where `--color-foreground` (Tailwind v4 alias) is not defined; using `--color-text` guarantees the variable is defined in every supported import combination because `themes/light.css` + `themes/dark.css` always ship with `variables.css`.
+- **`scripts/sync-tokens.ts` generator regression (v0.3.3 carry-over)** — The internal generator was still emitting `color: var(--color-foreground)` (the original v0.3.3 bug). Output file `variables.css` had been manually patched in v0.3.4 to `var(--foreground)`, but the generator was never synced. Re-running `npm run sync-tokens` would have silently regenerated `variables.css` with the v0.3.3 IACVT bug (light-mode invisible text under OS dark mode). Generator now emits `var(--color-text)`, matching the output file. Verification: `npm run sync-tokens` after the fix reports `1 updated, 12 unchanged` on first run, then `0 updated, 13 unchanged` on subsequent runs (idempotent).
+
+#### Note on v0.3.4 wording
+
+The v0.3.4 changelog entry below describes `--color-foreground` as "an undefined variable that does not exist." This is imprecise. `--color-foreground` is a Tailwind v4 convention variable defined in `tokens/tailwind/v4-theme.css` (line 34: `--color-foreground: var(--color-text);`). It is defined when v4-theme.css is loaded but undefined when `variables.css` is imported standalone (Tailwind v3 / no-Tailwind setups) — that is the actual root cause of the IACVT bug. The v0.3.4 fix (`var(--foreground)`) worked because `--foreground` is defined inside `variables.css` itself (line 943, the `html:root` Next.js compat alias block), so it is always defined wherever `variables.css` is loaded. v0.3.5 makes this reasoning unnecessary by referencing `--color-text` directly.
+
+### @7onic-ui/react
+
+> Version bumped in lockstep with `@7onic-ui/tokens`. No `react` package code changes.
+
+---
+
 ## [0.3.4] — 2026-04-27
 
 ### @7onic-ui/tokens

@@ -4,6 +4,16 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.13] — 2026-04-28
+
+### 7onic
+
+#### Fixed
+
+- **`tokens/cli/sync.js` body baseline — Figma direct reference (SSOT)** — The CLI's bundled token sync generator (used by `npx 7onic init` to scaffold project CSS) now emits `html body { color: var(--color-text) }` directly instead of going through the `--foreground` alias (v0.1.12 carryover from `@7onic-ui/tokens@0.3.4`). Behaviorally identical (both resolve to the same color from `themes/light.css` / `themes/dark.css`), but Figma SSOT is honored without alias indirection. Synchronized with `@7onic-ui/tokens@0.3.5` — a user running `npx 7onic init` will now scaffold `variables.css` with the same direct `--color-text` reference that `@7onic-ui/tokens@0.3.5` itself ships with. See `@7onic-ui/tokens@0.3.5` changelog entry for the full reasoning, including why this matters for standalone `variables.css` imports (Tailwind v3 / no-Tailwind setups).
+
+---
+
 ## [0.1.12] — 2026-04-27
 
 ### 7onic
