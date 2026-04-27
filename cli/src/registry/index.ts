@@ -3547,7 +3547,7 @@ const bubbleRadiusSymMap: Record<ChatMessageRadius, string> = {
 
 function getBubbleColors(color: ChatMessageColor, variant: ChatMessageVariant): string {
   if (variant === 'flat') {
-    return color === 'muted' ? 'bg-background-muted' : ''
+    return color === 'muted' ? 'bg-background-muted text-foreground' : 'text-foreground'
   }
   switch (color) {
     case 'default': return 'bg-background-paper border border-border text-foreground'

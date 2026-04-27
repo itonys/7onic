@@ -4,6 +4,16 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.12] — 2026-04-27
+
+### 7onic
+
+#### Fixed
+
+- **`ChatMessage` flat variant — explicit `text-foreground`** — Registry inlined source had old `getBubbleColors`: `variant="flat"` returned no text color class, causing text to inherit browser system color. Fixed to match `@7onic-ui/react@0.3.4`.
+
+---
+
 ## [0.1.11] — 2026-04-23
 
 ### 7onic

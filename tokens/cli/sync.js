@@ -915,6 +915,39 @@ function generateVariablesCss(tokens) {
       lines.push(``);
     }
   }
+  lines.push(`/* ========================================`);
+  lines.push(`   Framework Compat Aliases`);
+  lines.push(`   Maps Next.js 15 / Tailwind v4 convention`);
+  lines.push(`   (--background, --foreground) to our tokens.`);
+  lines.push(`   ======================================== */`);
+  lines.push(``);
+  lines.push(`html:root {`);
+  lines.push(`  --background: var(--color-background);`);
+  lines.push(`  --foreground: var(--color-text);`);
+  lines.push(`  color-scheme: light dark;`);
+  lines.push(`}`);
+  lines.push(``);
+  lines.push(`/* ========================================`);
+  lines.push(`   Body Baseline`);
+  lines.push(`   Overrides framework default body rules.`);
+  lines.push(`   ======================================== */`);
+  lines.push(``);
+  lines.push(`html body {`);
+  lines.push(`  background-color: var(--color-background);`);
+  lines.push(`  color: var(--color-foreground);`);
+  lines.push(`  font-family: var(--font-family-sans);`);
+  lines.push(`  display: block;`);
+  lines.push(`  place-items: initial;`);
+  lines.push(`  min-width: auto;`);
+  lines.push(`  margin: 0;`);
+  lines.push(`}`);
+  lines.push(``);
+  lines.push(`html body code,`);
+  lines.push(`html body pre,`);
+  lines.push(`html body kbd {`);
+  lines.push(`  font-family: var(--font-family-mono);`);
+  lines.push(`}`);
+  lines.push(``);
   return lines.join("\n");
 }
 function generateThemeLight(tokens) {
@@ -926,7 +959,7 @@ function generateThemeLight(tokens) {
   lines.push(` * Usage: @import '@7onic-ui/tokens/css/themes/light.css';`);
   lines.push(` */`);
   lines.push(``);
-  lines.push(`:root {`);
+  lines.push(`html:root {`);
   const lightColor = tokens.light.color;
   const semanticColorOrder = orderedKeys(lightColor, { type: "known", order: KNOWN_ORDERS.semanticColorCategories }, "light.color");
   for (const category of semanticColorOrder) {
@@ -1007,13 +1040,13 @@ function generateThemeDark(tokens) {
   const declarations = declLines.join("\n");
   const mediaDeclarations = declLines.map((l) => l ? `  ${l}` : l).join("\n");
   lines.push(`@media (prefers-color-scheme: dark) {`);
-  lines.push(`  :root:not([data-theme="light"]) {`);
+  lines.push(`  html:root:not([data-theme="light"]) {`);
   lines.push(mediaDeclarations);
   lines.push(`  }`);
   lines.push(`}`);
   lines.push(``);
-  lines.push(`:root[data-theme="dark"],`);
-  lines.push(`:root.dark {`);
+  lines.push(`html:root[data-theme="dark"],`);
+  lines.push(`html:root.dark {`);
   lines.push(declarations);
   lines.push(`}`);
   lines.push(``);
@@ -1909,7 +1942,7 @@ function generateV3Preset(tokens) {
   }
   const scaleData = p.scale;
   lines.push(`      scale: {`);
-  for (const [name, token] of Object.entries(scaleData)) {
+  for (const name of Object.keys(scaleData)) {
     if (name.startsWith("$")) continue;
     lines.push(`        '${name}': 'var(--scale-${name})',`);
   }
@@ -2314,7 +2347,7 @@ function generateV4Theme(tokens) {
   lines.push(``);
   lines.push(`/* Scale \u2014 var() references to variables.css */`);
   const v4ScaleData = p.scale;
-  for (const [name, token] of Object.entries(v4ScaleData)) {
+  for (const name of Object.keys(v4ScaleData)) {
     if (name.startsWith("$")) continue;
     lines.push(`@utility scale-${name} {`);
     lines.push(`  scale: var(--scale-${name});`);
@@ -2570,7 +2603,7 @@ Options:
   --help, -h        Show this help message
 
 Generated files:
-  css/variables.css          All CSS custom properties
+  css/variables.css          All CSS custom properties + framework baseline (html body reset)
   css/themes/light.css       Light theme semantic colors
   css/themes/dark.css        Dark theme semantic colors
   css/all.css                All-in-one CSS bundle
@@ -2592,7 +2625,20 @@ function writeOutputFile(outputDir, relativePath, content) {
   if (!fs2.existsSync(dir)) {
     fs2.mkdirSync(dir, { recursive: true });
   }
+  let status;
+  if (!fs2.existsSync(fullPath)) {
+    status = "new";
+  } else {
+    const existing = fs2.readFileSync(fullPath, "utf-8");
+    status = existing === content ? "unchanged" : "updated";
+  }
   fs2.writeFileSync(fullPath, content);
+  return status;
+}
+function formatStatusBadge(status) {
+  if (status === "new") return "(NEW)";
+  if (status === "updated") return "(updated)";
+  return "(unchanged)";
 }
 async function cliMain() {
   const opts = parseArgs(process.argv);
@@ -2677,36 +2723,33 @@ async function cliMain() {
     console.log("\n\u2705 Dry run complete.");
     return;
   }
-  writeOutputFile(outputDir, "css/variables.css", variablesCss);
-  writeOutputFile(outputDir, "css/themes/light.css", themeLight);
-  writeOutputFile(outputDir, "css/themes/dark.css", themeDark);
-  writeOutputFile(outputDir, "tailwind/v3-preset.js", v3Preset);
-  writeOutputFile(outputDir, "tailwind/v4-theme.css", v4Theme);
-  writeOutputFile(outputDir, "js/index.js", jsTokens.cjs);
-  writeOutputFile(outputDir, "js/index.mjs", jsTokens.esm);
-  writeOutputFile(outputDir, "types/index.d.ts", typeDefs);
-  writeOutputFile(outputDir, "json/tokens.json", normalizedJson);
-  writeOutputFile(outputDir, "css/all.css", cssBundle);
-  writeOutputFile(outputDir, "tailwind/v4.css", v4Bundle);
+  const statuses = [
+    { label: "css/variables.css", status: writeOutputFile(outputDir, "css/variables.css", variablesCss) },
+    { label: "css/themes/light.css", status: writeOutputFile(outputDir, "css/themes/light.css", themeLight) },
+    { label: "css/themes/dark.css", status: writeOutputFile(outputDir, "css/themes/dark.css", themeDark) },
+    { label: "tailwind/v3-preset.js", status: writeOutputFile(outputDir, "tailwind/v3-preset.js", v3Preset) },
+    { label: "tailwind/v4-theme.css", status: writeOutputFile(outputDir, "tailwind/v4-theme.css", v4Theme) },
+    { label: "js/index.js", status: writeOutputFile(outputDir, "js/index.js", jsTokens.cjs) },
+    { label: "js/index.mjs", status: writeOutputFile(outputDir, "js/index.mjs", jsTokens.esm) },
+    { label: "types/index.d.ts", status: writeOutputFile(outputDir, "types/index.d.ts", typeDefs) },
+    { label: "json/tokens.json", status: writeOutputFile(outputDir, "json/tokens.json", normalizedJson) },
+    { label: "css/all.css (bundle)", status: writeOutputFile(outputDir, "css/all.css", cssBundle) },
+    { label: "tailwind/v4.css (bundle)", status: writeOutputFile(outputDir, "tailwind/v4.css", v4Bundle) }
+  ];
   if (deprecatedCss) {
-    writeOutputFile(outputDir, "css/deprecated.css", deprecatedCss);
+    const depStatus = writeOutputFile(outputDir, "css/deprecated.css", deprecatedCss);
+    statuses.push({ label: "css/deprecated.css (backwards compat)", status: depStatus });
   }
   printTokenWarnings(tokenWarnings);
+  const newCount = statuses.filter((s) => s.status === "new").length;
+  const updatedCount = statuses.filter((s) => s.status === "updated").length;
+  const unchangedCount = statuses.filter((s) => s.status === "unchanged").length;
   console.log("");
-  console.log("\u2705 sync-tokens complete:");
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "css/variables.css"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "css/themes/light.css"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "css/themes/dark.css"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "tailwind/v3-preset.js"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "tailwind/v4-theme.css"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "js/index.js"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "js/index.mjs"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "types/index.d.ts"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "json/tokens.json"))}`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "css/all.css"))} (bundle)`);
-  console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "tailwind/v4.css"))} (bundle)`);
-  if (deprecatedCss) {
-    console.log(`   \u{1F4C4} ${path2.relative(".", path2.join(outputDir, "css/deprecated.css"))} (backwards compat)`);
+  console.log(`\u2705 sync-tokens complete: ${newCount} new, ${updatedCount} updated, ${unchangedCount} unchanged`);
+  for (const { label, status } of statuses) {
+    const fullLabel = path2.relative(".", path2.join(outputDir, label.replace(/ \(.*\)/, "")));
+    const suffix = label.includes("(bundle)") ? " (bundle)" : label.includes("(backwards compat)") ? " (backwards compat)" : "";
+    console.log(`   \u{1F4C4} ${fullLabel}${suffix} ${formatStatusBadge(status)}`);
   }
 }
 cliMain().catch((err) => {
