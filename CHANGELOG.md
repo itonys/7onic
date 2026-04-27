@@ -8,6 +8,18 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ## [Unreleased]
 
+### @7onic-ui/tokens
+
+#### Fixed
+
+- **Body Baseline `color` typo** — `html body { color: var(--color-foreground) }` referenced an undefined variable (`--color-foreground` does not exist; `--foreground` does). When OS is dark mode and the site forces light mode, the invalid declaration caused `color` to inherit the browser's system text color (white) from `html:root { color-scheme: light dark }`, making all text without an explicit color class invisible on light backgrounds. Fixed by correcting to `var(--foreground)`.
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **`ChatMessage` flat variant — explicit `text-foreground`** — `getBubbleColors` returned no text color class for `variant="flat"`, relying on CSS inheritance. Consistent with the bubble variant (which always sets `text-foreground`), flat now explicitly sets `text-foreground` for all colors, making it self-contained regardless of parent context.
+
 ---
 
 ## [0.3.3] — 2026-04-24

@@ -951,7 +951,7 @@ html:root {
 
 html body {
   background-color: var(--color-background);
-  color: var(--color-foreground);
+  color: var(--foreground);
   font-family: var(--font-family-sans);
   display: block;
   place-items: initial;
