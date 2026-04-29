@@ -27,92 +27,29 @@ Before writing any code, present this checklist and wait for answers:
 
 **If the user answers in natural language** (e.g., "Make me a dashboard with dark mode, English only"), extract the answers from their message. **If any item is missing, ask a follow-up question for the missing items only.** Do not proceed until all 5 items are answered.
 
-### Step 2: Execute full setup (all at once, do not skip any)
+### Step 2: Install / Setup
 
-After receiving answers, execute ALL of the following in order. Every step is mandatory.
+⚠️ **DO NOT GUESS** — install procedures evolve with each Tailwind / Next / Vite version. Before writing any code, AI **MUST** fetch the live pages below and follow their instructions verbatim:
 
-**2-1. Install packages (skip if already installed):**
-```bash
-npm install @7onic-ui/react @7onic-ui/tokens lucide-react
-```
-> Check package.json first. If packages are already listed in dependencies, skip this step.
+- **Official install page (SSOT)**: https://7onic.design/components/installation
+- **Tailwind CSS official**: https://tailwindcss.com/docs/installation
 
-**2-2. Create or update globals.css with token imports:**
+The install instructions are intentionally **not duplicated in this file**. Setup details (packages, `tailwind.config.js`, `vite.config.ts`, `postcss.config.mjs`, `globals.css` patterns, framework default cleanup, layer wrap tips, etc.) are version-sensitive and change frequently — always defer to the live documentation above.
 
-**How to detect Tailwind version:**
-- `tailwind.config.js` (or `.ts`) exists → **v3**
-- No config file → **v4** (uses CSS-based configuration)
+Apply user's answers from Step 1 after the install page steps are complete:
+- Dark mode = yes → implement dark mode toggle (see below in this file)
+- Custom font → load via `next/font/google` (Next.js) or Fontsource / CDN (Vite)
+- Japanese / Korean locale → load Noto Sans JP / KR
 
-**New project (Tailwind v4):**
-```css
-/* globals.css (Next.js) or src/index.css (Vite) — ALL imports are required, do not skip any */
-@import "tailwindcss";
-@import "@7onic-ui/tokens/css/variables.css";
-@import "@7onic-ui/tokens/css/themes/light.css";
-@import "@7onic-ui/tokens/css/themes/dark.css";    /* omit ONLY if dark mode = no */
-@import "@7onic-ui/tokens/tailwind/v4-theme.css";
-```
-
-**Existing project with Tailwind v3** (detect from tailwind.config.js):
-```css
-/* globals.css */
-@import '@7onic-ui/tokens/css/variables.css';
-@import '@7onic-ui/tokens/css/themes/light.css';
-@import '@7onic-ui/tokens/css/themes/dark.css';    /* omit ONLY if dark mode = no */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-```js
-// tailwind.config.js — add preset
-const preset = require('@7onic-ui/tokens/tailwind/v3-preset')
-module.exports = {
-  presets: [preset],
-  content: [
-    './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/@7onic-ui/react/dist/**/*.{js,mjs}',
-  ],
-}
-```
-
-**2-3. Vite users only — clean up `src/index.css`:**
-
-Vite's default template generates CSS that overrides 7onic token styles. Two paths:
-
-- **CLI path (`npx 7onic init`) — recommended**: auto-handles all cleanup below, plus injects `@import "tailwindcss"` (v4), configures `@/` path alias (patches `tsconfig.app.json` + `vite.config.ts`, installs `@types/node`), and `npx 7onic add` auto-injects `@source "./components/ui"`. Prompts user, creates `.bak` backup.
-- **npm-only path (manual)**: delete the following blocks from `src/index.css`:
-  - `:root { font-family: system-ui, ... }` block
-  - `body { display: flex; place-items: center; ... }` block
-  - `button { background-color: #1a1a1a; ... }` block and all other element-level rules (`a { color: #646cff }`, etc.)
-  - `@media (prefers-color-scheme: light) { ... }` block
-
-  After deletion, `src/index.css` should contain only the token imports added in step 2-2. For v4 also add `@import "tailwindcss"` at the top, and configure `@/` alias manually.
-
-**2-4. Apply user's answers:**
-
-- Dark mode = yes → implement dark mode toggle (see below)
-- Custom font → load font:
-  - **Next.js**: use `next/font/google`
-  - **Vite / Remix**: use Fontsource (`npm install @fontsource/inter`, then `import '@fontsource/inter/400.css'` in `src/main.tsx`) or Google Fonts CDN
-  - Then set `--font-family-sans` in CSS
-- Locale includes Japanese → load Noto Sans JP font
-  - Fontsource: `npm install @fontsource/noto-sans-jp` → import in `src/main.tsx` (Vite) or `app/layout.tsx` (Next.js)
-  - CDN: Google Fonts link tag in `index.html`
-- Locale includes Korean → load Noto Sans KR font
-  - Fontsource: `npm install @fontsource/noto-sans-kr` → import in `src/main.tsx` (Vite) or `app/layout.tsx` (Next.js)
-  - CDN: Google Fonts link tag in `index.html`
-
-**2-5. Verify setup is complete before writing any UI code:**
-- [ ] Packages installed (@7onic-ui/react, @7onic-ui/tokens, lucide-react)
-- [ ] globals.css / src/index.css has ALL required imports in correct order
-- [ ] (Vite only) Vite template CSS blocks deleted from src/index.css
-- [ ] Dark mode toggle (if selected)
-- [ ] Font loaded (if custom)
-- [ ] CJK fonts loaded (if applicable)
-
-⛔ **Do NOT proceed to Step 3 until all checks pass.**
+⛔ **Do NOT proceed to Step 3 until install page setup is verified.**
 
 ### Icon Import Pattern (lucide-react)
+
+⚠️ **`lucide-react` is NOT a 7onic dependency.** 7onic components themselves use inline SVG. Install separately if you want to use lucide icons in your app code:
+
+```bash
+npm install lucide-react
+```
 
 ```tsx
 // ✅ Official pattern — no suffix
@@ -131,7 +68,9 @@ import { Badge as BadgeIcon } from 'lucide-react'
 Place `<Toaster />` once in your root layout file. Without this, `toast()` calls will not render.
 
 ```tsx
-import { Toaster } from '@7onic-ui/react'// In your root layout (e.g., app/layout.tsx)
+import { Toaster } from '@7onic-ui/react'
+
+// In your root layout (e.g., app/layout.tsx)
 <body>
   {children}
   <Toaster position="bottom-right" />
@@ -248,7 +187,9 @@ style={{ color: '#333', padding: '20px' }}
 w-4 h-4, w-5 h-5   → icon-sm, icon-md
 
 // ❌ Radix direct import
-import * as Dialog from '@radix-ui/react-dialog'   → import { Badge, Button, Card, Input, Table } from '@7onic-ui/react'// ❌ Unnecessary component wrappers
+import * as Dialog from '@radix-ui/react-dialog'   → import { Badge, Button, Card, Input, Table } from '@7onic-ui/react'
+
+// ❌ Unnecessary component wrappers
 function MyButton(props) { return <Button {...props} /> }   → Use Button directly
 ```
 
@@ -402,7 +343,9 @@ import { Button, Card, Input, toast } from '@7onic-ui/react'
 All components use Named imports. Works in every environment (Next.js App Router RSC, Client Components, Pages Router, Vite, CRA, CJS).
 
 ```tsx
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@7onic-ui/react'<Card>
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@7onic-ui/react'
+
+<Card>
   <CardHeader>
     <CardTitle>Title</CardTitle>
     <CardDescription>Description</CardDescription>
@@ -435,7 +378,9 @@ Badge, Button, ButtonGroup, Checkbox, Divider, IconButton, Input, Progress, Skel
 ### Button
 
 ```tsx
-import { Button } from '@7onic-ui/react'<Button variant="solid" color="primary" size="default">Submit</Button>
+import { Button } from '@7onic-ui/react'
+
+<Button variant="solid" color="primary" size="default">Submit</Button>
 <Button variant="outline" color="default" leftIcon={<Icon />}>Cancel</Button>
 <Button loading>Processing...</Button>
 <Button variant="link" color="primary">Learn more</Button>
@@ -464,7 +409,9 @@ import { Button } from '@7onic-ui/react'<Button variant="solid" color="primary" 
 ### IconButton
 
 ```tsx
-import { IconButton } from '@7onic-ui/react'<IconButton variant="ghost" size="default" aria-label="Settings">
+import { IconButton } from '@7onic-ui/react'
+
+<IconButton variant="ghost" size="default" aria-label="Settings">
   <SettingsIcon />
 </IconButton>
 ```
@@ -487,7 +434,9 @@ import { IconButton } from '@7onic-ui/react'<IconButton variant="ghost" size="de
 ### ButtonGroup
 
 ```tsx
-import { Button, ButtonGroup } from '@7onic-ui/react'<ButtonGroup variant="outline" size="default" attached>
+import { Button, ButtonGroup } from '@7onic-ui/react'
+
+<ButtonGroup variant="outline" size="default" attached>
   <Button>Left</Button>
   <Button>Center</Button>
   <Button>Right</Button>
@@ -511,7 +460,9 @@ Provides context — child Buttons inherit variant/size/radius automatically.
 ### Input
 
 ```tsx
-import { Input } from '@7onic-ui/react'<Input placeholder="Email" size="default" />
+import { Input } from '@7onic-ui/react'
+
+<Input placeholder="Email" size="default" />
 <Input variant="filled" leftIcon={<SearchIcon />} />
 <Input error rightIcon={<AlertIcon />} />
 ```
@@ -533,7 +484,9 @@ import { Input } from '@7onic-ui/react'<Input placeholder="Email" size="default"
 ### Textarea
 
 ```tsx
-import { Textarea } from '@7onic-ui/react'<Textarea placeholder="Message" rows={4} resize="vertical" />
+import { Textarea } from '@7onic-ui/react'
+
+<Textarea placeholder="Message" rows={4} resize="vertical" />
 ```
 
 | Prop | Type | Default | Description |
@@ -551,7 +504,9 @@ import { Textarea } from '@7onic-ui/react'<Textarea placeholder="Message" rows={
 ### Select
 
 ```tsx
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@7onic-ui/react'<Select>
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@7onic-ui/react'
+
+<Select>
   <SelectTrigger>
     <SelectValue placeholder="Choose option" />
   </SelectTrigger>
@@ -581,7 +536,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 ### DropdownMenu
 
 ```tsx
-import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@7onic-ui/react'<DropdownMenu>
+import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@7onic-ui/react'
+
+<DropdownMenu>
   <DropdownMenuTrigger asChild>
     <Button variant="outline">Options</Button>
   </DropdownMenuTrigger>
@@ -608,7 +565,9 @@ import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMe
 ### Checkbox
 
 ```tsx
-import { Checkbox } from '@7onic-ui/react'<Checkbox label="Accept terms" />
+import { Checkbox } from '@7onic-ui/react'
+
+<Checkbox label="Accept terms" />
 <Checkbox size="lg" color="primary" checked />
 <Checkbox checked="indeterminate" />
 ```
@@ -630,7 +589,9 @@ import { Checkbox } from '@7onic-ui/react'<Checkbox label="Accept terms" />
 ### RadioGroup
 
 ```tsx
-import { RadioGroup, RadioGroupItem } from '@7onic-ui/react'<RadioGroup defaultValue="a">
+import { RadioGroup, RadioGroupItem } from '@7onic-ui/react'
+
+<RadioGroup defaultValue="a">
   <RadioGroupItem value="a" label="Option A" />
   <RadioGroupItem value="b" label="Option B" />
   <RadioGroupItem value="c" label="Option C" disabled />
@@ -654,7 +615,9 @@ import { RadioGroup, RadioGroupItem } from '@7onic-ui/react'<RadioGroup defaultV
 ### Switch
 
 ```tsx
-import { Switch } from '@7onic-ui/react'<Switch label="Notifications" />
+import { Switch } from '@7onic-ui/react'
+
+<Switch label="Notifications" />
 <Switch size="lg" color="primary" defaultChecked />
 <Switch startLabel="Off" endLabel="On" />
 ```
@@ -679,7 +642,9 @@ import { Switch } from '@7onic-ui/react'<Switch label="Notifications" />
 ### Toggle
 
 ```tsx
-import { Toggle } from '@7onic-ui/react'<Toggle variant="default" aria-label="Bold">
+import { Toggle } from '@7onic-ui/react'
+
+<Toggle variant="default" aria-label="Bold">
   <BoldIcon />
 </Toggle>
 <Toggle variant="outline" pressed>Active</Toggle>
@@ -702,7 +667,9 @@ import { Toggle } from '@7onic-ui/react'<Toggle variant="default" aria-label="Bo
 ### ToggleGroup
 
 ```tsx
-import { ToggleGroup, ToggleGroupItem } from '@7onic-ui/react'<ToggleGroup type="single" defaultValue="center">
+import { ToggleGroup, ToggleGroupItem } from '@7onic-ui/react'
+
+<ToggleGroup type="single" defaultValue="center">
   <ToggleGroupItem value="left"><AlignLeftIcon /></ToggleGroupItem>
   <ToggleGroupItem value="center"><AlignCenterIcon /></ToggleGroupItem>
   <ToggleGroupItem value="right"><AlignRightIcon /></ToggleGroupItem>
@@ -728,7 +695,9 @@ import { ToggleGroup, ToggleGroupItem } from '@7onic-ui/react'<ToggleGroup type=
 ### Segmented
 
 ```tsx
-import { Segmented, SegmentedItem } from '@7onic-ui/react'<Segmented defaultValue="all">
+import { Segmented, SegmentedItem } from '@7onic-ui/react'
+
+<Segmented defaultValue="all">
   <SegmentedItem value="all">All</SegmentedItem>
   <SegmentedItem value="active">Active</SegmentedItem>
   <SegmentedItem value="inactive">Inactive</SegmentedItem>
@@ -753,7 +722,9 @@ import { Segmented, SegmentedItem } from '@7onic-ui/react'<Segmented defaultValu
 ### Slider
 
 ```tsx
-import { Slider } from '@7onic-ui/react'<Slider defaultValue={[50]} showTooltip="auto" />
+import { Slider } from '@7onic-ui/react'
+
+<Slider defaultValue={[50]} showTooltip="auto" />
 <Slider defaultValue={[20, 80]} color="primary" />
 ```
 
@@ -778,7 +749,9 @@ import { Slider } from '@7onic-ui/react'<Slider defaultValue={[50]} showTooltip=
 ### Field (Form Wrapper)
 
 ```tsx
-import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '@7onic-ui/react'<Field error="Invalid email">
+import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '@7onic-ui/react'
+
+<Field error="Invalid email">
   <FieldLabel required>Email</FieldLabel>
   <Input placeholder="you@example.com" />
   <FieldError />
@@ -807,7 +780,9 @@ import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '
 ### Avatar
 
 ```tsx
-import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@7onic-ui/react'<Avatar size="default">
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@7onic-ui/react'
+
+<Avatar size="default">
   <AvatarImage src="/photo.jpg" alt="User" />
   <AvatarFallback name="John Doe" colorized />
 </Avatar>
@@ -845,7 +820,9 @@ import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@7onic-ui/reac
 ### Badge
 
 ```tsx
-import { Badge } from '@7onic-ui/react'<Badge variant="solid" color="primary">New</Badge>
+import { Badge } from '@7onic-ui/react'
+
+<Badge variant="solid" color="primary">New</Badge>
 <Badge variant="subtle" color="success" dot>Active</Badge>
 <Badge variant="outline" removable onRemove={() => {}}>Tag</Badge>
 ```
@@ -867,7 +844,9 @@ import { Badge } from '@7onic-ui/react'<Badge variant="solid" color="primary">Ne
 ### Card
 
 ```tsx
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardImage, CardTitle, IconButton } from '@7onic-ui/react'<Card variant="default" interactive>
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardImage, CardTitle, IconButton } from '@7onic-ui/react'
+
+<Card variant="default" interactive>
   <CardImage src="/cover.jpg" overlay overlayOpacity={40} />
   <CardHeader>
     <CardTitle icon={<StarIcon />}>Featured</CardTitle>
@@ -900,7 +879,9 @@ import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader,
 ### Table
 
 ```tsx
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@7onic-ui/react'<Table variant="default" stickyHeader>
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@7onic-ui/react'
+
+<Table variant="default" stickyHeader>
   <TableHeader>
     <TableRow>
       <TableHead sortable sortDirection="asc" onSort={() => {}}>Name</TableHead>
@@ -947,7 +928,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 ### Tabs
 
 ```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@7onic-ui/react'<Tabs defaultValue="tab1">
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@7onic-ui/react'
+
+<Tabs defaultValue="tab1">
   <TabsList variant="line" size="default">
     <TabsTrigger value="tab1">Tab 1</TabsTrigger>
     <TabsTrigger value="tab2">Tab 2</TabsTrigger>
@@ -972,7 +955,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@7onic-ui/react'<Tabs 
 ### Accordion
 
 ```tsx
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@7onic-ui/react'<Accordion type="single" collapsible defaultValue="item-1">
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@7onic-ui/react'
+
+<Accordion type="single" collapsible defaultValue="item-1">
   <AccordionItem value="item-1">
     <AccordionTrigger>Section 1</AccordionTrigger>
     <AccordionContent>Content 1</AccordionContent>
@@ -999,7 +984,9 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@7
 ### Divider
 
 ```tsx
-import { Divider } from '@7onic-ui/react'<Divider />
+import { Divider } from '@7onic-ui/react'
+
+<Divider />
 <Divider variant="dashed" color="muted" />
 <Divider label="OR" labelPosition="center" />
 <Divider orientation="vertical" />
@@ -1021,7 +1008,9 @@ import { Divider } from '@7onic-ui/react'<Divider />
 ### Modal
 
 ```tsx
-import { Button, Modal, ModalBody, ModalClose, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalOverlay, ModalPortal, ModalTitle, ModalTrigger } from '@7onic-ui/react'<Modal>
+import { Button, Modal, ModalBody, ModalClose, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalOverlay, ModalPortal, ModalTitle, ModalTrigger } from '@7onic-ui/react'
+
+<Modal>
   <ModalTrigger asChild>
     <Button>Open Modal</Button>
   </ModalTrigger>
@@ -1057,7 +1046,9 @@ import { Button, Modal, ModalBody, ModalClose, ModalContent, ModalDescription, M
 ### AlertModal
 
 ```tsx
-import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertModalContent, AlertModalDescription, AlertModalFooter, AlertModalHeader, AlertModalOverlay, AlertModalPortal, AlertModalTitle, AlertModalTrigger, Button } from '@7onic-ui/react'<AlertModal>
+import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertModalContent, AlertModalDescription, AlertModalFooter, AlertModalHeader, AlertModalOverlay, AlertModalPortal, AlertModalTitle, AlertModalTrigger, Button } from '@7onic-ui/react'
+
+<AlertModal>
   <AlertModalTrigger asChild>
     <Button color="destructive">Delete</Button>
   </AlertModalTrigger>
@@ -1091,7 +1082,9 @@ import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertMo
 ### Drawer
 
 ```tsx
-import { Button, Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from '@7onic-ui/react'<Drawer>
+import { Button, Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from '@7onic-ui/react'
+
+<Drawer>
   <DrawerTrigger asChild>
     <Button>Open Drawer</Button>
   </DrawerTrigger>
@@ -1123,7 +1116,9 @@ import { Button, Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, D
 ### Tooltip
 
 ```tsx
-import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from '@7onic-ui/react'<TooltipProvider>
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from '@7onic-ui/react'
+
+<TooltipProvider>
   <Tooltip>
     <TooltipTrigger asChild>
       <Button>Hover me</Button>
@@ -1158,7 +1153,9 @@ import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipPr
 ### Popover
 
 ```tsx
-import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTrigger } from '@7onic-ui/react'<Popover>
+import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTrigger } from '@7onic-ui/react'
+
+<Popover>
   <PopoverTrigger asChild>
     <Button variant="outline">Open</Button>
   </PopoverTrigger>
@@ -1188,7 +1185,9 @@ import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTr
 ### Alert
 
 ```tsx
-import { Alert, AlertDescription, AlertTitle } from '@7onic-ui/react'<Alert color="success" closable onClose={() => {}}>
+import { Alert, AlertDescription, AlertTitle } from '@7onic-ui/react'
+
+<Alert color="success" closable onClose={() => {}}>
   <AlertTitle>Success</AlertTitle>
   <AlertDescription>Operation completed.</AlertDescription>
 </Alert>
@@ -1216,7 +1215,9 @@ import { Alert, AlertDescription, AlertTitle } from '@7onic-ui/react'<Alert colo
 ### Toast (Imperative API)
 
 ```tsx
-import { Toaster, toast } from '@7onic-ui/react'// 1. Add Toaster provider to your app layout (once)
+import { Toaster, toast } from '@7onic-ui/react'
+
+// 1. Add Toaster provider to your app layout (once)
 <Toaster position="bottom-right" />
 
 // 2. Call toast() anywhere
@@ -1264,7 +1265,9 @@ toast.dismiss()      // Dismiss all
 ### Progress
 
 ```tsx
-import { Progress } from '@7onic-ui/react'<Progress value={65} showValue />
+import { Progress } from '@7onic-ui/react'
+
+<Progress value={65} showValue />
 <Progress type="circular" value={75} color="primary" />
 <Progress variant="striped" animated value={50} />
 ```
@@ -1286,7 +1289,9 @@ import { Progress } from '@7onic-ui/react'<Progress value={65} showValue />
 ### Spinner
 
 ```tsx
-import { Spinner } from '@7onic-ui/react'<Spinner />
+import { Spinner } from '@7onic-ui/react'
+
+<Spinner />
 <Spinner variant="dots" size="lg" color="primary" />
 <Spinner variant="bars" speed="slow" />
 <Spinner variant="orbit" orbitStyle="morph" />
@@ -1306,7 +1311,9 @@ import { Spinner } from '@7onic-ui/react'<Spinner />
 ### Skeleton
 
 ```tsx
-import { Skeleton } from '@7onic-ui/react'<Skeleton variant="text" count={3} />
+import { Skeleton } from '@7onic-ui/react'
+
+<Skeleton variant="text" count={3} />
 <Skeleton variant="circular" width={48} height={48} />
 <Skeleton variant="rectangular" width="100%" height={200} />
 
@@ -1334,7 +1341,9 @@ import { Skeleton } from '@7onic-ui/react'<Skeleton variant="text" count={3} />
 ### Breadcrumb
 
 ```tsx
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@7onic-ui/react'<Breadcrumb>
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@7onic-ui/react'
+
+<Breadcrumb>
   <BreadcrumbList>
     <BreadcrumbItem>
       <BreadcrumbLink href="/">Home</BreadcrumbLink>
@@ -1366,7 +1375,9 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 ### Pagination
 
 ```tsx
-import { Pagination, PaginationContent, PaginationItems, PaginationNext, PaginationPrevious } from '@7onic-ui/react'{/* Quick mode — withControls (default: true), withEdges (default: false) */}
+import { Pagination, PaginationContent, PaginationItems, PaginationNext, PaginationPrevious } from '@7onic-ui/react'
+
+{/* Quick mode — withControls (default: true), withEdges (default: false) */}
 <Pagination total={10} defaultValue={1} />
 <Pagination total={10} defaultValue={1} withEdges />
 <Pagination total={10} defaultValue={1} withControls={false} />
@@ -1405,7 +1416,9 @@ import { Pagination, PaginationContent, PaginationItems, PaginationNext, Paginat
 ### NavigationMenu
 
 ```tsx
-import { NavigationMenu, NavigationMenuContent, NavigationMenuGroup, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from '@7onic-ui/react'{/* Horizontal (header) */}
+import { NavigationMenu, NavigationMenuContent, NavigationMenuGroup, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from '@7onic-ui/react'
+
+{/* Horizontal (header) */}
 <NavigationMenu orientation="horizontal">
   <NavigationMenuList>
     <NavigationMenuItem>
@@ -1470,7 +1483,9 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuGroup, NavigationM
 All chart types use the Chart namespace:
 
 ```tsx
-import { ChartArea, ChartBar, ChartLegend, ChartLegendContent, ChartLine, ChartPie, ChartTooltip, ChartTooltipContent, ChartXAxis, ChartYAxis } from '@7onic-ui/react/chart'const chartConfig = {
+import { ChartArea, ChartBar, ChartLegend, ChartLegendContent, ChartLine, ChartPie, ChartTooltip, ChartTooltipContent, ChartXAxis, ChartYAxis } from '@7onic-ui/react/chart'
+
+const chartConfig = {
   revenue: { label: 'Revenue', color: 'var(--color-chart-1)' },
   profit: { label: 'Profit', color: 'var(--color-chart-2)' },
 }
@@ -1570,7 +1585,9 @@ type ChartConfig = {
 ### MetricCard
 
 ```tsx
-import { MetricCard, MetricCardDescription, MetricCardHeader, MetricCardSymbol, MetricCardTitle, MetricCardTrend, MetricCardValue } from '@7onic-ui/react'<MetricCard>
+import { MetricCard, MetricCardDescription, MetricCardHeader, MetricCardSymbol, MetricCardTitle, MetricCardTrend, MetricCardValue } from '@7onic-ui/react'
+
+<MetricCard>
   <MetricCardHeader>
     <MetricCardTitle>Revenue</MetricCardTitle>
     <MetricCardSymbol><DollarIcon /></MetricCardSymbol>
@@ -1760,7 +1777,9 @@ Components that support `asChild`: Button, IconButton, Badge, Card, Modal.Trigge
 **Use Field wrapper** for labeled form elements with validation:
 
 ```tsx
-import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '@7onic-ui/react'{/* Text input with label + error */}
+import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '@7onic-ui/react'
+
+{/* Text input with label + error */}
 <Field error={errors.email}>
   <FieldLabel required>Email</FieldLabel>
   <Input placeholder="you@example.com" />
@@ -1951,7 +1970,9 @@ But if YOUR code uses React hooks (`useState`, `useEffect`) or event handlers (`
 ### TypingIndicator
 
 ```tsx
-import { TypingIndicator } from '@7onic-ui/react'{/* Default — dots, muted, default size */}
+import { TypingIndicator } from '@7onic-ui/react'
+
+{/* Default — dots, muted, default size */}
 <TypingIndicator />
 
 {/* Cursor variant */}
@@ -1987,7 +2008,9 @@ import { TypingIndicator } from '@7onic-ui/react'{/* Default — dots, muted, de
 ### QuickReply
 
 ```tsx
-import { QuickReply, QuickReplyItem } from '@7onic-ui/react'{/* Basic suggested replies */}
+import { QuickReply, QuickReplyItem } from '@7onic-ui/react'
+
+{/* Basic suggested replies */}
 <QuickReply aria-label="Suggested replies">
   <QuickReplyItem>About payment</QuickReplyItem>
   <QuickReplyItem>Shipping info</QuickReplyItem>
@@ -2036,7 +2059,9 @@ import { QuickReply, QuickReplyItem } from '@7onic-ui/react'{/* Basic suggested 
 ### ChatInput
 
 ```tsx
-import { ChatInput, ChatInputField, ChatInputSubmit } from '@7onic-ui/react'{/* Basic uncontrolled */}
+import { ChatInput, ChatInputField, ChatInputSubmit } from '@7onic-ui/react'
+
+{/* Basic uncontrolled */}
 <ChatInput onSubmit={(value) => console.log(value)}>
   <ChatInputField placeholder="Ask me anything..." />
   <ChatInputSubmit />
@@ -2114,7 +2139,9 @@ const [value, setValue] = useState('')
 ### ChatMessage
 
 ```tsx
-import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter } from '@7onic-ui/react'{/* Assistant message */}
+import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter } from '@7onic-ui/react'
+
+{/* Assistant message */}
 <ChatMessage role="assistant">
   <ChatMessageAvatar />
   <div className="flex flex-col gap-1">

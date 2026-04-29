@@ -1350,6 +1350,7 @@ function generateVariablesCss(tokens: FigmaTokens): string {
   lines.push(`  --background: var(--color-background);`)
   lines.push(`  --foreground: var(--color-text);`)
   lines.push(`  color-scheme: light dark;`)
+  lines.push(`  height: auto;`)
   lines.push(`}`)
   lines.push(``)
 
@@ -1368,6 +1369,7 @@ function generateVariablesCss(tokens: FigmaTokens): string {
   lines.push(`  display: block;`)
   lines.push(`  place-items: initial;`)
   lines.push(`  min-width: auto;`)
+  lines.push(`  min-height: auto;`)
   lines.push(`  margin: 0;`)
   lines.push(`}`)
   lines.push(``)

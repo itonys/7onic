@@ -71,19 +71,23 @@ export async function add(args: string[]): Promise<void> {
   }
 
   // Resolve full dependency tree
-  let allComponents = resolveDependencies(requestedNames)
+  const allComponents = resolveDependencies(requestedNames)
 
-  // recharts warning for --all (before building file list)
-  if (flagAll && !flagYes) {
-    const hasRecharts = allComponents.some(n => registry[n].dependencies.includes('recharts'))
-    if (hasRecharts) {
-      const proceed = await p.confirm({
-        message: 'Chart components require recharts (~200KB). Include them?',
-      })
-      if (p.isCancel(proceed) || !proceed) {
-        allComponents = allComponents.filter(n => n !== 'chart')
-      }
+  // recharts Y/n prompt — applies to any chart add (explicit `add chart`,
+  // alias `add bar-chart`, or `--all`). Per ADR §6: when user declines, the
+  // chart files still copy, but recharts install is skipped and we surface
+  // a manual-install hint at the end.
+  const hasRecharts = allComponents.some(n => registry[n].dependencies.includes('recharts'))
+  let skipRecharts = false
+  if (hasRecharts && !flagYes) {
+    const proceed = await p.confirm({
+      message: 'Chart components require recharts (~200KB). Install?',
+    })
+    if (p.isCancel(proceed)) {
+      p.cancel('Cancelled.')
+      process.exit(0)
     }
+    skipRecharts = !proceed
   }
 
   // Resolve target directory
@@ -108,10 +112,12 @@ export async function add(args: string[]): Promise<void> {
     process.exit(0)
   }
 
-  // Collect npm dependencies (only for components still in the list)
+  // Collect npm dependencies. When `skipRecharts`, drop it — chart files
+  // still copy, user installs `recharts` manually later.
   const allNpmDeps = new Set<string>()
   for (const name of allComponents) {
     for (const dep of registry[name].dependencies) {
+      if (skipRecharts && dep === 'recharts') continue
       allNpmDeps.add(dep)
     }
   }
@@ -233,6 +239,13 @@ export async function add(args: string[]): Promise<void> {
   const addedNames = [...new Set(newFiles.map(f => f.name))]
   showSetupHints(addedNames)
   showCompanionHints(addedNames)
+
+  // Manual recharts hint when user declined the install prompt.
+  if (skipRecharts) {
+    p.log.warn(
+      'Skipped recharts. Run `npm install recharts` manually before using chart components.',
+    )
+  }
 
   // Summary
   if (skippedFiles.length > 0) {

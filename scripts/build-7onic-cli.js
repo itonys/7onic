@@ -24,6 +24,10 @@ buildSync({
   target: 'node18',
   outfile,
   format: 'cjs',
+  // Prefer ESM entry — `jsonc-parser` ships UMD with `require(./impl/...)` at
+  // runtime, which esbuild can't statically resolve. The ESM build uses
+  // proper `import` statements that esbuild can bundle correctly.
+  mainFields: ['module', 'main'],
   banner: {
     js: '#!/usr/bin/env node',
   },

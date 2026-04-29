@@ -28,7 +28,7 @@
 | **🧩** | **shadcn freedom + MUI convenience** | shadcn's customization with none of its missing features. MUI's built-in power with none of its styling constraints. Both, by design. |
 | **⚡** | **npm or CLI — your choice** | `npm install` for packages, `npx 7onic add` for local copy. Same components, two workflows. |
 | **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
-| **🪄** | **Framework-aware setup** | Next.js 15 works out of the box. `npx 7onic init` auto-cleans Vite template boilerplate (or delete a few blocks manually). No Provider wrapper, no `globals.css` replacement, no body class setup. |
+| **🪄** | **Framework-aware setup** | Detects Next.js / Vite, TypeScript, and Tailwind — exits with a clear error if anything's missing. Auto-cleans Vite boilerplate (`.bak` backup), auto-wraps `*` reset in `@layer base` for Next.js + Tailwind v4. No Provider wrapper, no `globals.css` replacement. |
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
 | **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
@@ -47,19 +47,24 @@
 npm install @7onic-ui/react @7onic-ui/tokens
 ```
 
-**Option B — CLI (local file copy)**
-
-```bash
-npx 7onic init
-npx 7onic add button card input
-```
+Then add tokens to your CSS:
 
 <details>
 <summary><strong>Tailwind v4</strong></summary>
 
 ```css
+/* app/globals.css — Next.js */
 @import "tailwindcss";
 @import '@7onic-ui/tokens/tailwind/v4.css';
+
+@source "../node_modules/@7onic-ui/react/dist";
+```
+
+```css
+/* src/index.css — Vite */
+@import "tailwindcss";
+@import '@7onic-ui/tokens/tailwind/v4.css';
+
 @source "../node_modules/@7onic-ui/react/dist";
 ```
 </details>
@@ -69,16 +74,41 @@ npx 7onic add button card input
 
 ```css
 @import '@7onic-ui/tokens/css/all.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 ```
 
 ```js
-// tailwind.config.js
+// tailwind.config.js — Next.js
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  presets: [require('@7onic-ui/tokens/tailwind/v3-preset')],
-  content: ['./node_modules/@7onic-ui/react/dist/**/*.{js,mjs}'],
+  presets: [
+    require('@7onic-ui/tokens/tailwind/v3-preset'),
+  ],
+  content: [
+    './node_modules/@7onic-ui/react/dist/**/*.{js,mjs}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+}
+```
+
+```js
+// tailwind.config.js — Vite
+/** @type {import('tailwindcss').Config} */
+export default {
+  presets: [
+    require('@7onic-ui/tokens/tailwind/v3-preset'),
+  ],
+  content: [
+    './node_modules/@7onic-ui/react/dist/**/*.{js,mjs}',
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
 }
 ```
 </details>
@@ -96,6 +126,13 @@ module.exports = {
 }
 ```
 </details>
+
+**Option B — CLI (local file copy)**
+
+```bash
+npx 7onic init   # detects framework, installs deps, configures CSS automatically
+npx 7onic add button card input
+```
 
 Use components:
 
@@ -259,10 +296,10 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.5
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.6
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
-- [x] `npx 7onic init` Vite support — `tsconfig.app.json` detection, `@import "tailwindcss"` + `@source` auto-inject, `@/` path alias auto-configure
+- [x] `npx 7onic init` full workflow — framework/TS/Tailwind detection (abort if missing), Vite `@/` alias auto-configure, base deps install, CSS token import, Vite boilerplate cleanup (`.bak` backup), Next.js+v4 `*` reset auto-wrap, `cn()` + `7onic.json` generation
 - [x] Technical blog — [blog.7onic.design](https://blog.7onic.design) ("Design to Code" series)
 - [x] Enterprise-grade supply chain security — cryptographically signed releases (npm provenance), automated vulnerability scanning on every build, reproducible installs. Protection against npm package hijacking attacks (like the 2026 axios incident)
 - [ ] Theme Customizer — live palette preview + CSS variable export
@@ -288,5 +325,5 @@ MIT
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
   Independently built.<br>
-  <sub>Last updated: 2026-04-28 (v0.3.5)</sub>
+  <sub>Last updated: 2026-04-29 (v0.3.6)</sub>
 </p>

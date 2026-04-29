@@ -130,21 +130,14 @@ test_vite_tw3() {
   run_step "Install dependencies" "$log" npm install || return 1
   run_step "Install Tailwind v3" "$log" npm install tailwindcss@3 postcss autoprefixer || return 1
 
-  # postcss.config.cjs — CJS required (Vite template has type: "module")
-  cat > postcss.config.cjs << 'CONF'
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-}
-CONF
+  # init -p auto-generates ESM postcss.config.js + tailwind.config.js (Tailwind v3
+  # detects package.json type:module). Then we overwrite tailwind.config.js with
+  # 7onic preset content (matches install page Step 2).
+  run_step "Tailwind init (auto-gen ESM configs)" "$log" npx tailwindcss init -p || return 1
 
-  # tailwind.config.cjs — content paths + 7onic preset
-  # @7onic-ui/tokens is installed by CLI init below
-  cat > tailwind.config.cjs << 'CONF'
+  cat > tailwind.config.js << 'CONF'
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   presets: [require('@7onic-ui/tokens/tailwind/v3-preset')],
   theme: { extend: {} },

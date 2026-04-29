@@ -934,7 +934,7 @@
 
 /* ========================================
    Framework Compat Aliases
-   Maps Next.js 15 / Tailwind v4 convention
+   Maps Next.js / Tailwind v4 convention
    (--background, --foreground) to our tokens.
    ======================================== */
 
@@ -942,10 +942,11 @@ html:root {
   --background: var(--color-background);
   --foreground: var(--color-text);
   color-scheme: light dark;
+  height: auto;
 }
 
 /* ========================================
-   Body Baseline
+   Body Baseline for Next.js / Vite resets
    Overrides framework default body rules.
    ======================================== */
 
@@ -956,6 +957,7 @@ html body {
   display: block;
   place-items: initial;
   min-width: auto;
+  min-height: auto;
   margin: 0;
 }
 

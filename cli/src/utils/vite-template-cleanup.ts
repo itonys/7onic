@@ -56,27 +56,6 @@ const VITE_INDEX_CSS_PATTERNS: Array<{ name: string; pattern: RegExp }> = [
   },
 ]
 
-// Next.js 15 `create-next-app` default globals.css patterns
-// These override our design tokens and must be removed for consistent rendering.
-const NEXTJS_GLOBALS_CSS_PATTERNS: Array<{ name: string; pattern: RegExp }> = [
-  {
-    name: ':root (--background/--foreground defaults)',
-    pattern: /:root\s*\{\s*--background:\s*#ffffff;\s*--foreground:\s*#171717;\s*\}\s*/m,
-  },
-  {
-    name: '@theme inline (Geist font + color mapping)',
-    pattern: /@theme\s+inline\s*\{\s*--color-background:\s*var\(--background\);\s*--color-foreground:\s*var\(--foreground\);\s*--font-sans:\s*var\(--font-geist-sans\);\s*--font-mono:\s*var\(--font-geist-mono\);\s*\}\s*/m,
-  },
-  {
-    name: '@media dark mode (prefers-color-scheme)',
-    pattern: /@media\s*\(prefers-color-scheme:\s*dark\)\s*\{\s*:root\s*\{\s*--background:\s*#0a0a0a;\s*--foreground:\s*#ededed;\s*\}\s*\}\s*/m,
-  },
-  {
-    name: 'body (Arial font-family override)',
-    pattern: /body\s*\{\s*background:\s*var\(--background\);\s*color:\s*var\(--foreground\);\s*font-family:\s*Arial,\s*Helvetica,\s*sans-serif;\s*\}\s*/m,
-  },
-]
-
 const VITE_APP_CSS_PATTERNS: Array<{ name: string; pattern: RegExp }> = [
   {
     name: '#root (max-width + text-align:center)',
@@ -159,11 +138,6 @@ export function scanViteTemplate(projectRoot: string): ViteTemplateScanResult[] 
   if (appResult) results.push(appResult)
 
   return results
-}
-
-export function scanNextjsTemplate(projectRoot: string, cssPath: string): ViteTemplateScanResult | null {
-  const fullPath = path.join(projectRoot, cssPath)
-  return scanFile(fullPath, cssPath, NEXTJS_GLOBALS_CSS_PATTERNS)
 }
 
 export function applyCleanup(result: ViteTemplateScanResult): void {

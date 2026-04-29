@@ -6,6 +6,22 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.6] — 2026-04-29
+
+### @7onic-ui/react
+
+#### Changed
+
+- **`llms.txt` — lucide-react clarification** — Added explicit note that `lucide-react` is NOT a `@7onic-ui/react` dependency. 7onic components use inline SVG internally. Users who want lucide icons in their own app code must install separately: `npm install lucide-react`. Prevents confusion when following Icon Import Pattern examples in LLM-assisted workflows.
+- **Installation guide page — Vite boilerplate cleanup section** — Updated install documentation to clarify that `npx 7onic init` on a Vite project automatically removes the `npm create vite` default CSS boilerplate (`src/index.css` + `src/App.css`), with `.bak` backups preserved. Removed outdated assumption that postcss.config uses `.cjs` extension (official Vite scaffolding uses `.js`).
+- **CLI `init` documentation — steps simplified (11 → 6)** — The init flow documentation now presents 6 user-facing steps instead of 11 internal steps: (1) auto-detect framework/TypeScript/Tailwind, (2) Vite `@/` alias setup, (3) base deps install, (4) token CSS import, (5) boilerplate cleanup with `.bak` backup, (6) `cn()` utility + `7onic.json` generation. Identical CLI behavior, clearer user-facing presentation.
+
+### @7onic-ui/tokens
+
+> Version bumped in lockstep with `@7onic-ui/react`. No `tokens` package code changes.
+
+---
+
 ## [0.3.5] — 2026-04-28
 
 ### @7onic-ui/tokens

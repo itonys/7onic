@@ -4,6 +4,18 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.14] — 2026-04-29
+
+### 7onic
+
+#### Changed
+
+- **CLI page init steps simplified (11 → 6)** — The `npx 7onic init` documentation page now groups the 11 internal steps into 6 user-facing steps: (1) auto-detect framework / TypeScript / Tailwind, (2) auto-set Vite `@/` alias, (3) install base deps, (4) add token imports to CSS, (5) clean up boilerplate (`.bak` backup), (6) generate `cn()` utility and `7onic.json`. Identical behavior, clearer presentation.
+- **lucide-react clarification in llms.txt** — Added explicit note that `lucide-react` is NOT a 7onic dependency (7onic uses inline SVG). Users who want lucide icons must install separately: `npm install lucide-react`. Added to `llms.txt`, `public/llms.txt`, `public/llms-full.txt`, `public/llms-cli.txt`, and the `generate-llms-cli.ts` generator.
+- **`.bak` backup mentioned in init step 5** — Boilerplate cleanup step now notes that original files are preserved with `.bak` extension before modification.
+
+---
+
 ## [0.1.13] — 2026-04-28
 
 ### 7onic

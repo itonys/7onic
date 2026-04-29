@@ -39,8 +39,8 @@ npx 7onic init
 
 This automatically:
 - Detects Tailwind v3/v4
-- **Vite projects**: configures `@/` path alias in `tsconfig.app.json` and `vite.config.ts`, installs `@types/node`; **removes `create vite` boilerplate CSS blocks** from `src/index.css` + `src/App.css` (unlayered rules like `:root { font-family: system-ui }`, `button { color: #1a1a1a }` that override 7onic tokens) — prompts user, creates `.bak` backup
-- Installs base dependencies (@7onic-ui/tokens, lucide-react, class-variance-authority, clsx, tailwind-merge)
+- **Vite projects**: configures `@/` path alias in `tsconfig.app.json` and `vite.config.ts`, installs `@types/node`
+- Installs base dependencies (@7onic-ui/tokens, clsx, tailwind-merge, class-variance-authority) — note: `lucide-react` is NOT installed by 7onic (components use inline SVG)
 - Sets up globals.css with all required token imports (v4: auto-injects `@import "tailwindcss"` if missing)
 - Creates `cn()` utility at `lib/utils.ts`
 - Generates `7onic.json` config
@@ -52,8 +52,14 @@ This automatically:
 - Locale includes Japanese → load Noto Sans JP font
 - Locale includes Korean → load Noto Sans KR font
 
+**Set body classes** (if not already set):
+```html
+<body class="bg-background text-foreground">
+```
+
 **Verify setup is complete before writing any UI code:**
 - [ ] `npx 7onic init` completed successfully
+- [ ] Body has `bg-background text-foreground`
 - [ ] Dark mode toggle (if selected)
 - [ ] Font loaded (if custom)
 - [ ] CJK fonts loaded (if applicable)
@@ -61,6 +67,12 @@ This automatically:
 ⛔ **Do NOT proceed to Step 3 until all checks pass.**
 
 ### Icon Import Pattern (lucide-react)
+
+⚠️ **`lucide-react` is NOT a 7onic dependency.** 7onic components themselves use inline SVG. Install separately if you want to use lucide icons in your app code:
+
+```bash
+npm install lucide-react
+```
 
 ```tsx
 // ✅ Official pattern — no suffix
@@ -98,7 +110,7 @@ Place `<Toaster />` once in your root layout file. Without this, `toast()` calls
 import { Toaster } from '@/components/ui/toast'
 
 // In your root layout (e.g., app/layout.tsx)
-<body>
+<body className="bg-background text-foreground">
   {children}
   <Toaster position="bottom-right" />
 </body>
@@ -214,7 +226,7 @@ style={{ color: '#333', padding: '20px' }}
 w-4 h-4, w-5 h-5   → icon-sm, icon-md
 
 // ❌ Radix direct import
-import * as Dialog from '@radix-ui/react-dialog'   → import { Modal } from '@/components/ui/modal'
+import * as Dialog from '@radix-ui/react-dialog'   → import { Badge, Button, Card, Input, Table } from '@7onic-ui/react'
 
 // ❌ Unnecessary component wrappers
 function MyButton(props) { return <Button {...props} /> }   → Use Button directly
@@ -368,9 +380,28 @@ import { Input } from '@/components/ui/input'
 import { toast } from '@/components/ui/toast'
 ```
 
-## Component Import
+## Compound Component Import Patterns
 
-All components use Named imports. Works in every environment (Next.js App Router RSC, Client Components, Pages Router, Vite, CRA, CJS).
+24 compound components support **two equivalent import patterns** — choose based on your rendering context:
+
+### Pattern A: Namespace (dot notation) — Client Components
+
+```tsx
+import { Card } from '@/components/ui/card'
+
+<Card>
+  <Card.Header>
+    <Card.Title>Title</Card.Title>
+    <Card.Description>Description</Card.Description>
+  </Card.Header>
+  <Card.Content>Content</Card.Content>
+  <Card.Footer>Footer</Card.Footer>
+</Card>
+```
+
+Better name grouping and readability. Works in files with `'use client'` directive.
+
+### Pattern B: Named imports — works everywhere (including Server Components)
 
 ```tsx
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card'
@@ -385,13 +416,35 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 </Card>
 ```
 
-### Compound Components (24)
+### ⚠️ Next.js Server Components — use Pattern B
 
-Components that provide sub-components. Each sub is a Named export (`CardHeader`, `ModalContent`, `TabsList`, etc.).
+**Namespace pattern (`<Card.Header />`) does NOT work inside Server Components** due to a Next.js Client Manifest limitation (sub-component references cannot be tracked through `Object.assign`).
 
-Accordion, Alert, Avatar, Breadcrumb, Card, ChatInput, ChatMessage, Chart, Drawer, DropdownMenu, Field, MetricCard, Modal, NavigationMenu, Pagination, Popover, QuickReply, RadioGroup, Segmented, Select, Table, Tabs, ToggleGroup, Tooltip
+```tsx
+// ❌ Server Component (default in App Router) — throws "Unsupported Server Component type: undefined"
+export default function Page() {
+  return (
+    <Card>
+      <Card.Header>...</Card.Header>
+    </Card>
+  )
+}
 
-Prefer dot-notation (`<Card.Header>`)? See **Compound Recipe** section at end of this document.
+// ✅ Server Component — use named imports
+import { Card, CardHeader } from '@/components/ui/card'
+
+export default function Page() {
+  return (
+    <Card>
+      <CardHeader>...</CardHeader>
+    </Card>
+  )
+}
+```
+
+**Rule of thumb:**
+- File has `'use client'` at top → either pattern works, namespace preferred
+- File has no directive (Server Component default in Next.js App Router) → named imports only
 
 ---
 
@@ -531,7 +584,7 @@ import { Textarea } from '@/components/ui/textarea'
 ### Select
 
 ```tsx
-import { Select } from '@/components/ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
 
 <Select>
   <SelectTrigger>
@@ -563,7 +616,8 @@ import { Select } from '@/components/ui/select'
 ### DropdownMenu
 
 ```tsx
-import { DropdownMenu } from '@/components/ui/dropdown'
+import { Button } from '@/components/ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown'
 
 <DropdownMenu>
   <DropdownMenuTrigger asChild>
@@ -616,7 +670,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 ### RadioGroup
 
 ```tsx
-import { RadioGroup } from '@/components/ui/radio-group'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 
 <RadioGroup defaultValue="a">
   <RadioGroupItem value="a" label="Option A" />
@@ -694,7 +748,7 @@ import { Toggle } from '@/components/ui/toggle'
 ### ToggleGroup
 
 ```tsx
-import { ToggleGroup } from '@/components/ui/toggle-group'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
 <ToggleGroup type="single" defaultValue="center">
   <ToggleGroupItem value="left"><AlignLeftIcon /></ToggleGroupItem>
@@ -722,7 +776,7 @@ import { ToggleGroup } from '@/components/ui/toggle-group'
 ### Segmented
 
 ```tsx
-import { Segmented } from '@/components/ui/segmented'
+import { Segmented, SegmentedItem } from '@/components/ui/segmented'
 
 <Segmented defaultValue="all">
   <SegmentedItem value="all">All</SegmentedItem>
@@ -776,9 +830,7 @@ import { Slider } from '@/components/ui/slider'
 ### Field (Form Wrapper)
 
 ```tsx
-import { Field } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
+import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '@/components/ui/fieldcharcount'
 
 <Field error="Invalid email">
   <FieldLabel required>Email</FieldLabel>
@@ -809,7 +861,7 @@ import { Textarea } from '@/components/ui/textarea'
 ### Avatar
 
 ```tsx
-import { Avatar } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@/components/ui/avatar'
 
 <Avatar size="default">
   <AvatarImage src="/photo.jpg" alt="User" />
@@ -873,7 +925,7 @@ import { Badge } from '@/components/ui/badge'
 ### Card
 
 ```tsx
-import { Card } from '@/components/ui/card'
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardImage, CardTitle, IconButton } from '@/components/ui/cardaction'
 
 <Card variant="default" interactive>
   <CardImage src="/cover.jpg" overlay overlayOpacity={40} />
@@ -908,7 +960,7 @@ import { Card } from '@/components/ui/card'
 ### Table
 
 ```tsx
-import { Table } from '@/components/ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 <Table variant="default" stickyHeader>
   <TableHeader>
@@ -957,7 +1009,7 @@ import { Table } from '@/components/ui/table'
 ### Tabs
 
 ```tsx
-import { Tabs } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 <Tabs defaultValue="tab1">
   <TabsList variant="line" size="default">
@@ -984,7 +1036,7 @@ import { Tabs } from '@/components/ui/tabs'
 ### Accordion
 
 ```tsx
-import { Accordion } from '@/components/ui/accordion'
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 
 <Accordion type="single" collapsible defaultValue="item-1">
   <AccordionItem value="item-1">
@@ -1037,8 +1089,7 @@ import { Divider } from '@/components/ui/divider'
 ### Modal
 
 ```tsx
-import { Modal } from '@/components/ui/modal'
-import { Button } from '@/components/ui/button'
+import { Button, Modal, ModalBody, ModalClose, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalOverlay, ModalPortal, ModalTitle, ModalTrigger } from '@/components/ui/modalbody'
 
 <Modal>
   <ModalTrigger asChild>
@@ -1076,7 +1127,9 @@ import { Button } from '@/components/ui/button'
 ### AlertModal
 
 ```tsx
-import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertModalContent, AlertModalDescription, AlertModalFooter, AlertModalHeader, AlertModalOverlay, AlertModalPortal, AlertModalTitle, AlertModalTrigger, Button } from '@7onic-ui/react'<AlertModal>
+import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertModalContent, AlertModalDescription, AlertModalFooter, AlertModalHeader, AlertModalOverlay, AlertModalPortal, AlertModalTitle, AlertModalTrigger, Button } from '@/components/ui/alertmodal'
+
+<AlertModal>
   <AlertModalTrigger asChild>
     <Button color="destructive">Delete</Button>
   </AlertModalTrigger>
@@ -1110,8 +1163,7 @@ import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertMo
 ### Drawer
 
 ```tsx
-import { Drawer } from '@/components/ui/drawer'
-import { Button } from '@/components/ui/button'
+import { Button, Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from '@/components/ui/drawerbody'
 
 <Drawer>
   <DrawerTrigger asChild>
@@ -1145,7 +1197,7 @@ import { Button } from '@/components/ui/button'
 ### Tooltip
 
 ```tsx
-import { Tooltip } from '@/components/ui/tooltip'
+import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltiparrow'
 
 <TooltipProvider>
   <Tooltip>
@@ -1182,8 +1234,7 @@ import { Tooltip } from '@/components/ui/tooltip'
 ### Popover
 
 ```tsx
-import { Popover } from '@/components/ui/popover'
-import { Button } from '@/components/ui/button'
+import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTrigger } from '@/components/ui/popoverarrow'
 
 <Popover>
   <PopoverTrigger asChild>
@@ -1215,7 +1266,7 @@ import { Button } from '@/components/ui/button'
 ### Alert
 
 ```tsx
-import { Alert } from '@/components/ui/alert'
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert'
 
 <Alert color="success" closable onClose={() => {}}>
   <AlertTitle>Success</AlertTitle>
@@ -1371,7 +1422,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 ### Breadcrumb
 
 ```tsx
-import { Breadcrumb } from '@/components/ui/breadcrumb'
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb'
 
 <Breadcrumb>
   <BreadcrumbList>
@@ -1405,7 +1456,7 @@ import { Breadcrumb } from '@/components/ui/breadcrumb'
 ### Pagination
 
 ```tsx
-import { Pagination } from '@/components/ui/pagination'
+import { Pagination, PaginationContent, PaginationItems, PaginationNext, PaginationPrevious } from '@/components/ui/paginationitems'
 
 {/* Quick mode — withControls (default: true), withEdges (default: false) */}
 <Pagination total={10} defaultValue={1} />
@@ -1446,7 +1497,7 @@ import { Pagination } from '@/components/ui/pagination'
 ### NavigationMenu
 
 ```tsx
-import { NavigationMenu } from '@/components/ui/navigation-menu'
+import { NavigationMenu, NavigationMenuContent, NavigationMenuGroup, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from '@/components/ui/navigationmenucontent'
 
 {/* Horizontal (header) */}
 <NavigationMenu orientation="horizontal">
@@ -1513,7 +1564,7 @@ import { NavigationMenu } from '@/components/ui/navigation-menu'
 All chart types use the Chart namespace:
 
 ```tsx
-import { Chart } from '@/components/ui/chart'
+import { ChartArea, ChartBar, ChartLegend, ChartLegendContent, ChartLine, ChartPie, ChartTooltip, ChartTooltipContent, ChartXAxis, ChartYAxis } from '@/components/ui/chartarea'
 
 const chartConfig = {
   revenue: { label: 'Revenue', color: 'var(--color-chart-1)' },
@@ -1615,7 +1666,7 @@ type ChartConfig = {
 ### MetricCard
 
 ```tsx
-import { MetricCard } from '@/components/ui/metric-card'
+import { MetricCard, MetricCardDescription, MetricCardHeader, MetricCardSymbol, MetricCardTitle, MetricCardTrend, MetricCardValue } from '@/components/ui/metriccarddescription'
 
 <MetricCard>
   <MetricCardHeader>
@@ -1807,10 +1858,7 @@ Components that support `asChild`: Button, IconButton, Badge, Card, Modal.Trigge
 **Use Field wrapper** for labeled form elements with validation:
 
 ```tsx
-import { Field } from '@/components/ui/field'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Checkbox } from '@/components/ui/checkbox'
+import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '@/components/ui/fieldcharcount'
 
 {/* Text input with label + error */}
 <Field error={errors.email}>
@@ -1958,6 +2006,8 @@ But if YOUR code uses React hooks (`useState`, `useEffect`) or event handlers (`
 
 ## Quick Reference Table
 
+> 40 entries below. 4 chart types (bar-chart, line-chart, area-chart, pie-chart) share one source — all listed as "Chart" here. Field is a form utility sub-component with no dedicated page. Total: 42 component pages on the docs site.
+
 | Component | Type | Variants | Sizes | Colors | Key Feature |
 |---|---|---|---|---|---|
 | Button | Standalone | solid/outline/ghost/link | xs/sm/md/default/lg | default/primary/secondary/destructive | loading, icons, press effect |
@@ -2043,7 +2093,7 @@ import { TypingIndicator } from '@/components/ui/typing-indicator'
 ### QuickReply
 
 ```tsx
-import { QuickReply } from '@/components/ui/quick-reply'
+import { QuickReply, QuickReplyItem } from '@/components/ui/quick-reply'
 
 {/* Basic suggested replies */}
 <QuickReply aria-label="Suggested replies">
@@ -2094,7 +2144,7 @@ import { QuickReply } from '@/components/ui/quick-reply'
 ### ChatInput
 
 ```tsx
-import { ChatInput } from '@/components/ui/chat-input'
+import { ChatInput, ChatInputField, ChatInputSubmit } from '@/components/ui/chat-input'
 
 {/* Basic uncontrolled */}
 <ChatInput onSubmit={(value) => console.log(value)}>
@@ -2174,7 +2224,7 @@ const [value, setValue] = useState('')
 ### ChatMessage
 
 ```tsx
-import { ChatMessage } from '@/components/ui/chat-message'
+import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter } from '@/components/ui/chat-message'
 
 {/* Assistant message */}
 <ChatMessage role="assistant">
@@ -2261,7 +2311,7 @@ import { ChatMessage } from '@/components/ui/chat-message'
 
 ## Compound Recipe (opt-in self-wrapper)
 
-v0.3.0+ library exports Named only (`<CardHeader>`). To restore dot-notation (`<Card.Header>`) in your project, add a wrapper file. File location is flexible (`src/lib/card.tsx`, `lib/card.tsx`, `src/components/compound/card.tsx`, etc.) — pick one. Since this doc targets CLI users, use the second form. The first is shown so the two paths are side-by-side for reference.
+v0.3.0+ library exports Named only (`<CardHeader>`). To restore dot-notation (`<Card.Header>`) in your project, add a wrapper file. File location is flexible (`src/lib/card.tsx`, `lib/card.tsx`, `src/components/compound/card.tsx`, etc.) — pick one. Adjust the import source to match your install method:
 
 ### If installed via npm (`npm install @7onic-ui/react`)
 
@@ -2280,7 +2330,7 @@ export const Card = Object.assign(CardBase, {
 })
 ```
 
-### If installed via CLI (`npx 7onic add card`) — recommended for this install path
+### If installed via CLI (`npx 7onic add card`)
 
 ```tsx
 'use client'

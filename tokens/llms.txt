@@ -26,85 +26,21 @@ Before writing any code, present this checklist and wait for answers:
 
 **If the user answers in natural language**, extract the answers. **If any item is missing, ask a follow-up question for the missing items only.** Do not proceed until all 4 items are answered.
 
-### Step 2: Execute full setup (all at once, do not skip any)
+### Step 2: Install / Setup
 
-After receiving answers, execute ALL of the following in order. Every step is mandatory.
+⚠️ **DO NOT GUESS** — token install procedures evolve with each Tailwind / framework version. Before writing any code, AI **MUST** fetch the live pages below and follow their instructions verbatim:
 
-**2-1. Install package (skip if already installed):**
-```bash
-npm install @7onic-ui/tokens
-```
-> Check package.json first. If already listed in dependencies, skip this step.
+- **Official tokens install page (SSOT)**: https://7onic.design/design-tokens/installation
+- **Tailwind CSS official**: https://tailwindcss.com/docs/installation
 
-**2-2. Create or update globals.css with token imports:**
+The install instructions are intentionally **not duplicated in this file**. Setup details (`@7onic-ui/tokens` install, `tailwind.config.js` preset, `globals.css` imports, font baseline, dark mode toggle, etc.) are version-sensitive and change frequently — always defer to the live documentation above.
 
-**How to detect Tailwind version:**
-- `tailwind.config.js` (or `.ts`) exists → **v3**
-- No config file → **v4** (uses CSS-based configuration)
+Apply user's answers from Step 1 after the install page steps are complete:
+- Dark mode = yes → implement dark mode toggle (see below in this file)
+- Custom font → override `--font-family-sans` per the install page guidance
+- Japanese / Korean locale → load Noto Sans JP / KR
 
-**New project (Tailwind v4):**
-```css
-/* globals.css (Next.js) or src/index.css (Vite) — ALL imports are required, do not skip any */
-@import "tailwindcss";
-@import "@7onic-ui/tokens/css/variables.css";
-@import "@7onic-ui/tokens/css/themes/light.css";
-@import "@7onic-ui/tokens/css/themes/dark.css";    /* omit ONLY if dark mode = no */
-@import "@7onic-ui/tokens/tailwind/v4-theme.css";
-```
-
-> **Vite + Tailwind v4**: `npx 7onic init` auto-injects `@import "tailwindcss"` if not present, and automatically configures the `@/` path alias (`tsconfig.app.json` + `vite.config.ts`). No manual CSS or alias setup needed.
-
-**Existing project with Tailwind v3** (detect from tailwind.config.js):
-```css
-/* globals.css — @import must come BEFORE @tailwind directives */
-@import '@7onic-ui/tokens/css/variables.css';
-@import '@7onic-ui/tokens/css/themes/light.css';
-@import '@7onic-ui/tokens/css/themes/dark.css';    /* omit ONLY if dark mode = no */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
-```js
-// tailwind.config.js — add preset
-const preset = require('@7onic-ui/tokens/tailwind/v3-preset')
-module.exports = {
-  presets: [preset],
-  content: ['./src/**/*.{js,ts,jsx,tsx}'],
-}
-```
-
-**2-3. Set body classes:**
-```html
-<body class="bg-background text-foreground">
-```
-
-**Font baseline (automatic — do NOT add manually):**
-`variables.css` import automatically applies:
-- `html body { font-family: var(--font-family-sans) }` — Inter by default
-- `html body code, pre, kbd { font-family: var(--font-family-mono) }` — monospace
-
-Do NOT write `body { font-family: ... }` manually — it is already handled by the token import.
-To use a custom font, override the CSS variable instead:
-```css
-:root { --font-family-sans: 'Your Font', sans-serif; }
-```
-
-**2-4. Apply user's answers:**
-
-- Dark mode = yes → implement dark mode toggle (see below)
-- Custom font → load font (next/font for Next.js, CDN for Vite) + set `--font-family-sans`
-- Locale includes Japanese → load Noto Sans JP font
-- Locale includes Korean → load Noto Sans KR font
-
-**2-5. Verify setup is complete before writing any UI code:**
-- [ ] Package installed (@7onic-ui/tokens)
-- [ ] globals.css has ALL required imports in correct order
-- [ ] Body has `bg-background text-foreground`
-- [ ] Dark mode toggle (if selected)
-- [ ] Font loaded (if custom)
-- [ ] CJK fonts loaded (if applicable)
-
-⛔ **Do NOT proceed to Step 3 until all checks pass.**
+⛔ **Do NOT proceed to Step 3 until install page setup is verified.**
 
 ### Icon Import Pattern (lucide-react)
 

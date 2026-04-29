@@ -1,7 +1,13 @@
 # dependencies
 /node_modules
+**/node_modules
 /.pnp
 .pnp.js
+
+# fixture temporary artifacts
+scripts/user-test/templates/*.preserve/
+scripts/user-test/.current-test-dir
+scripts/user-test/.current-cli-test-dir
 
 # testing
 /coverage
