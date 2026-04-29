@@ -127,6 +127,8 @@ export default {
 ```
 </details>
 
+<br>
+
 **Option B — CLI (local file copy)**
 
 ```bash
@@ -134,7 +136,9 @@ npx 7onic init   # detects framework, installs deps, configures CSS automaticall
 npx 7onic add button card input
 ```
 
-Use components:
+<br>
+
+**Use components:**
 
 ```tsx
 import { Button, Card, CardHeader, CardTitle, CardContent } from '@7onic-ui/react'
@@ -165,7 +169,7 @@ import { Chart, type ChartConfig } from '@7onic-ui/react/chart'  // charts: sepa
 | **Navigation** | Breadcrumb, NavigationMenu, Pagination | 3 |
 | **AI** | TypingIndicator, QuickReply, ChatInput, ChatMessage | 4 |
 
-**42 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, and **Named exports** (`CardHeader`, `ModalContent`, `TabsList`, ...). If you prefer dot-notation (`<Card.Header>`), drop in a [Compound Recipe wrapper](docs/decisions/NAMED-PRIMARY-MIGRATION.md) — opt-in, Client Components only.
+**42 components** — all with CVA variants, controlled + uncontrolled modes, `forwardRef`, and **Named exports** (`CardHeader`, `ModalContent`, `TabsList`, ...). If you prefer dot-notation (`<Card.Header>`), drop in a Compound Recipe wrapper — opt-in, Client Components only.
 
 ---
 
