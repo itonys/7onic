@@ -314,7 +314,7 @@ Other MCP clients: clone this repo and point your MCP config at `mcp/dist/index.
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.6
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.7
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] MCP server — token search, component catalog, layout recipes, `validate_code` rule checking (en/ja/ko), Claude Code plugin one-command install
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
@@ -344,5 +344,5 @@ MIT
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
   Independently built.<br>
-  <sub>Last updated: 2026-04-29 (v0.3.6)</sub>
+  <sub>Last updated: 2026-10-07 (v0.3.7)</sub>
 </p>

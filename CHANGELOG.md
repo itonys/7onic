@@ -6,7 +6,7 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
-## [Unreleased]
+## [0.3.7] — 2026-10-07
 
 ### @7onic-ui/react
 
@@ -18,6 +18,12 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 - llms.txt / llms-full.txt documentation fixes: Badge `radius` documented a non-existent `xl` value and omitted `base` (now matches `badgeVariants`); Chart example was missing `Chart` in its import line; `DropdownMenu.RadioGroup` was absent from the DropdownMenu sub-component list
 - llms-full.txt structure: the 4 AI components (TypingIndicator, QuickReply, ChatInput, ChatMessage) moved from SECTION 5 into SECTION 3 under a new "AI Components" category (section title count corrected to 41 measured headers)
+
+### @7onic-ui/tokens
+
+#### Fixed
+
+- `cli/sync.js` generator comments realigned with the committed `variables.css` output — re-running `npx sync-tokens` no longer regresses two comment lines (idempotency drift)
 
 ## [0.3.6] — 2026-04-29
 

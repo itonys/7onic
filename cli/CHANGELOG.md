@@ -4,6 +4,12 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- `dist/index.js` embedded `VERSION` constant was left at `0.1.13` when v0.1.14 shipped (dist rebuild missed) — `7onic --version` on the published 0.1.14 prints 0.1.13. Functionality unaffected. Rebuilt in-repo; ships with the next CLI release.
+
 ## [0.1.14] — 2026-04-29
 
 ### 7onic

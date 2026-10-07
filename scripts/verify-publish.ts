@@ -38,7 +38,13 @@ function fail(msg: string) {
 }
 
 function run(cmd: string, cwd?: string): string {
-  return execSync(cmd, { cwd: cwd ?? ROOT, stdio: 'pipe', encoding: 'utf-8' })
+  // Strip color forcing from the inherited env: FORCE_COLOR (e.g. set by CI or
+  // agent harnesses) makes `node -e "console.log(n)"` wrap numbers in ANSI
+  // codes, turning parseInt() of captured output into NaN.
+  const env = { ...process.env, NO_COLOR: '1' }
+  delete env.FORCE_COLOR
+  delete env.CLICOLOR_FORCE
+  return execSync(cmd, { cwd: cwd ?? ROOT, stdio: 'pipe', encoding: 'utf-8', env })
 }
 
 function cleanup() {
