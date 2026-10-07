@@ -51,9 +51,10 @@
     "verify:components": "tsx scripts/verify-components.ts",
     "verify:framework-compat": "tsx scripts/verify-framework-compat.ts",
     "verify:llms-examples": "tsx scripts/verify-llms-examples.ts",
+    "verify:mcp": "cd mcp && npm run verify-drift && npm run verify-validate",
     "verify:publish": "tsx scripts/verify-publish.ts",
     "smoke": "bash scripts/smoke-test.sh",
-    "prepublishOnly": "npm run verify:framework-compat && npm run verify:llms-examples && npm run build:lib && npm run verify:publish && npm run smoke"
+    "prepublishOnly": "npm run verify:framework-compat && npm run verify:llms-examples && npm run verify:mcp && npm run build:lib && npm run verify:publish && npm run smoke"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.0",

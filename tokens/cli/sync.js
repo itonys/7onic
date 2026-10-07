@@ -917,7 +917,7 @@ function generateVariablesCss(tokens) {
   }
   lines.push(`/* ========================================`);
   lines.push(`   Framework Compat Aliases`);
-  lines.push(`   Maps Next.js 15 / Tailwind v4 convention`);
+  lines.push(`   Maps Next.js / Tailwind v4 convention`);
   lines.push(`   (--background, --foreground) to our tokens.`);
   lines.push(`   ======================================== */`);
   lines.push(``);
@@ -929,7 +929,7 @@ function generateVariablesCss(tokens) {
   lines.push(`}`);
   lines.push(``);
   lines.push(`/* ========================================`);
-  lines.push(`   Body Baseline`);
+  lines.push(`   Body Baseline for Next.js / Vite resets`);
   lines.push(`   Overrides framework default body rules.`);
   lines.push(`   ======================================== */`);
   lines.push(``);

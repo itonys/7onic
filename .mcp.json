@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "7onic-design": {
+      "command": "node",
+      "args": ["mcp/dist/index.js"]
+    }
+  }
+}

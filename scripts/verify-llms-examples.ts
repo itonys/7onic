@@ -41,8 +41,12 @@ function collectExports(): Set<string> {
   const exportRe = /export\s*\{\s*([^}]+)\s*\}/g
   let m: RegExpExecArray | null
   while ((m = exportRe.exec(indexFile)) !== null) {
-    m[1].split(',').map(s => s.trim().split(/\s+as\s+/)[0].trim()).forEach(name => {
-      if (name && !name.startsWith('type ')) exports.add(name)
+    m[1].split(',').map(s => s.trim()).forEach(entry => {
+      // `X as Y` exports Y (the alias) — register both sides so aliased
+      // names like `ChartContainer as Chart` are not flagged as phantom.
+      entry.split(/\s+as\s+/).map(n => n.trim()).forEach(name => {
+        if (name && !name.startsWith('type ')) exports.add(name)
+      })
     })
   }
   // Also add chart.tsx named exports
@@ -54,8 +58,12 @@ function collectExports(): Set<string> {
   // chart.tsx also does `export { X }`
   const chartBlockRe = /export\s*\{\s*([^}]+)\s*\}/g
   while ((m = chartBlockRe.exec(chartFile)) !== null) {
-    m[1].split(',').map(s => s.trim().split(/\s+as\s+/)[0].trim()).forEach(name => {
-      if (name && !name.startsWith('type ')) exports.add(name)
+    m[1].split(',').map(s => s.trim()).forEach(entry => {
+      // `X as Y` exports Y (the alias) — register both sides so aliased
+      // names like `ChartContainer as Chart` are not flagged as phantom.
+      entry.split(/\s+as\s+/).map(n => n.trim()).forEach(name => {
+        if (name && !name.startsWith('type ')) exports.add(name)
+      })
     })
   }
   return exports

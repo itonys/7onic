@@ -32,7 +32,7 @@
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
 | **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
-| **🤖** | **AI-ready** | Ships with `llms.txt` — AI builds with design tokens, not hardcoded values. Zero config for Claude, Cursor, Copilot. |
+| **🤖** | **AI-ready** | Ships with `llms.txt` and an MCP server — AI builds with design tokens, not hardcoded values, and `validate_code` checks the result. Zero config for Claude, Cursor, Copilot. |
 | **🌏** | **CJK-first typography** | Type scale tuned for Japanese kanji, Korean hangul, and Latin — not an afterthought. |
 | **🔐** | **Supply chain verified** | Cryptographically signed releases (npm provenance), automated vulnerability scanning in CI, reproducible builds. You can verify every package came from this exact GitHub commit — not a hijacked account. |
 | **🔥** | **Relentlessly updated** | Actively maintained with continuous research, refinement, and new features. Not abandoned — ever. |
@@ -273,7 +273,21 @@ Once loaded, AI automatically uses `bg-primary` instead of `bg-blue-500`, spacin
 
 Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that reads text files.
 
-**Setup guides**: [Tokens](https://7onic.design/design-tokens/ai) · [Components](https://7onic.design/components/ai)
+### MCP Server
+
+For agents that speak MCP, 7onic also ships a stdio server: token search, the full
+component catalog, layout recipes, and `validate_code` rule checking — with queries
+and violation messages in English, Japanese, and Korean. On Claude Code it installs
+as a plugin in one command (no `npm install`, ~3 MB):
+
+```bash
+claude plugin marketplace add itonys/7onic && claude plugin install 7onic-design@7onic
+```
+
+Other MCP clients: clone this repo and point your MCP config at `mcp/dist/index.js`
+(the bundle is committed — nothing to build).
+
+**Setup guides**: [Tokens](https://7onic.design/design-tokens/ai) · [Components](https://7onic.design/components/ai) · [MCP Server](https://7onic.design/components/mcp)
 
 ---
 
@@ -302,6 +316,7 @@ Works with Claude Code, Cursor, GitHub Copilot, ChatGPT, and any AI tool that re
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
 - [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.6
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
+- [x] MCP server — token search, component catalog, layout recipes, `validate_code` rule checking (en/ja/ko), Claude Code plugin one-command install
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [x] `npx 7onic init` full workflow — framework/TS/Tailwind detection (abort if missing), Vite `@/` alias auto-configure, base deps install, CSS token import, Vite boilerplate cleanup (`.bak` backup), Next.js+v4 `*` reset auto-wrap, `cn()` + `7onic.json` generation
 - [x] Technical blog — [blog.7onic.design](https://blog.7onic.design) ("Design to Code" series)

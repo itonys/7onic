@@ -1,0 +1,14 @@
+{
+  "name": "7onic",
+  "description": "7onic Design System plugins — MCP server for token-accurate, validated UI code generation.",
+  "owner": {
+    "name": "7onic"
+  },
+  "plugins": [
+    {
+      "name": "7onic-design",
+      "source": "./ai-kit",
+      "description": "7onic Design System MCP server: 41 components, design tokens, layout recipes, and validate_code rule checking for AI coding agents (en/ja/ko)."
+    }
+  ]
+}

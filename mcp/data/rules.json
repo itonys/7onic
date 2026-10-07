@@ -1,0 +1,185 @@
+{
+  "generatedFrom": "public/llms-full.txt",
+  "sourceHash": "2a86f788707340be480a4816108a82bbf15195aa0c1abfc1003b4ebfbb463531",
+  "rules": {
+    "corePrinciple": "**Token values are user-defined.** Every project has different brand colors and design decisions. The token NAMES are the API — never assume or hardcode specific values.",
+    "whitelist": [
+      {
+        "num": 1,
+        "title": "7onic components + Props",
+        "body": "— always prefer components over raw HTML"
+      },
+      {
+        "num": 2,
+        "title": "Token classes",
+        "body": "— colors, spacing, typography, radius, shadows, z-index, icon sizes, duration, easing, opacity, scale"
+      },
+      {
+        "num": 3,
+        "title": "Tailwind structural utilities",
+        "body": "— layout, positioning, display, overflow, sizing, and more:\n   - Layout: flex, grid, block, inline, hidden, container\n   - Position: relative, absolute, fixed, sticky, top-0, inset-0\n   - Flex/Grid: items-center, justify-between, gap-4, col-span-2\n   - Sizing: w-full, h-full, min-h-screen, max-w-7xl\n   - Spacing: space-x-*, space-y-*, divide-x, divide-y\n   - Overflow: overflow-hidden, overflow-auto, truncate, whitespace-nowrap\n   - Interaction: cursor-pointer, pointer-events-none, select-none\n   - Accessibility: sr-only\n   - Group/Peer: group, group-hover:*, peer, peer-checked:*\n   - Aspect: aspect-square, aspect-video\n   - Text: line-clamp-*, text-ellipsis\n   - Animation: animate-spin, animate-pulse, animate-bounce\n   - Any other Tailwind structural/layout utility not listed above is also allowed — as long as it does not hardcode colors, spacing values, font sizes, or other visual values that exist as tokens\n   - ⚠️ Utilities that implicitly use color (divide, border) must be paired with a token color:\n     `divide-y divide-border` ✅ / `divide-y` alone ❌ (may not adapt to dark mode)\n     `border border-border` ✅ / `border` alone ❌"
+      },
+      {
+        "num": 4,
+        "title": "Tailwind visual utilities using token values",
+        "body": "— gradients, transforms, transitions:\n   - Gradient: bg-gradient-to-r, from-primary, to-secondary (token colors only)\n   - Transform: rotate-45, translate-x-1\n   - Transition: transition-all, transition-colors (with token durations)\n   - Backdrop: backdrop-blur, backdrop-blur-sm"
+      },
+      {
+        "num": 5,
+        "title": "Responsive prefixes",
+        "body": "— sm:, md:, lg:, xl:, 2xl: (on allowed classes only)"
+      },
+      {
+        "num": 6,
+        "title": "State prefixes",
+        "body": "— hover:, focus:, active:, disabled: (on allowed classes only, token values only)"
+      },
+      {
+        "num": 7,
+        "title": "Layout dimension arbitrary values",
+        "body": "— height and width ONLY: h-[300px], max-w-[1200px] (when no token fits)"
+      },
+      {
+        "num": 8,
+        "title": "Opacity modifier",
+        "body": "— append `/0-100` to any token color for transparency:\n   - `bg-primary/50`, `text-foreground/70`, `border-border/30`\n   - Do NOT use `opacity-*` utility as a workaround — it affects the entire element including children\n   - `bg-primary/10` ✅ (only background is transparent) / `bg-primary opacity-10` ❌ (children also become transparent)"
+      },
+      {
+        "num": 9,
+        "title": "Token-first rule",
+        "body": "— Before adding any Tailwind utility, check if the property is already included in a design token. Typography tokens (`text-sm`, `text-md`, etc.) include both font-size AND line-height as a pair. Do NOT override with Tailwind line-height utilities:\n   - `text-sm` ✅ (token provides font-size + line-height)\n   - `text-sm leading-relaxed` ❌ (overrides token line-height)\n   - `text-sm leading-none` ❌ (overrides token line-height)\n   - `text-sm leading-[18px]` ❌ (hardcodes line-height)"
+      }
+    ],
+    "decisionTree": "```\nStep 1: Does a 7onic component exist for this?\n  → YES: Use the component. Style via Props (variant/size/color).\n         className ONLY for layout (margin, width, flex positioning).\n  → NO: Step 2\n\nStep 2: Is this a layout/structural element? (flex container, grid, section wrapper)\n  → YES: Use div/section + token classes only.\n  → NO: Step 3\n\nStep 3: Re-check the 42 components. Most UI can be built with component combinations.\n  → Still no match: Use div + token classes only.\n```",
+    "forbiddenPatterns": [
+      {
+        "label": "HTML instead of components",
+        "examples": [
+          "<button className=\"bg-primary rounded-lg px-4 py-2\">   → <Button>",
+          "<input className=\"border rounded-lg px-3 h-10\">         → <Input>",
+          "<div className=\"border rounded-xl p-6 shadow-sm\">       → <Card>",
+          "<table className=\"w-full\">                               → <Table>"
+        ]
+      },
+      {
+        "label": "className overriding component styles",
+        "examples": [
+          "<Button className=\"bg-blue-500 text-white\">   → <Button color=\"primary\">",
+          "<Badge className=\"bg-red-100 text-red-700\">   → <Badge color=\"error\">"
+        ]
+      },
+      {
+        "label": "Raw Tailwind colors",
+        "examples": [
+          "bg-blue-500, text-gray-700, bg-white, border-gray-200"
+        ]
+      },
+      {
+        "label": "Dark mode prefix",
+        "examples": [
+          "dark:bg-gray-900, dark:text-white"
+        ]
+      },
+      {
+        "label": "Arbitrary values (except layout dimensions)",
+        "examples": [
+          "p-[17px], text-[13px], rounded-[7px], z-[999]"
+        ]
+      },
+      {
+        "label": "Inline styles",
+        "examples": [
+          "style={{ color: '#333', padding: '20px' }}"
+        ]
+      },
+      {
+        "label": "@apply with raw values",
+        "examples": [
+          "@apply bg-blue-500"
+        ]
+      },
+      {
+        "label": "Icon sizing with w/h",
+        "examples": [
+          "w-4 h-4, w-5 h-5   → icon-sm, icon-md"
+        ]
+      },
+      {
+        "label": "Radix direct import",
+        "examples": [
+          "import * as Dialog from '@radix-ui/react-dialog'   → import { Badge, Button, Card, Input, Table } from '@7onic-ui/react'"
+        ]
+      },
+      {
+        "label": "Unnecessary component wrappers",
+        "examples": [
+          "function MyButton(props) { return <Button {...props} /> }   → Use Button directly"
+        ]
+      }
+    ],
+    "customValueProtocol": "If the user explicitly asks for a value outside the token system:\n\n```\nUser: \"Change this background to #FF5733\"\n\nAI: \"This color is not in the token system.\n     Apply this custom value bypassing the tokens?\n     Or I can use an existing token (bg-primary, bg-error, etc.).\"\n\nUser: \"Apply it\"\nAI: → Apply the custom value\n```\n\n| Situation | AI Behavior |\n|---|---|\n| User request within token range | Execute immediately |\n| User request outside token range | Ask \"bypass tokens?\" → execute after confirmation |\n| AI writing code on its own | Token system ONLY — never bypass |",
+    "thirdPartyProtocol": "When a feature is needed that no 7onic component covers (map, video player, rich text editor, etc.):\n\n- **Do NOT install any library without asking the user first**\n- Ask: \"Which library would you like to use for [feature]?\"\n- Install and use only after user's choice",
+    "tokenFilesReadonly": [
+      "variables.css",
+      "light.css",
+      "dark.css",
+      "v3-preset.js",
+      "v4-theme.css",
+      "index.js",
+      "index.mjs",
+      "index.d.ts",
+      "tokens.json"
+    ],
+    "selfCheck": [
+      "Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-white`, `border-gray-*`)",
+      "Any arbitrary value? (`p-[*]`, `text-[*]`, `rounded-[*]`, `z-[*]`)",
+      "Any inline style? (`style={{ }}`)",
+      "Any `dark:` prefix?",
+      "Any `w-N h-N` for icons instead of `icon-*`?",
+      "Any `<button>`, `<input>`, `<table>` instead of 7onic components?",
+      "Any Radix direct import?",
+      "Any className overriding component visual styles?",
+      "Any `divide-*` or `border` without a token color? (`divide-y` alone → `divide-y divide-border`)",
+      "Any `opacity-*` on element instead of color modifier? (`bg-primary opacity-10` → `bg-primary/10`)"
+    ],
+    "docsReference": "**When in doubt, check the documentation** — if component Props, token usage, or patterns are unclear, refer to the official docs before guessing:\n- Component pages: `https://7onic.design/components/{name}` (e.g., `/components/button`, `/components/navigation-menu`)\n- Token pages: `https://7onic.design/design-tokens/{name}` (e.g., `/design-tokens/colors`, `/design-tokens/spacing`)\n- Do not guess — verify from documentation first",
+    "sections": [
+      {
+        "title": "Step 1: Ask the user (setup checklist)",
+        "body": "Before writing any code, present this checklist and wait for answers:\n\n1. **Framework** — Next.js / Vite (React SPA) / Remix / other?\n2. **Dark mode** — Yes or no?\n3. **Font** — Use default, or custom font? If custom, which font?\n4. **Locale** — Which language(s)? (for CJK font loading)\n5. **What are you building?** — Describe the project\n\n**If the user answers in natural language** (e.g., \"Make me a dashboard with dark mode, English only\"), extract the answers from their message. **If any item is missing, ask a follow-up question for the missing items only.** Do not proceed until all 5 items are answered."
+      },
+      {
+        "title": "Step 2: Install / Setup",
+        "body": "⚠️ **DO NOT GUESS** — install procedures evolve with each Tailwind / Next / Vite version. Before writing any code, AI **MUST** fetch the live pages below and follow their instructions verbatim:\n\n- **Official install page (SSOT)**: https://7onic.design/components/installation\n- **Tailwind CSS official**: https://tailwindcss.com/docs/installation\n\nThe install instructions are intentionally **not duplicated in this file**. Setup details (packages, `tailwind.config.js`, `vite.config.ts`, `postcss.config.mjs`, `globals.css` patterns, framework default cleanup, layer wrap tips, etc.) are version-sensitive and change frequently — always defer to the live documentation above.\n\nApply user's answers from Step 1 after the install page steps are complete:\n- Dark mode = yes → implement dark mode toggle (see below in this file)\n- Custom font → load via `next/font/google` (Next.js) or Fontsource / CDN (Vite)\n- Japanese / Korean locale → load Noto Sans JP / KR\n\n⛔ **Do NOT proceed to Step 3 until install page setup is verified.**"
+      },
+      {
+        "title": "Icon Import Pattern (lucide-react)",
+        "body": "⚠️ **`lucide-react` is NOT a 7onic dependency.** 7onic components themselves use inline SVG. Install separately if you want to use lucide icons in your app code:\n\n```bash\nnpm install lucide-react\n```\n\n```tsx\n// ✅ Official pattern — no suffix\nimport { Search, Settings, ChevronDown, X } from 'lucide-react'\n\n// ❌ Legacy alias — avoid\nimport { SearchIcon, SettingsIcon } from 'lucide-react'\n\n// ⚠️ Name collision with 7onic component — use alias\nimport { Badge } from '@7onic-ui/react'\nimport { Badge as BadgeIcon } from 'lucide-react'\n```"
+      },
+      {
+        "title": "Step 3: Add Toaster to root layout (if using Toast)",
+        "body": "Place `<Toaster />` once in your root layout file. Without this, `toast()` calls will not render.\n\n```tsx\nimport { Toaster } from '@7onic-ui/react'\n\n// In your root layout (e.g., app/layout.tsx)\n<body>\n  {children}\n  <Toaster position=\"bottom-right\" />\n</body>\n```"
+      },
+      {
+        "title": "Step 4: Start building",
+        "body": "Design freely based on user's project description. Always use 7onic components + tokens."
+      },
+      {
+        "title": "Component Dependencies (auto-install during development)",
+        "body": "| Component | Additional Package | When to install |\n|---|---|---|\n| Chart (Bar, Line, Area, Pie) | `recharts` | `npm install recharts` — import from `@7onic-ui/react/chart` (separate entry point) |\n\n---"
+      },
+      {
+        "title": "Dark Mode — Automatic",
+        "body": "Dark mode works automatically when using semantic tokens. No `dark:` prefix needed.\n\n| ❌ NEVER | ✅ CORRECT |\n|---|---|\n| `bg-white dark:bg-gray-900` | `bg-background` |\n| `text-gray-900 dark:text-gray-100` | `text-foreground` |\n| `border-gray-200 dark:border-gray-700` | `border-border` |"
+      },
+      {
+        "title": "Dark Mode Toggle Implementation",
+        "body": "Strategy: `dark` class on `<html>` element.\n\n**Required behavior:**\n1. Toggle adds/removes `dark` class on `<html>`\n2. Persist choice to localStorage (key: `\"theme\"`)\n3. On page load: check localStorage first → fallback to system preference\n4. System preference: `window.matchMedia('(prefers-color-scheme: dark)')`\n\n**Three states:** `'light'` | `'dark'` | `'system'`\n\n**Minimal logic:**\n- Read: `localStorage.getItem('theme') || 'system'`\n- Apply: `document.documentElement.classList.toggle('dark', isDark)`\n- Save: `localStorage.setItem('theme', newTheme)`\n\n**Add a toggle button in the header** that cycles through light → dark → system (or light ↔ dark).\n\n---"
+      },
+      {
+        "title": "Token Reference (Quick)",
+        "body": "> Token values depend on the user's project configuration. Never assume specific hex values.\n\n**Semantic Colors (theme-aware):**\n- Background: `background`, `background-paper`, `background-elevated`, `background-muted`\n- Text: `foreground`, `text-muted`, `text-subtle`, `text-link`, `text-primary`\n- Status text: `text-info`, `text-success`, `text-error`, `text-warning`\n- Intent (×6): `{intent}`, `{intent}-hover`, `{intent}-active`, `{intent}-tint`, `{intent}-foreground` — where intent = primary, secondary, success, warning, error, info\n- Border: `border`, `border-subtle`, `border-strong`\n- State: `disabled`, `disabled-text`, `focus-ring`, `focus-ring-error`\n\n**Spacing:** 0, 0.5(2px), 1(4px), 1.5(6px), 2(8px), 2.5(10px), 3(12px), 3.5(14px), 4(16px), 5(20px), 6(24px), 7(28px), 8(32px), 10(40px), 12(48px), 14(56px), 16(64px), 20(80px), 24(96px)\n\n**Font:** `font-sans` (user-defined), `font-mono` (user-defined)\n**Font Sizes:** text-2xs(11px), text-xs(12px), text-sm(13px), text-md(14px), text-base(16px), text-lg(18px), text-xl(20px), text-2xl(24px), text-3xl(30px), text-4xl(36px), text-5xl(48px)\n**Font Weights:** font-normal(400), font-semibold(600), font-bold(700)\n\n**Radius:** rounded-none(0), rounded-sm(2), rounded-base(4), rounded-md(6), rounded-lg(8), rounded-xl(12), rounded-2xl(16), rounded-3xl(24), rounded-full(9999)\n\n**Shadows:** shadow-xs, shadow-sm, shadow-md, shadow-lg, shadow-xl\n\n**Z-Index:** z-sticky(100), z-dropdown(1000), z-overlay(1100), z-modal(2000), z-popover(2100), z-tooltip(2200), z-toast(3000)\n\n**Icon Sizes:** icon-2xs(12px), icon-xs(14px), icon-sm(16px), icon-md(20px), icon-lg(24px), icon-xl(32px)\n\n**Duration:** duration-instant(0), duration-fast(100), duration-micro(150), duration-normal(200), duration-slow(300), duration-slower(400), duration-slowest(500), duration-spin(1000)\n\n**Easing:** ease-linear, ease-ease, ease-ease-in, ease-ease-out, ease-ease-in-out\n\n**Opacity:** opacity-0 to opacity-100 (5% increments)\n\n**Scale:** scale-50, scale-75, scale-95, scale-pressed(0.98)\n\n**Breakpoints:** sm(640), md(768), lg(1024), xl(1280), 2xl(1536)\n\nFor detailed token reference, see: https://7onic.design/llms.txt\n\n---"
+      }
+    ]
+  }
+}

@@ -6,6 +6,19 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/react
+
+#### Added
+
+- llms.txt / llms-full.txt / llms-cli.txt: MCP server pointer in the header — one-command Claude Code plugin install (`claude plugin marketplace add itonys/7onic && claude plugin install 7onic-design@7onic`) and docs link (https://7onic.design/components/mcp)
+
+#### Fixed
+
+- llms.txt / llms-full.txt documentation fixes: Badge `radius` documented a non-existent `xl` value and omitted `base` (now matches `badgeVariants`); Chart example was missing `Chart` in its import line; `DropdownMenu.RadioGroup` was absent from the DropdownMenu sub-component list
+- llms-full.txt structure: the 4 AI components (TypingIndicator, QuickReply, ChatInput, ChatMessage) moved from SECTION 5 into SECTION 3 under a new "AI Components" category (section title count corrected to 41 measured headers)
+
 ## [0.3.6] — 2026-04-29
 
 ### @7onic-ui/react

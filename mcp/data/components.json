@@ -1,0 +1,6870 @@
+{
+  "generatedFrom": "public/llms-full.txt",
+  "sourceHash": "2a86f788707340be480a4816108a82bbf15195aa0c1abfc1003b4ebfbb463531",
+  "count": 41,
+  "components": [
+    {
+      "name": "Button",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Button"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'solid' \\| 'outline' \\| 'ghost' \\| 'link'`",
+          "default": "`'solid'`",
+          "description": "Visual style",
+          "enumValues": [
+            "solid",
+            "outline",
+            "ghost",
+            "link"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary' \\| 'secondary' \\| 'destructive'`",
+          "default": "`'default'`",
+          "description": "Color scheme",
+          "enumValues": [
+            "default",
+            "primary",
+            "secondary",
+            "destructive"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Height: 28/32/36/40/48px",
+          "enumValues": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "`'none' \\| 'sm' \\| 'base' \\| 'default' \\| 'lg' \\| 'xl' \\| '2xl' \\| '3xl' \\| 'full'`",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": [
+            "none",
+            "sm",
+            "base",
+            "default",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        },
+        {
+          "target": null,
+          "name": "loading",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Shows spinner, disables button",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "leftIcon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Icon before label",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "rightIcon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Icon after label",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "fullWidth",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "`w-full`",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "selected",
+          "type": "`boolean`",
+          "default": "—",
+          "description": "Selected state (outline/ghost)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "fontWeight",
+          "type": "`'normal' \\| 'semibold'`",
+          "default": "per variant",
+          "description": "Override font weight",
+          "enumValues": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": null,
+          "name": "pressEffect",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Scale-down on press",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "asChild",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Render as child element (Slot)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disabled state",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "solid",
+            "outline",
+            "ghost",
+            "link"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary",
+            "secondary",
+            "destructive"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "radius",
+          "values": [
+            "none",
+            "sm",
+            "base",
+            "default",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "fontWeight",
+          "values": [
+            "normal",
+            "semibold"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ],
+          "description": "Height: 28/32/36/40/48px"
+        }
+      ],
+      "notes": [
+        "**Icon sizing by button size:** xs/sm → icon-xs(14px), md/default/lg → icon-sm(16px)"
+      ],
+      "a11y": [],
+      "related": [
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/button"
+      ],
+      "examples": [
+        "import { Button } from '@7onic-ui/react'\n\n<Button variant=\"solid\" color=\"primary\" size=\"default\">Submit</Button>\n<Button variant=\"outline\" color=\"default\" leftIcon={<Icon />}>Cancel</Button>\n<Button loading>Processing...</Button>\n<Button variant=\"link\" color=\"primary\">Learn more</Button>"
+      ]
+    },
+    {
+      "name": "IconButton",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "IconButton"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'solid' \\| 'outline' \\| 'ghost' \\| 'subtle'`",
+          "default": "`'solid'`",
+          "description": "Visual style",
+          "enumValues": [
+            "solid",
+            "outline",
+            "ghost",
+            "subtle"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary' \\| 'secondary' \\| 'destructive'`",
+          "default": "`'default'`",
+          "description": "Color scheme",
+          "enumValues": [
+            "default",
+            "primary",
+            "secondary",
+            "destructive"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "28/32/36/40/48px (square)",
+          "enumValues": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "Same as Button",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "loading",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Shows spinner",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "pressEffect",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Scale-down on press",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "asChild",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Slot pattern",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "solid",
+            "outline",
+            "ghost",
+            "subtle"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary",
+            "secondary",
+            "destructive"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ],
+          "description": "28/32/36/40/48px (square)"
+        }
+      ],
+      "notes": [
+        "**Icon sizing:** xs → icon-xs(14px), sm/md → icon-sm(16px), default → icon-md(20px), lg → icon-lg(24px)",
+        "**Always provide `aria-label`** — no visible text."
+      ],
+      "a11y": [
+        "**Always provide `aria-label`** — no visible text."
+      ],
+      "related": [
+        "Button",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/icon-button"
+      ],
+      "examples": [
+        "import { IconButton } from '@7onic-ui/react'\n\n<IconButton variant=\"ghost\" size=\"default\" aria-label=\"Settings\">\n  <SettingsIcon />\n</IconButton>"
+      ]
+    },
+    {
+      "name": "ButtonGroup",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Button",
+        "ButtonGroup"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'outline' \\| 'ghost'`",
+          "default": "—",
+          "description": "Applied to all children",
+          "enumValues": [
+            "outline",
+            "ghost"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "Button sizes",
+          "default": "—",
+          "description": "Applied to all children",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "Button radius values",
+          "default": "—",
+          "description": "Applied to all children",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "fontWeight",
+          "type": "`'normal' \\| 'semibold'`",
+          "default": "—",
+          "description": "Applied to all children",
+          "enumValues": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": null,
+          "name": "orientation",
+          "type": "`'horizontal' \\| 'vertical'`",
+          "default": "`'horizontal'`",
+          "description": "Layout direction",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": null,
+          "name": "attached",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Overlapping borders",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disable all children",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "outline",
+            "ghost"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "fontWeight",
+          "values": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "orientation",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [],
+          "description": "Applied to all children"
+        }
+      ],
+      "notes": [
+        "Provides context — child Buttons inherit variant/size/radius automatically."
+      ],
+      "a11y": [
+        "Provides context — child Buttons inherit variant/size/radius automatically."
+      ],
+      "related": [
+        "Button",
+        "IconButton",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/button-group"
+      ],
+      "examples": [
+        "import { Button, ButtonGroup } from '@7onic-ui/react'\n\n<ButtonGroup variant=\"outline\" size=\"default\" attached>\n  <Button>Left</Button>\n  <Button>Center</Button>\n  <Button>Right</Button>\n</ButtonGroup>"
+      ]
+    },
+    {
+      "name": "Input",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Input"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'default' \\| 'filled'`",
+          "default": "`'default'`",
+          "description": "Border or filled background",
+          "enumValues": [
+            "default",
+            "filled"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'default' \\| 'lg' \\| 'xl'`",
+          "default": "`'default'`",
+          "description": "Height: 36/40/44/48/56px",
+          "enumValues": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ]
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "`'none' \\| 'sm' \\| 'base' \\| 'default' \\| 'lg' \\| 'xl' \\| '2xl' \\| '3xl' \\| 'full'`",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": [
+            "none",
+            "sm",
+            "base",
+            "default",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        },
+        {
+          "target": null,
+          "name": "error",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Error border state",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "focusRing",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Explicit focus ring (vs keyboard-only)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "leftIcon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Left icon",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "rightIcon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Right icon",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "default",
+            "filled"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "radius",
+          "values": [
+            "none",
+            "sm",
+            "base",
+            "default",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ],
+          "description": "Height: 36/40/44/48/56px"
+        }
+      ],
+      "notes": [
+        "**Works with Field wrapper** for label, error, char count. See Field section."
+      ],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/input"
+      ],
+      "examples": [
+        "import { Input } from '@7onic-ui/react'\n\n<Input placeholder=\"Email\" size=\"default\" />\n<Input variant=\"filled\" leftIcon={<SearchIcon />} />\n<Input error rightIcon={<AlertIcon />} />"
+      ]
+    },
+    {
+      "name": "Textarea",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Textarea"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'default' \\| 'filled'`",
+          "default": "`'default'`",
+          "description": "Border or filled",
+          "enumValues": [
+            "default",
+            "filled"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'compact' \\| 'default'`",
+          "default": "`'default'`",
+          "description": "Padding density",
+          "enumValues": [
+            "compact",
+            "default"
+          ]
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "Same as Input",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "resize",
+          "type": "`'none' \\| 'vertical' \\| 'horizontal' \\| 'both'`",
+          "default": "`'vertical'`",
+          "description": "Resize handle",
+          "enumValues": [
+            "none",
+            "vertical",
+            "horizontal",
+            "both"
+          ]
+        },
+        {
+          "target": null,
+          "name": "error",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Error state",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "focusRing",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Explicit focus ring",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "rows",
+          "type": "`number`",
+          "default": "`4`",
+          "description": "Initial row count",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "default",
+            "filled"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "compact",
+            "default"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "resize",
+          "values": [
+            "none",
+            "vertical",
+            "horizontal",
+            "both"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "compact",
+            "default"
+          ],
+          "description": "Padding density"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/textarea"
+      ],
+      "examples": [
+        "import { Textarea } from '@7onic-ui/react'\n\n<Textarea placeholder=\"Message\" rows={4} resize=\"vertical\" />"
+      ]
+    },
+    {
+      "name": "Select",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Select",
+        "SelectContent",
+        "SelectGroup",
+        "SelectItem",
+        "SelectLabel",
+        "SelectTrigger",
+        "SelectValue"
+      ],
+      "compound": true,
+      "subComponents": [
+        "SelectTrigger",
+        "SelectValue",
+        "SelectContent",
+        "SelectItem",
+        "SelectGroup",
+        "SelectLabel",
+        "SelectSeparator"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'default' \\| 'lg' \\| 'xl'`",
+          "default": "`'default'`",
+          "description": "Trigger height",
+          "enumValues": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "Same as Input",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "value",
+          "type": "`string`",
+          "default": "—",
+          "description": "Controlled value",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "defaultValue",
+          "type": "`string`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "onValueChange",
+          "type": "`(value: string) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ],
+          "description": "Trigger height"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/select"
+      ],
+      "examples": [
+        "import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@7onic-ui/react'\n\n<Select>\n  <SelectTrigger>\n    <SelectValue placeholder=\"Choose option\" />\n  </SelectTrigger>\n  <SelectContent>\n    <SelectItem value=\"a\">Option A</SelectItem>\n    <SelectItem value=\"b\">Option B</SelectItem>\n    <SelectGroup>\n      <SelectLabel>Group</SelectLabel>\n      <SelectItem value=\"c\">Option C</SelectItem>\n    </SelectGroup>\n  </SelectContent>\n</Select>"
+      ]
+    },
+    {
+      "name": "DropdownMenu",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Button",
+        "DropdownMenu",
+        "DropdownMenuContent",
+        "DropdownMenuItem",
+        "DropdownMenuSeparator",
+        "DropdownMenuTrigger"
+      ],
+      "compound": true,
+      "subComponents": [
+        "DropdownMenuTrigger",
+        "DropdownMenuContent",
+        "DropdownMenuItem",
+        "DropdownMenuCheckboxItem",
+        "DropdownMenuRadioGroup",
+        "DropdownMenuRadioItem",
+        "DropdownMenuLabel",
+        "DropdownMenuSeparator",
+        "DropdownMenuGroup",
+        "DropdownMenuSub",
+        "DropdownMenuSubTrigger",
+        "DropdownMenuSubContent",
+        "DropdownMenuShortcut"
+      ],
+      "props": [
+        {
+          "target": "Content",
+          "name": "radius",
+          "type": "`'md' \\| 'lg' \\| 'xl'`",
+          "default": "`'md'`",
+          "description": "Border radius",
+          "enumValues": [
+            "md",
+            "lg",
+            "xl"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "size",
+          "type": "`'sm' \\| 'md' \\| 'lg'`",
+          "default": "`'md'`",
+          "description": "Item density",
+          "enumValues": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "flush",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Full-width items (no padding)",
+          "enumValues": null
+        },
+        {
+          "target": "Content",
+          "name": "sideOffset",
+          "type": "`number`",
+          "default": "`4`",
+          "description": "Gap from trigger",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Content",
+          "prop": "radius",
+          "values": [
+            "md",
+            "lg",
+            "xl"
+          ]
+        },
+        {
+          "target": "Content",
+          "prop": "size",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Content",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Item density"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/dropdown"
+      ],
+      "examples": [
+        "import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@7onic-ui/react'\n\n<DropdownMenu>\n  <DropdownMenuTrigger asChild>\n    <Button variant=\"outline\">Options</Button>\n  </DropdownMenuTrigger>\n  <DropdownMenuContent>\n    <DropdownMenuItem>Edit</DropdownMenuItem>\n    <DropdownMenuItem>Duplicate</DropdownMenuItem>\n    <DropdownMenuSeparator />\n    <DropdownMenuItem className=\"text-error\">Delete</DropdownMenuItem>\n  </DropdownMenuContent>\n</DropdownMenu>"
+      ]
+    },
+    {
+      "name": "Checkbox",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Checkbox"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Checkbox size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "`'none' \\| 'sm' \\| 'md'`",
+          "default": "`'sm'`",
+          "description": "Border radius",
+          "enumValues": [
+            "none",
+            "sm",
+            "md"
+          ]
+        },
+        {
+          "target": null,
+          "name": "weight",
+          "type": "`'thin' \\| 'bold'`",
+          "default": "`'bold'`",
+          "description": "Checkmark thickness",
+          "enumValues": [
+            "thin",
+            "bold"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Checked color",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": null,
+          "name": "label",
+          "type": "`string`",
+          "default": "—",
+          "description": "Label text",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "checked",
+          "type": "`boolean \\| 'indeterminate'`",
+          "default": "—",
+          "description": "Controlled state",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "defaultChecked",
+          "type": "`boolean`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "onCheckedChange",
+          "type": "`(checked: boolean \\| 'indeterminate') => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disabled state",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "radius",
+          "values": [
+            "none",
+            "sm",
+            "md"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "weight",
+          "values": [
+            "thin",
+            "bold"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Checkbox size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/checkbox"
+      ],
+      "examples": [
+        "import { Checkbox } from '@7onic-ui/react'\n\n<Checkbox label=\"Accept terms\" />\n<Checkbox size=\"lg\" color=\"primary\" checked />\n<Checkbox checked=\"indeterminate\" />"
+      ]
+    },
+    {
+      "name": "RadioGroup",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "RadioGroup",
+        "RadioGroupItem"
+      ],
+      "compound": true,
+      "subComponents": [
+        "RadioGroupItem"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Radio size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "weight",
+          "type": "`'thin' \\| 'bold'`",
+          "default": "`'bold'`",
+          "description": "Indicator thickness",
+          "enumValues": [
+            "thin",
+            "bold"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Selected color",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "orientation",
+          "type": "`'horizontal' \\| 'vertical'`",
+          "default": "`'vertical'`",
+          "description": "Layout direction",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "value",
+          "type": "`string`",
+          "default": "—",
+          "description": "Controlled value",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "defaultValue",
+          "type": "`string`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "onValueChange",
+          "type": "`(value: string) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "weight",
+          "values": [
+            "thin",
+            "bold"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "orientation",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Radio size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/radio"
+      ],
+      "examples": [
+        "import { RadioGroup, RadioGroupItem } from '@7onic-ui/react'\n\n<RadioGroup defaultValue=\"a\">\n  <RadioGroupItem value=\"a\" label=\"Option A\" />\n  <RadioGroupItem value=\"b\" label=\"Option B\" />\n  <RadioGroupItem value=\"c\" label=\"Option C\" disabled />\n</RadioGroup>"
+      ]
+    },
+    {
+      "name": "Switch",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Switch"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Track size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary' \\| 'success' \\| 'warning' \\| 'error'`",
+          "default": "`'default'`",
+          "description": "Active track color",
+          "enumValues": [
+            "default",
+            "primary",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        {
+          "target": null,
+          "name": "label",
+          "type": "`string`",
+          "default": "—",
+          "description": "Label text",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "labelPosition",
+          "type": "`'start' \\| 'end' \\| 'top' \\| 'bottom'`",
+          "default": "`'end'`",
+          "description": "Label placement",
+          "enumValues": [
+            "start",
+            "end",
+            "top",
+            "bottom"
+          ]
+        },
+        {
+          "target": null,
+          "name": "startLabel",
+          "type": "`string`",
+          "default": "—",
+          "description": "Left label (off state)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "endLabel",
+          "type": "`string`",
+          "default": "—",
+          "description": "Right label (on state)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "checkedIcon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Icon when checked",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "uncheckedIcon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Icon when unchecked",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "checked",
+          "type": "`boolean`",
+          "default": "—",
+          "description": "Controlled state",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "defaultChecked",
+          "type": "`boolean`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "onCheckedChange",
+          "type": "`(checked: boolean) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disabled state",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "labelPosition",
+          "values": [
+            "start",
+            "end",
+            "top",
+            "bottom"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Track size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/switch"
+      ],
+      "examples": [
+        "import { Switch } from '@7onic-ui/react'\n\n<Switch label=\"Notifications\" />\n<Switch size=\"lg\" color=\"primary\" defaultChecked />\n<Switch startLabel=\"Off\" endLabel=\"On\" />"
+      ]
+    },
+    {
+      "name": "Toggle",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Toggle"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'default' \\| 'outline' \\| 'ghost' \\| 'outline-ghost'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "outline",
+            "ghost",
+            "outline-ghost"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "28/32/36/40/48px",
+          "enumValues": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "Same as Button",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "fontWeight",
+          "type": "`'normal' \\| 'semibold'`",
+          "default": "per variant",
+          "description": "Font weight",
+          "enumValues": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": null,
+          "name": "iconOnly",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Square mode (no text padding)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "pressEffect",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Scale-down on press",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "pressed",
+          "type": "`boolean`",
+          "default": "—",
+          "description": "Controlled state",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "defaultPressed",
+          "type": "`boolean`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "onPressedChange",
+          "type": "`(pressed: boolean) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "default",
+            "outline",
+            "ghost",
+            "outline-ghost"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "fontWeight",
+          "values": [
+            "normal",
+            "semibold"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ],
+          "description": "28/32/36/40/48px"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "ToggleGroup",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/toggle"
+      ],
+      "examples": [
+        "import { Toggle } from '@7onic-ui/react'\n\n<Toggle variant=\"default\" aria-label=\"Bold\">\n  <BoldIcon />\n</Toggle>\n<Toggle variant=\"outline\" pressed>Active</Toggle>"
+      ]
+    },
+    {
+      "name": "ToggleGroup",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "ToggleGroup",
+        "ToggleGroupItem"
+      ],
+      "compound": true,
+      "subComponents": [
+        "ToggleGroupItem"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "type",
+          "type": "`'single' \\| 'multiple'`",
+          "default": "required",
+          "description": "Selection mode",
+          "enumValues": [
+            "single",
+            "multiple"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'outline'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "outline"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Item size",
+          "enumValues": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "Same as Button",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "fontWeight",
+          "type": "`'normal' \\| 'semibold'`",
+          "default": "per variant",
+          "description": "Font weight",
+          "enumValues": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "orientation",
+          "type": "`'horizontal' \\| 'vertical'`",
+          "default": "`'horizontal'`",
+          "description": "Layout direction",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "value",
+          "type": "`string \\| string[]`",
+          "default": "—",
+          "description": "Controlled value",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "defaultValue",
+          "type": "`string \\| string[]`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "onValueChange",
+          "type": "`(value) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "type",
+          "values": [
+            "single",
+            "multiple"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "outline"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "fontWeight",
+          "values": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "orientation",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ],
+          "description": "Item size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "Segmented",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/toggle-group"
+      ],
+      "examples": [
+        "import { ToggleGroup, ToggleGroupItem } from '@7onic-ui/react'\n\n<ToggleGroup type=\"single\" defaultValue=\"center\">\n  <ToggleGroupItem value=\"left\"><AlignLeftIcon /></ToggleGroupItem>\n  <ToggleGroupItem value=\"center\"><AlignCenterIcon /></ToggleGroupItem>\n  <ToggleGroupItem value=\"right\"><AlignRightIcon /></ToggleGroupItem>\n</ToggleGroup>"
+      ]
+    },
+    {
+      "name": "Segmented",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Segmented",
+        "SegmentedItem"
+      ],
+      "compound": true,
+      "subComponents": [
+        "SegmentedItem"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'outline' \\| 'underline' \\| 'ghost'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "outline",
+            "underline",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "32/36/40/48px (no xs)",
+          "enumValues": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "Same as Button (excl. none)",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "fontWeight",
+          "type": "`'normal' \\| 'semibold'`",
+          "default": "per variant",
+          "description": "Font weight",
+          "enumValues": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "value",
+          "type": "`string`",
+          "default": "—",
+          "description": "Controlled value",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "defaultValue",
+          "type": "`string`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "onValueChange",
+          "type": "`(value: string) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "outline",
+            "underline",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "fontWeight",
+          "values": [
+            "normal",
+            "semibold"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ],
+          "description": "32/36/40/48px (no xs)"
+        }
+      ],
+      "notes": [
+        "**Note:** Only 4 sizes (no xs) — intentional design decision."
+      ],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Slider",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/segmented"
+      ],
+      "examples": [
+        "import { Segmented, SegmentedItem } from '@7onic-ui/react'\n\n<Segmented defaultValue=\"all\">\n  <SegmentedItem value=\"all\">All</SegmentedItem>\n  <SegmentedItem value=\"active\">Active</SegmentedItem>\n  <SegmentedItem value=\"inactive\">Inactive</SegmentedItem>\n</Segmented>"
+      ]
+    },
+    {
+      "name": "Slider",
+      "annotation": null,
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Slider"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Track/thumb size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Active track color",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": null,
+          "name": "showTooltip",
+          "type": "`'auto' \\| 'always' \\| 'never'`",
+          "default": "`'never'`",
+          "description": "Tooltip display",
+          "enumValues": [
+            "auto",
+            "always",
+            "never"
+          ]
+        },
+        {
+          "target": null,
+          "name": "formatLabel",
+          "type": "`(value: number) => string`",
+          "default": "—",
+          "description": "Tooltip value formatter",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "startContent",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Left content (label/icon)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "endContent",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Right content (label/icon)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "orientation",
+          "type": "`'horizontal' \\| 'vertical'`",
+          "default": "`'horizontal'`",
+          "description": "Direction",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": null,
+          "name": "value",
+          "type": "`number[]`",
+          "default": "—",
+          "description": "Controlled value(s)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "defaultValue",
+          "type": "`number[]`",
+          "default": "—",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "onValueChange",
+          "type": "`(value: number[]) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "min",
+          "type": "`number`",
+          "default": "`0`",
+          "description": "Minimum value",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "max",
+          "type": "`number`",
+          "default": "`100`",
+          "description": "Maximum value",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "step",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Step increment",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "showTooltip",
+          "values": [
+            "auto",
+            "always",
+            "never"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "orientation",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Track/thumb size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Field"
+      ],
+      "docsUrls": [
+        "/components/slider"
+      ],
+      "examples": [
+        "import { Slider } from '@7onic-ui/react'\n\n<Slider defaultValue={[50]} showTooltip=\"auto\" />\n<Slider defaultValue={[20, 80]} color=\"primary\" />"
+      ]
+    },
+    {
+      "name": "Field",
+      "annotation": "Form Wrapper",
+      "category": "Forms",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Field",
+        "FieldCharCount",
+        "FieldError",
+        "FieldLabel",
+        "Input",
+        "Textarea"
+      ],
+      "compound": true,
+      "subComponents": [
+        "FieldLabel",
+        "FieldError",
+        "FieldCharCount"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "gap",
+          "type": "`'none' \\| 'xs' \\| 'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Gap between elements",
+          "enumValues": [
+            "none",
+            "xs",
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "error",
+          "type": "`string \\| boolean`",
+          "default": "—",
+          "description": "Error message (passed to children via context)",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disabled state (passed to children via context)",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "gap",
+          "values": [
+            "none",
+            "xs",
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [],
+      "notes": [
+        "**Context:** Input, Textarea, Checkbox, RadioGroup, Select auto-detect Field context for error/disabled/id."
+      ],
+      "a11y": [],
+      "related": [
+        "Button",
+        "IconButton",
+        "ButtonGroup",
+        "Input",
+        "Textarea",
+        "Select",
+        "DropdownMenu",
+        "Checkbox",
+        "RadioGroup",
+        "Switch",
+        "Toggle",
+        "ToggleGroup",
+        "Segmented",
+        "Slider"
+      ],
+      "docsUrls": [],
+      "examples": [
+        "import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '@7onic-ui/react'\n\n<Field error=\"Invalid email\">\n  <FieldLabel required>Email</FieldLabel>\n  <Input placeholder=\"you@example.com\" />\n  <FieldError />\n</Field>\n\n<Field>\n  <FieldLabel>Bio</FieldLabel>\n  <Textarea placeholder=\"Tell us about yourself\" maxLength={200} />\n  <FieldCharCount />\n</Field>"
+      ]
+    },
+    {
+      "name": "Avatar",
+      "annotation": null,
+      "category": "Data Display",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Avatar",
+        "AvatarFallback",
+        "AvatarGroup",
+        "AvatarImage"
+      ],
+      "compound": true,
+      "subComponents": [
+        "AvatarImage",
+        "AvatarFallback",
+        "AvatarGroup"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'default' \\| 'lg' \\| 'xl' \\| '2xl'`",
+          "default": "`'default'`",
+          "description": "Avatar size",
+          "enumValues": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl",
+            "2xl"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "shape",
+          "type": "`'circle' \\| 'square'`",
+          "default": "`'circle'`",
+          "description": "Avatar shape",
+          "enumValues": [
+            "circle",
+            "square"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "status",
+          "type": "`'online' \\| 'offline' \\| 'busy' \\| 'away'`",
+          "default": "—",
+          "description": "Status indicator dot",
+          "enumValues": [
+            "online",
+            "offline",
+            "busy",
+            "away"
+          ]
+        },
+        {
+          "target": "Fallback",
+          "name": "name",
+          "type": "`string`",
+          "default": "—",
+          "description": "Auto-generates initials",
+          "enumValues": null
+        },
+        {
+          "target": "Fallback",
+          "name": "colorized",
+          "type": "`string`",
+          "default": "—",
+          "description": "Pass a name/key string to enable deterministic colored fallback",
+          "enumValues": null
+        },
+        {
+          "target": "Fallback",
+          "name": "colorVariant",
+          "type": "`'vivid' \\| 'soft'`",
+          "default": "`'vivid'`",
+          "description": "Color intensity",
+          "enumValues": [
+            "vivid",
+            "soft"
+          ]
+        },
+        {
+          "target": "Group",
+          "name": "max",
+          "type": "`number`",
+          "default": "—",
+          "description": "Max visible avatars",
+          "enumValues": null
+        },
+        {
+          "target": "Group",
+          "name": "size",
+          "type": "Same as Root",
+          "default": "—",
+          "description": "Override all children",
+          "enumValues": null
+        },
+        {
+          "target": "Group",
+          "name": "shape",
+          "type": "Same as Root",
+          "default": "—",
+          "description": "Override all children",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl",
+            "2xl"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "shape",
+          "values": [
+            "circle",
+            "square"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "status",
+          "values": [
+            "online",
+            "offline",
+            "busy",
+            "away"
+          ]
+        },
+        {
+          "target": "Fallback",
+          "prop": "colorVariant",
+          "values": [
+            "vivid",
+            "soft"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl",
+            "2xl"
+          ],
+          "description": "Avatar size"
+        },
+        {
+          "target": "Group",
+          "values": [],
+          "description": "Override all children"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Badge",
+        "Card",
+        "Table"
+      ],
+      "docsUrls": [
+        "/components/avatar"
+      ],
+      "examples": [
+        "import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@7onic-ui/react'\n\n<Avatar size=\"default\">\n  <AvatarImage src=\"/photo.jpg\" alt=\"User\" />\n  <AvatarFallback name=\"John Doe\" colorized />\n</Avatar>\n\n<AvatarGroup max={3}>\n  <Avatar><AvatarImage src=\"/a.jpg\" /><AvatarFallback>A</AvatarFallback></Avatar>\n  <Avatar><AvatarImage src=\"/b.jpg\" /><AvatarFallback>B</AvatarFallback></Avatar>\n  <Avatar><AvatarImage src=\"/c.jpg\" /><AvatarFallback>C</AvatarFallback></Avatar>\n  <Avatar><AvatarFallback>+2</AvatarFallback></Avatar>\n</AvatarGroup>"
+      ]
+    },
+    {
+      "name": "Badge",
+      "annotation": null,
+      "category": "Data Display",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Badge"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'solid' \\| 'subtle' \\| 'outline'`",
+          "default": "`'subtle'`",
+          "description": "Visual style",
+          "enumValues": [
+            "solid",
+            "subtle",
+            "outline"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary' \\| 'success' \\| 'warning' \\| 'error' \\| 'info'`",
+          "default": "`'default'`",
+          "description": "Color scheme",
+          "enumValues": [
+            "default",
+            "primary",
+            "success",
+            "warning",
+            "error",
+            "info"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Badge size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "`'sm' \\| 'base' \\| 'md' \\| 'lg' \\| 'full'`",
+          "default": "`'full'`",
+          "description": "Border radius",
+          "enumValues": [
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "full"
+          ]
+        },
+        {
+          "target": null,
+          "name": "icon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Leading icon",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "dot",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Status dot indicator",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "removable",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Shows remove button",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "onRemove",
+          "type": "`() => void`",
+          "default": "—",
+          "description": "Remove handler",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "asChild",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Slot pattern",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "solid",
+            "subtle",
+            "outline"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary",
+            "success",
+            "warning",
+            "error",
+            "info"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "radius",
+          "values": [
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "full"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Badge size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Avatar",
+        "Card",
+        "Table"
+      ],
+      "docsUrls": [
+        "/components/badge"
+      ],
+      "examples": [
+        "import { Badge } from '@7onic-ui/react'\n\n<Badge variant=\"solid\" color=\"primary\">New</Badge>\n<Badge variant=\"subtle\" color=\"success\" dot>Active</Badge>\n<Badge variant=\"outline\" removable onRemove={() => {}}>Tag</Badge>"
+      ]
+    },
+    {
+      "name": "Card",
+      "annotation": null,
+      "category": "Data Display",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Card",
+        "CardAction",
+        "CardContent",
+        "CardDescription",
+        "CardFooter",
+        "CardHeader",
+        "CardImage",
+        "CardTitle",
+        "IconButton"
+      ],
+      "compound": true,
+      "subComponents": [
+        "CardImage",
+        "CardHeader",
+        "CardTitle",
+        "CardDescription",
+        "CardAction",
+        "CardContent",
+        "CardFooter"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'outline' \\| 'ghost'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "outline",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Padding scale",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "`'sm' \\| 'base' \\| 'md' \\| 'lg' \\| 'xl' \\| '2xl'`",
+          "default": "`'xl'`",
+          "description": "Border radius",
+          "enumValues": [
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "direction",
+          "type": "`'vertical' \\| 'horizontal'`",
+          "default": "`'vertical'`",
+          "description": "Layout direction",
+          "enumValues": [
+            "vertical",
+            "horizontal"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "interactive",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Hover shadow + lift",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "asChild",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Slot pattern",
+          "enumValues": null
+        },
+        {
+          "target": "Image",
+          "name": "overlay",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Gradient overlay",
+          "enumValues": null
+        },
+        {
+          "target": "Image",
+          "name": "overlayOpacity",
+          "type": "`10-90`",
+          "default": "`60`",
+          "description": "Overlay darkness",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "outline",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "radius",
+          "values": [
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "direction",
+          "values": [
+            "vertical",
+            "horizontal"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Padding scale"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Avatar",
+        "Badge",
+        "Table"
+      ],
+      "docsUrls": [
+        "/components/card"
+      ],
+      "examples": [
+        "import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardImage, CardTitle, IconButton } from '@7onic-ui/react'\n\n<Card variant=\"default\" interactive>\n  <CardImage src=\"/cover.jpg\" overlay overlayOpacity={40} />\n  <CardHeader>\n    <CardTitle icon={<StarIcon />}>Featured</CardTitle>\n    <CardDescription>Card description</CardDescription>\n    <CardAction><IconButton variant=\"ghost\"><MoreIcon /></IconButton></CardAction>\n  </CardHeader>\n  <CardContent>Main content</CardContent>\n  <CardFooter>Footer actions</CardFooter>\n</Card>"
+      ]
+    },
+    {
+      "name": "Table",
+      "annotation": null,
+      "category": "Data Display",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Table",
+        "TableBody",
+        "TableCell",
+        "TableHead",
+        "TableHeader",
+        "TableRow"
+      ],
+      "compound": true,
+      "subComponents": [
+        "TableHeader",
+        "TableBody",
+        "TableFooter",
+        "TableRow",
+        "TableHead",
+        "TableCell",
+        "TableCaption"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'bordered' \\| 'striped'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "bordered",
+            "striped"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Cell padding",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "stickyHeader",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Sticky header row",
+          "enumValues": null
+        },
+        {
+          "target": "Head",
+          "name": "align",
+          "type": "`'left' \\| 'center' \\| 'right'`",
+          "default": "`'left'`",
+          "description": "Text alignment",
+          "enumValues": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        {
+          "target": "Head",
+          "name": "sortable",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Shows sort indicator",
+          "enumValues": null
+        },
+        {
+          "target": "Head",
+          "name": "sortDirection",
+          "type": "`'asc' \\| 'desc' \\| null`",
+          "default": "—",
+          "description": "Current sort state",
+          "enumValues": null
+        },
+        {
+          "target": "Head",
+          "name": "onSort",
+          "type": "`() => void`",
+          "default": "—",
+          "description": "Sort handler",
+          "enumValues": null
+        },
+        {
+          "target": "Row",
+          "name": "interactive",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Hover highlight",
+          "enumValues": null
+        },
+        {
+          "target": "Row",
+          "name": "selected",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Selected state",
+          "enumValues": null
+        },
+        {
+          "target": "Cell",
+          "name": "align",
+          "type": "`'left' \\| 'center' \\| 'right'`",
+          "default": "`'left'`",
+          "description": "Text alignment",
+          "enumValues": [
+            "left",
+            "center",
+            "right"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "bordered",
+            "striped"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Head",
+          "prop": "align",
+          "values": [
+            "left",
+            "center",
+            "right"
+          ]
+        },
+        {
+          "target": "Cell",
+          "prop": "align",
+          "values": [
+            "left",
+            "center",
+            "right"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Cell padding"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Avatar",
+        "Badge",
+        "Card"
+      ],
+      "docsUrls": [
+        "/components/table"
+      ],
+      "examples": [
+        "import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@7onic-ui/react'\n\n<Table variant=\"default\" stickyHeader>\n  <TableHeader>\n    <TableRow>\n      <TableHead sortable sortDirection=\"asc\" onSort={() => {}}>Name</TableHead>\n      <TableHead align=\"right\">Amount</TableHead>\n    </TableRow>\n  </TableHeader>\n  <TableBody>\n    <TableRow interactive>\n      <TableCell>John</TableCell>\n      <TableCell align=\"right\">$100</TableCell>\n    </TableRow>\n  </TableBody>\n</Table>"
+      ]
+    },
+    {
+      "name": "Tabs",
+      "annotation": null,
+      "category": "Layout",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Tabs",
+        "TabsContent",
+        "TabsList",
+        "TabsTrigger"
+      ],
+      "compound": true,
+      "subComponents": [
+        "TabsList",
+        "TabsTrigger",
+        "TabsContent"
+      ],
+      "props": [
+        {
+          "target": "List",
+          "name": "variant",
+          "type": "`'line' \\| 'enclosed' \\| 'pill'`",
+          "default": "`'line'`",
+          "description": "Tab style",
+          "enumValues": [
+            "line",
+            "enclosed",
+            "pill"
+          ]
+        },
+        {
+          "target": "List",
+          "name": "size",
+          "type": "`'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Tab size",
+          "enumValues": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "List",
+          "name": "fitted",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Full width tabs",
+          "enumValues": null
+        },
+        {
+          "target": "List",
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Active tab color",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "List",
+          "name": "radius",
+          "type": "`'none' \\| 'sm' \\| 'base' \\| 'md' \\| 'lg' \\| 'xl' \\| '2xl' \\| '3xl' \\| 'full'`",
+          "default": "`'md'`",
+          "description": "Border radius (enclosed/pill)",
+          "enumValues": [
+            "none",
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "target": "List",
+          "prop": "variant",
+          "values": [
+            "line",
+            "enclosed",
+            "pill"
+          ]
+        },
+        {
+          "target": "List",
+          "prop": "size",
+          "values": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "List",
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "List",
+          "prop": "radius",
+          "values": [
+            "none",
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "List",
+          "values": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ],
+          "description": "Tab size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Accordion",
+        "Divider"
+      ],
+      "docsUrls": [
+        "/components/tabs"
+      ],
+      "examples": [
+        "import { Tabs, TabsContent, TabsList, TabsTrigger } from '@7onic-ui/react'\n\n<Tabs defaultValue=\"tab1\">\n  <TabsList variant=\"line\" size=\"default\">\n    <TabsTrigger value=\"tab1\">Tab 1</TabsTrigger>\n    <TabsTrigger value=\"tab2\">Tab 2</TabsTrigger>\n  </TabsList>\n  <TabsContent value=\"tab1\">Content 1</TabsContent>\n  <TabsContent value=\"tab2\">Content 2</TabsContent>\n</Tabs>"
+      ]
+    },
+    {
+      "name": "Accordion",
+      "annotation": null,
+      "category": "Layout",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Accordion",
+        "AccordionContent",
+        "AccordionItem",
+        "AccordionTrigger"
+      ],
+      "compound": true,
+      "subComponents": [
+        "AccordionItem",
+        "AccordionTrigger",
+        "AccordionContent"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "type",
+          "type": "`'single' \\| 'multiple'`",
+          "default": "`'single'`",
+          "description": "Expansion mode",
+          "enumValues": [
+            "single",
+            "multiple"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'bordered' \\| 'splitted'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "bordered",
+            "splitted"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Padding scale",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "iconPosition",
+          "type": "`'left' \\| 'right'`",
+          "default": "`'right'`",
+          "description": "Chevron placement",
+          "enumValues": [
+            "left",
+            "right"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "collapsible",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Allow all closed (single only)",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "type",
+          "values": [
+            "single",
+            "multiple"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "bordered",
+            "splitted"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "iconPosition",
+          "values": [
+            "left",
+            "right"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Padding scale"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Tabs",
+        "Divider"
+      ],
+      "docsUrls": [
+        "/components/accordion"
+      ],
+      "examples": [
+        "import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@7onic-ui/react'\n\n<Accordion type=\"single\" collapsible defaultValue=\"item-1\">\n  <AccordionItem value=\"item-1\">\n    <AccordionTrigger>Section 1</AccordionTrigger>\n    <AccordionContent>Content 1</AccordionContent>\n  </AccordionItem>\n  <AccordionItem value=\"item-2\">\n    <AccordionTrigger>Section 2</AccordionTrigger>\n    <AccordionContent>Content 2</AccordionContent>\n  </AccordionItem>\n</Accordion>"
+      ]
+    },
+    {
+      "name": "Divider",
+      "annotation": null,
+      "category": "Layout",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Divider"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "orientation",
+          "type": "`'horizontal' \\| 'vertical'`",
+          "default": "`'horizontal'`",
+          "description": "Direction",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'solid' \\| 'dashed' \\| 'dotted'`",
+          "default": "`'solid'`",
+          "description": "Line style",
+          "enumValues": [
+            "solid",
+            "dashed",
+            "dotted"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'muted' \\| 'strong'`",
+          "default": "`'default'`",
+          "description": "Line color",
+          "enumValues": [
+            "default",
+            "muted",
+            "strong"
+          ]
+        },
+        {
+          "target": null,
+          "name": "spacing",
+          "type": "`'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Margin around line",
+          "enumValues": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "label",
+          "type": "`string`",
+          "default": "—",
+          "description": "Center label text",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "labelPosition",
+          "type": "`'left' \\| 'center' \\| 'right'`",
+          "default": "`'center'`",
+          "description": "Label placement",
+          "enumValues": [
+            "left",
+            "center",
+            "right"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "orientation",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "solid",
+            "dashed",
+            "dotted"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "muted",
+            "strong"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "spacing",
+          "values": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "labelPosition",
+          "values": [
+            "left",
+            "center",
+            "right"
+          ]
+        }
+      ],
+      "sizeSpec": [],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Tabs",
+        "Accordion"
+      ],
+      "docsUrls": [
+        "/components/divider"
+      ],
+      "examples": [
+        "import { Divider } from '@7onic-ui/react'\n\n<Divider />\n<Divider variant=\"dashed\" color=\"muted\" />\n<Divider label=\"OR\" labelPosition=\"center\" />\n<Divider orientation=\"vertical\" />"
+      ]
+    },
+    {
+      "name": "Modal",
+      "annotation": null,
+      "category": "Overlay",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Button",
+        "Modal",
+        "ModalBody",
+        "ModalClose",
+        "ModalContent",
+        "ModalDescription",
+        "ModalFooter",
+        "ModalHeader",
+        "ModalOverlay",
+        "ModalPortal",
+        "ModalTitle",
+        "ModalTrigger"
+      ],
+      "compound": true,
+      "subComponents": [
+        "ModalTrigger",
+        "ModalPortal",
+        "ModalOverlay",
+        "ModalContent",
+        "ModalHeader",
+        "ModalTitle",
+        "ModalDescription",
+        "ModalBody",
+        "ModalFooter",
+        "ModalClose"
+      ],
+      "props": [
+        {
+          "target": "Content",
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'md' \\| 'lg' \\| 'xl' \\| 'full'`",
+          "default": "`'sm'`",
+          "description": "Modal width",
+          "enumValues": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "scrollBehavior",
+          "type": "`'inside' \\| 'outside'`",
+          "default": "`'outside'`",
+          "description": "Scroll target",
+          "enumValues": [
+            "inside",
+            "outside"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "showCloseButton",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Show X button",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Content",
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ]
+        },
+        {
+          "target": "Content",
+          "prop": "scrollBehavior",
+          "values": [
+            "inside",
+            "outside"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Content",
+          "values": [
+            "xs",
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ],
+          "description": "Modal width"
+        }
+      ],
+      "notes": [
+        "**Required structure:** Portal → Overlay + Content. Don't forget Portal and Overlay."
+      ],
+      "a11y": [],
+      "related": [
+        "AlertModal",
+        "Drawer",
+        "Tooltip",
+        "Popover"
+      ],
+      "docsUrls": [
+        "/components/modal"
+      ],
+      "examples": [
+        "import { Button, Modal, ModalBody, ModalClose, ModalContent, ModalDescription, ModalFooter, ModalHeader, ModalOverlay, ModalPortal, ModalTitle, ModalTrigger } from '@7onic-ui/react'\n\n<Modal>\n  <ModalTrigger asChild>\n    <Button>Open Modal</Button>\n  </ModalTrigger>\n  <ModalPortal>\n    <ModalOverlay />\n    <ModalContent size=\"md\">\n      <ModalHeader>\n        <ModalTitle>Confirm</ModalTitle>\n        <ModalDescription>Are you sure?</ModalDescription>\n      </ModalHeader>\n      <ModalBody>Modal body content</ModalBody>\n      <ModalFooter>\n        <ModalClose asChild><Button variant=\"outline\">Cancel</Button></ModalClose>\n        <Button color=\"primary\">Confirm</Button>\n      </ModalFooter>\n    </ModalContent>\n  </ModalPortal>\n</Modal>"
+      ]
+    },
+    {
+      "name": "AlertModal",
+      "annotation": null,
+      "category": "Overlay",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "AlertModal",
+        "AlertModalAction",
+        "AlertModalBody",
+        "AlertModalCancel",
+        "AlertModalContent",
+        "AlertModalDescription",
+        "AlertModalFooter",
+        "AlertModalHeader",
+        "AlertModalOverlay",
+        "AlertModalPortal",
+        "AlertModalTitle",
+        "AlertModalTrigger",
+        "Button"
+      ],
+      "compound": true,
+      "subComponents": [
+        "AlertModalTrigger",
+        "AlertModalPortal",
+        "AlertModalOverlay",
+        "AlertModalContent",
+        "AlertModalHeader",
+        "AlertModalTitle",
+        "AlertModalDescription",
+        "AlertModalBody",
+        "AlertModalFooter",
+        "AlertModalAction",
+        "AlertModalCancel"
+      ],
+      "props": [
+        {
+          "target": "Content",
+          "name": "size",
+          "type": "`'xs' \\| 'sm'`",
+          "default": "`'sm'`",
+          "description": "AlertModal width (smaller than Modal by design)",
+          "enumValues": [
+            "xs",
+            "sm"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "target": "Content",
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Content",
+          "values": [
+            "xs",
+            "sm"
+          ],
+          "description": "AlertModal width (smaller than Modal by design)"
+        }
+      ],
+      "notes": [
+        "**Required structure:** Portal → Overlay + Content (same as Modal). Use for destructive confirmations — renders as `role=\"alertdialog\"` via Radix AlertDialog primitive. No close button by default (force user to Action or Cancel)."
+      ],
+      "a11y": [
+        "**Required structure:** Portal → Overlay + Content (same as Modal). Use for destructive confirmations — renders as `role=\"alertdialog\"` via Radix AlertDialog primitive. No close button by default (force user to Action or Cancel)."
+      ],
+      "related": [
+        "Modal",
+        "Drawer",
+        "Tooltip",
+        "Popover"
+      ],
+      "docsUrls": [
+        "/components/modal"
+      ],
+      "examples": [
+        "import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertModalContent, AlertModalDescription, AlertModalFooter, AlertModalHeader, AlertModalOverlay, AlertModalPortal, AlertModalTitle, AlertModalTrigger, Button } from '@7onic-ui/react'\n\n<AlertModal>\n  <AlertModalTrigger asChild>\n    <Button color=\"destructive\">Delete</Button>\n  </AlertModalTrigger>\n  <AlertModalPortal>\n    <AlertModalOverlay />\n    <AlertModalContent size=\"sm\">\n      <AlertModalHeader>\n        <AlertModalTitle>Delete item?</AlertModalTitle>\n        <AlertModalDescription>This action cannot be undone.</AlertModalDescription>\n      </AlertModalHeader>\n      <AlertModalBody>Further confirmation details</AlertModalBody>\n      <AlertModalFooter>\n        <AlertModalCancel asChild><Button variant=\"outline\">Cancel</Button></AlertModalCancel>\n        <AlertModalAction asChild><Button color=\"destructive\">Delete</Button></AlertModalAction>\n      </AlertModalFooter>\n    </AlertModalContent>\n  </AlertModalPortal>\n</AlertModal>"
+      ]
+    },
+    {
+      "name": "Drawer",
+      "annotation": null,
+      "category": "Overlay",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Button",
+        "Drawer",
+        "DrawerBody",
+        "DrawerClose",
+        "DrawerContent",
+        "DrawerFooter",
+        "DrawerHeader",
+        "DrawerOverlay",
+        "DrawerPortal",
+        "DrawerTitle",
+        "DrawerTrigger"
+      ],
+      "compound": true,
+      "subComponents": [
+        "DrawerTrigger",
+        "DrawerPortal",
+        "DrawerOverlay",
+        "DrawerContent",
+        "DrawerHeader",
+        "DrawerTitle",
+        "DrawerDescription",
+        "DrawerBody",
+        "DrawerFooter",
+        "DrawerClose"
+      ],
+      "props": [
+        {
+          "target": "Content",
+          "name": "side",
+          "type": "`'left' \\| 'right' \\| 'top' \\| 'bottom'`",
+          "default": "`'right'`",
+          "description": "Slide direction",
+          "enumValues": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "size",
+          "type": "`'sm' \\| 'md' \\| 'lg' \\| 'xl' \\| 'full'`",
+          "default": "`'md'`",
+          "description": "Width/height",
+          "enumValues": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "showCloseButton",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Show X button",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Content",
+          "prop": "side",
+          "values": [
+            "left",
+            "right",
+            "top",
+            "bottom"
+          ]
+        },
+        {
+          "target": "Content",
+          "prop": "size",
+          "values": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Content",
+          "values": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ],
+          "description": "Width/height"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Modal",
+        "AlertModal",
+        "Tooltip",
+        "Popover"
+      ],
+      "docsUrls": [
+        "/components/drawer"
+      ],
+      "examples": [
+        "import { Button, Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerPortal, DrawerTitle, DrawerTrigger } from '@7onic-ui/react'\n\n<Drawer>\n  <DrawerTrigger asChild>\n    <Button>Open Drawer</Button>\n  </DrawerTrigger>\n  <DrawerPortal>\n    <DrawerOverlay />\n    <DrawerContent side=\"right\" size=\"md\">\n      <DrawerHeader>\n        <DrawerTitle>Settings</DrawerTitle>\n      </DrawerHeader>\n      <DrawerBody>Content</DrawerBody>\n      <DrawerFooter>\n        <DrawerClose asChild><Button variant=\"outline\">Close</Button></DrawerClose>\n      </DrawerFooter>\n    </DrawerContent>\n  </DrawerPortal>\n</Drawer>"
+      ]
+    },
+    {
+      "name": "Tooltip",
+      "annotation": null,
+      "category": "Overlay",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Button",
+        "Tooltip",
+        "TooltipArrow",
+        "TooltipContent",
+        "TooltipPortal",
+        "TooltipProvider",
+        "TooltipTrigger"
+      ],
+      "compound": true,
+      "subComponents": [
+        "TooltipProvider",
+        "TooltipTrigger",
+        "TooltipContent",
+        "TooltipArrow",
+        "TooltipPortal"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "delayDuration",
+          "type": "`number`",
+          "default": "`200`",
+          "description": "Hover delay (ms)",
+          "enumValues": null
+        },
+        {
+          "target": "Content",
+          "name": "variant",
+          "type": "`'default' \\| 'inverted'`",
+          "default": "`'default'`",
+          "description": "Dark/light bg",
+          "enumValues": [
+            "default",
+            "inverted"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "size",
+          "type": "`'sm' \\| 'default'`",
+          "default": "`'default'`",
+          "description": "Padding scale",
+          "enumValues": [
+            "sm",
+            "default"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "side",
+          "type": "`'top' \\| 'right' \\| 'bottom' \\| 'left'`",
+          "default": "`'top'`",
+          "description": "Placement",
+          "enumValues": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "showArrow",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Show arrow",
+          "enumValues": null
+        },
+        {
+          "target": "Content",
+          "name": "sideOffset",
+          "type": "`number`",
+          "default": "`6`",
+          "description": "Gap from trigger",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Content",
+          "prop": "variant",
+          "values": [
+            "default",
+            "inverted"
+          ]
+        },
+        {
+          "target": "Content",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default"
+          ]
+        },
+        {
+          "target": "Content",
+          "prop": "side",
+          "values": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Content",
+          "values": [
+            "sm",
+            "default"
+          ],
+          "description": "Padding scale"
+        }
+      ],
+      "notes": [
+        "**⚠️ Tooltip.Provider is required** — wrap your app or section with it."
+      ],
+      "a11y": [],
+      "related": [
+        "Modal",
+        "AlertModal",
+        "Drawer",
+        "Popover"
+      ],
+      "docsUrls": [
+        "/components/tooltip"
+      ],
+      "examples": [
+        "import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipProvider, TooltipTrigger } from '@7onic-ui/react'\n\n<TooltipProvider>\n  <Tooltip>\n    <TooltipTrigger asChild>\n      <Button>Hover me</Button>\n    </TooltipTrigger>\n    <TooltipPortal>\n      <TooltipContent side=\"top\" showArrow>\n        Tooltip text\n        <TooltipArrow />\n      </TooltipContent>\n    </TooltipPortal>\n  </Tooltip>\n</TooltipProvider>"
+      ]
+    },
+    {
+      "name": "Popover",
+      "annotation": null,
+      "category": "Overlay",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Button",
+        "Popover",
+        "PopoverArrow",
+        "PopoverContent",
+        "PopoverPortal",
+        "PopoverTrigger"
+      ],
+      "compound": true,
+      "subComponents": [
+        "PopoverTrigger",
+        "PopoverContent",
+        "PopoverArrow",
+        "PopoverClose",
+        "PopoverAnchor",
+        "PopoverPortal"
+      ],
+      "props": [
+        {
+          "target": "Content",
+          "name": "variant",
+          "type": "`'default' \\| 'elevated'`",
+          "default": "`'default'`",
+          "description": "Shadow style",
+          "enumValues": [
+            "default",
+            "elevated"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Padding scale",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "side",
+          "type": "`'top' \\| 'right' \\| 'bottom' \\| 'left'`",
+          "default": "`'bottom'`",
+          "description": "Placement",
+          "enumValues": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        },
+        {
+          "target": "Content",
+          "name": "showArrow",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Show arrow",
+          "enumValues": null
+        },
+        {
+          "target": "Content",
+          "name": "showClose",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show X button",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Content",
+          "prop": "variant",
+          "values": [
+            "default",
+            "elevated"
+          ]
+        },
+        {
+          "target": "Content",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Content",
+          "prop": "side",
+          "values": [
+            "top",
+            "right",
+            "bottom",
+            "left"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Content",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Padding scale"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Modal",
+        "AlertModal",
+        "Drawer",
+        "Tooltip"
+      ],
+      "docsUrls": [
+        "/components/popover"
+      ],
+      "examples": [
+        "import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTrigger } from '@7onic-ui/react'\n\n<Popover>\n  <PopoverTrigger asChild>\n    <Button variant=\"outline\">Open</Button>\n  </PopoverTrigger>\n  <PopoverPortal>\n    <PopoverContent side=\"bottom\" showArrow showClose>\n      <PopoverArrow />\n      <p>Popover content</p>\n    </PopoverContent>\n  </PopoverPortal>\n</Popover>"
+      ]
+    },
+    {
+      "name": "Alert",
+      "annotation": null,
+      "category": "Feedback",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Alert",
+        "AlertDescription",
+        "AlertTitle"
+      ],
+      "compound": true,
+      "subComponents": [
+        "AlertTitle",
+        "AlertDescription"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'outline' \\| 'filled'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "outline",
+            "filled"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "color",
+          "type": "`'info' \\| 'success' \\| 'warning' \\| 'error'`",
+          "default": "`'info'`",
+          "description": "Color scheme",
+          "enumValues": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Padding scale",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "Same as Card",
+          "default": "`'lg'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "closable",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show close button",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "onClose",
+          "type": "`() => void`",
+          "default": "—",
+          "description": "Close handler",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "icon",
+          "type": "`ReactNode`",
+          "default": "auto",
+          "description": "Custom icon (auto-selects by color)",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "hideIcon",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Hide icon",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "outline",
+            "filled"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "color",
+          "values": [
+            "info",
+            "success",
+            "warning",
+            "error"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Padding scale"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Toast",
+        "Progress",
+        "Spinner",
+        "Skeleton"
+      ],
+      "docsUrls": [
+        "/components/alert"
+      ],
+      "examples": [
+        "import { Alert, AlertDescription, AlertTitle } from '@7onic-ui/react'\n\n<Alert color=\"success\" closable onClose={() => {}}>\n  <AlertTitle>Success</AlertTitle>\n  <AlertDescription>Operation completed.</AlertDescription>\n</Alert>\n\n<Alert variant=\"filled\" color=\"error\" icon={<ErrorIcon />}>\n  <AlertTitle>Error</AlertTitle>\n</Alert>"
+      ]
+    },
+    {
+      "name": "Toast",
+      "annotation": "Imperative API",
+      "category": "Feedback",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Toaster",
+        "toast"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": "Toaster",
+          "name": "position",
+          "type": "`'top-left' \\| 'top-center' \\| 'top-right' \\| 'bottom-left' \\| 'bottom-center' \\| 'bottom-right'`",
+          "default": "`'bottom-right'`",
+          "description": "Toast position",
+          "enumValues": [
+            "top-left",
+            "top-center",
+            "top-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right"
+          ]
+        },
+        {
+          "target": "Toaster",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Toast size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Toaster",
+          "name": "duration",
+          "type": "`number`",
+          "default": "`4000`",
+          "description": "Auto-dismiss ms (0 = persistent)",
+          "enumValues": null
+        },
+        {
+          "target": "Toaster",
+          "name": "closeButton",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show close button",
+          "enumValues": null
+        },
+        {
+          "target": "Toaster",
+          "name": "richColors",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Filled color backgrounds",
+          "enumValues": null
+        },
+        {
+          "target": "Toaster",
+          "name": "expand",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show all toasts expanded",
+          "enumValues": null
+        },
+        {
+          "target": "Toaster",
+          "name": "visibleToasts",
+          "type": "`number`",
+          "default": "`5`",
+          "description": "Max visible at once",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Toaster",
+          "prop": "position",
+          "values": [
+            "top-left",
+            "top-center",
+            "top-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right"
+          ]
+        },
+        {
+          "target": "Toaster",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Toaster",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Toast size"
+        }
+      ],
+      "notes": [
+        "**⚠️ No Portal needed.** Just place `<Toaster />` in your root layout. Call `toast()` from anywhere."
+      ],
+      "a11y": [],
+      "related": [
+        "Alert",
+        "Progress",
+        "Spinner",
+        "Skeleton"
+      ],
+      "docsUrls": [
+        "/components/toast"
+      ],
+      "examples": [
+        "import { Toaster, toast } from '@7onic-ui/react'\n\n// 1. Add Toaster provider to your app layout (once)\n<Toaster position=\"bottom-right\" />\n\n// 2. Call toast() anywhere\ntoast('Default notification')\ntoast.success('Saved successfully')\ntoast.error('Something went wrong')\ntoast.warning('Please check your input')\ntoast.info('New update available')\ntoast.loading('Processing...')\n\n// With options\ntoast.success('Saved', {\n  description: 'Your changes have been saved.',\n  duration: 5000,\n  action: { label: 'Undo', onClick: () => {} },\n})\n\n// Promise\ntoast.promise(fetchData(), {\n  loading: 'Loading...',\n  success: 'Data loaded',\n  error: 'Failed to load',\n})\n\n// Dismiss\nconst id = toast('Message')\ntoast.dismiss(id)    // Dismiss specific\ntoast.dismiss()      // Dismiss all"
+      ]
+    },
+    {
+      "name": "Progress",
+      "annotation": null,
+      "category": "Feedback",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Progress"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "type",
+          "type": "`'linear' \\| 'circular'`",
+          "default": "`'linear'`",
+          "description": "Shape",
+          "enumValues": [
+            "linear",
+            "circular"
+          ]
+        },
+        {
+          "target": null,
+          "name": "value",
+          "type": "`number`",
+          "default": "`0`",
+          "description": "Current value",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "max",
+          "type": "`number`",
+          "default": "`100`",
+          "description": "Maximum value",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Bar/circle size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'default' \\| 'striped'`",
+          "default": "`'default'`",
+          "description": "Bar fill style",
+          "enumValues": [
+            "default",
+            "striped"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Fill color",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": null,
+          "name": "showValue",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show percentage text",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "formatLabel",
+          "type": "`(value: number, max: number) => string`",
+          "default": "—",
+          "description": "Custom label",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "animated",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Animate stripes",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "type",
+          "values": [
+            "linear",
+            "circular"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "default",
+            "striped"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Bar/circle size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Alert",
+        "Toast",
+        "Spinner",
+        "Skeleton"
+      ],
+      "docsUrls": [
+        "/components/progress"
+      ],
+      "examples": [
+        "import { Progress } from '@7onic-ui/react'\n\n<Progress value={65} showValue />\n<Progress type=\"circular\" value={75} color=\"primary\" />\n<Progress variant=\"striped\" animated value={50} />"
+      ]
+    },
+    {
+      "name": "Spinner",
+      "annotation": null,
+      "category": "Feedback",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Spinner"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'ring' \\| 'dots' \\| 'bars' \\| 'orbit'`",
+          "default": "`'ring'`",
+          "description": "Animation style",
+          "enumValues": [
+            "ring",
+            "dots",
+            "bars",
+            "orbit"
+          ]
+        },
+        {
+          "target": null,
+          "name": "orbitStyle",
+          "type": "`'ring' \\| 'dots' \\| 'cube' \\| 'flip' \\| 'morph'`",
+          "default": "`'ring'`",
+          "description": "Orbit sub-variant",
+          "enumValues": [
+            "ring",
+            "dots",
+            "cube",
+            "flip",
+            "morph"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Spinner size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary' \\| 'current'`",
+          "default": "`'default'`",
+          "description": "Color",
+          "enumValues": [
+            "default",
+            "primary",
+            "current"
+          ]
+        },
+        {
+          "target": null,
+          "name": "speed",
+          "type": "`'slow' \\| 'default' \\| 'fast'`",
+          "default": "`'default'`",
+          "description": "Animation speed",
+          "enumValues": [
+            "slow",
+            "default",
+            "fast"
+          ]
+        },
+        {
+          "target": null,
+          "name": "label",
+          "type": "`string`",
+          "default": "`'Loading'`",
+          "description": "aria-label text",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "ring",
+            "dots",
+            "bars",
+            "orbit"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "orbitStyle",
+          "values": [
+            "ring",
+            "dots",
+            "cube",
+            "flip",
+            "morph"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary",
+            "current"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "speed",
+          "values": [
+            "slow",
+            "default",
+            "fast"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Spinner size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Alert",
+        "Toast",
+        "Progress",
+        "Skeleton"
+      ],
+      "docsUrls": [
+        "/components/spinner"
+      ],
+      "examples": [
+        "import { Spinner } from '@7onic-ui/react'\n\n<Spinner />\n<Spinner variant=\"dots\" size=\"lg\" color=\"primary\" />\n<Spinner variant=\"bars\" speed=\"slow\" />\n<Spinner variant=\"orbit\" orbitStyle=\"morph\" />"
+      ]
+    },
+    {
+      "name": "Skeleton",
+      "annotation": null,
+      "category": "Feedback",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Skeleton"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'text' \\| 'circular' \\| 'rectangular'`",
+          "default": "`'text'`",
+          "description": "Shape",
+          "enumValues": [
+            "text",
+            "circular",
+            "rectangular"
+          ]
+        },
+        {
+          "target": null,
+          "name": "animation",
+          "type": "`'pulse' \\| 'wave' \\| false`",
+          "default": "`'pulse'`",
+          "description": "Animation style",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "width",
+          "type": "`number \\| string`",
+          "default": "—",
+          "description": "Width (px or CSS)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "height",
+          "type": "`number \\| string`",
+          "default": "—",
+          "description": "Height (px or CSS)",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "radius",
+          "type": "`number \\| string`",
+          "default": "—",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "count",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Multi-line count",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "loading",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Show skeleton vs children",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "children",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Content (shown when loading=false)",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "text",
+            "circular",
+            "rectangular"
+          ]
+        }
+      ],
+      "sizeSpec": [],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Alert",
+        "Toast",
+        "Progress",
+        "Spinner"
+      ],
+      "docsUrls": [
+        "/components/skeleton"
+      ],
+      "examples": [
+        "import { Skeleton } from '@7onic-ui/react'\n\n<Skeleton variant=\"text\" count={3} />\n<Skeleton variant=\"circular\" width={48} height={48} />\n<Skeleton variant=\"rectangular\" width=\"100%\" height={200} />\n\n{/* Conditional rendering */}\n<Skeleton loading={isLoading}>\n  <ActualContent />\n</Skeleton>"
+      ]
+    },
+    {
+      "name": "Breadcrumb",
+      "annotation": null,
+      "category": "Navigation",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Breadcrumb",
+        "BreadcrumbItem",
+        "BreadcrumbLink",
+        "BreadcrumbList",
+        "BreadcrumbPage",
+        "BreadcrumbSeparator"
+      ],
+      "compound": true,
+      "subComponents": [
+        "BreadcrumbList",
+        "BreadcrumbItem",
+        "BreadcrumbLink",
+        "BreadcrumbPage",
+        "BreadcrumbSeparator",
+        "BreadcrumbEllipsis"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "separator",
+          "type": "`ReactNode`",
+          "default": "`<ChevronRightIcon />`",
+          "description": "Custom separator (default: chevron right icon)",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Text size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "maxItems",
+          "type": "`number`",
+          "default": "—",
+          "description": "Collapse threshold",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "itemsBeforeCollapse",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Items before ellipsis",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "itemsAfterCollapse",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Items after ellipsis",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Text size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Pagination",
+        "NavigationMenu"
+      ],
+      "docsUrls": [
+        "/components/breadcrumb"
+      ],
+      "examples": [
+        "import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@7onic-ui/react'\n\n<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"/\">Home</BreadcrumbLink>\n    </BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem>\n      <BreadcrumbLink href=\"/docs\">Docs</BreadcrumbLink>\n    </BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem>\n      <BreadcrumbPage>Current</BreadcrumbPage>\n    </BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>"
+      ]
+    },
+    {
+      "name": "Pagination",
+      "annotation": null,
+      "category": "Navigation",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "Pagination",
+        "PaginationContent",
+        "PaginationItems",
+        "PaginationNext",
+        "PaginationPrevious"
+      ],
+      "compound": true,
+      "subComponents": [
+        "PaginationContent",
+        "PaginationItem",
+        "PaginationLink",
+        "PaginationPrevious",
+        "PaginationNext",
+        "PaginationFirst",
+        "PaginationLast",
+        "PaginationEllipsis",
+        "PaginationItems"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "total",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Total pages",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "value",
+          "type": "`number`",
+          "default": "—",
+          "description": "Controlled page",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "defaultValue",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Uncontrolled default",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "onChange",
+          "type": "`(page: number) => void`",
+          "default": "—",
+          "description": "Change handler",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "siblings",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Pages beside current",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "boundaries",
+          "type": "`number`",
+          "default": "`1`",
+          "description": "Pages at start/end",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'outline' \\| 'ghost'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "outline",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Active page color",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'xs' \\| 'sm' \\| 'default' \\| 'lg' \\| 'xl'`",
+          "default": "`'default'`",
+          "description": "Button size",
+          "enumValues": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "`'sm' \\| 'base' \\| 'md' \\| 'lg' \\| 'xl' \\| 'full'`",
+          "default": "`'md'`",
+          "description": "Border radius",
+          "enumValues": [
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "withControls",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Auto-render previous/next buttons",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "withEdges",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Auto-render first/last jump buttons",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "loop",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Wrap around",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disabled state",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "outline",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "radius",
+          "values": [
+            "sm",
+            "base",
+            "md",
+            "lg",
+            "xl",
+            "full"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "xs",
+            "sm",
+            "default",
+            "lg",
+            "xl"
+          ],
+          "description": "Button size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Breadcrumb",
+        "NavigationMenu"
+      ],
+      "docsUrls": [
+        "/components/pagination"
+      ],
+      "examples": [
+        "import { Pagination, PaginationContent, PaginationItems, PaginationNext, PaginationPrevious } from '@7onic-ui/react'\n\n{/* Quick mode — withControls (default: true), withEdges (default: false) */}\n<Pagination total={10} defaultValue={1} />\n<Pagination total={10} defaultValue={1} withEdges />\n<Pagination total={10} defaultValue={1} withControls={false} />\n\n{/* Compound mode (custom layout) */}\n<Pagination total={20} value={page} onChange={setPage}>\n  <PaginationContent>\n    <PaginationPrevious />\n    <PaginationItems />\n    <PaginationNext />\n  </PaginationContent>\n</Pagination>"
+      ]
+    },
+    {
+      "name": "NavigationMenu",
+      "annotation": null,
+      "category": "Navigation",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "NavigationMenu",
+        "NavigationMenuContent",
+        "NavigationMenuGroup",
+        "NavigationMenuItem",
+        "NavigationMenuLink",
+        "NavigationMenuList",
+        "NavigationMenuTrigger",
+        "NavigationMenuViewport"
+      ],
+      "compound": true,
+      "subComponents": [
+        "NavigationMenuList",
+        "NavigationMenuItem",
+        "NavigationMenuTrigger",
+        "NavigationMenuContent",
+        "NavigationMenuLink",
+        "NavigationMenuGroup",
+        "NavigationMenuIndicator",
+        "NavigationMenuViewport"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "orientation",
+          "type": "`'horizontal' \\| 'vertical'`",
+          "default": "`'horizontal'`",
+          "description": "Layout mode",
+          "enumValues": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'md' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Item size",
+          "enumValues": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "collapsed",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Icon-only mode (vertical)",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "Same as Button",
+          "default": "`'lg'`",
+          "description": "Border radius",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "fontWeight",
+          "type": "`'normal' \\| 'semibold'`",
+          "default": "`'normal'`",
+          "description": "Font weight",
+          "enumValues": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "delayDuration",
+          "type": "`number`",
+          "default": "`200`",
+          "description": "Hover delay before content opens (horizontal only, ms)",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "skipDelayDuration",
+          "type": "`number`",
+          "default": "`300`",
+          "description": "Reset delay when moving between triggers (horizontal only, ms)",
+          "enumValues": null
+        },
+        {
+          "target": "Link",
+          "name": "active",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Current page indicator",
+          "enumValues": null
+        },
+        {
+          "target": "Link",
+          "name": "icon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Leading icon",
+          "enumValues": null
+        },
+        {
+          "target": "Link",
+          "name": "asChild",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Slot pattern",
+          "enumValues": null
+        },
+        {
+          "target": "Item",
+          "name": "value",
+          "type": "`string`",
+          "default": "—",
+          "description": "Identifier for controlled state (horizontal menus)",
+          "enumValues": null
+        },
+        {
+          "target": "Item",
+          "name": "defaultOpen",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Initial open state for vertical collapsible item",
+          "enumValues": null
+        },
+        {
+          "target": "Indicator",
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Indicator color (horizontal variant only)",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "orientation",
+          "values": [
+            "horizontal",
+            "vertical"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "fontWeight",
+          "values": [
+            "normal",
+            "semibold"
+          ]
+        },
+        {
+          "target": "Indicator",
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "md",
+            "default",
+            "lg"
+          ],
+          "description": "Item size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Breadcrumb",
+        "Pagination"
+      ],
+      "docsUrls": [
+        "/components/navigation-menu"
+      ],
+      "examples": [
+        "import { NavigationMenu, NavigationMenuContent, NavigationMenuGroup, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger, NavigationMenuViewport } from '@7onic-ui/react'\n\n{/* Horizontal (header) */}\n<NavigationMenu orientation=\"horizontal\">\n  <NavigationMenuList>\n    <NavigationMenuItem>\n      <NavigationMenuLink href=\"/\" active>Home</NavigationMenuLink>\n    </NavigationMenuItem>\n    <NavigationMenuItem>\n      <NavigationMenuTrigger>Products</NavigationMenuTrigger>\n      <NavigationMenuContent>\n        <NavigationMenuLink href=\"/product-a\">Product A</NavigationMenuLink>\n        <NavigationMenuLink href=\"/product-b\">Product B</NavigationMenuLink>\n      </NavigationMenuContent>\n    </NavigationMenuItem>\n  </NavigationMenuList>\n  <NavigationMenuViewport />\n</NavigationMenu>\n\n{/* Vertical (sidebar) */}\n<NavigationMenu orientation=\"vertical\" size=\"default\">\n  <NavigationMenuList>\n    <NavigationMenuGroup label=\"Main\">\n      <NavigationMenuItem>\n        <NavigationMenuLink href=\"/\" icon={<HomeIcon />} active>Dashboard</NavigationMenuLink>\n      </NavigationMenuItem>\n    </NavigationMenuGroup>\n  </NavigationMenuList>\n</NavigationMenu>"
+      ]
+    },
+    {
+      "name": "Chart",
+      "annotation": "Container + Sub-components",
+      "category": "Charts",
+      "description": "All chart types use the Chart namespace:",
+      "importPath": "@7onic-ui/react/chart",
+      "peerDeps": [
+        "recharts"
+      ],
+      "symbols": [
+        "Chart",
+        "ChartArea",
+        "ChartBar",
+        "ChartLegend",
+        "ChartLegendContent",
+        "ChartLine",
+        "ChartPie",
+        "ChartTooltip",
+        "ChartTooltipContent",
+        "ChartXAxis",
+        "ChartYAxis"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": "Container",
+          "name": "config",
+          "type": "`ChartConfig`",
+          "default": "required",
+          "description": "Data key → label/color mapping",
+          "enumValues": null
+        },
+        {
+          "target": "Container",
+          "name": "hoverFade",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Fade non-hovered elements",
+          "enumValues": null
+        },
+        {
+          "target": "Bar",
+          "name": "radius",
+          "type": "`'none' \\| 'sm' \\| 'base' \\| 'md' \\| 'lg'`",
+          "default": "`'none'`",
+          "description": "Bar corner radius",
+          "enumValues": [
+            "none",
+            "sm",
+            "base",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "target": "Bar",
+          "name": "layout",
+          "type": "`'vertical' \\| 'horizontal'`",
+          "default": "`'vertical'`",
+          "description": "Bar direction",
+          "enumValues": [
+            "vertical",
+            "horizontal"
+          ]
+        },
+        {
+          "target": "Bar",
+          "name": "variant",
+          "type": "`'solid' \\| 'outline'`",
+          "default": "`'solid'`",
+          "description": "Fill style",
+          "enumValues": [
+            "solid",
+            "outline"
+          ]
+        },
+        {
+          "target": "Bar",
+          "name": "stackPosition",
+          "type": "`'top' \\| 'bottom'`",
+          "default": "`'top'`",
+          "description": "Stack position",
+          "enumValues": [
+            "top",
+            "bottom"
+          ]
+        },
+        {
+          "target": "Line",
+          "name": "type",
+          "type": "`'linear' \\| 'monotone' \\| 'step' \\| 'natural'`",
+          "default": "`'monotone'`",
+          "description": "Curve type",
+          "enumValues": [
+            "linear",
+            "monotone",
+            "step",
+            "natural"
+          ]
+        },
+        {
+          "target": "Line",
+          "name": "variant",
+          "type": "`'solid' \\| 'dashed'`",
+          "default": "`'solid'`",
+          "description": "Line style",
+          "enumValues": [
+            "solid",
+            "dashed"
+          ]
+        },
+        {
+          "target": "Line",
+          "name": "dot",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Show data points",
+          "enumValues": null
+        },
+        {
+          "target": "Line",
+          "name": "activeDot",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Show active point",
+          "enumValues": null
+        },
+        {
+          "target": "Area",
+          "name": "type",
+          "type": "`'linear' \\| 'monotone' \\| 'step' \\| 'natural'`",
+          "default": "`'monotone'`",
+          "description": "Curve type",
+          "enumValues": [
+            "linear",
+            "monotone",
+            "step",
+            "natural"
+          ]
+        },
+        {
+          "target": "Area",
+          "name": "variant",
+          "type": "`'solid' \\| 'gradient'`",
+          "default": "`'solid'`",
+          "description": "Fill style",
+          "enumValues": [
+            "solid",
+            "gradient"
+          ]
+        },
+        {
+          "target": "Area",
+          "name": "fillOpacity",
+          "type": "`number`",
+          "default": "`0.4`",
+          "description": "Fill opacity (0-1)",
+          "enumValues": null
+        },
+        {
+          "target": "Pie",
+          "name": "variant",
+          "type": "`'pie' \\| 'donut'`",
+          "default": "`'pie'`",
+          "description": "Pie or donut",
+          "enumValues": [
+            "pie",
+            "donut"
+          ]
+        },
+        {
+          "target": "Pie",
+          "name": "label",
+          "type": "`'none' \\| 'outside' \\| 'inside'`",
+          "default": "`'none'`",
+          "description": "Label display",
+          "enumValues": [
+            "none",
+            "outside",
+            "inside"
+          ]
+        },
+        {
+          "target": "Pie",
+          "name": "labelContent",
+          "type": "`'value' \\| 'percent'`",
+          "default": "`'value'`",
+          "description": "Label format",
+          "enumValues": [
+            "value",
+            "percent"
+          ]
+        },
+        {
+          "target": "Pie",
+          "name": "activeShape",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Expand on hover",
+          "enumValues": null
+        },
+        {
+          "target": "Pie",
+          "name": "paddingAngle",
+          "type": "`number`",
+          "default": "`0`",
+          "description": "Gap between slices (degrees)",
+          "enumValues": null
+        },
+        {
+          "target": "Pie",
+          "name": "cornerRadius",
+          "type": "`number`",
+          "default": "`0`",
+          "description": "Slice corner radius (px)",
+          "enumValues": null
+        },
+        {
+          "target": "Pie",
+          "name": "startAngle",
+          "type": "`number`",
+          "default": "`90`",
+          "description": "Start angle (degrees, 12 o'clock = 90)",
+          "enumValues": null
+        },
+        {
+          "target": "Pie",
+          "name": "endAngle",
+          "type": "`number`",
+          "default": "`-270`",
+          "description": "End angle (degrees, full circle = 90→-270)",
+          "enumValues": null
+        },
+        {
+          "target": "Pie",
+          "name": "innerRadius",
+          "type": "`number`",
+          "default": "—",
+          "description": "Override donut inner radius (default auto by variant)",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "Bar",
+          "prop": "radius",
+          "values": [
+            "none",
+            "sm",
+            "base",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "target": "Bar",
+          "prop": "layout",
+          "values": [
+            "vertical",
+            "horizontal"
+          ]
+        },
+        {
+          "target": "Bar",
+          "prop": "variant",
+          "values": [
+            "solid",
+            "outline"
+          ]
+        },
+        {
+          "target": "Bar",
+          "prop": "stackPosition",
+          "values": [
+            "top",
+            "bottom"
+          ]
+        },
+        {
+          "target": "Line",
+          "prop": "type",
+          "values": [
+            "linear",
+            "monotone",
+            "step",
+            "natural"
+          ]
+        },
+        {
+          "target": "Line",
+          "prop": "variant",
+          "values": [
+            "solid",
+            "dashed"
+          ]
+        },
+        {
+          "target": "Area",
+          "prop": "type",
+          "values": [
+            "linear",
+            "monotone",
+            "step",
+            "natural"
+          ]
+        },
+        {
+          "target": "Area",
+          "prop": "variant",
+          "values": [
+            "solid",
+            "gradient"
+          ]
+        },
+        {
+          "target": "Pie",
+          "prop": "variant",
+          "values": [
+            "pie",
+            "donut"
+          ]
+        },
+        {
+          "target": "Pie",
+          "prop": "label",
+          "values": [
+            "none",
+            "outside",
+            "inside"
+          ]
+        },
+        {
+          "target": "Pie",
+          "prop": "labelContent",
+          "values": [
+            "value",
+            "percent"
+          ]
+        }
+      ],
+      "sizeSpec": [],
+      "notes": [
+        "**⚠️ chartConfig is REQUIRED.** It maps data keys to labels and colors.",
+        "**Chart Colors (CSS variables):**",
+        "`--color-chart-1` (blue), `--color-chart-2` (pink), `--color-chart-3` (lavender), `--color-chart-4` (sky), `--color-chart-5` (rose)",
+        "Each has light/dark theme variants.",
+        "**ChartConfig format:**"
+      ],
+      "a11y": [
+        "**Chart Colors (CSS variables):**",
+        "Each has light/dark theme variants."
+      ],
+      "related": [
+        "MetricCard"
+      ],
+      "docsUrls": [
+        "/components/line-chart",
+        "/components/bar-chart",
+        "/components/area-chart",
+        "/components/pie-chart"
+      ],
+      "examples": [
+        "import { Chart, ChartArea, ChartBar, ChartLegend, ChartLegendContent, ChartLine, ChartPie, ChartTooltip, ChartTooltipContent, ChartXAxis, ChartYAxis } from '@7onic-ui/react/chart'\n\nconst chartConfig = {\n  revenue: { label: 'Revenue', color: 'var(--color-chart-1)' },\n  profit: { label: 'Profit', color: 'var(--color-chart-2)' },\n}\n\n{/* Line Chart */}\n<Chart config={chartConfig} className=\"h-[300px]\">\n  <ChartXAxis dataKey=\"month\" />\n  <ChartYAxis />\n  <ChartTooltip content={<ChartTooltipContent />} />\n  <ChartLegend content={<ChartLegendContent />} />\n  <ChartLine dataKey=\"revenue\" type=\"monotone\" />\n  <ChartLine dataKey=\"profit\" type=\"monotone\" variant=\"dashed\" />\n</Chart>\n\n{/* Bar Chart */}\n<Chart config={chartConfig} className=\"h-[300px]\" hoverFade>\n  <ChartXAxis dataKey=\"month\" />\n  <ChartYAxis />\n  <ChartTooltip content={<ChartTooltipContent />} />\n  <ChartBar dataKey=\"revenue\" radius=\"md\" />\n  <ChartBar dataKey=\"profit\" radius=\"md\" />\n</Chart>\n\n{/* Area Chart */}\n<Chart config={chartConfig} className=\"h-[300px]\">\n  <ChartXAxis dataKey=\"month\" />\n  <ChartYAxis />\n  <ChartTooltip content={<ChartTooltipContent />} />\n  <ChartArea dataKey=\"revenue\" type=\"monotone\" variant=\"gradient\" />\n</Chart>\n\n{/* Pie Chart */}\n<Chart config={chartConfig} className=\"h-[300px]\">\n  <ChartTooltip content={<ChartTooltipContent />} />\n  <ChartPie data={data} dataKey=\"value\" nameKey=\"name\" variant=\"donut\" label=\"outside\" />\n</Chart>",
+        "type ChartConfig = {\n  [dataKey: string]: {\n    label?: ReactNode\n    icon?: ComponentType\n    color?: string              // CSS color or variable\n    // OR theme-specific:\n    theme?: { light: string, dark: string }\n  }\n}"
+      ]
+    },
+    {
+      "name": "MetricCard",
+      "annotation": null,
+      "category": "Charts",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "MetricCard",
+        "MetricCardDescription",
+        "MetricCardHeader",
+        "MetricCardSymbol",
+        "MetricCardTitle",
+        "MetricCardTrend",
+        "MetricCardValue"
+      ],
+      "compound": true,
+      "subComponents": [
+        "MetricCardHeader",
+        "MetricCardTitle",
+        "MetricCardValue",
+        "MetricCardTrend",
+        "MetricCardDescription",
+        "MetricCardSymbol"
+      ],
+      "props": [
+        {
+          "target": "Root",
+          "name": "variant",
+          "type": "`'default' \\| 'elevated' \\| 'ghost'`",
+          "default": "`'default'`",
+          "description": "Visual style",
+          "enumValues": [
+            "default",
+            "elevated",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Padding scale",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "name": "radius",
+          "type": "`'none' \\| 'sm' \\| 'base' \\| 'default' \\| 'lg' \\| 'xl' \\| '2xl' \\| '3xl' \\| 'full'`",
+          "default": "`'default'`",
+          "description": "Border radius",
+          "enumValues": [
+            "none",
+            "sm",
+            "base",
+            "default",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        },
+        {
+          "target": "Value",
+          "name": "animated",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Number count-up animation",
+          "enumValues": null
+        },
+        {
+          "target": "Trend",
+          "name": "direction",
+          "type": "`'up' \\| 'down' \\| 'neutral'`",
+          "default": "—",
+          "description": "Trend arrow + color",
+          "enumValues": [
+            "up",
+            "down",
+            "neutral"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "target": "Root",
+          "prop": "variant",
+          "values": [
+            "default",
+            "elevated",
+            "ghost"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "Root",
+          "prop": "radius",
+          "values": [
+            "none",
+            "sm",
+            "base",
+            "default",
+            "lg",
+            "xl",
+            "2xl",
+            "3xl",
+            "full"
+          ]
+        },
+        {
+          "target": "Trend",
+          "prop": "direction",
+          "values": [
+            "up",
+            "down",
+            "neutral"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "Root",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Padding scale"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "Chart"
+      ],
+      "docsUrls": [
+        "/components/metric-card"
+      ],
+      "examples": [
+        "import { MetricCard, MetricCardDescription, MetricCardHeader, MetricCardSymbol, MetricCardTitle, MetricCardTrend, MetricCardValue } from '@7onic-ui/react'\n\n<MetricCard>\n  <MetricCardHeader>\n    <MetricCardTitle>Revenue</MetricCardTitle>\n    <MetricCardSymbol><DollarIcon /></MetricCardSymbol>\n  </MetricCardHeader>\n  <MetricCardValue animated>$12,450</MetricCardValue>\n  <MetricCardTrend direction=\"up\">+12.5%</MetricCardTrend>\n  <MetricCardDescription>vs. last month</MetricCardDescription>\n</MetricCard>"
+      ]
+    },
+    {
+      "name": "TypingIndicator",
+      "annotation": null,
+      "category": "AI Components",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "TypingIndicator"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": null,
+          "name": "variant",
+          "type": "`'dots' \\| 'cursor'`",
+          "default": "`'dots'`",
+          "description": "Animation style",
+          "enumValues": [
+            "dots",
+            "cursor"
+          ]
+        },
+        {
+          "target": null,
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "name": "color",
+          "type": "`'default' \\| 'primary' \\| 'muted'`",
+          "default": "`'muted'`",
+          "description": "Color",
+          "enumValues": [
+            "default",
+            "primary",
+            "muted"
+          ]
+        },
+        {
+          "target": null,
+          "name": "speed",
+          "type": "`'slow' \\| 'default' \\| 'fast'`",
+          "default": "`'default'`",
+          "description": "Speed (dots only)",
+          "enumValues": [
+            "slow",
+            "default",
+            "fast"
+          ]
+        },
+        {
+          "target": null,
+          "name": "label",
+          "type": "`string`",
+          "default": "`'Typing'`",
+          "description": "aria-label and showLabel text",
+          "enumValues": null
+        },
+        {
+          "target": null,
+          "name": "showLabel",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show text label alongside indicator",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": null,
+          "prop": "variant",
+          "values": [
+            "dots",
+            "cursor"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "color",
+          "values": [
+            "default",
+            "primary",
+            "muted"
+          ]
+        },
+        {
+          "target": null,
+          "prop": "speed",
+          "values": [
+            "slow",
+            "default",
+            "fast"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": null,
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "QuickReply",
+        "ChatInput",
+        "ChatMessage"
+      ],
+      "docsUrls": [
+        "/components/typing-indicator"
+      ],
+      "examples": [
+        "import { TypingIndicator } from '@7onic-ui/react'\n\n{/* Default — dots, muted, default size */}\n<TypingIndicator />\n\n{/* Cursor variant */}\n<TypingIndicator variant=\"cursor\" />\n\n{/* Chat bubble */}\n<TypingIndicator variant=\"dots\" color=\"muted\" />\n\n{/* AI response — fast with label */}\n<TypingIndicator\n  variant=\"dots\"\n  color=\"primary\"\n  speed=\"fast\"\n  showLabel\n  label=\"AI is typing...\"\n/>\n\n{/* Large cursor, primary color */}\n<TypingIndicator variant=\"cursor\" size=\"lg\" color=\"primary\" />"
+      ]
+    },
+    {
+      "name": "QuickReply",
+      "annotation": null,
+      "category": "AI Components",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "QuickReply",
+        "QuickReplyItem"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": "QuickReply",
+          "name": "layout",
+          "type": "`'scroll' \\| 'wrap'`",
+          "default": "`'scroll'`",
+          "description": "Chip layout mode",
+          "enumValues": [
+            "scroll",
+            "wrap"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "name": "variant",
+          "type": "`'outline' \\| 'filled' \\| 'ghost'`",
+          "default": "`'outline'`",
+          "description": "Visual style",
+          "enumValues": [
+            "outline",
+            "filled",
+            "ghost"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Color theme",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Chip size",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "name": "radius",
+          "type": "`'md' \\| 'lg' \\| 'full'`",
+          "default": "`'full'`",
+          "description": "Border radius",
+          "enumValues": [
+            "md",
+            "lg",
+            "full"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "name": "gap",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Gap between chips",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "QuickReply.Item",
+          "name": "icon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Leading icon",
+          "enumValues": null
+        },
+        {
+          "target": "QuickReply.Item",
+          "name": "asChild",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Compose with custom element (Radix Slot)",
+          "enumValues": null
+        },
+        {
+          "target": "QuickReply.Item",
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disable the chip",
+          "enumValues": null
+        },
+        {
+          "target": "QuickReply.Item",
+          "name": "onClick",
+          "type": "`() => void`",
+          "default": "—",
+          "description": "Click callback",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "QuickReply",
+          "prop": "layout",
+          "values": [
+            "scroll",
+            "wrap"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "prop": "variant",
+          "values": [
+            "outline",
+            "filled",
+            "ghost"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "prop": "radius",
+          "values": [
+            "md",
+            "lg",
+            "full"
+          ]
+        },
+        {
+          "target": "QuickReply",
+          "prop": "gap",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "QuickReply",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Chip size"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "TypingIndicator",
+        "ChatInput",
+        "ChatMessage"
+      ],
+      "docsUrls": [
+        "/components/quick-reply"
+      ],
+      "examples": [
+        "import { QuickReply, QuickReplyItem } from '@7onic-ui/react'\n\n{/* Basic suggested replies */}\n<QuickReply aria-label=\"Suggested replies\">\n  <QuickReplyItem>About payment</QuickReplyItem>\n  <QuickReplyItem>Shipping info</QuickReplyItem>\n  <QuickReplyItem>Return policy</QuickReplyItem>\n</QuickReply>\n\n{/* Primary color, filled variant */}\n<QuickReply color=\"primary\" variant=\"filled\" aria-label=\"Quick replies\">\n  <QuickReplyItem>Payment</QuickReplyItem>\n  <QuickReplyItem>Shipping</QuickReplyItem>\n</QuickReply>\n\n{/* Wrap layout for FAQ */}\n<QuickReply layout=\"wrap\" aria-label=\"FAQ topics\">\n  <QuickReplyItem>Payments</QuickReplyItem>\n  <QuickReplyItem>Shipping</QuickReplyItem>\n  <QuickReplyItem>Returns</QuickReplyItem>\n  <QuickReplyItem>Account</QuickReplyItem>\n</QuickReply>\n\n{/* With icon */}\n<QuickReply aria-label=\"Actions\">\n  <QuickReplyItem icon={<MessageCircle />}>Contact us</QuickReplyItem>\n  <QuickReplyItem icon={<Package />}>Track order</QuickReplyItem>\n</QuickReply>"
+      ]
+    },
+    {
+      "name": "ChatInput",
+      "annotation": null,
+      "category": "AI Components",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "ChatInput",
+        "ChatInputField",
+        "ChatInputSubmit"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": "ChatInput",
+          "name": "variant",
+          "type": "`'outline' \\| 'filled'`",
+          "default": "`'outline'`",
+          "description": "Visual style",
+          "enumValues": [
+            "outline",
+            "filled"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Size scale",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "name": "radius",
+          "type": "`'sm' \\| 'md' \\| 'lg' \\| 'xl' \\| '2xl' \\| 'full'`",
+          "default": "`'xl'`",
+          "description": "Corner radius (`'full'` available in inline layout)",
+          "enumValues": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "full"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "name": "color",
+          "type": "`'default' \\| 'primary'`",
+          "default": "`'default'`",
+          "description": "Submit button color",
+          "enumValues": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "name": "layout",
+          "type": "`'default' \\| 'inline'`",
+          "default": "`'default'`",
+          "description": "`'inline'` renders field and button side by side",
+          "enumValues": [
+            "default",
+            "inline"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "name": "disabled",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Disable input and submit",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput",
+          "name": "onSubmit",
+          "type": "`(value: string) => void`",
+          "default": "—",
+          "description": "Submit callback",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput.Field",
+          "name": "maxRows",
+          "type": "`number`",
+          "default": "`8`",
+          "description": "Max rows before scrolling",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput.Field",
+          "name": "showCount",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show character counter (default layout only)",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput.Field",
+          "name": "maxLength",
+          "type": "`number`",
+          "default": "—",
+          "description": "Max characters",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput.Field",
+          "name": "placeholder",
+          "type": "`string`",
+          "default": "—",
+          "description": "Placeholder text",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput.Submit",
+          "name": "loading",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Switch to stop icon — button stays enabled",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput.Submit",
+          "name": "onStop",
+          "type": "`() => void`",
+          "default": "—",
+          "description": "Called on click when loading",
+          "enumValues": null
+        },
+        {
+          "target": "ChatInput.Submit",
+          "name": "buttonRadius",
+          "type": "`'sm' \\| 'md' \\| 'lg' \\| 'xl' \\| '2xl' \\| 'full'`",
+          "default": "—",
+          "description": "Override button radius (default: auto from container radius)",
+          "enumValues": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "full"
+          ]
+        },
+        {
+          "target": "ChatInput.Submit",
+          "name": "children",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Custom icon (default: send arrow)",
+          "enumValues": null
+        }
+      ],
+      "variants": [
+        {
+          "target": "ChatInput",
+          "prop": "variant",
+          "values": [
+            "outline",
+            "filled"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "prop": "radius",
+          "values": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "full"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "prop": "color",
+          "values": [
+            "default",
+            "primary"
+          ]
+        },
+        {
+          "target": "ChatInput",
+          "prop": "layout",
+          "values": [
+            "default",
+            "inline"
+          ]
+        },
+        {
+          "target": "ChatInput.Submit",
+          "prop": "buttonRadius",
+          "values": [
+            "sm",
+            "md",
+            "lg",
+            "xl",
+            "2xl",
+            "full"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "ChatInput",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Size scale"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "TypingIndicator",
+        "QuickReply",
+        "ChatMessage"
+      ],
+      "docsUrls": [
+        "/components/chat-input"
+      ],
+      "examples": [
+        "import { ChatInput, ChatInputField, ChatInputSubmit } from '@7onic-ui/react'\n\n{/* Basic uncontrolled */}\n<ChatInput onSubmit={(value) => console.log(value)}>\n  <ChatInputField placeholder=\"Ask me anything...\" />\n  <ChatInputSubmit />\n</ChatInput>\n\n{/* Controlled mode */}\nconst [value, setValue] = useState('')\n<ChatInput onSubmit={(v) => { handleSend(v); setValue('') }}>\n  <ChatInputField\n    value={value}\n    onChange={(e) => setValue(e.target.value)}\n    placeholder=\"Ask me anything...\"\n  />\n  <ChatInputSubmit />\n</ChatInput>\n\n{/* With loading state + stop */}\n<ChatInput onSubmit={handleSubmit}>\n  <ChatInputField placeholder=\"Ask me anything...\" />\n  <ChatInputSubmit\n    loading={isLoading}\n    onStop={() => abortController.abort()}\n  />\n</ChatInput>\n\n{/* Character count */}\n<ChatInput onSubmit={(value) => console.log(value)}>\n  <ChatInputField placeholder=\"Ask me anything...\" showCount maxLength={500} />\n  <ChatInputSubmit />\n</ChatInput>\n\n{/* Filled variant, large, custom radius */}\n<ChatInput variant=\"filled\" size=\"lg\" radius=\"2xl\" onSubmit={(v) => console.log(v)}>\n  <ChatInputField placeholder=\"Ask me anything...\" maxRows={6} />\n  <ChatInputSubmit />\n</ChatInput>\n\n{/* Inline layout (single-line field + button side by side) */}\n<ChatInput layout=\"inline\" radius=\"full\" onSubmit={(value) => console.log(value)}>\n  <ChatInputField placeholder=\"Message...\" />\n  <ChatInputSubmit />\n</ChatInput>\n\n{/* Inline with custom button radius */}\n<ChatInput layout=\"inline\" radius=\"xl\" onSubmit={handleSubmit}>\n  <ChatInputField placeholder=\"Message...\" />\n  <ChatInputSubmit buttonRadius=\"full\" loading={isLoading} onStop={handleStop} />\n</ChatInput>"
+      ]
+    },
+    {
+      "name": "ChatMessage",
+      "annotation": null,
+      "category": "AI Components",
+      "description": "",
+      "importPath": "@7onic-ui/react",
+      "peerDeps": [],
+      "symbols": [
+        "ChatMessage",
+        "ChatMessageAvatar",
+        "ChatMessageContent",
+        "ChatMessageFooter"
+      ],
+      "compound": false,
+      "subComponents": [],
+      "props": [
+        {
+          "target": "ChatMessage",
+          "name": "role",
+          "type": "`'assistant' \\| 'user'`",
+          "default": "`'assistant'`",
+          "description": "Aligns left (assistant) or right (user)",
+          "enumValues": [
+            "assistant",
+            "user"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "name": "variant",
+          "type": "`'bubble' \\| 'flat'`",
+          "default": "`'bubble'`",
+          "description": "Bubble style with background/border, or flat with no fill",
+          "enumValues": [
+            "bubble",
+            "flat"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "name": "color",
+          "type": "`'default' \\| 'muted' \\| 'primary' \\| 'dark'`",
+          "default": "`'default'`",
+          "description": "Bubble background color",
+          "enumValues": [
+            "default",
+            "muted",
+            "primary",
+            "dark"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "`'default'`",
+          "description": "Size scale affecting padding and font",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "name": "radius",
+          "type": "`'md' \\| 'lg' \\| 'xl' \\| '2xl'`",
+          "default": "`'2xl'`",
+          "description": "Bubble corner radius",
+          "enumValues": [
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "name": "tail",
+          "type": "`boolean`",
+          "default": "`true`",
+          "description": "Asymmetric tail corner (sharp on avatar side) — bubble only",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage",
+          "name": "avatarSize",
+          "type": "`'sm' \\| 'md' \\| 'lg'`",
+          "default": "—",
+          "description": "Avatar size — also adjusts gap between avatar and bubble",
+          "enumValues": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "name": "typing",
+          "type": "`boolean`",
+          "default": "`false`",
+          "description": "Show animated typing dots inside Content",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage",
+          "name": "actions",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Hover-reveal action buttons (copy, react, etc.)",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Avatar",
+          "name": "size",
+          "type": "`'sm' \\| 'md' \\| 'lg'`",
+          "default": "`'md'`",
+          "description": "Avatar size: 24/28/32px",
+          "enumValues": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatMessage.Avatar",
+          "name": "src",
+          "type": "`string`",
+          "default": "—",
+          "description": "Avatar image URL",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Avatar",
+          "name": "alt",
+          "type": "`string`",
+          "default": "`'Avatar'`",
+          "description": "Alt text",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Avatar",
+          "name": "initials",
+          "type": "`string`",
+          "default": "—",
+          "description": "1–2 character initials (fallback)",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Avatar",
+          "name": "icon",
+          "type": "`ReactNode`",
+          "default": "—",
+          "description": "Custom icon (fallback)",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Footer",
+          "name": "timestamp",
+          "type": "`string`",
+          "default": "—",
+          "description": "Pre-formatted time string",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Footer",
+          "name": "status",
+          "type": "`'sending' \\| 'sent' \\| 'read' \\| 'error' \\| ReactNode`",
+          "default": "—",
+          "description": "Delivery status (built-in presets or custom node)",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Footer",
+          "name": "size",
+          "type": "`'sm' \\| 'default' \\| 'lg'`",
+          "default": "—",
+          "description": "Size override (defaults to context value from root)",
+          "enumValues": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "variants": [
+        {
+          "target": "ChatMessage",
+          "prop": "role",
+          "values": [
+            "assistant",
+            "user"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "prop": "variant",
+          "values": [
+            "bubble",
+            "flat"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "prop": "color",
+          "values": [
+            "default",
+            "muted",
+            "primary",
+            "dark"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "prop": "radius",
+          "values": [
+            "md",
+            "lg",
+            "xl",
+            "2xl"
+          ]
+        },
+        {
+          "target": "ChatMessage",
+          "prop": "avatarSize",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatMessage.Avatar",
+          "prop": "size",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ]
+        },
+        {
+          "target": "ChatMessage.Footer",
+          "prop": "size",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ]
+        }
+      ],
+      "sizeSpec": [
+        {
+          "target": "ChatMessage",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Size scale affecting padding and font"
+        },
+        {
+          "target": "ChatMessage.Avatar",
+          "values": [
+            "sm",
+            "md",
+            "lg"
+          ],
+          "description": "Avatar size: 24/28/32px"
+        },
+        {
+          "target": "ChatMessage.Footer",
+          "values": [
+            "sm",
+            "default",
+            "lg"
+          ],
+          "description": "Size override (defaults to context value from root)"
+        }
+      ],
+      "notes": [],
+      "a11y": [],
+      "related": [
+        "TypingIndicator",
+        "QuickReply",
+        "ChatInput"
+      ],
+      "docsUrls": [
+        "/components/chat-message"
+      ],
+      "examples": [
+        "import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter } from '@7onic-ui/react'\n\n{/* Assistant message */}\n<ChatMessage role=\"assistant\">\n  <ChatMessageAvatar />\n  <div className=\"flex flex-col gap-1\">\n    <ChatMessageContent>How can I help you today?</ChatMessageContent>\n    <ChatMessageFooter timestamp=\"12:34\" />\n  </div>\n</ChatMessage>\n\n{/* User message with status */}\n<ChatMessage role=\"user\">\n  <div className=\"flex flex-col gap-1 items-end\">\n    <ChatMessageContent>Thank you for your help!</ChatMessageContent>\n    <ChatMessageFooter timestamp=\"12:34\" status=\"read\" />\n  </div>\n</ChatMessage>\n\n{/* Typing animation */}\n<ChatMessage role=\"assistant\" typing>\n  <ChatMessageAvatar />\n  <ChatMessageContent />\n</ChatMessage>\n\n{/* Custom avatar + hover actions */}\n<ChatMessage\n  role=\"assistant\"\n  actions={<button aria-label=\"Copy\">...</button>}\n>\n  <ChatMessageAvatar initials=\"AI\" />\n  <div className=\"flex flex-col gap-1\">\n    <ChatMessageContent>Response text here.</ChatMessageContent>\n    <ChatMessageFooter timestamp=\"12:34\" />\n  </div>\n</ChatMessage>\n\n{/* User bubble with muted color (common pattern) */}\n<ChatMessage role=\"user\" color=\"muted\">\n  <div className=\"flex flex-col gap-1 items-end\">\n    <ChatMessageContent>Message text</ChatMessageContent>\n    <ChatMessageFooter timestamp=\"12:34\" status=\"read\" />\n  </div>\n</ChatMessage>\n\n{/* History (flat) layout — full-width, no footer */}\n<div className=\"flex flex-col gap-3\">\n  <ChatMessage role=\"assistant\" variant=\"flat\">\n    <ChatMessageAvatar />\n    <ChatMessageContent className=\"w-full\">Here is the answer.</ChatMessageContent>\n  </ChatMessage>\n  <ChatMessage role=\"user\" variant=\"flat\" color=\"muted\">\n    <ChatMessageContent className=\"w-full\">Thanks!</ChatMessageContent>\n  </ChatMessage>\n</div>"
+      ]
+    }
+  ]
+}
