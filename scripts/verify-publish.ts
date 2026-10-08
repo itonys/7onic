@@ -41,10 +41,17 @@ function run(cmd: string, cwd?: string): string {
   // Strip color forcing from the inherited env: FORCE_COLOR (e.g. set by CI or
   // agent harnesses) makes `node -e "console.log(n)"` wrap numbers in ANSI
   // codes, turning parseInt() of captured output into NaN.
-  const env = { ...process.env, NO_COLOR: '1' }
+  // (Record type: the project narrows NodeJS.ProcessEnv, which would reject
+  // the delete of keys it does not declare.)
+  const env: Record<string, string | undefined> = { ...process.env, NO_COLOR: '1' }
   delete env.FORCE_COLOR
   delete env.CLICOLOR_FORCE
-  return execSync(cmd, { cwd: cwd ?? ROOT, stdio: 'pipe', encoding: 'utf-8', env })
+  return execSync(cmd, {
+    cwd: cwd ?? ROOT,
+    stdio: 'pipe',
+    encoding: 'utf-8',
+    env: env as NodeJS.ProcessEnv,
+  })
 }
 
 function cleanup() {
