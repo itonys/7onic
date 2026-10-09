@@ -6,13 +6,17 @@ This project follows [Semantic Versioning](https://semver.org/).
 
 ## [0.1.16] — 2026-10-09
 
-### Added
+### 7onic
+
+#### Added
 
 - `init` Step 17: opt-in AI Kit install — writes the 7onic skills (`7onic-setup`, `7onic-design`) and the design agent into the project's `.claude/` directory. Interactive confirm by default (opt-in), `--claude` flag installs without asking, skipped under bare `--yes`. Idempotent: identical files untouched, differing files updated with a count summary. Payload embedded at build time from `ai-kit/` (self-contained offline, no network fetch).
 
 ## [0.1.15] — 2026-10-07
 
-### Fixed
+### 7onic
+
+#### Fixed
 
 - `dist/index.js` embedded `VERSION` constant was left at `0.1.13` when v0.1.14 shipped (dist rebuild missed) — `7onic --version` on the published 0.1.14 prints 0.1.13. Functionality unaffected. Rebuilt with the version correctly injected (this release).
 

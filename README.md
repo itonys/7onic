@@ -287,7 +287,17 @@ claude plugin marketplace add itonys/7onic && claude plugin install 7onic-design
 Other MCP clients: clone this repo and point your MCP config at `mcp/dist/index.js`
 (the bundle is committed — nothing to build).
 
-**Setup guides**: [Tokens](https://7onic.design/design-tokens/ai) · [Components](https://7onic.design/components/ai) · [MCP Server](https://7onic.design/components/mcp)
+### AI Kit — skills & agent
+
+The plugin also ships two Claude Code skills and an agent on top of the MCP server:
+`/7onic-setup` (project detection, token CSS wiring, idempotent health check),
+`/7onic-design` (guided build workflow — discovery → tokens → layout → a mandatory
+`validate_code` loop), and `7onic-design-agent` for delegated page/component builds.
+Not on the plugin? Get the same kit via `npx 7onic init --claude` (writes them into
+your project's `.claude/`) or copy the files from
+[7onic.design/components/mcp](https://7onic.design/components/mcp#ai-kit).
+
+**Setup guides**: [Tokens](https://7onic.design/design-tokens/ai) · [Components](https://7onic.design/components/ai) · [MCP Server & AI Kit](https://7onic.design/components/mcp)
 
 ---
 
@@ -317,6 +327,7 @@ Other MCP clients: clone this repo and point your MCP config at `mcp/dist/index.
 - [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.7
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] MCP server — token search, component catalog, layout recipes, `validate_code` rule checking (en/ja/ko), Claude Code plugin one-command install
+- [x] AI Kit — `/7onic-setup` + `/7onic-design` skills and a design agent (plugin, `npx 7onic init --claude`, or manual copy)
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [x] `npx 7onic init` full workflow — framework/TS/Tailwind detection (abort if missing), Vite `@/` alias auto-configure, base deps install, CSS token import, Vite boilerplate cleanup (`.bak` backup), Next.js+v4 `*` reset auto-wrap, `cn()` + `7onic.json` generation
 - [x] Technical blog — [blog.7onic.design](https://blog.7onic.design) ("Design to Code" series)
