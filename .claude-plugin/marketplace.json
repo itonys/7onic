@@ -8,7 +8,7 @@
     {
       "name": "7onic-design",
       "source": "./ai-kit",
-      "description": "7onic Design System MCP server: 42 components, design tokens, layout recipes, and validate_code rule checking for AI coding agents (en/ja/ko)."
+      "description": "7onic Design System AI Kit: MCP server (42 components, design tokens, layout recipes, validate_code rule checking), /7onic-setup and /7onic-design skills, and a design implementation agent (en/ja/ko)."
     }
   ]
 }

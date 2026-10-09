@@ -1,7 +1,7 @@
 {
   "name": "7onic-design",
-  "version": "0.1.0",
-  "description": "7onic Design System MCP server — token search, component catalog, layout recipes, and design-rule validation (validate_code) for AI coding agents. Queries in English, Japanese, and Korean.",
+  "version": "0.2.0",
+  "description": "7onic Design System AI Kit — MCP server (token search, component catalog, layout recipes, validate_code rule checking), /7onic-setup and /7onic-design skills, and a design implementation agent. Queries in English, Japanese, and Korean.",
   "author": {
     "name": "7onic"
   },
@@ -11,5 +11,6 @@
       "command": "node",
       "args": ["${CLAUDE_PLUGIN_ROOT}/mcp/dist/index.js"]
     }
-  }
+  },
+  "agents": ["./agents/design-agent.md"]
 }
