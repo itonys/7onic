@@ -6,6 +6,9 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __esm = (fn, res) => function __init() {
+  return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
+};
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -26,10 +29,19 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 
+// <define:__AI_KIT_FILES__>
+var define_AI_KIT_FILES_default;
+var init_define_AI_KIT_FILES = __esm({
+  "<define:__AI_KIT_FILES__>"() {
+    define_AI_KIT_FILES_default = { "skills/7onic-setup/SKILL.md": "---\nname: 7onic-setup\ndescription: Detect, configure, and verify a project for the 7onic Design System \u2014 framework/Tailwind detection, token CSS wiring, and an idempotent health check. Run after installing @7onic-ui packages, after `npx 7onic init`, or whenever styles look wrong.\n---\n\n# 7onic Setup \u2014 detect, configure, verify\n\nBring the current project to a working 7onic state. This skill is\n**idempotent**: when everything is already correct it changes nothing and\nreports a passing checklist. Never guess \u2014 every verdict below must come\nfrom reading the actual file.\n\n## Step 1 \u2014 Detect the project\n\nRead `package.json` and record:\n\n- **Install route**:\n  - `@7onic-ui/react` in dependencies \u2192 **npm route**\n  - a `7onic.json` file at the root and/or components under the project's\n    `components/ui/` \u2192 **CLI route** (`npx 7onic add` source copies)\n  - neither \u2192 go to Step 4 (fresh install)\n- **Tailwind major**: `tailwindcss` version \u2014 `^4` \u2192 v4, `^3` \u2192 v3.\n  No Tailwind at all \u2192 tokens still work as plain CSS variables\n  (`@7onic-ui/tokens/css/all.css`), but component classes need Tailwind:\n  say so and stop after wiring the CSS.\n- **Framework**: `next` \u2192 Next.js (global CSS usually `app/globals.css`),\n  `vite` \u2192 Vite (usually `src/index.css`).\n- `@7onic-ui/tokens` must be present on both routes \u2014 it ships the CSS\n  variables everything depends on.\n\n## Step 2 \u2014 Verify (and fix) the CSS wiring\n\nOpen the project's global CSS file and check against the matrix. Add only\nwhat is missing; never duplicate an import that already exists.\n\n**Tailwind v4**:\n\n```css\n@import \"tailwindcss\";\n@import '@7onic-ui/tokens/tailwind/v4.css';\n\n@source \"../node_modules/@7onic-ui/react/dist\";\n```\n\n- The `@source` path is relative to the CSS file \u2014 recompute it for the\n  actual file location (npm route only; CLI-copied sources are scanned as\n  normal project files).\n\n**Tailwind v3** \u2014 CSS plus config:\n\n```css\n@import '@7onic-ui/tokens/css/all.css';\n\n@tailwind base;\n@tailwind components;\n@tailwind utilities;\n```\n\n`tailwind.config.js` must have the preset and, on the npm route, the dist\nglob in `content`:\n\n```js\npresets: [require('@7onic-ui/tokens/tailwind/v3-preset')],\ncontent: ['./node_modules/@7onic-ui/react/dist/**/*.{js,mjs}', /* app globs */],\n```\n\nNotes that prevent common misdiagnoses:\n\n- Body background/text/font come from the token CSS automatically\n  (`html body` baseline inside `variables.css`) \u2014 do NOT add manual\n  `body { ... }` rules or wrapper providers.\n- Dark mode is automatic via CSS variables \u2014 never add `dark:` prefixed\n  classes to compensate.\n- `lucide-react` is NOT a 7onic dependency; 7onic components use inline\n  SVG. Install it only if the user's own code imports it.\n\n## Step 3 \u2014 Health check (always run, report as a checklist)\n\n1. `@7onic-ui/tokens` resolvable and its CSS imported (Step 2 matrix).\n2. Tailwind version matches the wiring style actually found.\n3. npm route: `@source`/`content` covers `@7onic-ui/react/dist`.\n4. A trivial render compiles: import `{ Button }` from\n   `@7onic-ui/react` (npm) or the local `components/ui` path (CLI) and\n   type-check or build.\n5. If the 7onic MCP server is connected, finish with one\n   `validate_code` call on an existing screen file to confirm the\n   project's code follows the token rules.\n\nReport each line as pass/fixed/action-needed with the file you read as\nevidence. If all five pass untouched, say so explicitly \u2014 that is the\nexpected steady state.\n\n## Step 4 \u2014 Nothing installed yet\n\nRecommend exactly one of:\n\n- `npx 7onic init` \u2014 detects framework/TS/Tailwind, installs base deps,\n  wires the CSS automatically (then re-run this skill to verify), or\n- manual npm route: `npm install @7onic-ui/react @7onic-ui/tokens` and\n  apply Step 2.\n\nFull reference: `node_modules/@7onic-ui/react/llms.txt` (npm route) or\nhttps://7onic.design/components/installation\n", "skills/7onic-design/SKILL.md": '---\nname: 7onic-design\ndescription: Build UI with the 7onic Design System the right way \u2014 guided workflow that drives the 7onic MCP tools (component discovery, token resolution, layout recipes, validate_code loop) from a plain-language request like "SaaS dashboard" or "pricing page". Queries work in English, Japanese, and Korean.\n---\n\n# 7onic Design \u2014 guided, validated UI building\n\nTurn a request ("build a settings page", "SaaS\u30C0\u30C3\u30B7\u30E5\u30DC\u30FC\u30C9", "\uAC00\uACA9 \uD398\uC774\uC9C0")\ninto token-accurate 7onic code. This skill is an **orchestrator**: the\nknowledge lives in the 7onic MCP server tools \u2014 your job is to call them\nin the right order and refuse to hand over unvalidated code.\n\nIf the `7onic-design` MCP tools are not available, stop and have the user\ninstall the plugin (`claude plugin install 7onic-design@7onic`) or wire\nthe server manually \u2014 do not improvise from memory.\n\n## Step 0 \u2014 Scope the request\n\nBreak the request into screens/sections and list them back in the user\'s\nlanguage. For a multi-screen request, confirm the breakdown before\nwriting code (e.g. dashboard \u2192 layout shell / metric row / chart panel /\ntable). For a single component or section, skip the confirmation and go.\n\n## Step 1 \u2014 Components first\n\nFor every UI element, discover before you write:\n\n- `list_components` with a natural-language query (en/ja/ko all fine) \u2014\n  prefer a 7onic component over any hand-rolled HTML.\n- `get_component` for props/variants/sizes of each component you will\n  use \u2014 never guess a prop name or enum value.\n- `get_component_examples` and copy the import lines **exactly** \u2014\n  named exports only, charts from `@7onic-ui/react/chart`.\n\n## Step 2 \u2014 Tokens for everything visual\n\n- `search_tokens` / `get_token` for colors, spacing, typography, shadows.\n  Token NAMES are the API; values are user-configurable \u2014 never hardcode.\n- About to write any raw value (hex color, px size, ms duration)?\n  Call `suggest_tokens` first. If it returns an exact token, use the\n  token class. If not, it returns a user-confirmation prompt \u2014 **relay\n  that prompt and wait**; never bypass tokens silently.\n- Semantic colors theme-switch automatically: no `dark:` prefixes.\n  Typography tokens pair font-size with line-height: no `leading-*`.\n\n## Step 3 \u2014 Layout\n\n`get_layout_pattern` for the structural skeleton \u2014 symmetric grids,\nreading column, section rhythm, element rows, inline groups. Grid system\nis 4/8/12 columns (mobile/tablet/desktop); icon+text rows always use\n`items-center`.\n\n## Step 4 \u2014 Write, then validate (non-negotiable)\n\nWrite the code, then run `validate_code` on every file you produced:\n\n1. errors > 0 \u2192 fix using the per-violation `fix` guidance and re-run.\n   Repeat until `valid: true`.\n2. Warnings: resolve them or tell the user which ones you kept and why.\n3. A `ds-ignore` comment is allowed only for a value the user explicitly\n   approved through the Step 2 confirmation prompt.\n\nOnly validated code reaches the user. Include in your final summary:\ncomponents used, tokens of note, and the final validate_code verdict.\n\n## Quality bar\n\nResponsive mobile-first (`md:`/`lg:` variants), dark-mode safe by\nconstruction (semantic tokens only), accessible labels on icon-only\ncontrols, user-facing copy in the user\'s language.\n', "agents/design-agent.md": "---\nname: 7onic-design-agent\ndescription: Implements UI tasks with the 7onic Design System end to end \u2014 discovers components and tokens through the 7onic MCP tools, composes layout, and returns only validate_code-clean TSX. Use for delegated page/screen/component builds in projects using @7onic-ui packages.\n---\n\nYou are a 7onic Design System implementation agent. You receive a UI task\n(a page, screen, or component) and return working, **validated** code.\nYou are self-contained: everything you need comes from the 7onic MCP\ntools (`7onic-design` server) \u2014 if they are unavailable, return that as a\nblocker instead of improvising from memory.\n\n## Hard rules\n\n1. **Components over HTML.** Before writing any element, check\n   `list_components` (queries accept English, Japanese, Korean). Native\n   `<button>`, `<input>`, `<table>` are wrong wherever a 7onic component\n   exists.\n2. **Never guess an API.** `get_component` for props/variants/sizes;\n   `get_component_examples` for verified JSX \u2014 copy the import lines\n   exactly. Named exports only; charts import from\n   `@7onic-ui/react/chart` (requires the `recharts` optional peer).\n3. **Tokens only.** No raw palette colors, no arbitrary values except\n   layout `h-[]`/`w-[]`, no `dark:` prefixes (semantic tokens\n   theme-switch), no `leading-*` (typography tokens pair font-size with\n   line-height), no inline styles. Before any raw value, call\n   `suggest_tokens`; if there is no exact token, surface its\n   confirmation prompt to your caller as an open question \u2014 do not\n   decide alone.\n4. **Layout via `get_layout_pattern`** \u2014 4/8/12 column grid, token gaps,\n   `items-center` for icon+text rows.\n5. **Validate before returning.** Run `validate_code` on every file you\n   wrote; fix and re-run until `valid: true`. Code that fails validation\n   must not appear in your final answer. Report remaining warnings with\n   one-line justifications.\n\n## Working style\n\n- Match the surrounding codebase's conventions (file layout, naming,\n  client/server component boundaries) \u2014 read neighboring files first.\n- Mobile-first responsive, accessible labels on icon-only controls,\n  user-facing copy in the requester's language.\n- Final report: files written, components used, notable token choices,\n  the validate_code verdict per file, and any open questions (e.g. a\n  pending custom-value confirmation).\n" };
+  }
+});
+
 // node_modules/sisteransi/src/index.js
 var require_src = __commonJS({
   "node_modules/sisteransi/src/index.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var ESC2 = "\x1B";
     var CSI2 = `${ESC2}[`;
     var beep = "\x07";
@@ -85,6 +97,7 @@ var require_src = __commonJS({
 // node_modules/picocolors/picocolors.js
 var require_picocolors = __commonJS({
   "node_modules/picocolors/picocolors.js"(exports2, module2) {
+    init_define_AI_KIT_FILES();
     var p2 = process || {};
     var argv = p2.argv || [];
     var env = p2.env || {};
@@ -158,6 +171,7 @@ var require_picocolors = __commonJS({
 var require_tokenize = __commonJS({
   "node_modules/postcss/lib/tokenize.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var SINGLE_QUOTE = "'".charCodeAt(0);
     var DOUBLE_QUOTE = '"'.charCodeAt(0);
     var BACKSLASH = "\\".charCodeAt(0);
@@ -373,6 +387,7 @@ var require_tokenize = __commonJS({
 var require_terminal_highlight = __commonJS({
   "node_modules/postcss/lib/terminal-highlight.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var pico = require_picocolors();
     var tokenizer = require_tokenize();
     var Input2;
@@ -435,6 +450,7 @@ var require_terminal_highlight = __commonJS({
 var require_css_syntax_error = __commonJS({
   "node_modules/postcss/lib/css-syntax-error.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var pico = require_picocolors();
     var terminalHighlight = require_terminal_highlight();
     var CssSyntaxError2 = class _CssSyntaxError extends Error {
@@ -532,6 +548,7 @@ var require_css_syntax_error = __commonJS({
 var require_stringifier = __commonJS({
   "node_modules/postcss/lib/stringifier.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var DEFAULT_RAW = {
       after: "\n",
       beforeClose: "\n",
@@ -836,6 +853,7 @@ var require_stringifier = __commonJS({
 var require_stringify = __commonJS({
   "node_modules/postcss/lib/stringify.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Stringifier = require_stringifier();
     function stringify2(node, builder) {
       let str = new Stringifier(builder);
@@ -850,6 +868,7 @@ var require_stringify = __commonJS({
 var require_symbols = __commonJS({
   "node_modules/postcss/lib/symbols.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     module2.exports.isClean = /* @__PURE__ */ Symbol("isClean");
     module2.exports.my = /* @__PURE__ */ Symbol("my");
   }
@@ -859,6 +878,7 @@ var require_symbols = __commonJS({
 var require_node = __commonJS({
   "node_modules/postcss/lib/node.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var CssSyntaxError2 = require_css_syntax_error();
     var Stringifier = require_stringifier();
     var stringify2 = require_stringify();
@@ -1239,6 +1259,7 @@ var require_node = __commonJS({
 var require_comment = __commonJS({
   "node_modules/postcss/lib/comment.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Node2 = require_node();
     var Comment2 = class extends Node2 {
       constructor(defaults) {
@@ -1255,6 +1276,7 @@ var require_comment = __commonJS({
 var require_declaration = __commonJS({
   "node_modules/postcss/lib/declaration.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Node2 = require_node();
     var Declaration2 = class extends Node2 {
       get variable() {
@@ -1277,6 +1299,7 @@ var require_declaration = __commonJS({
 var require_container = __commonJS({
   "node_modules/postcss/lib/container.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Comment2 = require_comment();
     var Declaration2 = require_declaration();
     var Node2 = require_node();
@@ -1662,6 +1685,7 @@ var require_container = __commonJS({
 var require_at_rule = __commonJS({
   "node_modules/postcss/lib/at-rule.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Container2 = require_container();
     var AtRule2 = class extends Container2 {
       constructor(defaults) {
@@ -1687,6 +1711,7 @@ var require_at_rule = __commonJS({
 var require_document = __commonJS({
   "node_modules/postcss/lib/document.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Container2 = require_container();
     var LazyResult;
     var Processor2;
@@ -1716,6 +1741,7 @@ var require_document = __commonJS({
 // node_modules/nanoid/non-secure/index.cjs
 var require_non_secure = __commonJS({
   "node_modules/nanoid/non-secure/index.cjs"(exports2, module2) {
+    init_define_AI_KIT_FILES();
     var urlAlphabet = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
     var customAlphabet = (alphabet, defaultSize = 21) => {
       return (size = defaultSize) => {
@@ -1742,6 +1768,7 @@ var require_non_secure = __commonJS({
 // node_modules/source-map-js/lib/base64.js
 var require_base64 = __commonJS({
   "node_modules/source-map-js/lib/base64.js"(exports2) {
+    init_define_AI_KIT_FILES();
     var intToCharMap = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/".split("");
     exports2.encode = function(number) {
       if (0 <= number && number < intToCharMap.length) {
@@ -1783,6 +1810,7 @@ var require_base64 = __commonJS({
 // node_modules/source-map-js/lib/base64-vlq.js
 var require_base64_vlq = __commonJS({
   "node_modules/source-map-js/lib/base64-vlq.js"(exports2) {
+    init_define_AI_KIT_FILES();
     var base64 = require_base64();
     var VLQ_BASE_SHIFT = 5;
     var VLQ_BASE = 1 << VLQ_BASE_SHIFT;
@@ -1837,6 +1865,7 @@ var require_base64_vlq = __commonJS({
 // node_modules/source-map-js/lib/util.js
 var require_util = __commonJS({
   "node_modules/source-map-js/lib/util.js"(exports2) {
+    init_define_AI_KIT_FILES();
     function getArg(aArgs, aName, aDefaultValue) {
       if (aName in aArgs) {
         return aArgs[aName];
@@ -2217,6 +2246,7 @@ var require_util = __commonJS({
 // node_modules/source-map-js/lib/array-set.js
 var require_array_set = __commonJS({
   "node_modules/source-map-js/lib/array-set.js"(exports2) {
+    init_define_AI_KIT_FILES();
     var util = require_util();
     var has = Object.prototype.hasOwnProperty;
     var hasNativeMap = typeof Map !== "undefined";
@@ -2287,6 +2317,7 @@ var require_array_set = __commonJS({
 // node_modules/source-map-js/lib/mapping-list.js
 var require_mapping_list = __commonJS({
   "node_modules/source-map-js/lib/mapping-list.js"(exports2) {
+    init_define_AI_KIT_FILES();
     var util = require_util();
     function generatedPositionAfter(mappingA, mappingB) {
       var lineA = mappingA.generatedLine;
@@ -2326,6 +2357,7 @@ var require_mapping_list = __commonJS({
 // node_modules/source-map-js/lib/source-map-generator.js
 var require_source_map_generator = __commonJS({
   "node_modules/source-map-js/lib/source-map-generator.js"(exports2) {
+    init_define_AI_KIT_FILES();
     var base64VLQ = require_base64_vlq();
     var util = require_util();
     var ArraySet = require_array_set().ArraySet;
@@ -2619,6 +2651,7 @@ var require_source_map_generator = __commonJS({
 // node_modules/source-map-js/lib/binary-search.js
 var require_binary_search = __commonJS({
   "node_modules/source-map-js/lib/binary-search.js"(exports2) {
+    init_define_AI_KIT_FILES();
     exports2.GREATEST_LOWER_BOUND = 1;
     exports2.LEAST_UPPER_BOUND = 2;
     function recursiveSearch(aLow, aHigh, aNeedle, aHaystack, aCompare, aBias) {
@@ -2675,6 +2708,7 @@ var require_binary_search = __commonJS({
 // node_modules/source-map-js/lib/quick-sort.js
 var require_quick_sort = __commonJS({
   "node_modules/source-map-js/lib/quick-sort.js"(exports2) {
+    init_define_AI_KIT_FILES();
     function SortTemplate(comparator) {
       function swap(ary, x, y2) {
         var temp = ary[x];
@@ -2724,6 +2758,7 @@ var require_quick_sort = __commonJS({
 // node_modules/source-map-js/lib/source-map-consumer.js
 var require_source_map_consumer = __commonJS({
   "node_modules/source-map-js/lib/source-map-consumer.js"(exports2) {
+    init_define_AI_KIT_FILES();
     var util = require_util();
     var binarySearch = require_binary_search();
     var ArraySet = require_array_set().ArraySet;
@@ -3371,6 +3406,7 @@ var require_source_map_consumer = __commonJS({
 // node_modules/source-map-js/lib/source-node.js
 var require_source_node = __commonJS({
   "node_modules/source-map-js/lib/source-node.js"(exports2) {
+    init_define_AI_KIT_FILES();
     var SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
     var util = require_util();
     var REGEX_NEWLINE = /(\r?\n)/;
@@ -3636,6 +3672,7 @@ var require_source_node = __commonJS({
 // node_modules/source-map-js/source-map.js
 var require_source_map = __commonJS({
   "node_modules/source-map-js/source-map.js"(exports2) {
+    init_define_AI_KIT_FILES();
     exports2.SourceMapGenerator = require_source_map_generator().SourceMapGenerator;
     exports2.SourceMapConsumer = require_source_map_consumer().SourceMapConsumer;
     exports2.SourceNode = require_source_node().SourceNode;
@@ -3646,6 +3683,7 @@ var require_source_map = __commonJS({
 var require_previous_map = __commonJS({
   "node_modules/postcss/lib/previous-map.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var { existsSync, readFileSync } = require("fs");
     var { dirname, join } = require("path");
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
@@ -3766,6 +3804,7 @@ var require_previous_map = __commonJS({
 var require_input = __commonJS({
   "node_modules/postcss/lib/input.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var { nanoid } = require_non_secure();
     var { isAbsolute, resolve } = require("path");
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
@@ -3988,6 +4027,7 @@ var require_input = __commonJS({
 var require_root = __commonJS({
   "node_modules/postcss/lib/root.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Container2 = require_container();
     var LazyResult;
     var Processor2;
@@ -4042,6 +4082,7 @@ var require_root = __commonJS({
 var require_list = __commonJS({
   "node_modules/postcss/lib/list.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var list2 = {
       comma(string) {
         return list2.split(string, [","], true);
@@ -4098,6 +4139,7 @@ var require_list = __commonJS({
 var require_rule = __commonJS({
   "node_modules/postcss/lib/rule.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Container2 = require_container();
     var list2 = require_list();
     var Rule2 = class extends Container2 {
@@ -4125,6 +4167,7 @@ var require_rule = __commonJS({
 var require_fromJSON = __commonJS({
   "node_modules/postcss/lib/fromJSON.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var AtRule2 = require_at_rule();
     var Comment2 = require_comment();
     var Declaration2 = require_declaration();
@@ -4181,6 +4224,7 @@ var require_fromJSON = __commonJS({
 var require_map_generator = __commonJS({
   "node_modules/postcss/lib/map-generator.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var { dirname, relative, resolve, sep } = require("path");
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
     var { pathToFileURL } = require("url");
@@ -4498,6 +4542,7 @@ var require_map_generator = __commonJS({
 var require_parser = __commonJS({
   "node_modules/postcss/lib/parser.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var AtRule2 = require_at_rule();
     var Comment2 = require_comment();
     var Declaration2 = require_declaration();
@@ -5032,6 +5077,7 @@ var require_parser = __commonJS({
 var require_parse = __commonJS({
   "node_modules/postcss/lib/parse.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Container2 = require_container();
     var Input2 = require_input();
     var Parser = require_parser();
@@ -5066,6 +5112,7 @@ var require_parse = __commonJS({
 var require_warning = __commonJS({
   "node_modules/postcss/lib/warning.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Warning2 = class {
       constructor(text, opts = {}) {
         this.type = "warning";
@@ -5102,6 +5149,7 @@ var require_warning = __commonJS({
 var require_result = __commonJS({
   "node_modules/postcss/lib/result.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Warning2 = require_warning();
     var Result2 = class {
       get content() {
@@ -5141,6 +5189,7 @@ var require_result = __commonJS({
 var require_warn_once = __commonJS({
   "node_modules/postcss/lib/warn-once.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var printed = {};
     module2.exports = function warnOnce(message) {
       if (printed[message]) return;
@@ -5156,6 +5205,7 @@ var require_warn_once = __commonJS({
 var require_lazy_result = __commonJS({
   "node_modules/postcss/lib/lazy-result.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Container2 = require_container();
     var Document2 = require_document();
     var MapGenerator = require_map_generator();
@@ -5630,6 +5680,7 @@ var require_lazy_result = __commonJS({
 var require_no_work_result = __commonJS({
   "node_modules/postcss/lib/no-work-result.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var MapGenerator = require_map_generator();
     var parse4 = require_parse();
     var Result2 = require_result();
@@ -5746,6 +5797,7 @@ var require_no_work_result = __commonJS({
 var require_processor = __commonJS({
   "node_modules/postcss/lib/processor.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var Document2 = require_document();
     var LazyResult = require_lazy_result();
     var NoWorkResult = require_no_work_result();
@@ -5804,6 +5856,7 @@ var require_processor = __commonJS({
 var require_postcss = __commonJS({
   "node_modules/postcss/lib/postcss.js"(exports2, module2) {
     "use strict";
+    init_define_AI_KIT_FILES();
     var AtRule2 = require_at_rule();
     var Comment2 = require_comment();
     var Container2 = require_container();
@@ -5888,17 +5941,35 @@ var require_postcss = __commonJS({
   }
 });
 
+// cli/src/index.ts
+init_define_AI_KIT_FILES();
+
 // cli/src/commands/init.ts
+init_define_AI_KIT_FILES();
 var import_node_fs5 = __toESM(require("node:fs"));
 var import_node_path5 = __toESM(require("node:path"));
 
+// node_modules/@clack/prompts/dist/index.mjs
+init_define_AI_KIT_FILES();
+
 // node_modules/@clack/core/dist/index.mjs
+init_define_AI_KIT_FILES();
 var import_node_util = require("node:util");
 var import_node_process = require("node:process");
 var _ = __toESM(require("node:readline"), 1);
 var import_node_readline = __toESM(require("node:readline"), 1);
 
+// node_modules/fast-wrap-ansi/lib/main.js
+init_define_AI_KIT_FILES();
+
+// node_modules/fast-string-width/dist/index.js
+init_define_AI_KIT_FILES();
+
+// node_modules/fast-string-truncated-width/dist/index.js
+init_define_AI_KIT_FILES();
+
 // node_modules/fast-string-truncated-width/dist/utils.js
+init_define_AI_KIT_FILES();
 var isAmbiguous = (x) => {
   return x === 161 || x === 164 || x === 167 || x === 168 || x === 170 || x === 173 || x === 174 || x >= 176 && x <= 180 || x >= 182 && x <= 186 || x >= 188 && x <= 191 || x === 198 || x === 208 || x === 215 || x === 216 || x >= 222 && x <= 225 || x === 230 || x >= 232 && x <= 234 || x === 236 || x === 237 || x === 240 || x === 242 || x === 243 || x >= 247 && x <= 250 || x === 252 || x === 254 || x === 257 || x === 273 || x === 275 || x === 283 || x === 294 || x === 295 || x === 299 || x >= 305 && x <= 307 || x === 312 || x >= 319 && x <= 322 || x === 324 || x >= 328 && x <= 331 || x === 333 || x === 338 || x === 339 || x === 358 || x === 359 || x === 363 || x === 462 || x === 464 || x === 466 || x === 468 || x === 470 || x === 472 || x === 474 || x === 476 || x === 593 || x === 609 || x === 708 || x === 711 || x >= 713 && x <= 715 || x === 717 || x === 720 || x >= 728 && x <= 731 || x === 733 || x === 735 || x >= 768 && x <= 879 || x >= 913 && x <= 929 || x >= 931 && x <= 937 || x >= 945 && x <= 961 || x >= 963 && x <= 969 || x === 1025 || x >= 1040 && x <= 1103 || x === 1105 || x === 8208 || x >= 8211 && x <= 8214 || x === 8216 || x === 8217 || x === 8220 || x === 8221 || x >= 8224 && x <= 8226 || x >= 8228 && x <= 8231 || x === 8240 || x === 8242 || x === 8243 || x === 8245 || x === 8251 || x === 8254 || x === 8308 || x === 8319 || x >= 8321 && x <= 8324 || x === 8364 || x === 8451 || x === 8453 || x === 8457 || x === 8467 || x === 8470 || x === 8481 || x === 8482 || x === 8486 || x === 8491 || x === 8531 || x === 8532 || x >= 8539 && x <= 8542 || x >= 8544 && x <= 8555 || x >= 8560 && x <= 8569 || x === 8585 || x >= 8592 && x <= 8601 || x === 8632 || x === 8633 || x === 8658 || x === 8660 || x === 8679 || x === 8704 || x === 8706 || x === 8707 || x === 8711 || x === 8712 || x === 8715 || x === 8719 || x === 8721 || x === 8725 || x === 8730 || x >= 8733 && x <= 8736 || x === 8739 || x === 8741 || x >= 8743 && x <= 8748 || x === 8750 || x >= 8756 && x <= 8759 || x === 8764 || x === 8765 || x === 8776 || x === 8780 || x === 8786 || x === 8800 || x === 8801 || x >= 8804 && x <= 8807 || x === 8810 || x === 8811 || x === 8814 || x === 8815 || x === 8834 || x === 8835 || x === 8838 || x === 8839 || x === 8853 || x === 8857 || x === 8869 || x === 8895 || x === 8978 || x >= 9312 && x <= 9449 || x >= 9451 && x <= 9547 || x >= 9552 && x <= 9587 || x >= 9600 && x <= 9615 || x >= 9618 && x <= 9621 || x === 9632 || x === 9633 || x >= 9635 && x <= 9641 || x === 9650 || x === 9651 || x === 9654 || x === 9655 || x === 9660 || x === 9661 || x === 9664 || x === 9665 || x >= 9670 && x <= 9672 || x === 9675 || x >= 9678 && x <= 9681 || x >= 9698 && x <= 9701 || x === 9711 || x === 9733 || x === 9734 || x === 9737 || x === 9742 || x === 9743 || x === 9756 || x === 9758 || x === 9792 || x === 9794 || x === 9824 || x === 9825 || x >= 9827 && x <= 9829 || x >= 9831 && x <= 9834 || x === 9836 || x === 9837 || x === 9839 || x === 9886 || x === 9887 || x === 9919 || x >= 9926 && x <= 9933 || x >= 9935 && x <= 9939 || x >= 9941 && x <= 9953 || x === 9955 || x === 9960 || x === 9961 || x >= 9963 && x <= 9969 || x === 9972 || x >= 9974 && x <= 9977 || x === 9979 || x === 9980 || x === 9982 || x === 9983 || x === 10045 || x >= 10102 && x <= 10111 || x >= 11094 && x <= 11097 || x >= 12872 && x <= 12879 || x >= 57344 && x <= 63743 || x >= 65024 && x <= 65039 || x === 65533 || x >= 127232 && x <= 127242 || x >= 127248 && x <= 127277 || x >= 127280 && x <= 127337 || x >= 127344 && x <= 127373 || x === 127375 || x === 127376 || x >= 127387 && x <= 127404 || x >= 917760 && x <= 917999 || x >= 983040 && x <= 1048573 || x >= 1048576 && x <= 1114109;
 };
@@ -6856,6 +6927,7 @@ ${c2}
 var import_picocolors = __toESM(require_picocolors());
 
 // cli/src/utils/config.ts
+init_define_AI_KIT_FILES();
 var import_node_fs = __toESM(require("node:fs"));
 var import_node_path = __toESM(require("node:path"));
 var CONFIG_FILE = "7onic.json";
@@ -6886,7 +6958,11 @@ function configExists(cwd) {
   return import_node_fs.default.existsSync(import_node_path.default.join(cwd, CONFIG_FILE));
 }
 
+// cli/src/utils/detect-framework.ts
+init_define_AI_KIT_FILES();
+
 // cli/src/utils/project-helpers.ts
+init_define_AI_KIT_FILES();
 var import_node_fs2 = __toESM(require("node:fs"));
 var import_node_path2 = __toESM(require("node:path"));
 function pathExists(cwd, relativePath) {
@@ -6939,6 +7015,7 @@ function detectFramework(cwd) {
 }
 
 // cli/src/utils/detect-tailwind.ts
+init_define_AI_KIT_FILES();
 var V3_CONFIG_FILES = [
   "tailwind.config.js",
   "tailwind.config.ts",
@@ -6957,6 +7034,7 @@ function detectTailwind(cwd) {
 }
 
 // cli/src/utils/detect-pm.ts
+init_define_AI_KIT_FILES();
 var import_node_fs3 = __toESM(require("node:fs"));
 var import_node_path3 = __toESM(require("node:path"));
 var LOCKFILES = {
@@ -6976,6 +7054,7 @@ function detectPackageManager(cwd) {
 }
 
 // cli/src/utils/install-deps.ts
+init_define_AI_KIT_FILES();
 var import_node_child_process = require("node:child_process");
 function installDeps(deps, options) {
   if (deps.length === 0) return;
@@ -6991,6 +7070,7 @@ function installDeps(deps, options) {
 }
 
 // cli/src/utils/graceful-exit.ts
+init_define_AI_KIT_FILES();
 var LINK_PREFIX = "See: ";
 var SECTION_SEPARATOR = "\n\n";
 var DEFAULT_CANCEL_MESSAGE = "Init cancelled.";
@@ -7010,6 +7090,7 @@ function userCancel(message = DEFAULT_CANCEL_MESSAGE) {
 }
 
 // cli/src/utils/css-imports-builder.ts
+init_define_AI_KIT_FILES();
 var TOKENS = "@7onic-ui/tokens";
 var TOKEN_IMPORTS = {
   3: [`@import '${TOKENS}/css/all.css';`],
@@ -7032,7 +7113,11 @@ function requiredTokenImports(version) {
   return TOKEN_IMPORTS[version];
 }
 
+// cli/src/utils/star-reset-wrap.ts
+init_define_AI_KIT_FILES();
+
 // node_modules/postcss/lib/postcss.mjs
+init_define_AI_KIT_FILES();
 var import_postcss = __toESM(require_postcss(), 1);
 var postcss_default = import_postcss.default;
 var stringify = import_postcss.default.stringify;
@@ -7086,7 +7171,17 @@ function wrapStarReset(input) {
   };
 }
 
+// cli/src/utils/jsonc-parse.ts
+init_define_AI_KIT_FILES();
+
+// node_modules/jsonc-parser/lib/esm/main.js
+init_define_AI_KIT_FILES();
+
+// node_modules/jsonc-parser/lib/esm/impl/format.js
+init_define_AI_KIT_FILES();
+
 // node_modules/jsonc-parser/lib/esm/impl/scanner.js
+init_define_AI_KIT_FILES();
 function createScanner(text, ignoreTrivia = false) {
   const len = text.length;
   let pos = 0, value = "", tokenOffset = 0, token = 16, lineNumber = 0, lineStartOffset = 0, tokenLineStartOffset = 0, prevTokenLineStartOffset = 0, scanError = 0;
@@ -7508,6 +7603,7 @@ var CharacterCodes;
 })(CharacterCodes || (CharacterCodes = {}));
 
 // node_modules/jsonc-parser/lib/esm/impl/string-intern.js
+init_define_AI_KIT_FILES();
 var cachedSpaces = new Array(20).fill(0).map((_2, index) => {
   return " ".repeat(index);
 });
@@ -7537,7 +7633,11 @@ var cachedBreakLinesWithSpaces = {
   }
 };
 
+// node_modules/jsonc-parser/lib/esm/impl/edit.js
+init_define_AI_KIT_FILES();
+
 // node_modules/jsonc-parser/lib/esm/impl/parser.js
+init_define_AI_KIT_FILES();
 var ParseOptions;
 (function(ParseOptions2) {
   ParseOptions2.DEFAULT = {
@@ -8000,6 +8100,7 @@ function parseJsonc(source) {
 }
 
 // cli/src/utils/vite-template-cleanup.ts
+init_define_AI_KIT_FILES();
 var import_node_fs4 = __toESM(require("node:fs"));
 var import_node_path4 = __toESM(require("node:path"));
 var VITE_INDEX_CSS_PATTERNS = [
@@ -8146,17 +8247,18 @@ function pluralize(count, word) {
 }
 function parseArgs(args) {
   const flagYes = args.includes("--yes") || args.includes("-y");
+  const flagClaude = args.includes("--claude");
   const tailwindFlagIdx = args.indexOf("--tailwind");
   if (tailwindFlagIdx === -1) {
-    return { flagYes, forcedTailwindVersion: null, invalidTailwindFlag: null };
+    return { flagYes, flagClaude, forcedTailwindVersion: null, invalidTailwindFlag: null };
   }
   const raw = args[tailwindFlagIdx + 1] ?? "";
-  if (raw === "v3" || raw === "3") return { flagYes, forcedTailwindVersion: 3, invalidTailwindFlag: null };
-  if (raw === "v4" || raw === "4") return { flagYes, forcedTailwindVersion: 4, invalidTailwindFlag: null };
-  return { flagYes, forcedTailwindVersion: null, invalidTailwindFlag: raw };
+  if (raw === "v3" || raw === "3") return { flagYes, flagClaude, forcedTailwindVersion: 3, invalidTailwindFlag: null };
+  if (raw === "v4" || raw === "4") return { flagYes, flagClaude, forcedTailwindVersion: 4, invalidTailwindFlag: null };
+  return { flagYes, flagClaude, forcedTailwindVersion: null, invalidTailwindFlag: raw };
 }
 async function init(args) {
-  const { flagYes, forcedTailwindVersion, invalidTailwindFlag } = parseArgs(args);
+  const { flagYes, flagClaude, forcedTailwindVersion, invalidTailwindFlag } = parseArgs(args);
   mt(import_picocolors.default.bold("7onic init"));
   if (invalidTailwindFlag !== null) {
     O2.warn(`Invalid --tailwind value: "${invalidTailwindFlag || "(empty)"}". Use v3 or v4.`);
@@ -8233,6 +8335,7 @@ async function init(args) {
   };
   writeConfig(projectRoot, finalConfig);
   O2.success("Created 7onic.json");
+  await maybeInstallAiKit(projectRoot, { flagYes, flagClaude });
   gt(`Done! Run ${import_picocolors.default.cyan("npx 7onic add <component>")} to add components.`);
 }
 async function resolveConfig(projectRoot, { flagYes, forcedTailwindVersion, tailwind }) {
@@ -8518,13 +8621,48 @@ function resolveAliasPath(projectRoot, alias) {
   if (!alias.startsWith("@/")) return null;
   return import_node_path5.default.join(projectRoot, "src", alias.slice(2));
 }
+async function maybeInstallAiKit(projectRoot, opts) {
+  let install = opts.flagClaude;
+  if (!install && !opts.flagYes) {
+    const answer = await ot2({
+      message: "Install the 7onic AI Kit (.claude/ skills + design agent for Claude Code and other AI agents)?",
+      initialValue: false
+    });
+    if (q(answer)) return;
+    install = answer;
+  }
+  if (!install) return;
+  let created = 0;
+  let updated = 0;
+  let unchanged = 0;
+  for (const [rel, content] of Object.entries(define_AI_KIT_FILES_default)) {
+    const dest = import_node_path5.default.join(projectRoot, ".claude", rel);
+    import_node_fs5.default.mkdirSync(import_node_path5.default.dirname(dest), { recursive: true });
+    if (import_node_fs5.default.existsSync(dest)) {
+      if (import_node_fs5.default.readFileSync(dest, "utf8") === content) {
+        unchanged++;
+        continue;
+      }
+      updated++;
+    } else {
+      created++;
+    }
+    import_node_fs5.default.writeFileSync(dest, content);
+  }
+  O2.success(
+    `AI Kit installed to .claude/ (${created} created, ${updated} updated, ${unchanged} unchanged)`
+  );
+  O2.info("Tip: on Claude Code, the 7onic-design plugin provides the same kit plus the MCP server.");
+}
 
 // cli/src/commands/add.ts
+init_define_AI_KIT_FILES();
 var import_node_fs6 = __toESM(require("node:fs"));
 var import_node_path6 = __toESM(require("node:path"));
 var import_picocolors3 = __toESM(require_picocolors());
 
 // cli/src/utils/rewrite-imports.ts
+init_define_AI_KIT_FILES();
 function rewriteImports(content, utilsAlias) {
   return content.replace(
     /from ['"]@\/lib\/utils['"]/g,
@@ -8533,6 +8671,7 @@ function rewriteImports(content, utilsAlias) {
 }
 
 // cli/src/utils/logger.ts
+init_define_AI_KIT_FILES();
 var import_picocolors2 = __toESM(require_picocolors());
 var logger = {
   info(msg) {
@@ -8556,6 +8695,7 @@ var logger = {
 };
 
 // cli/src/registry/index.ts
+init_define_AI_KIT_FILES();
 var registry = {
   "accordion": {
     name: "accordion",
@@ -21109,7 +21249,7 @@ function showCompanionHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.15";
+var VERSION = "0.1.16";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 
@@ -21123,6 +21263,7 @@ ${import_picocolors4.default.bold("Commands:")}
 ${import_picocolors4.default.bold("Init options:")}
   --tailwind v3|v4      Set Tailwind version (default: auto-detect)
   --yes, -y             Skip prompts, use defaults
+  --claude              Install the AI Kit (.claude/ skills + agent) without asking
 
 ${import_picocolors4.default.bold("Add options:")}
   --all                 Add all components
@@ -21136,6 +21277,7 @@ ${import_picocolors4.default.bold("Global options:")}
 ${import_picocolors4.default.bold("Examples:")}
   npx 7onic init
   npx 7onic init --tailwind v3 --yes
+  npx 7onic init --claude
   npx 7onic add button card input
   npx 7onic add --all
 `;

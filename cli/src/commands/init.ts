@@ -53,20 +53,22 @@ function pluralize(count: number, word: string): string {
 
 interface ParsedArgs {
   flagYes: boolean
+  flagClaude: boolean
   forcedTailwindVersion: 3 | 4 | null
   invalidTailwindFlag: string | null
 }
 
 function parseArgs(args: string[]): ParsedArgs {
   const flagYes = args.includes('--yes') || args.includes('-y')
+  const flagClaude = args.includes('--claude')
   const tailwindFlagIdx = args.indexOf('--tailwind')
   if (tailwindFlagIdx === -1) {
-    return { flagYes, forcedTailwindVersion: null, invalidTailwindFlag: null }
+    return { flagYes, flagClaude, forcedTailwindVersion: null, invalidTailwindFlag: null }
   }
   const raw = args[tailwindFlagIdx + 1] ?? ''
-  if (raw === 'v3' || raw === '3') return { flagYes, forcedTailwindVersion: 3, invalidTailwindFlag: null }
-  if (raw === 'v4' || raw === '4') return { flagYes, forcedTailwindVersion: 4, invalidTailwindFlag: null }
-  return { flagYes, forcedTailwindVersion: null, invalidTailwindFlag: raw }
+  if (raw === 'v3' || raw === '3') return { flagYes, flagClaude, forcedTailwindVersion: 3, invalidTailwindFlag: null }
+  if (raw === 'v4' || raw === '4') return { flagYes, flagClaude, forcedTailwindVersion: 4, invalidTailwindFlag: null }
+  return { flagYes, flagClaude, forcedTailwindVersion: null, invalidTailwindFlag: raw }
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -74,7 +76,7 @@ function parseArgs(args: string[]): ParsedArgs {
 // ────────────────────────────────────────────────────────────────────────────
 
 export async function init(args: string[]): Promise<void> {
-  const { flagYes, forcedTailwindVersion, invalidTailwindFlag } = parseArgs(args)
+  const { flagYes, flagClaude, forcedTailwindVersion, invalidTailwindFlag } = parseArgs(args)
 
   p.intro(pc.bold('7onic init'))
 
@@ -190,6 +192,9 @@ export async function init(args: string[]): Promise<void> {
   }
   writeConfig(projectRoot, finalConfig)
   p.log.success('Created 7onic.json')
+
+  // Step 17: AI Kit opt-in (.claude/ skills + agent for AI coding agents)
+  await maybeInstallAiKit(projectRoot, { flagYes, flagClaude })
 
   p.outro(`Done! Run ${pc.cyan('npx 7onic add <component>')} to add components.`)
 }
@@ -567,4 +572,59 @@ function findMatchingBrace(source: string, openIdx: number): number {
 function resolveAliasPath(projectRoot: string, alias: string): string | null {
   if (!alias.startsWith('@/')) return null
   return path.join(projectRoot, 'src', alias.slice(2))
+}
+
+
+// ────────────────────────────────────────────────────────────────────────────
+// AI Kit injection (Step 17)
+// ────────────────────────────────────────────────────────────────────────────
+
+// Build-time payload (scripts/build-7onic-cli.js, source of truth: ai-kit/).
+declare const __AI_KIT_FILES__: Record<string, string>
+
+/**
+ * Opt-in install of the 7onic AI Kit into the project's `.claude/`:
+ * two skills (7onic-setup, 7onic-design) and the design agent. Idempotent —
+ * identical files are left untouched; differing files are updated with a
+ * note. Claude Code plugin users do not need this (the plugin ships the
+ * same kit), which is why it never installs without consent: interactive
+ * confirm by default, `--claude` to force, skipped under bare `--yes`.
+ */
+async function maybeInstallAiKit(
+  projectRoot: string,
+  opts: { flagYes: boolean; flagClaude: boolean },
+): Promise<void> {
+  let install = opts.flagClaude
+  if (!install && !opts.flagYes) {
+    const answer = await p.confirm({
+      message:
+        'Install the 7onic AI Kit (.claude/ skills + design agent for Claude Code and other AI agents)?',
+      initialValue: false,
+    })
+    if (p.isCancel(answer)) return
+    install = answer
+  }
+  if (!install) return
+
+  let created = 0
+  let updated = 0
+  let unchanged = 0
+  for (const [rel, content] of Object.entries(__AI_KIT_FILES__)) {
+    const dest = path.join(projectRoot, '.claude', rel)
+    fs.mkdirSync(path.dirname(dest), { recursive: true })
+    if (fs.existsSync(dest)) {
+      if (fs.readFileSync(dest, 'utf8') === content) {
+        unchanged++
+        continue
+      }
+      updated++
+    } else {
+      created++
+    }
+    fs.writeFileSync(dest, content)
+  }
+  p.log.success(
+    `AI Kit installed to .claude/ (${created} created, ${updated} updated, ${unchanged} unchanged)`,
+  )
+  p.log.info('Tip: on Claude Code, the 7onic-design plugin provides the same kit plus the MCP server.')
 }

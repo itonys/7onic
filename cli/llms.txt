@@ -26,6 +26,7 @@ Initialize 7onic in your project (creates `7onic.json`, installs base dependenci
 ```bash
 npx 7onic init
 npx 7onic init --tailwind v3 --yes    # Explicit v3, skip prompts
+npx 7onic init --claude               # Also install the AI Kit (.claude/ skills + design agent)
 ```
 
 The exact init steps are version-sensitive — always defer to the CLI / install pages above.

@@ -19,6 +19,7 @@ ${pc.bold('Commands:')}
 ${pc.bold('Init options:')}
   --tailwind v3|v4      Set Tailwind version (default: auto-detect)
   --yes, -y             Skip prompts, use defaults
+  --claude              Install the AI Kit (.claude/ skills + agent) without asking
 
 ${pc.bold('Add options:')}
   --all                 Add all components
@@ -32,6 +33,7 @@ ${pc.bold('Global options:')}
 ${pc.bold('Examples:')}
   npx 7onic init
   npx 7onic init --tailwind v3 --yes
+  npx 7onic init --claude
   npx 7onic add button card input
   npx 7onic add --all
 `

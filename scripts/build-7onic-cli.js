@@ -9,6 +9,7 @@ const { buildSync } = require('esbuild')
 const fs = require('fs')
 const path = require('path')
 
+const ROOT = path.resolve(__dirname, '..')
 const outfile = path.resolve(__dirname, '..', 'cli', 'dist', 'index.js')
 const outdir = path.dirname(outfile)
 const cliPkg = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', 'cli', 'package.json'), 'utf-8'))
@@ -33,6 +34,17 @@ buildSync({
   },
   define: {
     '__CLI_VERSION__': JSON.stringify(cliPkg.version),
+    // AI Kit payloads for `init --claude` (source of truth: ai-kit/).
+    // Injected at build time so the CLI stays self-contained offline —
+    // rebuild (npm run build:7onic) whenever the ai-kit files change.
+    '__AI_KIT_FILES__': JSON.stringify({
+      'skills/7onic-setup/SKILL.md': fs.readFileSync(
+        path.join(ROOT, 'ai-kit/skills/7onic-setup/SKILL.md'), 'utf8'),
+      'skills/7onic-design/SKILL.md': fs.readFileSync(
+        path.join(ROOT, 'ai-kit/skills/7onic-design/SKILL.md'), 'utf8'),
+      'agents/design-agent.md': fs.readFileSync(
+        path.join(ROOT, 'ai-kit/agents/design-agent.md'), 'utf8'),
+    }),
   },
 })
 

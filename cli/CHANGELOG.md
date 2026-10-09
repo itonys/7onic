@@ -4,6 +4,12 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.16] — 2026-10-09
+
+### Added
+
+- `init` Step 17: opt-in AI Kit install — writes the 7onic skills (`7onic-setup`, `7onic-design`) and the design agent into the project's `.claude/` directory. Interactive confirm by default (opt-in), `--claude` flag installs without asking, skipped under bare `--yes`. Idempotent: identical files untouched, differing files updated with a count summary. Payload embedded at build time from `ai-kit/` (self-contained offline, no network fetch).
+
 ## [0.1.15] — 2026-10-07
 
 ### Fixed
