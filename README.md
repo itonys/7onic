@@ -26,13 +26,13 @@
 | **🎯** | **Zero design-code drift** | Design and code from a single vision. No handoff, no drift — every component is pixel-verified against Figma. |
 | **📦** | **One JSON, every format** | `figma-tokens.json` auto-generates CSS, Tailwind v3, Tailwind v4, JS/TS, and JSON — all in sync. |
 | **🧩** | **shadcn freedom + MUI convenience** | shadcn's customization with none of its missing features. MUI's built-in power with none of its styling constraints. Both, by design. |
-| **⚡** | **npm or CLI — your choice** | `npm install` for packages, `npx 7onic add` for local copy. Same components, two workflows. |
+| **⚡** | **npm, CLI, or MCP — three ways in** | `npm install` for packages, `npx 7onic add` for local copy, or `claude plugin install 7onic-design@7onic` so your AI agent can explore every token and component and run `validate_code` before a single file lands in your project. Same system, three workflows. |
 | **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
 | **🪄** | **Framework-aware setup** | Detects Next.js / Vite, TypeScript, and Tailwind — exits with a clear error if anything's missing. Auto-cleans Vite boilerplate (`.bak` backup), auto-wraps `*` reset in `@layer base` for Next.js + Tailwind v4. No Provider wrapper, no `globals.css` replacement. |
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
 | **🔓** | **Framework-agnostic tokens** | Tokens ship as pure CSS variables. Use with Vue, Angular, Svelte, or vanilla CSS — no React required. |
-| **🤖** | **AI-ready** | Ships with `llms.txt` and an MCP server — AI builds with design tokens, not hardcoded values, and `validate_code` checks the result. Zero config for Claude, Cursor, Copilot. |
+| **🤖** | **AI-ready** | `llms.txt` for any AI tool, plus an MCP server that installs as a Claude Code plugin in one command (no `npm install`, ~3 MB). AI builds with design tokens, not hardcoded values, and `validate_code` rejects what docs alone can't prevent. Claude Code, Cursor, Copilot. |
 | **🌏** | **CJK-first typography** | Type scale tuned for Japanese kanji, Korean hangul, and Latin — not an afterthought. |
 | **🔐** | **Supply chain verified** | Cryptographically signed releases (npm provenance), automated vulnerability scanning in CI, reproducible builds. You can verify every package came from this exact GitHub commit — not a hijacked account. |
 | **🔥** | **Relentlessly updated** | Actively maintained with continuous research, refinement, and new features. Not abandoned — ever. |
