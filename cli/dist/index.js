@@ -204,6 +204,7 @@ var require_tokenize = __commonJS({
       let pos = 0;
       let buffer = [];
       let returned = [];
+      let lastBadParen = -1;
       function position() {
         return pos;
       }
@@ -268,10 +269,13 @@ var require_tokenize = __commonJS({
               } while (escaped);
               currentToken = ["brackets", css.slice(pos, next + 1), pos, next];
               pos = next;
+            } else if (pos <= lastBadParen) {
+              currentToken = ["(", "(", pos];
             } else {
               next = css.indexOf(")", pos + 1);
               content = css.slice(pos, next + 1);
               if (next === -1 || RE_BAD_BRACKET.test(content)) {
+                lastBadParen = next === -1 ? length : next;
                 currentToken = ["(", "(", pos];
               } else {
                 currentToken = ["brackets", content, pos, next];
@@ -549,6 +553,7 @@ var require_stringifier = __commonJS({
   "node_modules/postcss/lib/stringifier.js"(exports2, module2) {
     "use strict";
     init_define_AI_KIT_FILES();
+    var AT_NAME_END = /[\t\n\f\r "#'()/;[\\\]{}]/;
     var DEFAULT_RAW = {
       after: "\n",
       beforeClose: "\n",
@@ -566,23 +571,74 @@ var require_stringifier = __commonJS({
     function capitalize(str) {
       return str[0].toUpperCase() + str.slice(1);
     }
-    var Stringifier = class {
+    function atruleStart(str, node) {
+      let name = "@" + node.name;
+      let params = node.params ? str.rawValue(node, "params") : "";
+      let afterName = node.raws.afterName;
+      if (typeof afterName === "undefined") {
+        afterName = params ? " " : "";
+      } else if (afterName === "" && params && !AT_NAME_END.test(params[0])) {
+        afterName = " ";
+      }
+      return name + afterName + params;
+    }
+    function isCustomProperty(node) {
+      if (!node.prop.startsWith("--")) return false;
+      let before = node.raws.before;
+      return typeof before === "undefined" || !/[^\s;]$/.test(before);
+    }
+    function pushBody(str, stack, node) {
+      let nodes = node.nodes;
+      let last = nodes.length - 1;
+      while (last > 0) {
+        if (nodes[last].type !== "comment") break;
+        last -= 1;
+      }
+      let semicolon = str.raw(node, "semicolon");
+      let isDocument = node.type === "document";
+      for (let i = nodes.length - 1; i >= 0; i--) {
+        let child = nodes[i];
+        let childSemicolon = last !== i || semicolon;
+        if (!childSemicolon && i < nodes.length - 1 && (child.type === "atrule" && !child.nodes || child.type === "decl" && isCustomProperty(child))) {
+          childSemicolon = true;
+        }
+        stack.push({
+          document: isDocument,
+          node: child,
+          semicolon: childSemicolon
+        });
+      }
+    }
+    function pushBlock(str, stack, node, start) {
+      let between = str.raw(node, "between", "beforeOpen");
+      str.builder(start + between + "{", node, "start");
+      let hasNodes = node.nodes && node.nodes.length;
+      let close = () => {
+        let after = hasNodes ? str.raw(node, "after") : str.raw(node, "after", "emptyBody");
+        if (after) str.builder(after);
+        str.builder("}", node, "end");
+        if (node.type === "rule" && node.raws.ownSemicolon) {
+          str.builder(node.raws.ownSemicolon, node, "end");
+        }
+      };
+      if (hasNodes) {
+        stack.push(close);
+        pushBody(str, stack, node);
+      } else {
+        close();
+      }
+    }
+    var Stringifier = class _Stringifier {
       constructor(builder) {
         this.builder = builder;
       }
       atrule(node, semicolon) {
-        let name = "@" + node.name;
-        let params = node.params ? this.rawValue(node, "params") : "";
-        if (typeof node.raws.afterName !== "undefined") {
-          name += node.raws.afterName;
-        } else if (params) {
-          name += " ";
-        }
+        let start = atruleStart(this, node);
         if (node.nodes) {
-          this.block(node, name + params);
+          this.block(node, start);
         } else {
           let end = (node.raws.between || "") + (semicolon ? ";" : "");
-          this.builder(name + params + end, node);
+          this.builder(start + end, node);
         }
       }
       beforeAfter(node, detect) {
@@ -624,17 +680,30 @@ var require_stringifier = __commonJS({
         this.builder("}", node, "end");
       }
       body(node) {
-        let last = node.nodes.length - 1;
-        while (last > 0) {
-          if (node.nodes[last].type !== "comment") break;
-          last -= 1;
-        }
-        let semicolon = this.raw(node, "semicolon");
-        for (let i = 0; i < node.nodes.length; i++) {
-          let child = node.nodes[i];
+        let proto = _Stringifier.prototype;
+        let expandable = ["atrule", "block", "body", "rule", "stringify"].every(
+          (method) => this[method] === proto[method]
+        );
+        let stack = [];
+        pushBody(this, stack, node);
+        while (stack.length > 0) {
+          let entry = stack.pop();
+          if (typeof entry === "function") {
+            entry();
+            continue;
+          }
+          let child = entry.node;
           let before = this.raw(child, "before");
-          if (before) this.builder(before);
-          this.stringify(child, last !== i || semicolon);
+          if (before) {
+            this.builder(before);
+          }
+          if (expandable && child.type === "rule") {
+            pushBlock(this, stack, child, this.rawValue(child, "selector"));
+          } else if (expandable && child.type === "atrule" && child.nodes) {
+            pushBlock(this, stack, child, atruleStart(this, child));
+          } else {
+            this.stringify(child, entry.semicolon);
+          }
         }
       }
       comment(node) {
@@ -643,10 +712,11 @@ var require_stringifier = __commonJS({
         this.builder("/*" + left + node.text + right + "*/", node);
       }
       decl(node, semicolon) {
+        let raws = node.raws;
         let between = this.raw(node, "between", "colon");
         let string = node.prop + between + this.rawValue(node, "value");
         if (node.important) {
-          string += node.raws.important || " !important";
+          string += raws.important || " !important";
         }
         if (semicolon) string += ";";
         this.builder(string, node);
@@ -672,9 +742,9 @@ var require_stringifier = __commonJS({
         }
         if (!parent) return DEFAULT_RAW[detect];
         let root2 = node.root();
-        if (!root2.rawCache) root2.rawCache = {};
-        if (typeof root2.rawCache[detect] !== "undefined") {
-          return root2.rawCache[detect];
+        let cache = root2.rawCache || (root2.rawCache = {});
+        if (typeof cache[detect] !== "undefined") {
+          return cache[detect];
         }
         if (detect === "before" || detect === "after") {
           return this.beforeAfter(node, detect);
@@ -690,7 +760,7 @@ var require_stringifier = __commonJS({
           }
         }
         if (typeof value === "undefined") value = DEFAULT_RAW[detect];
-        root2.rawCache[detect] = value;
+        cache[detect] = value;
         return value;
       }
       rawBeforeClose(root2) {
@@ -826,8 +896,14 @@ var require_stringifier = __commonJS({
         return value;
       }
       root(node) {
+        let inDocument = node.parent && node.parent.type === "document";
+        if (!inDocument && node.source && node.source.input.hasBOM) {
+          this.builder("\uFEFF", node, "start");
+        }
         this.body(node);
-        if (node.raws.after) this.builder(node.raws.after);
+        if (node.raws.after) {
+          this.builder(node.raws.after);
+        }
       }
       rule(node) {
         this.block(node, this.rawValue(node, "selector"));
@@ -855,9 +931,78 @@ var require_stringify = __commonJS({
     "use strict";
     init_define_AI_KIT_FILES();
     var Stringifier = require_stringifier();
+    var STYLE_TAG = /(<)(\/?style\b)/gi;
+    var COMMENT_OPEN = /(<)(!--)/g;
+    function escapeHTMLInCSS(str) {
+      if (!str.includes("<")) return str;
+      return str.replace(STYLE_TAG, "\\3c $2").replace(COMMENT_OPEN, "\\3c $2");
+    }
+    function cutEscaped(chunks, css, escaped) {
+      let parts = [];
+      let at2 = 0;
+      let into = 0;
+      for (let i = 0; i < chunks.length; i += 3) {
+        let from = into;
+        let end = at2 + chunks[i].length;
+        while (at2 < end) {
+          if (css[at2] === escaped[into]) {
+            at2 += 1;
+            into += 1;
+          } else {
+            at2 += 1;
+            into += 4;
+          }
+        }
+        parts.push(escaped.slice(from, into));
+      }
+      return parts;
+    }
+    var SafeStringifier = class extends Stringifier {
+      escapeHTML(print) {
+        let builder = this.builder;
+        let chunks, css;
+        this.builder = (str, child, type) => {
+          if (chunks) {
+            css += str;
+            chunks.push(str, child, type);
+          } else if (str.includes("<")) {
+            css = str;
+            chunks = [str, child, type];
+          } else {
+            builder(str, child, type);
+          }
+        };
+        print();
+        this.builder = builder;
+        if (!chunks) return;
+        let escaped = escapeHTMLInCSS(css);
+        if (escaped === css) {
+          for (let i = 0; i < chunks.length; i += 3) {
+            builder(chunks[i], chunks[i + 1], chunks[i + 2]);
+          }
+        } else {
+          let parts = cutEscaped(chunks, css, escaped);
+          for (let i = 0; i < chunks.length; i += 3) {
+            builder(parts[i / 3], chunks[i + 1], chunks[i + 2]);
+          }
+        }
+      }
+      root(node) {
+        if (node.parent && node.parent.type === "document") {
+          this.escapeHTML(() => this.body(node));
+          if (node.raws.after) this.builder(node.raws.after);
+        } else {
+          this.escapeHTML(() => super.root(node));
+        }
+      }
+    };
     function stringify2(node, builder) {
-      let str = new Stringifier(builder);
-      str.stringify(node);
+      let str = new SafeStringifier(builder);
+      if (node.type === "root" || node.type === "document") {
+        str.stringify(node);
+      } else {
+        str.escapeHTML(() => str.stringify(node));
+      }
     }
     module2.exports = stringify2;
     stringify2.default = stringify2;
@@ -885,22 +1030,36 @@ var require_node = __commonJS({
     var { isClean, my } = require_symbols();
     function cloneNode(obj, parent) {
       let cloned = new obj.constructor();
-      for (let i in obj) {
-        if (!Object.prototype.hasOwnProperty.call(obj, i)) {
-          continue;
-        }
-        if (i === "proxyCache") continue;
-        let value = obj[i];
-        let type = typeof value;
-        if (i === "parent" && type === "object") {
-          if (parent) cloned[i] = parent;
-        } else if (i === "source") {
-          cloned[i] = value;
-        } else if (Array.isArray(value)) {
-          cloned[i] = value.map((j2) => cloneNode(j2, cloned));
-        } else {
-          if (type === "object" && value !== null) value = cloneNode(value);
-          cloned[i] = value;
+      let stack = [[obj, cloned, parent]];
+      while (stack.length > 0) {
+        let [source, target, targetParent] = stack.pop();
+        for (let i in source) {
+          if (!Object.prototype.hasOwnProperty.call(source, i)) {
+            continue;
+          }
+          if (i === "proxyCache") continue;
+          let value = source[i];
+          let type = typeof value;
+          if (i === "parent" && type === "object") {
+            if (targetParent) target[i] = targetParent;
+          } else if (i === "source") {
+            target[i] = value;
+          } else if (Array.isArray(value)) {
+            let children = [];
+            target[i] = children;
+            for (let j2 of value) {
+              let childClone = new j2.constructor();
+              children.push(childClone);
+              stack.push([j2, childClone, target]);
+            }
+          } else {
+            if (type === "object" && value !== null) {
+              let valueClone = new value.constructor();
+              stack.push([value, valueClone, void 0]);
+              value = valueClone;
+            }
+            target[i] = value;
+          }
         }
       }
       return cloned;
@@ -926,7 +1085,7 @@ var require_node = __commonJS({
       }
       return offset;
     }
-    var Node2 = class {
+    var Node2 = class _Node {
       get proxyOf() {
         return this;
       }
@@ -934,11 +1093,12 @@ var require_node = __commonJS({
         this.raws = {};
         this[isClean] = false;
         this[my] = true;
-        for (let name in defaults) {
+        for (let name of Object.keys(defaults)) {
+          if (name === "__proto__") continue;
           if (name === "nodes") {
             this.nodes = [];
             for (let node of defaults[name]) {
-              if (typeof node.clone === "function") {
+              if (typeof node.clone === "function" && node.parent) {
                 this.append(node.clone());
               } else {
                 this.append(node);
@@ -1049,11 +1209,15 @@ var require_node = __commonJS({
         return this.parent.nodes[index + 1];
       }
       positionBy(opts = {}) {
-        let pos = this.source.start;
+        let inputString = "document" in this.source.input ? this.source.input.document : this.source.input.css;
+        let pos = {
+          column: this.source.start.column,
+          line: this.source.start.line,
+          offset: sourceOffset(inputString, this.source.start)
+        };
         if (opts.index) {
           pos = this.positionInside(opts.index);
         } else if (opts.word) {
-          let inputString = "document" in this.source.input ? this.source.input.document : this.source.input.css;
           let stringRepresentation = inputString.slice(
             sourceOffset(inputString, this.source.start),
             sourceOffset(inputString, this.source.end)
@@ -1125,7 +1289,7 @@ var require_node = __commonJS({
               line: opts.start.line,
               offset: sourceOffset(inputString, opts.start)
             };
-          } else if (opts.index) {
+          } else if (typeof opts.index === "number") {
             start = this.positionInside(opts.index);
           }
           if (opts.end) {
@@ -1136,7 +1300,7 @@ var require_node = __commonJS({
             };
           } else if (typeof opts.endIndex === "number") {
             end = this.positionInside(opts.endIndex);
-          } else if (opts.index) {
+          } else if (typeof opts.index === "number") {
             end = this.positionInside(opts.index + 1);
           }
         }
@@ -1188,43 +1352,59 @@ var require_node = __commonJS({
         return result;
       }
       toJSON(_2, inputs) {
-        let fixed = {};
         let emitInputs = inputs == null;
         inputs = inputs || /* @__PURE__ */ new Map();
-        let inputsNextIndex = 0;
-        for (let name in this) {
-          if (!Object.prototype.hasOwnProperty.call(this, name)) {
-            continue;
-          }
-          if (name === "parent" || name === "proxyCache") continue;
-          let value = this[name];
-          if (Array.isArray(value)) {
-            fixed[name] = value.map((i) => {
-              if (typeof i === "object" && i.toJSON) {
-                return i.toJSON(null, inputs);
-              } else {
-                return i;
-              }
-            });
-          } else if (typeof value === "object" && value.toJSON) {
-            fixed[name] = value.toJSON(null, inputs);
-          } else if (name === "source") {
-            if (value == null) continue;
-            let inputId = inputs.get(value.input);
-            if (inputId == null) {
-              inputId = inputsNextIndex;
-              inputs.set(value.input, inputsNextIndex);
-              inputsNextIndex++;
+        let holderOfRoot = [];
+        let queue = [[this, holderOfRoot, 0]];
+        for (let step = 0; step < queue.length; step++) {
+          let [node, holder, key] = queue[step];
+          let fixed2 = {};
+          holder[key] = fixed2;
+          for (let name in node) {
+            if (!Object.prototype.hasOwnProperty.call(node, name)) {
+              continue;
             }
-            fixed[name] = {
-              end: value.end,
-              inputId,
-              start: value.start
-            };
-          } else {
-            fixed[name] = value;
+            if (name === "parent" || name === "proxyCache") continue;
+            let value = node[name];
+            if (Array.isArray(value)) {
+              let fixedArray = [];
+              fixed2[name] = fixedArray;
+              for (let i = 0; i < value.length; i++) {
+                let item = value[i];
+                if (typeof item === "object" && item.toJSON) {
+                  if (item.toJSON === _Node.prototype.toJSON) {
+                    queue.push([item, fixedArray, i]);
+                  } else {
+                    fixedArray[i] = item.toJSON(null, inputs);
+                  }
+                } else {
+                  fixedArray[i] = item;
+                }
+              }
+            } else if (typeof value === "object" && value.toJSON) {
+              if (value.toJSON === _Node.prototype.toJSON) {
+                queue.push([value, fixed2, name]);
+              } else {
+                fixed2[name] = value.toJSON(null, inputs);
+              }
+            } else if (name === "source") {
+              if (value == null) continue;
+              let inputId = inputs.get(value.input);
+              if (inputId == null) {
+                inputId = inputs.size;
+                inputs.set(value.input, inputId);
+              }
+              fixed2[name] = {
+                end: value.end,
+                inputId,
+                start: value.start
+              };
+            } else {
+              fixed2[name] = value;
+            }
           }
         }
+        let fixed = holderOfRoot[0];
         if (emitInputs) {
           fixed.inputs = [...inputs.keys()].map((input) => input.toJSON());
         }
@@ -1309,17 +1489,24 @@ var require_container = __commonJS({
     var Root2;
     var Rule2;
     function cleanSource(nodes) {
-      return nodes.map((i) => {
-        if (i.nodes) i.nodes = cleanSource(i.nodes);
-        delete i.source;
-        return i;
-      });
+      let stack = nodes.slice();
+      while (stack.length > 0) {
+        let node = stack.pop();
+        delete node.source;
+        if (node.nodes) {
+          node.nodes = node.nodes.slice();
+          for (let i of node.nodes) stack.push(i);
+        }
+      }
+      return nodes.slice();
     }
     function markTreeDirty(node) {
-      node[isClean] = false;
-      if (node.proxyOf.nodes) {
-        for (let i of node.proxyOf.nodes) {
-          markTreeDirty(i);
+      let stack = [node];
+      while (stack.length > 0) {
+        let next = stack.pop();
+        next[isClean] = false;
+        if (next.proxyOf.nodes) {
+          for (let i of next.proxyOf.nodes) stack.push(i);
         }
       }
     }
@@ -1341,9 +1528,17 @@ var require_container = __commonJS({
         return this;
       }
       cleanRaws(keepBetween) {
-        super.cleanRaws(keepBetween);
-        if (this.nodes) {
-          for (let node of this.nodes) node.cleanRaws(keepBetween);
+        let stack = [this];
+        while (stack.length > 0) {
+          let node = stack.pop();
+          if (node !== this && node.cleanRaws !== _Container.prototype.cleanRaws) {
+            node.cleanRaws(keepBetween);
+            continue;
+          }
+          Node2.prototype.cleanRaws.call(node, keepBetween);
+          if (node.nodes) {
+            for (let child of node.nodes) stack.push(child);
+          }
         }
       }
       each(callback) {
@@ -1558,18 +1753,38 @@ var require_container = __commonJS({
         return this.nodes.some(condition);
       }
       walk(callback) {
-        return this.each((child, i) => {
+        if (!this.proxyOf.nodes) return void 0;
+        let stack = [{ iterator: this.getIterator(), node: this.proxyOf }];
+        while (stack.length > 0) {
+          let { iterator, node } = stack[stack.length - 1];
+          let index = node.indexes[iterator];
+          if (index >= node.proxyOf.nodes.length) {
+            delete node.indexes[iterator];
+            stack.pop();
+            let parent = stack[stack.length - 1];
+            if (parent) parent.node.indexes[parent.iterator] += 1;
+            continue;
+          }
+          let child = node.proxyOf.nodes[index];
           let result;
           try {
-            result = callback(child, i);
+            result = callback(child, index);
           } catch (e) {
             throw child.addToError(e);
           }
-          if (result !== false && child.walk) {
-            result = child.walk(callback);
+          if (result === false) {
+            for (let opened of stack) {
+              delete opened.node.indexes[opened.iterator];
+            }
+            return false;
           }
-          return result;
-        });
+          if (child.walk && child.proxyOf.nodes) {
+            stack.push({ iterator: child.getIterator(), node: child });
+          } else {
+            node.indexes[iterator] += 1;
+          }
+        }
+        return void 0;
       }
       walkAtRules(name, callback) {
         if (!callback) {
@@ -1660,22 +1875,24 @@ var require_container = __commonJS({
     module2.exports = Container2;
     Container2.default = Container2;
     Container2.rebuild = (node) => {
-      if (node.type === "atrule") {
-        Object.setPrototypeOf(node, AtRule2.prototype);
-      } else if (node.type === "rule") {
-        Object.setPrototypeOf(node, Rule2.prototype);
-      } else if (node.type === "decl") {
-        Object.setPrototypeOf(node, Declaration2.prototype);
-      } else if (node.type === "comment") {
-        Object.setPrototypeOf(node, Comment2.prototype);
-      } else if (node.type === "root") {
-        Object.setPrototypeOf(node, Root2.prototype);
-      }
-      node[my] = true;
-      if (node.nodes) {
-        node.nodes.forEach((child) => {
-          Container2.rebuild(child);
-        });
+      let stack = [node];
+      while (stack.length > 0) {
+        let next = stack.pop();
+        if (next.type === "atrule") {
+          Object.setPrototypeOf(next, AtRule2.prototype);
+        } else if (next.type === "rule") {
+          Object.setPrototypeOf(next, Rule2.prototype);
+        } else if (next.type === "decl") {
+          Object.setPrototypeOf(next, Declaration2.prototype);
+        } else if (next.type === "comment") {
+          Object.setPrototypeOf(next, Comment2.prototype);
+        } else if (next.type === "root") {
+          Object.setPrototypeOf(next, Root2.prototype);
+        }
+        next[my] = true;
+        if (next.nodes) {
+          for (let child of next.nodes) stack.push(child);
+        }
       }
     };
   }
@@ -1747,7 +1964,7 @@ var require_non_secure = __commonJS({
       return (size = defaultSize) => {
         let id = "";
         let i = size | 0;
-        while (i--) {
+        while (i-- > 0) {
           id += alphabet[Math.random() * alphabet.length | 0];
         }
         return id;
@@ -1756,7 +1973,7 @@ var require_non_secure = __commonJS({
     var nanoid = (size = 21) => {
       let id = "";
       let i = size | 0;
-      while (i--) {
+      while (i-- > 0) {
         id += urlAlphabet[Math.random() * 64 | 0];
       }
       return id;
@@ -2579,10 +2796,9 @@ var require_source_map_generator = __commonJS({
         next = "";
         if (mapping.generatedLine !== previousGeneratedLine) {
           previousGeneratedColumn = 0;
-          while (mapping.generatedLine !== previousGeneratedLine) {
-            next += ";";
-            previousGeneratedLine++;
-          }
+          var lineDelta = mapping.generatedLine - previousGeneratedLine;
+          next += lineDelta === 1 ? ";" : ";".repeat(lineDelta);
+          previousGeneratedLine = mapping.generatedLine;
         } else {
           if (i > 0) {
             if (!util.compareByGeneratedPositionsInflated(mapping, mappings[i - 1])) {
@@ -2743,9 +2959,17 @@ var require_quick_sort = __commonJS({
       let templateFn = new Function(`return ${template}`)();
       return templateFn(comparator);
     }
+    var isEvalAllowed = (function() {
+      try {
+        new Function("return 0")();
+        return true;
+      } catch {
+        return false;
+      }
+    })();
     var sortCache = /* @__PURE__ */ new WeakMap();
     exports2.quickSort = function(ary, comparator, start = 0) {
-      let doQuickSort = sortCache.get(comparator);
+      let doQuickSort = isEvalAllowed ? sortCache.get(comparator) : SortTemplate(comparator);
       if (doQuickSort === void 0) {
         doQuickSort = cloneSort(comparator);
         sortCache.set(comparator, doQuickSort);
@@ -2764,6 +2988,7 @@ var require_source_map_consumer = __commonJS({
     var ArraySet = require_array_set().ArraySet;
     var base64VLQ = require_base64_vlq();
     var quickSort = require_quick_sort().quickSort;
+    var MAX_SECTION_OFFSET_LINE = 1e7;
     function SourceMapConsumer(aSourceMap, aSourceMapURL) {
       var sourceMap = aSourceMap;
       if (typeof aSourceMap === "string") {
@@ -3256,6 +3481,7 @@ var require_source_map_consumer = __commonJS({
         line: -1,
         column: 0
       };
+      var maxOffsetLine = 0;
       this._sections = sections.map(function(s) {
         if (s.url) {
           throw new Error("Support for url field in sections not implemented.");
@@ -3263,10 +3489,24 @@ var require_source_map_consumer = __commonJS({
         var offset = util.getArg(s, "offset");
         var offsetLine = util.getArg(offset, "line");
         var offsetColumn = util.getArg(offset, "column");
+        if (!isValidOffset(offsetLine) || !isValidOffset(offsetColumn)) {
+          throw new Error("Section offset line and column must be non-negative integers.");
+        }
+        if (offsetLine > MAX_SECTION_OFFSET_LINE) {
+          throw new Error("Section offset line must not exceed " + MAX_SECTION_OFFSET_LINE + ".");
+        }
         if (offsetLine < lastOffset.line || offsetLine === lastOffset.line && offsetColumn < lastOffset.column) {
           throw new Error("Section offsets must be ordered and non-overlapping.");
         }
         lastOffset = offset;
+        var consumer = new SourceMapConsumer(util.getArg(s, "map"), aSourceMapURL);
+        var totalOffsetLine = offsetLine + (consumer._maxOffsetLine || 0);
+        if (totalOffsetLine > MAX_SECTION_OFFSET_LINE) {
+          throw new Error("Section offset line must not exceed " + MAX_SECTION_OFFSET_LINE + ", including offsets of nested sections.");
+        }
+        if (totalOffsetLine > maxOffsetLine) {
+          maxOffsetLine = totalOffsetLine;
+        }
         return {
           generatedOffset: {
             // The offset fields are 0-based, but we use 1-based indices when
@@ -3274,9 +3514,14 @@ var require_source_map_consumer = __commonJS({
             generatedLine: offsetLine + 1,
             generatedColumn: offsetColumn + 1
           },
-          consumer: new SourceMapConsumer(util.getArg(s, "map"), aSourceMapURL)
+          consumer
         };
       });
+      this._maxOffsetLine = maxOffsetLine;
+    }
+    function isValidOffset(aValue) {
+      return typeof aValue === "number" && aValue >= 0 && aValue <= 9007199254740991 && // Number.MAX_SAFE_INTEGER
+      Math.floor(aValue) === aValue;
     }
     IndexedSourceMapConsumer.prototype = Object.create(SourceMapConsumer.prototype);
     IndexedSourceMapConsumer.prototype.constructor = SourceMapConsumer;
@@ -3285,8 +3530,9 @@ var require_source_map_consumer = __commonJS({
       get: function() {
         var sources = [];
         for (var i = 0; i < this._sections.length; i++) {
-          for (var j2 = 0; j2 < this._sections[i].consumer.sources.length; j2++) {
-            sources.push(this._sections[i].consumer.sources[j2]);
+          var sectionSources = this._sections[i].consumer.sources;
+          for (var j2 = 0; j2 < sectionSources.length; j2++) {
+            sources.push(sectionSources[j2]);
           }
         }
         return sources;
@@ -3453,6 +3699,10 @@ var require_source_node = __commonJS({
           }
         }
         while (lastGeneratedLine < mapping.generatedLine) {
+          if (remainingLinesIndex >= remainingLines.length) {
+            lastGeneratedLine = mapping.generatedLine;
+            break;
+          }
           node.add(shiftNextLine());
           lastGeneratedLine++;
         }
@@ -3684,9 +3934,16 @@ var require_previous_map = __commonJS({
   "node_modules/postcss/lib/previous-map.js"(exports2, module2) {
     "use strict";
     init_define_AI_KIT_FILES();
-    var { existsSync, readFileSync } = require("fs");
-    var { dirname, join } = require("path");
+    var { existsSync, readFileSync, realpathSync } = require("fs");
+    var { dirname, isAbsolute, join, relative, sep } = require("path");
     var { SourceMapConsumer, SourceMapGenerator } = require_source_map();
+    function realPath(path7) {
+      try {
+        return realpathSync(path7);
+      } catch {
+        return path7;
+      }
+    }
     function fromBase64(str) {
       if (Buffer) {
         return Buffer.from(str, "base64").toString();
@@ -3697,6 +3954,7 @@ var require_previous_map = __commonJS({
     var PreviousMap = class {
       constructor(css, opts) {
         if (opts.map === false) return;
+        if (opts.unsafeMap) this.unsafeMap = true;
         this.loadAnnotation(css);
         this.inline = this.startWith(this.annotation, "data:");
         let prev = opts.map ? opts.map.prev : void 0;
@@ -3709,7 +3967,7 @@ var require_previous_map = __commonJS({
       }
       consumer() {
         if (!this.consumerCache) {
-          this.consumerCache = new SourceMapConsumer(this.text);
+          this.consumerCache = new SourceMapConsumer(this.json || this.text);
         }
         return this.consumerCache;
       }
@@ -3726,7 +3984,8 @@ var require_previous_map = __commonJS({
         if (baseUriMatch) {
           return fromBase64(text.substr(baseUriMatch[0].length));
         }
-        let encoding = text.match(/data:application\/json;([^,]+),/)[1];
+        let encoding = text.slice("data:application/json;".length);
+        encoding = encoding.slice(0, encoding.indexOf(","));
         throw new Error("Unsupported source map encoding " + encoding);
       }
       getAnnotationURL(sourceMapString) {
@@ -3745,7 +4004,15 @@ var require_previous_map = __commonJS({
           this.annotation = this.getAnnotationURL(css.substring(start, end));
         }
       }
-      loadFile(path7) {
+      loadFile(path7, cssFile, trusted) {
+        if (!trusted && !this.unsafeMap) {
+          if (!/\.map$/i.test(path7)) return void 0;
+          if (!cssFile) return void 0;
+          let rel = relative(realPath(dirname(cssFile)), realPath(path7));
+          if (rel === ".." || rel.startsWith(".." + sep) || isAbsolute(rel)) {
+            return void 0;
+          }
+        }
         this.root = dirname(path7);
         if (existsSync(path7)) {
           this.mapFile = path7;
@@ -3760,7 +4027,7 @@ var require_previous_map = __commonJS({
           } else if (typeof prev === "function") {
             let prevPath = prev(file);
             if (prevPath) {
-              let map = this.loadFile(prevPath);
+              let map = this.loadFile(prevPath, file, true);
               if (!map) {
                 throw new Error(
                   "Unable to load previous source map: " + prevPath.toString()
@@ -3784,7 +4051,15 @@ var require_previous_map = __commonJS({
         } else if (this.annotation) {
           let map = this.annotation;
           if (file) map = join(dirname(file), map);
-          return this.loadFile(map);
+          let unknown = this.loadFile(map, file, false);
+          if (unknown) {
+            try {
+              this.json = JSON.parse(unknown.replace(/^\)]}'[^\n]*\n/, ""));
+            } catch {
+              return void 0;
+            }
+          }
+          return unknown;
         }
       }
       startWith(string, start) {
@@ -3917,7 +4192,15 @@ var require_input = __commonJS({
             opts.plugin
           );
         }
-        result.input = { column, endColumn, endLine, endOffset, line, offset, source: this.css };
+        result.input = {
+          column,
+          endColumn,
+          endLine,
+          endOffset,
+          line,
+          offset,
+          source: this.css
+        };
         if (this.file) {
           if (pathToFileURL) {
             result.input.url = pathToFileURL(this.file).toString();
@@ -3966,11 +4249,15 @@ var require_input = __commonJS({
       origin(line, column, endLine, endColumn) {
         if (!this.map) return false;
         let consumer = this.map.consumer();
-        let from = consumer.originalPositionFor({ column, line });
+        let from = consumer.originalPositionFor({ column: column - 1, line });
         if (!from.source) return false;
         let to;
         if (typeof endLine === "number") {
-          to = consumer.originalPositionFor({ column: endColumn, line: endLine });
+          let toPosition = consumer.originalPositionFor({
+            column: endColumn - 1,
+            line: endLine
+          });
+          if (toPosition.source) to = toPosition;
         }
         let fromUrl;
         if (isAbsolute(from.source)) {
@@ -3982,8 +4269,8 @@ var require_input = __commonJS({
           );
         }
         let result = {
-          column: from.column,
-          endColumn: to && to.column,
+          column: from.column + 1,
+          endColumn: to && to.column + 1,
           endLine: to && to.line,
           line: from.line,
           url: fromUrl.toString()
@@ -4038,6 +4325,12 @@ var require_root = __commonJS({
         if (!this.nodes) this.nodes = [];
       }
       normalize(child, sample, type) {
+        let keepBefore = /* @__PURE__ */ new Set();
+        for (let node of Array.isArray(child) ? child : [child]) {
+          if (node && typeof node === "object" && !node.parent && node.raws && typeof node.raws.before !== "undefined") {
+            keepBefore.add(node.raws);
+          }
+        }
         let nodes = super.normalize(child);
         if (sample) {
           if (type === "prepend") {
@@ -4048,7 +4341,9 @@ var require_root = __commonJS({
             }
           } else if (this.first !== sample) {
             for (let node of nodes) {
-              node.raws.before = sample.raws.before;
+              if (!keepBefore.has(node.raws)) {
+                node.raws.before = sample.raws.before;
+              }
             }
           }
         }
@@ -4092,6 +4387,7 @@ var require_list = __commonJS({
         return list2.split(string, spaces);
       },
       split(string, separators, last) {
+        if (typeof string !== "string") return [];
         let array = [];
         let current = "";
         let split = false;
@@ -4099,7 +4395,18 @@ var require_list = __commonJS({
         let inQuote = false;
         let prevQuote = "";
         let escape = false;
-        for (let letter of string) {
+        let inComment = false;
+        for (let i = 0; i < string.length; i++) {
+          let letter = string[i];
+          if (inComment) {
+            current += letter;
+            if (letter === "*" && string[i + 1] === "/") {
+              current += "/";
+              i += 1;
+              inComment = false;
+            }
+            continue;
+          }
           if (escape) {
             escape = false;
           } else if (letter === "\\") {
@@ -4111,6 +4418,11 @@ var require_list = __commonJS({
           } else if (letter === '"' || letter === "'") {
             inQuote = true;
             prevQuote = letter;
+          } else if (letter === "/" && string[i + 1] === "*") {
+            current += "/*";
+            i += 1;
+            inComment = true;
+            continue;
           } else if (letter === "(") {
             func += 1;
           } else if (letter === ")") {
@@ -4119,14 +4431,16 @@ var require_list = __commonJS({
             if (separators.includes(letter)) split = true;
           }
           if (split) {
-            if (current !== "") array.push(current.trim());
+            let value2 = current.trim();
+            if (last || value2 !== "") array.push(value2);
             current = "";
             split = false;
           } else {
             current += letter;
           }
         }
-        if (last || current !== "") array.push(current.trim());
+        let value = current.trim();
+        if (last || value !== "") array.push(value);
         return array;
       }
     };
@@ -4175,25 +4489,23 @@ var require_fromJSON = __commonJS({
     var PreviousMap = require_previous_map();
     var Root2 = require_root();
     var Rule2 = require_rule();
-    function fromJSON2(json, inputs) {
-      if (Array.isArray(json)) return json.map((n) => fromJSON2(n));
-      let { inputs: ownInputs, ...defaults } = json;
-      if (ownInputs) {
-        inputs = [];
-        for (let input of ownInputs) {
-          let inputHydrated = { ...input, __proto__: Input2.prototype };
-          if (inputHydrated.map) {
-            inputHydrated.map = {
-              ...inputHydrated.map,
-              __proto__: PreviousMap.prototype
-            };
-          }
-          inputs.push(inputHydrated);
+    function hydrateInputs(json, inputs) {
+      if (!json.inputs) return inputs;
+      return json.inputs.map((input) => {
+        let inputHydrated = { ...input, __proto__: Input2.prototype };
+        if (inputHydrated.map) {
+          inputHydrated.map = {
+            ...inputHydrated.map,
+            __proto__: PreviousMap.prototype
+          };
         }
-      }
-      if (defaults.nodes) {
-        defaults.nodes = json.nodes.map((n) => fromJSON2(n, inputs));
-      }
+        return inputHydrated;
+      });
+    }
+    function constructNode(json, inputs, children) {
+      let defaults = { ...json };
+      delete defaults.inputs;
+      delete defaults.nodes;
       if (defaults.source) {
         let { inputId, ...source } = defaults.source;
         defaults.source = source;
@@ -4201,19 +4513,59 @@ var require_fromJSON = __commonJS({
           defaults.source.input = inputs[inputId];
         }
       }
+      let node;
       if (defaults.type === "root") {
-        return new Root2(defaults);
+        node = new Root2(defaults);
       } else if (defaults.type === "decl") {
-        return new Declaration2(defaults);
+        node = new Declaration2(defaults);
       } else if (defaults.type === "rule") {
-        return new Rule2(defaults);
+        node = new Rule2(defaults);
       } else if (defaults.type === "comment") {
-        return new Comment2(defaults);
+        node = new Comment2(defaults);
       } else if (defaults.type === "atrule") {
-        return new AtRule2(defaults);
+        node = new AtRule2(defaults);
       } else {
         throw new Error("Unknown node type: " + json.type);
       }
+      if (children) {
+        node.nodes = children;
+        for (let child of children) child.parent = node;
+      }
+      return node;
+    }
+    function fromJSON2(json, inputs) {
+      if (Array.isArray(json)) return json.map((n) => fromJSON2(n));
+      let result;
+      let stack = [
+        { childIndex: 0, children: [], inputs: hydrateInputs(json, inputs), json }
+      ];
+      while (stack.length > 0) {
+        let frame = stack[stack.length - 1];
+        let jsonNodes = frame.json.nodes;
+        if (jsonNodes && frame.childIndex < jsonNodes.length) {
+          let childJson = jsonNodes[frame.childIndex];
+          frame.childIndex += 1;
+          stack.push({
+            childIndex: 0,
+            children: [],
+            inputs: hydrateInputs(childJson, frame.inputs),
+            json: childJson
+          });
+          continue;
+        }
+        stack.pop();
+        let node = constructNode(
+          frame.json,
+          frame.inputs,
+          jsonNodes ? frame.children : void 0
+        );
+        if (stack.length > 0) {
+          stack[stack.length - 1].children.push(node);
+        } else {
+          result = node;
+        }
+      }
+      return result;
     }
     module2.exports = fromJSON2;
     fromJSON2.default = fromJSON2;
@@ -4287,7 +4639,20 @@ var require_map_generator = __commonJS({
             }
           }
         } else if (this.css) {
-          this.css = this.css.replace(/\n*\/\*#[\S\s]*?\*\/$/gm, "");
+          let annotation = "/*# sourceMappingURL=";
+          let css = "";
+          let cursor = 0;
+          let startIndex;
+          while ((startIndex = this.css.indexOf(annotation, cursor)) !== -1) {
+            let endIndex = this.css.indexOf("*/", startIndex + annotation.length);
+            if (endIndex === -1) break;
+            while (startIndex > cursor && this.css[startIndex - 1] === "\n") {
+              startIndex--;
+            }
+            css += this.css.slice(cursor, startIndex);
+            cursor = endIndex + 2;
+          }
+          if (cursor > 0) this.css = css + this.css.slice(cursor);
         }
       }
       generate() {
@@ -4560,6 +4925,11 @@ var require_parser = __commonJS({
         if (pos) return pos;
       }
     }
+    function tokensToString(tokens, from, to) {
+      let result = "";
+      for (let i = from; i < to; i++) result += tokens[i][1];
+      return result;
+    }
     var Parser = class {
       constructor(input) {
         this.input = input;
@@ -4696,7 +5066,7 @@ var require_parser = __commonJS({
         node.source.end = this.getPosition(token[3] || token[2]);
         node.source.end.offset++;
         let text = token[1].slice(2, -2);
-        if (/^\s*$/.test(text)) {
+        if (!text.trim()) {
           node.text = "";
           node.raws.left = text;
           node.raws.right = "";
@@ -4722,44 +5092,45 @@ var require_parser = __commonJS({
           last[3] || last[2] || findLastWithPosition(tokens)
         );
         node.source.end.offset++;
-        while (tokens[0][0] !== "word") {
-          if (tokens.length === 1) this.unknownWord(tokens);
-          node.raws.before += tokens.shift()[1];
+        let start = 0;
+        while (tokens[start][0] !== "word") {
+          if (start === tokens.length - 1) this.unknownWord([tokens[start]]);
+          start++;
         }
-        node.source.start = this.getPosition(tokens[0][2]);
-        node.prop = "";
-        while (tokens.length) {
-          let type = tokens[0][0];
+        node.raws.before += tokensToString(tokens, 0, start);
+        node.source.start = this.getPosition(tokens[start][2]);
+        let propStart = start;
+        while (start < tokens.length) {
+          let type = tokens[start][0];
           if (type === ":" || type === "space" || type === "comment") {
             break;
           }
-          node.prop += tokens.shift()[1];
+          start++;
         }
-        node.raws.between = "";
+        node.prop = tokensToString(tokens, propStart, start);
+        let betweenStart = start;
         let token;
-        while (tokens.length) {
-          token = tokens.shift();
-          if (token[0] === ":") {
-            node.raws.between += token[1];
-            break;
-          } else {
-            if (token[0] === "word" && /\w/.test(token[1])) {
-              this.unknownWord([token]);
-            }
-            node.raws.between += token[1];
+        while (start < tokens.length) {
+          token = tokens[start];
+          start++;
+          if (token[0] === ":") break;
+          if (token[0] === "word" && /\w/.test(token[1])) {
+            this.unknownWord([token]);
           }
         }
+        node.raws.between = tokensToString(tokens, betweenStart, start);
         if (node.prop[0] === "_" || node.prop[0] === "*") {
           node.raws.before += node.prop[0];
           node.prop = node.prop.slice(1);
         }
-        let firstSpaces = [];
-        let next;
-        while (tokens.length) {
-          next = tokens[0][0];
+        let firstSpacesStart = start;
+        while (start < tokens.length) {
+          let next = tokens[start][0];
           if (next !== "space" && next !== "comment") break;
-          firstSpaces.push(tokens.shift());
+          start++;
         }
+        let firstSpaces = tokens.slice(firstSpacesStart, start);
+        tokens = tokens.slice(start);
         this.precheckMissedSemicolon(tokens);
         for (let i = tokens.length - 1; i >= 0; i--) {
           token = tokens[i];
@@ -4844,7 +5215,7 @@ var require_parser = __commonJS({
             prev.raws.ownSemicolon = this.spaces;
             this.spaces = "";
             prev.source.end = this.getPosition(token[2]);
-            prev.source.end.offset += prev.raws.ownSemicolon.length;
+            prev.source.end.offset++;
           }
         }
       }
@@ -4960,6 +5331,7 @@ var require_parser = __commonJS({
         let token, type;
         let length = tokens.length;
         let value = "";
+        let last = "";
         let clean = true;
         let next, prev;
         for (let i = 0; i < length; i += 1) {
@@ -4971,16 +5343,18 @@ var require_parser = __commonJS({
             prev = tokens[i - 1] ? tokens[i - 1][0] : "empty";
             next = tokens[i + 1] ? tokens[i + 1][0] : "empty";
             if (!SAFE_COMMENT_NEIGHBOR[prev] && !SAFE_COMMENT_NEIGHBOR[next]) {
-              if (value.slice(-1) === ",") {
+              if (last === ",") {
                 clean = false;
               } else {
                 value += token[1];
+                last = token[1].slice(-1);
               }
             } else {
               clean = false;
             }
           } else {
             value += token[1];
+            last = token[1].slice(-1);
           }
         }
         if (!clean) {
@@ -5113,11 +5487,16 @@ var require_warning = __commonJS({
   "node_modules/postcss/lib/warning.js"(exports2, module2) {
     "use strict";
     init_define_AI_KIT_FILES();
+    var Container2 = require_container();
+    var { my } = require_symbols();
     var Warning2 = class {
       constructor(text, opts = {}) {
         this.type = "warning";
         this.text = text;
         if (opts.node && opts.node.source) {
+          if (!opts.node[my]) {
+            Container2.rebuild(opts.node);
+          }
           let range = opts.node.rangeBy(opts);
           this.line = range.start.line;
           this.column = range.start.column;
@@ -5293,8 +5672,14 @@ var require_lazy_result = __commonJS({
       };
     }
     function cleanMarks(node) {
-      node[isClean] = false;
-      if (node.nodes) node.nodes.forEach((i) => cleanMarks(i));
+      let stack = [node];
+      while (stack.length > 0) {
+        let next = stack.pop();
+        next[isClean] = false;
+        if (next.nodes) {
+          for (let i of next.nodes) stack.push(i);
+        }
+      }
       return node;
     }
     var postcss2 = {};
@@ -5524,6 +5909,15 @@ var require_lazy_result = __commonJS({
         if (opts.syntax) str = opts.syntax.stringify;
         if (opts.stringifier) str = opts.stringifier;
         if (str.stringify) str = str.stringify;
+        let rootSource = this.result.root.source;
+        if (opts.map === void 0 && !(rootSource && rootSource.input && rootSource.input.map)) {
+          let result = "";
+          str(this.result.root, (i) => {
+            result += i;
+          });
+          this.result.css = result;
+          return this.result;
+        }
         let map = new MapGenerator(str, this.result.root, this.result.opts);
         let data = map.generate();
         this.result.css = data[0];
@@ -5615,14 +6009,19 @@ var require_lazy_result = __commonJS({
         }
         if (visit2.iterator !== 0) {
           let iterator = visit2.iterator;
+          if (visit2.descending) {
+            visit2.descending = false;
+            node.indexes[iterator] += 1;
+          }
           let child;
           while (child = node.nodes[node.indexes[iterator]]) {
-            node.indexes[iterator] += 1;
             if (!child[isClean]) {
               child[isClean] = true;
+              visit2.descending = true;
               stack.push(toStack(child));
               return;
             }
+            node.indexes[iterator] += 1;
           }
           visit2.iterator = 0;
           delete node.indexes[iterator];
@@ -5646,20 +6045,53 @@ var require_lazy_result = __commonJS({
       }
       walkSync(node) {
         node[isClean] = true;
-        let events = getEvents(node);
-        for (let event of events) {
-          if (event === CHILDREN) {
-            if (node.nodes) {
-              node.each((child) => {
-                if (!child[isClean]) this.walkSync(child);
-              });
+        let stack = [{ eventIndex: 0, events: getEvents(node), iterator: 0, node }];
+        while (stack.length > 0) {
+          let visit2 = stack[stack.length - 1];
+          let visitNode = visit2.node;
+          if (visit2.iterator !== 0) {
+            let iterator = visit2.iterator;
+            if (visit2.descending) {
+              visit2.descending = false;
+              visitNode.indexes[iterator] += 1;
             }
-          } else {
-            let visitors = this.listeners[event];
-            if (visitors) {
-              if (this.visitSync(visitors, node.toProxy())) return;
+            let child;
+            let descended = false;
+            while (child = visitNode.nodes[visitNode.indexes[iterator]]) {
+              if (!child[isClean]) {
+                child[isClean] = true;
+                visit2.descending = true;
+                stack.push({
+                  eventIndex: 0,
+                  events: getEvents(child),
+                  iterator: 0,
+                  node: child
+                });
+                descended = true;
+                break;
+              }
+              visitNode.indexes[iterator] += 1;
             }
+            if (descended) continue;
+            visit2.iterator = 0;
+            delete visitNode.indexes[iterator];
           }
+          if (visit2.eventIndex < visit2.events.length) {
+            let event = visit2.events[visit2.eventIndex];
+            visit2.eventIndex += 1;
+            if (event === CHILDREN) {
+              if (visitNode.nodes && visitNode.nodes.length) {
+                visit2.iterator = visitNode.getIterator();
+              }
+            } else {
+              let visitors = this.listeners[event];
+              if (visitors) {
+                if (this.visitSync(visitors, visitNode.toProxy())) stack.pop();
+              }
+            }
+            continue;
+          }
+          stack.pop();
         }
       }
       warnings() {
@@ -5733,9 +6165,8 @@ var require_no_work_result = __commonJS({
         this._css = css;
         this._opts = opts;
         this._map = void 0;
-        let root2;
         let str = stringify2;
-        this.result = new Result2(this._processor, root2, this._opts);
+        this.result = new Result2(this._processor, void 0, this._opts);
         this.result.css = css;
         let self = this;
         Object.defineProperty(this.result, "root", {
@@ -5743,7 +6174,7 @@ var require_no_work_result = __commonJS({
             return self.root;
           }
         });
-        let map = new MapGenerator(str, root2, this._opts, css);
+        let map = new MapGenerator(str, void 0, this._opts, css);
         if (map.isMap()) {
           let [generatedCSS, generatedMap] = map.generate();
           if (generatedCSS) {
@@ -5804,7 +6235,7 @@ var require_processor = __commonJS({
     var Root2 = require_root();
     var Processor2 = class {
       constructor(plugins = []) {
-        this.version = "8.5.6";
+        this.version = "8.5.31";
         this.plugins = this.normalize(plugins);
       }
       normalize(plugins) {
@@ -5889,7 +6320,7 @@ var require_postcss = __commonJS({
           console.warn(
             name + ": postcss.plugin was deprecated. Migration guide:\nhttps://evilmartians.com/chronicles/postcss-8-plugin-migration"
           );
-          if (process.env.LANG && process.env.LANG.startsWith("cn")) {
+          if (process.env.LANG && process.env.LANG.startsWith("zh")) {
             console.warn(
               name + ": \u91CC\u9762 postcss.plugin \u88AB\u5F03\u7528. \u8FC1\u79FB\u6307\u5357:\nhttps://www.w3ctech.com/topic/2226"
             );
@@ -21249,7 +21680,7 @@ function showCompanionHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.16";
+var VERSION = "0.1.17";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

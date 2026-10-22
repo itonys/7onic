@@ -6,6 +6,20 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.8] — 2026-10-22
+
+### @7onic-ui/react
+
+#### Fixed
+
+- Removed `next-intl` and `jsonc-parser` from the published `dependencies`. Neither is imported by the library (both are docs-site / CLI build tooling), but since 0.3.0 they were installed into every project — and `next-intl`'s required peer pulled a full Next.js install even into Vite apps. A fresh Vite + `@7onic-ui/react` install drops from ~381 MB / 173 packages to ~51 MB / 132 packages. No code or API change; the shipped `dist/` is byte-identical.
+
+### @7onic-ui/tokens
+
+> Version bumped in lockstep with `@7onic-ui/react`. No `tokens` package code changes.
+
+---
+
 ## [0.3.7] — 2026-10-07
 
 ### @7onic-ui/react

@@ -7,7 +7,7 @@
 //   4. CLI registry keys (cli/src/registry/index.ts) — 7onic-specific axis
 // Documented-but-missing symbols/values fail (exit 1): the "feed the AI
 // false data" worst case. Undocumented src/registry surface is warning-only.
-// Usage: node dist/verify-drift.js [repoRoot]
+// Usage: node dist/verify-drift.mjs [repoRoot]
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as crypto from 'node:crypto'

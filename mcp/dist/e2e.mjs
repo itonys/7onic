@@ -2,7 +2,7 @@
 import { spawn } from "child_process";
 import * as path from "path";
 import { fileURLToPath } from "url";
-var DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "dist", "index.js");
+var DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "dist", "index.mjs");
 function connect() {
   const proc = spawn("node", [DIST], { stdio: ["pipe", "pipe", "inherit"] });
   let buf = "";

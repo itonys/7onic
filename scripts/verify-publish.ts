@@ -68,6 +68,27 @@ console.log('\n🔍 verify-publish: Pre-publish package validation\n')
 // Clean up any previous runs
 cleanup()
 
+// ── Step 0: Published dependencies whitelist ────────────────────────────────
+// Everything in `dependencies` is installed into every user's project. Docs-site
+// or CLI build tooling placed there leaks to users (2026-10: next-intl pulled a
+// full Next.js install into Vite projects since 0.3.0). Only packages the
+// library code imports at runtime may be listed; anything else belongs in
+// devDependencies (or peerDependencies when the user must provide it).
+
+console.log('[0/5] Checking published dependencies...')
+
+const ALLOWED_DEPENDENCY = (name: string) =>
+  name.startsWith('@radix-ui/react-') ||
+  ['class-variance-authority', 'clsx', 'tailwind-merge'].includes(name)
+
+const publishedDeps = Object.keys((pkg.dependencies ?? {}) as Record<string, string>)
+const unexpectedDeps = publishedDeps.filter((d) => !ALLOWED_DEPENDENCY(d))
+if (unexpectedDeps.length === 0) {
+  pass(`dependencies: ${publishedDeps.length} allowed (Radix + cva/clsx/tailwind-merge)`)
+} else {
+  fail(`dependencies not allowed in the published package: ${unexpectedDeps.join(', ')} — move to devDependencies`)
+}
+
 // ── Step 1: Check dist files exist ──────────────────────────────────────────
 
 console.log('[1/5] Checking dist files...')

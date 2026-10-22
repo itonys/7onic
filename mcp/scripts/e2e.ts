@@ -1,4 +1,4 @@
-// Phase 6 E2E: drives the built server (dist/index.js) over real stdio
+// Phase 6 E2E: drives the built server (dist/index.mjs, what the plugin runs) over real stdio
 // JSON-RPC and walks five realistic page scenarios (form, dashboard,
 // settings, table, notifications). For each scenario it checks:
 //   1. tool flow — component discovery / token search / layout recipe respond
@@ -10,7 +10,7 @@ import { spawn, type ChildProcess } from 'node:child_process'
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'index.js')
+const DIST = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist', 'index.mjs')
 
 // --- minimal stdio JSON-RPC client -------------------------------------------
 

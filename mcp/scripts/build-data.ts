@@ -1,7 +1,7 @@
 // build-data CLI (Phase 2).
 // public/llms-full.txt → mcp/data/components.json + mcp/data/rules.json.
 // data/ is a committed build artifact — never edit by hand; change the
-// source (llms-full.txt) and re-run. Usage: node dist/build-data.js [root]
+// source (llms-full.txt) and re-run. Usage: node dist/build-data.mjs [root]
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import * as crypto from 'node:crypto'

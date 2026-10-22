@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.17] — 2026-10-22
+
+### 7onic
+
+#### Fixed
+
+- Rebuilt with patched bundled dependencies. The CLI has no runtime dependencies — it bundles what it needs — and 0.1.16 embedded PostCSS 8.5.6, inside the range of recent PostCSS advisories (fixed in 8.5.23+). `init` uses PostCSS to wrap a top-level `*` reset in `@layer base` in your CSS. The bundle now embeds PostCSS 8.5.31. Running `init`, `add`, and `init --claude` against bare Next.js / Vite templates (Tailwind v3 and v4) produces the same files as 0.1.16. The one visible difference is part of the fix: when `init` rewrites a CSS file (Next.js + Tailwind v4 with a top-level `*` reset), a literal `</style>` inside a CSS string is now written as `\3c /style>` — the same character to CSS, but safe if the stylesheet is ever inlined into HTML.
+
 ## [0.1.16] — 2026-10-09
 
 ### 7onic

@@ -17,7 +17,7 @@ on:
 jobs:
   publish-tokens:
     if: inputs.package == 'both' || inputs.package == 'tokens-only' || inputs.package == 'all'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
       contents: read
@@ -26,13 +26,15 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          check-latest: true
           registry-url: 'https://registry.npmjs.org'
 
       # Trusted Publishing (OIDC) requires npm >= 11.5.1; node 20 bundles 10.x.
       # Pinned to the 11.x line: npm 12+ requires node >= 22 (measured 2026-10-08).
+      # Exact version, not `npm@11`, so a release never runs an npm published hours ago.
       - name: Upgrade npm for trusted publishing
-        run: npm install -g npm@11 && npm --version
+        run: npm install -g npm@11.21.1 && npm --version
 
       - name: Publish @7onic-ui/tokens
         working-directory: tokens
@@ -41,7 +43,7 @@ jobs:
   publish-react:
     needs: publish-tokens
     if: always() && (inputs.package == 'both' || inputs.package == 'react-only' || inputs.package == 'all') && (needs.publish-tokens.result == 'success' || needs.publish-tokens.result == 'skipped')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
       contents: read
@@ -50,14 +52,16 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          check-latest: true
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
 
       # Trusted Publishing (OIDC) requires npm >= 11.5.1; node 20 bundles 10.x.
       # Pinned to the 11.x line: npm 12+ requires node >= 22 (measured 2026-10-08).
+      # Exact version, not `npm@11`, so a release never runs an npm published hours ago.
       - name: Upgrade npm for trusted publishing
-        run: npm install -g npm@11 && npm --version
+        run: npm install -g npm@11.21.1 && npm --version
 
       - name: Install dependencies
         run: npm ci
@@ -70,7 +74,7 @@ jobs:
 
   publish-cli:
     if: inputs.package == 'cli-only' || inputs.package == 'all'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       id-token: write
       contents: read
@@ -79,13 +83,15 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+          check-latest: true
           registry-url: 'https://registry.npmjs.org'
 
       # Trusted Publishing (OIDC) requires npm >= 11.5.1; node 20 bundles 10.x.
       # Pinned to the 11.x line: npm 12+ requires node >= 22 (measured 2026-10-08).
+      # Exact version, not `npm@11`, so a release never runs an npm published hours ago.
       - name: Upgrade npm for trusted publishing
-        run: npm install -g npm@11 && npm --version
+        run: npm install -g npm@11.21.1 && npm --version
 
       - name: Publish 7onic (CLI)
         working-directory: cli

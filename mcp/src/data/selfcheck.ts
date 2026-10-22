@@ -1,5 +1,5 @@
 // Data-layer health check (Phase 1 verification).
-// Usage: node dist/selfcheck.js [repoRoot]
+// Usage: node dist/selfcheck.mjs [repoRoot]
 // Prints the doc-site 14-category coverage, theme variable counts, and
 // whitelist stats. Exits 1 when any category is missing.
 // Re-exported as a library so tests can exercise the loader from dist.
