@@ -6,7 +6,7 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
-## [Unreleased]
+## [0.3.9] — 2026-10-27
 
 ### @7onic-ui/react
 
@@ -16,6 +16,12 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 - **Chart tooltip: label and value no longer touch.** `ChartTooltipContent` rows had no minimum spacing, so a long series label ran straight into a four-digit value. Rows now keep `gap-4` between the label and the value.
 - **Popover no longer runs off the bottom of the screen.** `PopoverContent` now stops at the space left in the viewport and scrolls its content inside, while the arrow stays visible. Children are wrapped in an inner scroll area, so put layout classes (`flex`, `grid`, `gap-*`) on your own child element rather than on `PopoverContent`.
 - **Tabs: no focus ring after a mouse click.** Radix Tabs 1.2+ focuses the trigger from script on mouse down, so after any keyboard input a clicked tab showed the keyboard focus ring. `TabsTrigger` now shows the ring only for keyboard navigation (Tab and arrow keys).
+
+### @7onic-ui/tokens
+
+> Version bumped in lockstep with `@7onic-ui/react`. No `tokens` package code changes.
+
+---
 
 ## [0.3.8] — 2026-10-22
 
