@@ -1,13 +1,4 @@
 {
   "$comment": "High/critical npm advisories that CI tolerates. Each entry needs a reason and an expiry date (YYYY-MM-DD); after it expires the gate fails again so the decision gets revisited. Read by scripts/audit-gate.mjs.",
-  "entries": [
-    {
-      "id": "GHSA-vfj7-8cjw-p6xm",
-      "package": "braces",
-      "severity": "high",
-      "reason": "No patched release (every version <=3.0.3 is affected). Reached only through dev tooling (eslint-config-next, @typescript-eslint, tailwindcss v3 via micromatch/fast-glob/chokidar) with glob patterns we write ourselves; not in shipped dependencies. npm's suggested fix is a major downgrade (eslint-config-next@14).",
-      "added": "2026-10-22",
-      "expires": "2027-01-22"
-    }
-  ]
+  "entries": []
 }
