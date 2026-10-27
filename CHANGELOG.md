@@ -6,6 +6,17 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **Select and Dropdown menus no longer open behind a Modal, Drawer or Popover.** Their content used the `z-dropdown` layer (1000), which sits below `z-modal` (2000) and `z-popover` (2100), so a Select or Dropdown placed inside one of those opened underneath it and could not be used. Select and Dropdown content now use the `z-popover` layer; within the same layer the most recently opened element stays on top. `z-dropdown` is now used only by NavigationMenu sub-menus. No token values changed.
+- **Chart tooltip: label and value no longer touch.** `ChartTooltipContent` rows had no minimum spacing, so a long series label ran straight into a four-digit value. Rows now keep `gap-4` between the label and the value.
+- **Popover no longer runs off the bottom of the screen.** `PopoverContent` now stops at the space left in the viewport and scrolls its content inside, while the arrow stays visible. Children are wrapped in an inner scroll area, so put layout classes (`flex`, `grid`, `gap-*`) on your own child element rather than on `PopoverContent`.
+- **Tabs: no focus ring after a mouse click.** Radix Tabs 1.2+ focuses the trigger from script on mouse down, so after any keyboard input a clicked tab showed the keyboard focus ring. `TabsTrigger` now shows the ring only for keyboard navigation (Tab and arrow keys).
+
 ## [0.3.8] — 2026-10-22
 
 ### @7onic-ui/react

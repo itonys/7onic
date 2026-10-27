@@ -11505,7 +11505,7 @@ function ChartTooltipContent({
                     )}
                     <div
                       className={cn(
-                        'flex flex-1 justify-between leading-none',
+                        'flex flex-1 justify-between gap-4 leading-none',
                         nestLabel ? 'items-end' : 'items-center'
                       )}
                     >
@@ -13677,7 +13677,7 @@ const DropdownMenuContent = React.forwardRef<
           onCloseAutoFocus?.(e)
         }}
         className={cn(
-          'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
+          'z-popover min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
           flush ? 'py-1' : 'p-1',
           contentRadiusMap[radius],
           className
@@ -13869,7 +13869,7 @@ const DropdownMenuSubContent = React.forwardRef<
     <DropdownMenuPrimitive.SubContent
       ref={ref}
       className={cn(
-        'z-dropdown min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
+        'z-popover min-w-[8rem] overflow-hidden border border-border bg-background text-foreground shadow-lg',
         flush ? 'py-1' : 'p-1',
         contentRadiusMap[radius],
         className
@@ -16556,7 +16556,7 @@ const ANIMATION_CLASSES: Record<PopoverSide, string> = {
 
 // \u2500\u2500\u2500 Content variants \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 const popoverContentVariants = cva(
-  'relative z-popover font-normal select-none w-auto max-w-[calc(100vw-16px)] outline-none',
+  'relative z-popover flex flex-col font-normal select-none w-auto max-w-[calc(100vw-16px)] max-h-[var(--radix-popover-content-available-height)] outline-none',
   {
     variants: {
       variant: {
@@ -16652,7 +16652,11 @@ const PopoverContent = React.forwardRef<
             {closeIcon || <DefaultCloseIcon className="icon-sm" />}
           </PopoverPrimitive.Close>
         )}
-        {children}
+        {/* Scrolls when taller than the viewport space; lives inside Content so the arrow is not clipped.
+            -m-1 p-1 keeps children's focus rings inside the scroll area */}
+        <div className="min-h-0 overflow-y-auto -m-1 p-1">
+          {children}
+        </div>
         {showArrow && variant === 'default' && (
           <div
             className={cn(
@@ -17854,7 +17858,7 @@ const SelectContent = React.forwardRef<
             onCloseAutoFocus?.(e)
           }}
           className={cn(
-            'relative z-dropdown min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background text-foreground shadow-lg',
+            'relative z-popover min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background text-foreground shadow-lg',
             flush ? 'py-1' : 'p-1',
             contentRadiusMap[contentRadius],
             position === 'popper' &&
@@ -19593,7 +19597,8 @@ const tabsTriggerVariants = cva(
   [
     'inline-flex items-center justify-center gap-2 whitespace-nowrap',
     'transition-all duration-micro ease-out cursor-pointer',
-    'focus-visible:focus-ring',
+    // Keyboard-only focus ring: see pointer tracking in TabsTrigger
+    '[&:focus-visible:not([data-pointer-focus])]:focus-ring',
     'disabled:pointer-events-none disabled:text-text-subtle disabled:opacity-50',
   ].join(' '),
   {
@@ -19707,9 +19712,12 @@ const pillItemRadiusClasses = {
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   TabsTriggerProps
->(({ className, children, ...props }, ref) => {
+>(({ className, children, onPointerDown, onKeyDown, onBlur, ...props }, ref) => {
   const { variant, size, fitted, color, radius } = useTabsStyleContext()
   const resolvedSize = size || 'default'
+  // Radix Tabs 1.2+ calls focus() on mouse down, so :focus-visible matches after any
+  // earlier keyboard input. Mark pointer-initiated focus to keep the ring keyboard-only.
+  const [pointerFocus, setPointerFocus] = React.useState(false)
 
   return (
     <TabsPrimitive.Trigger
@@ -19722,6 +19730,19 @@ const TabsTrigger = React.forwardRef<
         variant === 'pill' && pillItemRadiusClasses[radius || 'md'],
         className
       )}
+      data-pointer-focus={pointerFocus ? '' : undefined}
+      onPointerDown={(event) => {
+        setPointerFocus(true)
+        onPointerDown?.(event)
+      }}
+      onKeyDown={(event) => {
+        setPointerFocus(false)
+        onKeyDown?.(event)
+      }}
+      onBlur={(event) => {
+        setPointerFocus(false)
+        onBlur?.(event)
+      }}
       {...props}
     >
       {children}

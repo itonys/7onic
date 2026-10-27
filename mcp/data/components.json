@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "2a86f788707340be480a4816108a82bbf15195aa0c1abfc1003b4ebfbb463531",
+  "sourceHash": "5f9b262e62561af894a6d32061a7e72b6748205bdaf2bd07ed95b4a188df21f9",
   "count": 41,
   "components": [
     {
@@ -4187,7 +4187,9 @@
           "description": "Padding scale"
         }
       ],
-      "notes": [],
+      "notes": [
+        "**Height:** PopoverContent never grows past the space left in the viewport; taller content scrolls inside it. Put layout classes (`flex`, `grid`, `gap-*`) on your own child element, not on `PopoverContent`."
+      ],
       "a11y": [],
       "related": [
         "Modal",
@@ -5309,6 +5311,22 @@
           "type": "`boolean`",
           "default": "`false`",
           "description": "Icon-only mode (vertical)",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "width",
+          "type": "`number \\| string`",
+          "default": "`256`",
+          "description": "Vertical width (px or CSS string). Inside a sidebar container that sets its own width, pass `\"100%\"` so the menu fits the container instead of overflowing it",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
+          "name": "collapsedWidth",
+          "type": "`number \\| string`",
+          "default": "sm 56 / md 60 / default 64 / lg 72",
+          "description": "Vertical width while `collapsed`",
           "enumValues": null
         },
         {

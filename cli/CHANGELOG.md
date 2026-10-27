@@ -4,6 +4,15 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### 7onic
+
+#### Fixed
+
+- `add select`, `add dropdown` and `add chart` now copy the same fixes as `@7onic-ui/react`: Select and Dropdown content use the `z-popover` layer so they open above a Modal, Drawer or Popover instead of behind it, and chart tooltip rows keep `gap-4` between the label and the value.
+- `add popover` and `add tabs` now copy the same fixes as `@7onic-ui/react`: PopoverContent stops at the space left in the viewport and scrolls inside, and TabsTrigger shows its focus ring only for keyboard navigation.
+
 ## [0.1.17] — 2026-10-22
 
 ### 7onic

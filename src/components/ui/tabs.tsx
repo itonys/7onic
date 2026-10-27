@@ -76,7 +76,8 @@ const tabsTriggerVariants = cva(
   [
     'inline-flex items-center justify-center gap-2 whitespace-nowrap',
     'transition-all duration-micro ease-out cursor-pointer',
-    'focus-visible:focus-ring',
+    // Keyboard-only focus ring: see pointer tracking in TabsTrigger
+    '[&:focus-visible:not([data-pointer-focus])]:focus-ring',
     'disabled:pointer-events-none disabled:text-text-subtle disabled:opacity-50',
   ].join(' '),
   {
@@ -190,9 +191,12 @@ const pillItemRadiusClasses = {
 const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   TabsTriggerProps
->(({ className, children, ...props }, ref) => {
+>(({ className, children, onPointerDown, onKeyDown, onBlur, ...props }, ref) => {
   const { variant, size, fitted, color, radius } = useTabsStyleContext()
   const resolvedSize = size || 'default'
+  // Radix Tabs 1.2+ calls focus() on mouse down, so :focus-visible matches after any
+  // earlier keyboard input. Mark pointer-initiated focus to keep the ring keyboard-only.
+  const [pointerFocus, setPointerFocus] = React.useState(false)
 
   return (
     <TabsPrimitive.Trigger
@@ -205,6 +209,19 @@ const TabsTrigger = React.forwardRef<
         variant === 'pill' && pillItemRadiusClasses[radius || 'md'],
         className
       )}
+      data-pointer-focus={pointerFocus ? '' : undefined}
+      onPointerDown={(event) => {
+        setPointerFocus(true)
+        onPointerDown?.(event)
+      }}
+      onKeyDown={(event) => {
+        setPointerFocus(false)
+        onKeyDown?.(event)
+      }}
+      onBlur={(event) => {
+        setPointerFocus(false)
+        onBlur?.(event)
+      }}
       {...props}
     >
       {children}

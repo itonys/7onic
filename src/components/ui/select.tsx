@@ -245,7 +245,7 @@ const SelectContent = React.forwardRef<
             onCloseAutoFocus?.(e)
           }}
           className={cn(
-            'relative z-dropdown min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background text-foreground shadow-lg',
+            'relative z-popover min-w-[var(--radix-select-trigger-width)] overflow-hidden border border-border bg-background text-foreground shadow-lg',
             flush ? 'py-1' : 'p-1',
             contentRadiusMap[contentRadius],
             position === 'popper' &&

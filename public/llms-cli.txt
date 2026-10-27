@@ -1260,6 +1260,8 @@ import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTr
 
 **Sub-components:** Popover.Trigger, Popover.Content, Popover.Arrow, Popover.Close, Popover.Anchor, Popover.Portal
 
+**Height:** PopoverContent never grows past the space left in the viewport; taller content scrolls inside it. Put layout classes (`flex`, `grid`, `gap-*`) on your own child element, not on `PopoverContent`.
+
 ---
 
 ## Feedback
@@ -1534,6 +1536,8 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuGroup, NavigationM
 | orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout mode |
 | size | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Item size |
 | collapsed | `boolean` | `false` | Icon-only mode (vertical) |
+| width | `number \| string` | `256` | Vertical width (px or CSS string). Inside a sidebar container that sets its own width, pass `"100%"` so the menu fits the container instead of overflowing it |
+| collapsedWidth | `number \| string` | sm 56 / md 60 / default 64 / lg 72 | Vertical width while `collapsed` |
 | radius | Same as Button | `'lg'` | Border radius |
 | fontWeight | `'normal' \| 'semibold'` | `'normal'` | Font weight |
 | delayDuration | `number` | `200` | Hover delay before content opens (horizontal only, ms) |
@@ -2186,10 +2190,10 @@ const chartConfig = {
 ```
 
 **Z-index hierarchy (automatic via tokens) — never set custom z-index:**
-1. `z-dropdown` (1000) — Dropdown, Select
+1. `z-dropdown` (1000) — NavigationMenu sub-menu
 2. `z-overlay` (1100) — Modal/Drawer overlay
 3. `z-modal` (2000) — Modal/Drawer content
-4. `z-popover` (2100) — Popover
+4. `z-popover` (2100) — Popover, Dropdown, Select (same layer: the one opened last stays on top, so a Select or Dropdown opened inside a Modal, Drawer or Popover is never hidden)
 5. `z-tooltip` (2200) — Tooltip
 6. `z-toast` (3000) — Toast
 

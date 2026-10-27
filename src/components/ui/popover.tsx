@@ -32,7 +32,7 @@ const ANIMATION_CLASSES: Record<PopoverSide, string> = {
 
 // ─── Content variants ────────────────────────────────────────
 const popoverContentVariants = cva(
-  'relative z-popover font-normal select-none w-auto max-w-[calc(100vw-16px)] outline-none',
+  'relative z-popover flex flex-col font-normal select-none w-auto max-w-[calc(100vw-16px)] max-h-[var(--radix-popover-content-available-height)] outline-none',
   {
     variants: {
       variant: {
@@ -128,7 +128,11 @@ const PopoverContent = React.forwardRef<
             {closeIcon || <DefaultCloseIcon className="icon-sm" />}
           </PopoverPrimitive.Close>
         )}
-        {children}
+        {/* Scrolls when taller than the viewport space; lives inside Content so the arrow is not clipped.
+            -m-1 p-1 keeps children's focus rings inside the scroll area */}
+        <div className="min-h-0 overflow-y-auto -m-1 p-1">
+          {children}
+        </div>
         {showArrow && variant === 'default' && (
           <div
             className={cn(

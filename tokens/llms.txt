@@ -309,10 +309,10 @@ Shadows automatically adapt between light and dark themes.
 | `z-0` | 0 | Default |
 | `z-10`–`z-50` | 10–50 | Layout layers |
 | `z-sticky` | 100 | Sticky header |
-| `z-dropdown` | 1000 | Dropdown menu |
+| `z-dropdown` | 1000 | Navigation sub-menu |
 | `z-overlay` | 1100 | Overlay/backdrop |
 | `z-modal` | 2000 | Modal dialog |
-| `z-popover` | 2100 | Popover |
+| `z-popover` | 2100 | Popover, dropdown menu, select |
 | `z-tooltip` | 2200 | Tooltip |
 | `z-toast` | 3000 | Toast notification |
 
