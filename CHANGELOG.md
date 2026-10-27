@@ -6,6 +6,30 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.10] — 2026-10-27
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **Tree-shaking now works for the ESM build.** Through 0.3.9 the ESM output was a single file, and bundlers keep most of a single file because top-level `forwardRef`, `cva` and `displayName` assignments count as side effects. Measured in a Vite + Tailwind v4 app, importing only `Button` added 332 KB on top of React — almost the whole library (368 KB). The ESM build is now split per component with shared chunks, so importing `Button` alone adds 28 KB. Import paths (`@7onic-ui/react`, `@7onic-ui/react/chart`), the CommonJS build, type declarations and `'use client'` behavior for React Server Components are unchanged. This makes the "only the components you import ship" note in 0.3.0 hold.
+
+#### Added
+
+- `@7onic-ui/react/package.json` is exported, so tools that read a package's version (`require('@7onic-ui/react/package.json')`) no longer fail with `ERR_PACKAGE_PATH_NOT_EXPORTED`.
+
+#### Changed
+
+- `llms.txt` (shipped in the package) lists sub-components by their exported names (`PopoverTrigger`, `TooltipProvider`, …) instead of the dot notation removed in 0.3.0. The CLI guide (`llms-cli.txt` on the docs site) no longer describes a dot-notation pattern that would fail at render; it points to the Compound Recipe instead.
+
+### @7onic-ui/tokens
+
+#### Added
+
+- `@7onic-ui/tokens/package.json` is exported, for the same reason.
+
+---
+
 ## [0.3.9] — 2026-10-27
 
 ### @7onic-ui/react

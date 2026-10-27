@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/react",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "private": false,
   "sideEffects": [
     "*.css"
@@ -19,7 +19,8 @@
       "types": "./dist/chart.d.ts",
       "import": "./dist/chart.mjs",
       "require": "./dist/chart.js"
-    }
+    },
+    "./package.json": "./package.json"
   },
   "typesVersions": {
     "*": {
@@ -37,7 +38,7 @@
     "dev:clean": "rm -rf .next && next dev",
     "build": "next build",
     "build:clean": "rm -rf .next && next build",
-    "build:lib": "tsup",
+    "build:lib": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsup",
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "eslint . --ext .ts,.tsx --fix",

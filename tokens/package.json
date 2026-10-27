@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/tokens",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Design tokens for 7onic — single source for design and code. CSS variables, Tailwind presets, JS, TypeScript",
   "author": "7onic",
   "license": "MIT",
@@ -33,7 +33,8 @@
     "./tailwind/v4-theme.css": "./tailwind/v4-theme.css",
     "./tailwind/v4.css": "./tailwind/v4.css",
     "./json/tokens.json": "./json/tokens.json",
-    "./figma-tokens.json": "./figma-tokens.json"
+    "./figma-tokens.json": "./figma-tokens.json",
+    "./package.json": "./package.json"
   },
   "files": [
     "css",

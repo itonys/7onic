@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.19] — 2026-10-27
+
+### 7onic
+
+#### Fixed
+
+- `add` suggests the right component for swapped-letter typos too (`selcet` → `select`, `tbas` → `tabs`, `popvoer` → `popover`). The bigram check missed these; an edit-distance fallback (with adjacent transpositions, at most 2 edits) now runs when it finds nothing. Unrelated names still get no suggestion.
+
 ## [0.1.18] — 2026-10-27
 
 ### 7onic

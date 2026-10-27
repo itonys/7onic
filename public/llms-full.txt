@@ -530,7 +530,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 | defaultValue | `string` | — | Uncontrolled default |
 | onValueChange | `(value: string) => void` | — | Change handler |
 
-**Sub-components:** Select.Trigger, Select.Value, Select.Content, Select.Item, Select.Group, Select.Label, Select.Separator
+**Sub-components:** SelectTrigger, SelectValue, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectSeparator
 
 ---
 
@@ -559,7 +559,7 @@ import { Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMe
 | flush | `boolean` | `false` | Full-width items (no padding) |
 | sideOffset | `number` | `4` | Gap from trigger |
 
-**Sub-components:** DropdownMenu.Trigger, DropdownMenu.Content, DropdownMenu.Item, DropdownMenu.CheckboxItem, DropdownMenu.RadioGroup, DropdownMenu.RadioItem, DropdownMenu.Label, DropdownMenu.Separator, DropdownMenu.Group, DropdownMenu.Sub, DropdownMenu.SubTrigger, DropdownMenu.SubContent, DropdownMenu.Shortcut
+**Sub-components:** DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuCheckboxItem, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuGroup, DropdownMenuSub, DropdownMenuSubTrigger, DropdownMenuSubContent, DropdownMenuShortcut
 
 ---
 
@@ -609,7 +609,7 @@ import { RadioGroup, RadioGroupItem } from '@7onic-ui/react'
 | defaultValue | `string` | — | Uncontrolled default |
 | onValueChange | `(value: string) => void` | — | Change handler |
 
-**Sub-components:** RadioGroup.Item (with `label` prop)
+**Sub-components:** RadioGroupItem (with `label` prop)
 
 ---
 
@@ -689,7 +689,7 @@ import { ToggleGroup, ToggleGroupItem } from '@7onic-ui/react'
 | defaultValue | `string \| string[]` | — | Uncontrolled default |
 | onValueChange | `(value) => void` | — | Change handler |
 
-**Sub-components:** ToggleGroup.Item
+**Sub-components:** ToggleGroupItem
 
 ---
 
@@ -715,7 +715,7 @@ import { Segmented, SegmentedItem } from '@7onic-ui/react'
 | defaultValue | `string` | — | Uncontrolled default |
 | onValueChange | `(value: string) => void` | — | Change handler |
 
-**Sub-components:** Segmented.Item
+**Sub-components:** SegmentedItem
 **Note:** Only 4 sizes (no xs) — intentional design decision.
 
 ---
@@ -771,7 +771,7 @@ import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '
 | error | `string \| boolean` | — | Error message (passed to children via context) |
 | disabled | `boolean` | `false` | Disabled state (passed to children via context) |
 
-**Sub-components:** Field.Label (with `required` prop), Field.Error, Field.CharCount
+**Sub-components:** FieldLabel (with `required` prop), FieldError, FieldCharCount
 **Context:** Input, Textarea, Checkbox, RadioGroup, Select auto-detect Field context for error/disabled/id.
 
 ---
@@ -814,7 +814,7 @@ import { Avatar, AvatarFallback, AvatarGroup, AvatarImage } from '@7onic-ui/reac
 | size | Same as Root | — | Override all children |
 | shape | Same as Root | — | Override all children |
 
-**Sub-components:** Avatar.Image, Avatar.Fallback, Avatar.Group
+**Sub-components:** AvatarImage, AvatarFallback, AvatarGroup
 
 ---
 
@@ -873,7 +873,7 @@ import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader,
 | overlay | `boolean` | `false` | Gradient overlay |
 | overlayOpacity | `10-90` | `60` | Overlay darkness |
 
-**Sub-components:** Card.Image, Card.Header, Card.Title (with `icon`), Card.Description, Card.Action, Card.Content, Card.Footer
+**Sub-components:** CardImage, CardHeader, CardTitle (with `icon`), CardDescription, CardAction, CardContent, CardFooter
 
 ---
 
@@ -920,7 +920,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 |---|---|---|---|
 | align | `'left' \| 'center' \| 'right'` | `'left'` | Text alignment |
 
-**Sub-components:** Table.Header, Table.Body, Table.Footer, Table.Row, Table.Head, Table.Cell, Table.Caption
+**Sub-components:** TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell, TableCaption
 
 ---
 
@@ -949,7 +949,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@7onic-ui/react'
 | color | `'default' \| 'primary'` | `'default'` | Active tab color |
 | radius | `'none' \| 'sm' \| 'base' \| 'md' \| 'lg' \| 'xl' \| '2xl' \| '3xl' \| 'full'` | `'md'` | Border radius (enclosed/pill) |
 
-**Sub-components:** Tabs.List, Tabs.Trigger, Tabs.Content
+**Sub-components:** TabsList, TabsTrigger, TabsContent
 
 ---
 
@@ -978,7 +978,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@7
 | iconPosition | `'left' \| 'right'` | `'right'` | Chevron placement |
 | collapsible | `boolean` | `true` | Allow all closed (single only) |
 
-**Sub-components:** Accordion.Item, Accordion.Trigger (with `icon` prop), Accordion.Content
+**Sub-components:** AccordionItem, AccordionTrigger (with `icon` prop), AccordionContent
 
 ---
 
@@ -1038,7 +1038,7 @@ import { Button, Modal, ModalBody, ModalClose, ModalContent, ModalDescription, M
 | scrollBehavior | `'inside' \| 'outside'` | `'outside'` | Scroll target |
 | showCloseButton | `boolean` | `true` | Show X button |
 
-**Sub-components:** Modal.Trigger, Modal.Portal, Modal.Overlay, Modal.Content, Modal.Header, Modal.Title, Modal.Description, Modal.Body, Modal.Footer, Modal.Close
+**Sub-components:** ModalTrigger, ModalPortal, ModalOverlay, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalBody, ModalFooter, ModalClose
 
 **Required structure:** Portal → Overlay + Content. Don't forget Portal and Overlay.
 
@@ -1074,7 +1074,7 @@ import { AlertModal, AlertModalAction, AlertModalBody, AlertModalCancel, AlertMo
 |---|---|---|---|
 | size | `'xs' \| 'sm'` | `'sm'` | AlertModal width (smaller than Modal by design) |
 
-**Sub-components:** AlertModal.Trigger, AlertModal.Portal, AlertModal.Overlay, AlertModal.Content, AlertModal.Header, AlertModal.Title, AlertModal.Description, AlertModal.Body, AlertModal.Footer, AlertModal.Action, AlertModal.Cancel
+**Sub-components:** AlertModalTrigger, AlertModalPortal, AlertModalOverlay, AlertModalContent, AlertModalHeader, AlertModalTitle, AlertModalDescription, AlertModalBody, AlertModalFooter, AlertModalAction, AlertModalCancel
 
 **Required structure:** Portal → Overlay + Content (same as Modal). Use for destructive confirmations — renders as `role="alertdialog"` via Radix AlertDialog primitive. No close button by default (force user to Action or Cancel).
 
@@ -1110,7 +1110,7 @@ import { Button, Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, D
 | size | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Width/height |
 | showCloseButton | `boolean` | `true` | Show X button |
 
-**Sub-components:** Drawer.Trigger, Drawer.Portal, Drawer.Overlay, Drawer.Content, Drawer.Header, Drawer.Title, Drawer.Description, Drawer.Body, Drawer.Footer, Drawer.Close
+**Sub-components:** DrawerTrigger, DrawerPortal, DrawerOverlay, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose
 
 ---
 
@@ -1146,8 +1146,8 @@ import { Button, Tooltip, TooltipArrow, TooltipContent, TooltipPortal, TooltipPr
 | showArrow | `boolean` | `true` | Show arrow |
 | sideOffset | `number` | `6` | Gap from trigger |
 
-**⚠️ Tooltip.Provider is required** — wrap your app or section with it.
-**Sub-components:** Tooltip.Provider, Tooltip.Trigger, Tooltip.Content, Tooltip.Arrow, Tooltip.Portal
+**⚠️ TooltipProvider is required** — wrap your app or section with it.
+**Sub-components:** TooltipProvider, TooltipTrigger, TooltipContent, TooltipArrow, TooltipPortal
 
 ---
 
@@ -1177,7 +1177,7 @@ import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTr
 | showArrow | `boolean` | `true` | Show arrow |
 | showClose | `boolean` | `false` | Show X button |
 
-**Sub-components:** Popover.Trigger, Popover.Content, Popover.Arrow, Popover.Close, Popover.Anchor, Popover.Portal
+**Sub-components:** PopoverTrigger, PopoverContent, PopoverArrow, PopoverClose, PopoverAnchor, PopoverPortal
 
 **Height:** PopoverContent never grows past the space left in the viewport; taller content scrolls inside it. Put layout classes (`flex`, `grid`, `gap-*`) on your own child element, not on `PopoverContent`.
 
@@ -1211,7 +1211,7 @@ import { Alert, AlertDescription, AlertTitle } from '@7onic-ui/react'
 | icon | `ReactNode` | auto | Custom icon (auto-selects by color) |
 | hideIcon | `boolean` | `false` | Hide icon |
 
-**Sub-components:** Alert.Title, Alert.Description
+**Sub-components:** AlertTitle, AlertDescription
 
 ---
 
@@ -1371,7 +1371,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 | itemsBeforeCollapse | `number` | `1` | Items before ellipsis |
 | itemsAfterCollapse | `number` | `1` | Items after ellipsis |
 
-**Sub-components:** Breadcrumb.List, Breadcrumb.Item, Breadcrumb.Link (with `asChild`), Breadcrumb.Page, Breadcrumb.Separator, Breadcrumb.Ellipsis
+**Sub-components:** BreadcrumbList, BreadcrumbItem, BreadcrumbLink (with `asChild`), BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis
 
 ---
 
@@ -1412,7 +1412,7 @@ import { Pagination, PaginationContent, PaginationItems, PaginationNext, Paginat
 | loop | `boolean` | `false` | Wrap around |
 | disabled | `boolean` | `false` | Disabled state |
 
-**Sub-components:** Pagination.Content, Pagination.Item, Pagination.Link, Pagination.Previous, Pagination.Next, Pagination.First, Pagination.Last, Pagination.Ellipsis, Pagination.Items
+**Sub-components:** PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationFirst, PaginationLast, PaginationEllipsis, PaginationItems
 
 ---
 
@@ -1477,7 +1477,7 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuGroup, NavigationM
 |---|---|---|---|
 | color | `'default' \| 'primary'` | `'default'` | Indicator color (horizontal variant only) |
 
-**Sub-components:** NavigationMenu.List, NavigationMenu.Item, NavigationMenu.Trigger, NavigationMenu.Content, NavigationMenu.Link, NavigationMenu.Group (vertical only, with `label`), NavigationMenu.Indicator (horizontal only), NavigationMenu.Viewport
+**Sub-components:** NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, NavigationMenuGroup (vertical only, with `label`), NavigationMenuIndicator (horizontal only), NavigationMenuViewport
 
 ---
 
@@ -1617,7 +1617,7 @@ import { MetricCard, MetricCardDescription, MetricCardHeader, MetricCardSymbol, 
 |---|---|---|---|
 | direction | `'up' \| 'down' \| 'neutral'` | — | Trend arrow + color |
 
-**Sub-components:** MetricCard.Header, MetricCard.Title, MetricCard.Value, MetricCard.Trend, MetricCard.Description, MetricCard.Symbol
+**Sub-components:** MetricCardHeader, MetricCardTitle, MetricCardValue, MetricCardTrend, MetricCardDescription, MetricCardSymbol
 
 ---
 
@@ -2005,7 +2005,7 @@ toast.success('Done')
 ```
 
 **Use `asChild` when combining 7onic components with routing `<Link>`.**
-Components that support `asChild`: Button, IconButton, Badge, Card, Modal.Trigger, Modal.Close, Drawer.Trigger, Drawer.Close, DropdownMenu.Item, Breadcrumb.Link, NavigationMenu.Link, Tooltip.Trigger, Popover.Trigger
+Components that support `asChild`: Button, IconButton, Badge, Card, ModalTrigger, ModalClose, DrawerTrigger, DrawerClose, DropdownMenuItem, BreadcrumbLink, NavigationMenuLink, TooltipTrigger, PopoverTrigger
 
 ---
 

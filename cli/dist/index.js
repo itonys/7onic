@@ -21631,7 +21631,33 @@ function findSimilar(input, candidates) {
       best = name;
     }
   }
+  if (best) return best;
+  let bestDistance = Infinity;
+  for (const name of candidates) {
+    const distance = editDistance(input.toLowerCase(), name.toLowerCase());
+    const limit = Math.min(2, Math.floor(name.length / 3));
+    if (distance <= limit && distance < bestDistance) {
+      bestDistance = distance;
+      best = name;
+    }
+  }
   return best;
+}
+function editDistance(a, b) {
+  const d3 = Array.from(
+    { length: a.length + 1 },
+    (_2, i) => Array.from({ length: b.length + 1 }, (_3, j2) => i === 0 ? j2 : j2 === 0 ? i : 0)
+  );
+  for (let i = 1; i <= a.length; i++) {
+    for (let j2 = 1; j2 <= b.length; j2++) {
+      const cost = a[i - 1] === b[j2 - 1] ? 0 : 1;
+      d3[i][j2] = Math.min(d3[i - 1][j2] + 1, d3[i][j2 - 1] + 1, d3[i - 1][j2 - 1] + cost);
+      if (i > 1 && j2 > 1 && a[i - 1] === b[j2 - 2] && a[i - 2] === b[j2 - 1]) {
+        d3[i][j2] = Math.min(d3[i][j2], d3[i - 2][j2 - 2] + 1);
+      }
+    }
+  }
+  return d3[a.length][b.length];
 }
 function similarity(a, b) {
   if (a === b) return 1;
@@ -21701,7 +21727,7 @@ function showCompanionHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.18";
+var VERSION = "0.1.19";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

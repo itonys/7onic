@@ -326,8 +326,38 @@ function findSimilar(input: string, candidates: readonly string[]): string | nul
       best = name
     }
   }
+  if (best) return best
+
+  // Bigram overlap misses swapped letters ("selcet" shares only 2 bigrams with "select"),
+  // so fall back to edit distance with adjacent transpositions.
+  let bestDistance = Infinity
+  for (const name of candidates) {
+    const distance = editDistance(input.toLowerCase(), name.toLowerCase())
+    const limit = Math.min(2, Math.floor(name.length / 3))
+    if (distance <= limit && distance < bestDistance) {
+      bestDistance = distance
+      best = name
+    }
+  }
 
   return best
+}
+
+/** Optimal string alignment distance (Levenshtein + adjacent transposition) */
+function editDistance(a: string, b: string): number {
+  const d: number[][] = Array.from({ length: a.length + 1 }, (_, i) =>
+    Array.from({ length: b.length + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0)),
+  )
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost)
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1)
+      }
+    }
+  }
+  return d[a.length][b.length]
 }
 
 /** Simple string similarity (Dice coefficient) */
