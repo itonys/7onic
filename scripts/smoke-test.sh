@@ -7,6 +7,11 @@
 
 set -uo pipefail
 
+# Supply chain: no dependency install scripts, and only versions published 72h+ ago
+export npm_config_ignore_scripts=true
+npm_config_before="$(date -u -v-72H +%Y-%m-%dT%H:%M:%SZ 2>/dev/null || date -u -d '72 hours ago' +%Y-%m-%dT%H:%M:%SZ)"
+export npm_config_before
+
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 CLI="$ROOT/cli/dist/index.js"
