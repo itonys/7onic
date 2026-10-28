@@ -759,9 +759,11 @@ import { Segmented, SegmentedItem } from '@/components/ui/segmented'
 ```tsx
 import { Slider } from '@/components/ui/slider'
 
-<Slider defaultValue={[50]} showTooltip="auto" />
-<Slider defaultValue={[20, 80]} color="primary" />
+<Slider defaultValue={[50]} showTooltip="auto" aria-label="Volume" />
+<Slider defaultValue={[20, 80]} color="primary" aria-label="Price range" />
 ```
+
+**Accessible name:** `aria-label` / `aria-labelledby` go on the thumb (the element with `role="slider"`). Inside a `Field`, the `FieldLabel` names the slider automatically.
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
@@ -1412,7 +1414,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbP
 ### Pagination
 
 ```tsx
-import { Pagination, PaginationContent, PaginationItems, PaginationNext, PaginationPrevious } from '@/components/ui/paginationitems'
+import { Pagination, PaginationContent, PaginationItem, PaginationItems, PaginationNext, PaginationPrevious } from '@/components/ui/paginationitems'
 
 {/* Quick mode — withControls (default: true), withEdges (default: false) */}
 <Pagination total={10} defaultValue={1} />
@@ -1422,9 +1424,13 @@ import { Pagination, PaginationContent, PaginationItems, PaginationNext, Paginat
 {/* Compound mode (custom layout) */}
 <Pagination total={20} value={page} onChange={setPage}>
   <PaginationContent>
-    <PaginationPrevious />
+    <PaginationItem>
+      <PaginationPrevious />
+    </PaginationItem>
     <PaginationItems />
-    <PaginationNext />
+    <PaginationItem>
+      <PaginationNext />
+    </PaginationItem>
   </PaginationContent>
 </Pagination>
 ```
@@ -2094,10 +2100,22 @@ import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '
 </Field>
 ```
 
-**Field context auto-connects** to Input, Textarea, Select, Checkbox, RadioGroup:
-- Passes `error` state
-- Passes `disabled` state
-- Auto-generates matching `id` / `htmlFor` / `aria-describedby`
+**Field context auto-connects** to Input, Textarea, Select, Checkbox, Switch, RadioGroup, Slider:
+- Passes `disabled` state (and `error` to Input / Textarea)
+- One control (Input, Textarea, SelectTrigger, a Checkbox / Switch without its own `label`): `FieldLabel` targets it via matching `id` / `htmlFor`; Input / Textarea also get `aria-describedby` for FieldError / FieldCharCount
+- A group (several Checkbox / Switch each with their own `label`): every item keeps a unique id, and the Field becomes `role="group"` named by `FieldLabel` — clicking an item label toggles that item
+- RadioGroup and Slider: named by `FieldLabel` via `aria-labelledby`
+
+```tsx
+<Field>
+  <FieldLabel>Notifications</FieldLabel>
+  <div className="flex flex-col gap-2">
+    <Checkbox defaultChecked label="Email" />
+    <Checkbox label="Push" />
+    <Checkbox label="SMS" />
+  </div>
+</Field>
+```
 
 ---
 

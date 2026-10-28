@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "1c626d45fb10ccbd02dcadcaa4e0e5d380d71880074c1fe3f8cd3ba896d6bfdc",
+  "sourceHash": "f68ac90cc701e87a4342117a19b2c4a1044126d0132a764fd1a2067faec837b5",
   "count": 41,
   "components": [
     {
@@ -2328,8 +2328,12 @@
           "description": "Track/thumb size"
         }
       ],
-      "notes": [],
-      "a11y": [],
+      "notes": [
+        "**Accessible name:** `aria-label` / `aria-labelledby` go on the thumb (the element with `role=\"slider\"`). Inside a `Field`, the `FieldLabel` names the slider automatically."
+      ],
+      "a11y": [
+        "**Accessible name:** `aria-label` / `aria-labelledby` go on the thumb (the element with `role=\"slider\"`). Inside a `Field`, the `FieldLabel` names the slider automatically."
+      ],
       "related": [
         "Button",
         "IconButton",
@@ -2350,7 +2354,7 @@
         "/components/slider"
       ],
       "examples": [
-        "import { Slider } from '@7onic-ui/react'\n\n<Slider defaultValue={[50]} showTooltip=\"auto\" />\n<Slider defaultValue={[20, 80]} color=\"primary\" />"
+        "import { Slider } from '@7onic-ui/react'\n\n<Slider defaultValue={[50]} showTooltip=\"auto\" aria-label=\"Volume\" />\n<Slider defaultValue={[20, 80]} color=\"primary\" aria-label=\"Price range\" />"
       ]
     },
     {
@@ -5034,6 +5038,7 @@
       "symbols": [
         "Pagination",
         "PaginationContent",
+        "PaginationItem",
         "PaginationItems",
         "PaginationNext",
         "PaginationPrevious"
@@ -5249,7 +5254,7 @@
         "/components/pagination"
       ],
       "examples": [
-        "import { Pagination, PaginationContent, PaginationItems, PaginationNext, PaginationPrevious } from '@7onic-ui/react'\n\n{/* Quick mode — withControls (default: true), withEdges (default: false) */}\n<Pagination total={10} defaultValue={1} />\n<Pagination total={10} defaultValue={1} withEdges />\n<Pagination total={10} defaultValue={1} withControls={false} />\n\n{/* Compound mode (custom layout) */}\n<Pagination total={20} value={page} onChange={setPage}>\n  <PaginationContent>\n    <PaginationPrevious />\n    <PaginationItems />\n    <PaginationNext />\n  </PaginationContent>\n</Pagination>"
+        "import { Pagination, PaginationContent, PaginationItem, PaginationItems, PaginationNext, PaginationPrevious } from '@7onic-ui/react'\n\n{/* Quick mode — withControls (default: true), withEdges (default: false) */}\n<Pagination total={10} defaultValue={1} />\n<Pagination total={10} defaultValue={1} withEdges />\n<Pagination total={10} defaultValue={1} withControls={false} />\n\n{/* Compound mode (custom layout) */}\n<Pagination total={20} value={page} onChange={setPage}>\n  <PaginationContent>\n    <PaginationItem>\n      <PaginationPrevious />\n    </PaginationItem>\n    <PaginationItems />\n    <PaginationItem>\n      <PaginationNext />\n    </PaginationItem>\n  </PaginationContent>\n</Pagination>"
       ]
     },
     {

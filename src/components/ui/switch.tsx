@@ -4,7 +4,7 @@ import * as React from 'react'
 import * as SwitchPrimitive from '@radix-ui/react-switch'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 // Switch track variants
 const switchVariants = cva(
@@ -105,7 +105,11 @@ const Switch = React.forwardRef<
   const resolvedSize = size || 'default'
   const resolvedDisabled = disabled ?? fieldContext?.disabled
   const generatedId = React.useId()
-  const switchId = id ?? fieldContext?.id ?? generatedId
+  // With its own label the switch is one item of a group: keep a unique id. Only a
+  // bare switch labelled by FieldLabel takes the Field id.
+  const hasOwnLabel = Boolean(label || startLabel || endLabel)
+  const switchId = id ?? (hasOwnLabel ? generatedId : fieldContext?.id ?? generatedId)
+  useFieldControl(hasOwnLabel ? 'group' : 'single', Boolean(fieldContext) && (hasOwnLabel || !id))
 
   const switchEl = (
     <SwitchPrimitive.Root

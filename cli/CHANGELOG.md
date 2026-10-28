@@ -4,6 +4,18 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.20] — 2026-10-29
+
+### 7onic
+
+#### Fixed
+
+- Components copied by `add` include the Field and accessibility fixes from `@7onic-ui/react` (Checkbox / Switch ids inside a Field, RadioGroup / Select / Slider labelling, Pagination and NavigationMenu list structure). See the root CHANGELOG.
+
+#### Changed
+
+- `add slider` also installs `field`: Slider now reads the Field context to label itself.
+
 ## [0.1.19] — 2026-10-27
 
 ### 7onic

@@ -4,6 +4,7 @@ import * as React from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
+import { useFieldContext, useFieldControl } from './field'
 
 // Slider root variants
 const sliderVariants = cva(
@@ -79,8 +80,13 @@ export interface SliderProps
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, size, color = 'default', value, defaultValue, onValueChange, showTooltip = 'never', formatLabel, startContent, endContent, orientation, ...props }, ref) => {
+>(({ className, size, color = 'default', value, defaultValue, onValueChange, showTooltip = 'never', formatLabel, startContent, endContent, orientation, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props }, ref) => {
   const resolvedSize = size || 'default'
+  // The thumbs carry role="slider", so the accessible name goes on them, not on the
+  // Root. Inside a Field the FieldLabel names the slider unless a name is given.
+  const fieldContext = useFieldContext()
+  useFieldControl('labelled', Boolean(fieldContext))
+  const thumbLabelledBy = ariaLabelledBy ?? (!ariaLabel && fieldContext?.hasLabel ? fieldContext.labelId : undefined)
   const thumbCount = value?.length ?? defaultValue?.length ?? 1
   const hasTooltip = showTooltip !== 'never'
   const hasWrapper = !!(startContent || endContent)
@@ -133,6 +139,8 @@ const Slider = React.forwardRef<
       {Array.from({ length: thumbCount }).map((_, i) => (
         <SliderPrimitive.Thumb
           key={i}
+          aria-label={ariaLabel}
+          aria-labelledby={thumbLabelledBy}
           className={cn(
             'group/thumb block rounded-full border-2 shadow-sm', sliderColorMap[color].thumb,
             isVertical

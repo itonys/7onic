@@ -3,6 +3,7 @@
 import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { cn } from '@/lib/utils'
+import { useFieldContext, useFieldControl } from './field'
 
 // Radius (matches Input — set at Root, propagates to Trigger and Content)
 type SelectRadius = 'none' | 'sm' | 'base' | 'default' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
@@ -131,19 +132,24 @@ const SelectStyleContext = React.createContext<{
   flush: boolean
 }>({ contentRadius: 'xl', itemSize: 'md', flush: false })
 
-// Root — state management + size/radius context
+// Root — state management + size/radius context. Inside a Field it inherits the
+// Field's disabled state, like Input and Textarea.
 const Select = ({
   size = 'default',
   radius = 'default',
+  disabled,
   ...props
 }: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & {
   size?: SelectSize
   radius?: SelectRadius
-}) => (
-  <SelectRootContext.Provider value={{ size, radius }}>
-    <SelectPrimitive.Root {...props} />
-  </SelectRootContext.Provider>
-)
+}) => {
+  const fieldContext = useFieldContext()
+  return (
+    <SelectRootContext.Provider value={{ size, radius }}>
+      <SelectPrimitive.Root disabled={disabled ?? fieldContext?.disabled} {...props} />
+    </SelectRootContext.Provider>
+  )
+}
 
 // Value — displays selected value or placeholder
 const SelectValue = SelectPrimitive.Value
@@ -155,11 +161,15 @@ const SelectGroup = SelectPrimitive.Group
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
+>(({ className, children, id, ...props }, ref) => {
   const { size, radius } = React.useContext(SelectRootContext)
+  // Inside a Field the trigger takes the Field id, so FieldLabel names it
+  const fieldContext = useFieldContext()
+  useFieldControl('single', Boolean(fieldContext) && !id)
   return (
     <SelectPrimitive.Trigger
       ref={ref}
+      id={id ?? fieldContext?.id}
       className={cn(
         'flex w-full items-center justify-between bg-background text-foreground hover:bg-background-muted',
         'border border-border',

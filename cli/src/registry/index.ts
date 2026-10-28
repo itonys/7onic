@@ -3178,6 +3178,13 @@ const ChatInput = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
 )
 ChatInput.displayName = 'ChatInput'
 
+// Writes a node into a callback or object ref. Kept outside the component: React
+// Compiler rules flag assigning \`.current\` on refs that come from props or context.
+function assignRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
+  if (typeof ref === 'function') ref(value)
+  else if (ref) (ref as React.MutableRefObject<T | null>).current = value
+}
+
 // ============================================================================
 // ChatInputField — Auto-resizing textarea
 // ============================================================================
@@ -3212,12 +3219,8 @@ const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps
     const setRef = React.useCallback(
       (el: HTMLTextAreaElement | null) => {
         internalRef.current = el
-        ctx._fieldRef.current = el
-        if (typeof forwardedRef === 'function') {
-          forwardedRef(el)
-        } else if (forwardedRef) {
-          (forwardedRef as React.MutableRefObject<HTMLTextAreaElement | null>).current = el
-        }
+        assignRef(ctx._fieldRef, el)
+        assignRef(forwardedRef, el)
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [forwardedRef]
@@ -3625,7 +3628,6 @@ export interface ChatMessageAvatarProps {
   className?: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ChatMessageContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export interface ChatMessageFooterProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -3862,7 +3864,7 @@ import * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 // Color maps for checked/indeterminate state
 const checkboxColorMap = {
@@ -3944,7 +3946,11 @@ const Checkbox = React.forwardRef<
   const resolvedSize = size || 'default'
   const resolvedDisabled = disabled ?? fieldContext?.disabled
   const generatedId = React.useId()
-  const checkboxId = id ?? fieldContext?.id ?? generatedId
+  // With its own label the checkbox is one item of a group: keep a unique id. Only a
+  // bare checkbox labelled by FieldLabel takes the Field id.
+  const hasOwnLabel = Boolean(label)
+  const checkboxId = id ?? (hasOwnLabel ? generatedId : fieldContext?.id ?? generatedId)
+  useFieldControl(hasOwnLabel ? 'group' : 'single', Boolean(fieldContext) && (hasOwnLabel || !id))
 
   const checkbox = (
     <CheckboxPrimitive.Root
@@ -4810,14 +4816,40 @@ import { cn } from '@/lib/utils'
 // Field Context for sharing state between components
 interface FieldContextValue {
   id: string
+  /** id of the FieldLabel, for aria-labelledby on grouped controls */
+  labelId: string
   error?: boolean
   disabled?: boolean
+  /** A FieldLabel is rendered inside this Field */
+  hasLabel: boolean
+  /** The Field holds labelled checkboxes / switches / a radio group and no single input */
+  isGroup: boolean
+  registerLabel: () => () => void
+  registerControl: (kind: FieldControlKind) => () => void
 }
+
+type FieldControlKind = 'single' | 'group' | 'labelled'
 
 const FieldContext = React.createContext<FieldContextValue | null>(null)
 
 function useFieldContext() {
   return React.useContext(FieldContext)
+}
+
+// Controls tell their Field what they are, so FieldLabel can point at the right thing.
+// 'single': one input that takes the Field id (Input, Textarea, a bare Checkbox / Switch);
+//   FieldLabel targets it with htmlFor.
+// 'group': a Checkbox / Switch with its own label keeps a unique id; the Field becomes
+//   role="group" named by FieldLabel instead of every item sharing one id.
+// 'labelled': a RadioGroup names itself from FieldLabel (aria-labelledby).
+// A single input wins: with one present, FieldLabel keeps pointing at it.
+function useFieldControl(kind: FieldControlKind, enabled: boolean) {
+  const context = useFieldContext()
+  const register = context?.registerControl
+  React.useEffect(() => {
+    if (!enabled || !register) return
+    return register(kind)
+  }, [enabled, register, kind])
 }
 
 // Field wrapper
@@ -4846,11 +4878,33 @@ export interface FieldProps
 const Field = React.forwardRef<HTMLDivElement, FieldProps>(
   ({ className, gap, error, disabled, children, ...props }, ref) => {
     const id = React.useId()
+    const labelId = \`\${id}-label\`
+    const [labelCount, setLabelCount] = React.useState(0)
+    const [counts, setCounts] = React.useState({ single: 0, group: 0, labelled: 0 })
+
+    const registerLabel = React.useCallback(() => {
+      setLabelCount((n) => n + 1)
+      return () => setLabelCount((n) => n - 1)
+    }, [])
+    const registerControl = React.useCallback((kind: FieldControlKind) => {
+      setCounts((c) => ({ ...c, [kind]: c[kind] + 1 }))
+      return () => setCounts((c) => ({ ...c, [kind]: c[kind] - 1 }))
+    }, [])
+
+    const hasLabel = labelCount > 0
+    const isGroup = counts.single === 0 && (counts.group > 0 || counts.labelled > 0)
+    const asGroup = counts.single === 0 && counts.group > 0
+    const contextValue = React.useMemo(
+      () => ({ id, labelId, error, disabled, hasLabel, isGroup, registerLabel, registerControl }),
+      [id, labelId, error, disabled, hasLabel, isGroup, registerLabel, registerControl]
+    )
 
     return (
-      <FieldContext.Provider value={{ id, error, disabled }}>
+      <FieldContext.Provider value={contextValue}>
         <div
           ref={ref}
+          role={asGroup ? 'group' : undefined}
+          aria-labelledby={asGroup && hasLabel ? labelId : undefined}
           className={cn(fieldVariants({ gap }), className)}
           data-error={error || undefined}
           data-disabled={disabled || undefined}
@@ -4872,11 +4926,15 @@ export interface FieldLabelProps extends React.LabelHTMLAttributes<HTMLLabelElem
 const FieldLabel = React.forwardRef<HTMLLabelElement, FieldLabelProps>(
   ({ className, required, children, ...props }, ref) => {
     const context = useFieldContext()
+    const registerLabel = context?.registerLabel
+    React.useEffect(() => registerLabel?.(), [registerLabel])
 
     return (
       <label
         ref={ref}
-        htmlFor={context?.id}
+        id={context?.labelId}
+        // Grouped controls have their own labels; the group title targets no input
+        htmlFor={context && !context.isGroup ? context.id : undefined}
         className={cn(
           'text-md font-semibold text-foreground', // 14px - primary field identifier
           context?.disabled && 'opacity-50 cursor-not-allowed',
@@ -4937,7 +4995,7 @@ const FieldCharCount = React.forwardRef<
 })
 FieldCharCount.displayName = 'FieldCharCount'
 
-export { Field, FieldLabel, FieldError, FieldCharCount, useFieldContext }
+export { Field, FieldLabel, FieldError, FieldCharCount, useFieldContext, useFieldControl }
 `,
       type: 'ui',
     }],
@@ -5087,7 +5145,7 @@ export { IconButton, iconButtonVariants }
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 const inputVariants = cva(
   [
@@ -5196,6 +5254,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const resolvedError = error ?? fieldContext?.error
     const resolvedState = resolvedError ? 'error' : state
     const inputId = id ?? fieldContext?.id
+    useFieldControl('single', Boolean(fieldContext) && !id)
     const isDisabled = props.disabled ?? fieldContext?.disabled
 
     // Keyboard focus detection (when focusRing: false, auto-show ring on Tab navigation)
@@ -6320,10 +6379,13 @@ const NavigationMenuItem = React.forwardRef<HTMLLIElement, NavigationMenuItemPro
     const { orientation, collapsed } = useNavigationMenuContext()
     const [open, setOpen] = React.useState(defaultOpen)
 
-    // Auto-close sub-menus when collapsed
-    React.useEffect(() => {
+    // Auto-close sub-menus when collapsed. Adjusted during render (React's pattern for
+    // state that follows a prop) instead of in an effect, which re-rendered once more.
+    const [prevCollapsed, setPrevCollapsed] = React.useState(collapsed)
+    if (collapsed !== prevCollapsed) {
+      setPrevCollapsed(collapsed)
       if (collapsed) setOpen(false)
-    }, [collapsed])
+    }
 
     if (orientation === 'horizontal') {
       return (
@@ -6641,20 +6703,37 @@ const NavigationMenuGroup = React.forwardRef<HTMLDivElement, NavigationMenuGroup
     const { size, collapsed } = useNavigationMenuContext()
     const s = navigationMenuSizeMap[size]
 
+    const labelId = React.useId()
+    const showLabel = Boolean(label) && !collapsed
+
+    // Groups sit inside NavigationMenuList's <ul>, so the group is wrapped in an <li> to
+    // keep the list structure valid. The spacing class stays on that <li>: it relies on
+    // :first-child among the list's children.
     return (
-      <div ref={ref} role="group" className={cn(label && !collapsed && s.groupMargin, className)} {...props}>
-        {label && !collapsed && (
-          <div className={cn(
-            'font-semibold text-text-subtle uppercase tracking-wider select-none',
-            s.groupLabel,
-          )}>
-            {label}
-          </div>
-        )}
-        <ul className="flex flex-col gap-0.5">
-          {children}
-        </ul>
-      </div>
+      <li className={cn(showLabel && s.groupMargin)}>
+        <div
+          ref={ref}
+          role="group"
+          aria-labelledby={showLabel && !props['aria-label'] ? labelId : undefined}
+          className={className}
+          {...props}
+        >
+          {showLabel && (
+            <div
+              id={labelId}
+              className={cn(
+                'font-semibold text-text-subtle uppercase tracking-wider select-none',
+                s.groupLabel,
+              )}
+            >
+              {label}
+            </div>
+          )}
+          <ul className="flex flex-col gap-0.5">
+            {children}
+          </ul>
+        </div>
+      </li>
     )
   }
 )
@@ -7350,11 +7429,15 @@ PaginationEllipsis.displayName = 'PaginationEllipsis'
 
 // ─── PaginationItems (Convenience) ───────────────────────
 
+// Renders the <li> items straight into PaginationContent's <ul>: a wrapper element
+// between them breaks the list structure for assistive technology (a \`display:
+// contents\` div used to sit here). The div props and ref stay in the signature for
+// compatibility but have no element to attach to.
 const PaginationItems = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
-  ({ className, ...props }, ref) => {
+  (_props, _ref) => {
     const ctx = usePaginationContext()
     return (
-      <div ref={ref} className={cn('contents', className)} {...props}>
+      <>
         {ctx.paginationRange.map((item, index) => (
           <PaginationItem key={\`\${item}-\${index}\`}>
             {item === 'dots' ? (
@@ -7364,7 +7447,7 @@ const PaginationItems = React.forwardRef<HTMLDivElement, React.ComponentPropsWit
             )}
           </PaginationItem>
         ))}
-      </div>
+      </>
     )
   }
 )
@@ -8081,7 +8164,7 @@ import * as React from 'react'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 // Color maps for checked state
 const radioColorMap = {
@@ -8133,6 +8216,9 @@ const RadioGroup = React.forwardRef<
 >(({ className, orientation, size = 'default', weight = 'bold', color = 'default', disabled, ...props }, ref) => {
   const fieldContext = useFieldContext()
   const resolvedDisabled = disabled ?? fieldContext?.disabled
+  // Inside a Field the FieldLabel names the radio group (items keep their own labels)
+  useFieldControl('labelled', Boolean(fieldContext))
+  const labelledBy = fieldContext?.hasLabel && !props['aria-label'] ? fieldContext.labelId : undefined
 
   return (
     <RadioGroupContext.Provider value={{ size, weight, color, disabled: resolvedDisabled }}>
@@ -8141,6 +8227,7 @@ const RadioGroup = React.forwardRef<
         className={cn(radioGroupVariants({ orientation }), className)}
         orientation={orientation || undefined}
         disabled={resolvedDisabled}
+        aria-labelledby={labelledBy}
         {...props}
       />
     </RadioGroupContext.Provider>
@@ -8481,7 +8568,7 @@ export { Segmented, SegmentedItem, segmentedVariants, segmentedItemVariants }
   'select': {
     name: 'select',
     dependencies: ["@radix-ui/react-select"],
-    registryDependencies: [],
+    registryDependencies: ["field"],
     reverseDependencies: [],
     namespace: false,
     description: '',
@@ -8492,6 +8579,7 @@ export { Segmented, SegmentedItem, segmentedVariants, segmentedItemVariants }
 import * as React from 'react'
 import * as SelectPrimitive from '@radix-ui/react-select'
 import { cn } from '@/lib/utils'
+import { useFieldContext, useFieldControl } from './field'
 
 // Radius (matches Input — set at Root, propagates to Trigger and Content)
 type SelectRadius = 'none' | 'sm' | 'base' | 'default' | 'lg' | 'xl' | '2xl' | '3xl' | 'full'
@@ -8620,19 +8708,24 @@ const SelectStyleContext = React.createContext<{
   flush: boolean
 }>({ contentRadius: 'xl', itemSize: 'md', flush: false })
 
-// Root — state management + size/radius context
+// Root — state management + size/radius context. Inside a Field it inherits the
+// Field's disabled state, like Input and Textarea.
 const Select = ({
   size = 'default',
   radius = 'default',
+  disabled,
   ...props
 }: React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root> & {
   size?: SelectSize
   radius?: SelectRadius
-}) => (
-  <SelectRootContext.Provider value={{ size, radius }}>
-    <SelectPrimitive.Root {...props} />
-  </SelectRootContext.Provider>
-)
+}) => {
+  const fieldContext = useFieldContext()
+  return (
+    <SelectRootContext.Provider value={{ size, radius }}>
+      <SelectPrimitive.Root disabled={disabled ?? fieldContext?.disabled} {...props} />
+    </SelectRootContext.Provider>
+  )
+}
 
 // Value — displays selected value or placeholder
 const SelectValue = SelectPrimitive.Value
@@ -8644,11 +8737,15 @@ const SelectGroup = SelectPrimitive.Group
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
+>(({ className, children, id, ...props }, ref) => {
   const { size, radius } = React.useContext(SelectRootContext)
+  // Inside a Field the trigger takes the Field id, so FieldLabel names it
+  const fieldContext = useFieldContext()
+  useFieldControl('single', Boolean(fieldContext) && !id)
   return (
     <SelectPrimitive.Trigger
       ref={ref}
+      id={id ?? fieldContext?.id}
       className={cn(
         'flex w-full items-center justify-between bg-background text-foreground hover:bg-background-muted',
         'border border-border',
@@ -9030,7 +9127,7 @@ export { Skeleton, skeletonVariants }
   'slider': {
     name: 'slider',
     dependencies: ["@radix-ui/react-slider"],
-    registryDependencies: [],
+    registryDependencies: ["field"],
     reverseDependencies: [],
     namespace: false,
     description: '',
@@ -9042,6 +9139,7 @@ import * as React from 'react'
 import * as SliderPrimitive from '@radix-ui/react-slider'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
+import { useFieldContext, useFieldControl } from './field'
 
 // Slider root variants
 const sliderVariants = cva(
@@ -9117,8 +9215,13 @@ export interface SliderProps
 const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, size, color = 'default', value, defaultValue, onValueChange, showTooltip = 'never', formatLabel, startContent, endContent, orientation, ...props }, ref) => {
+>(({ className, size, color = 'default', value, defaultValue, onValueChange, showTooltip = 'never', formatLabel, startContent, endContent, orientation, 'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledBy, ...props }, ref) => {
   const resolvedSize = size || 'default'
+  // The thumbs carry role="slider", so the accessible name goes on them, not on the
+  // Root. Inside a Field the FieldLabel names the slider unless a name is given.
+  const fieldContext = useFieldContext()
+  useFieldControl('labelled', Boolean(fieldContext))
+  const thumbLabelledBy = ariaLabelledBy ?? (!ariaLabel && fieldContext?.hasLabel ? fieldContext.labelId : undefined)
   const thumbCount = value?.length ?? defaultValue?.length ?? 1
   const hasTooltip = showTooltip !== 'never'
   const hasWrapper = !!(startContent || endContent)
@@ -9171,6 +9274,8 @@ const Slider = React.forwardRef<
       {Array.from({ length: thumbCount }).map((_, i) => (
         <SliderPrimitive.Thumb
           key={i}
+          aria-label={ariaLabel}
+          aria-labelledby={thumbLabelledBy}
           className={cn(
             'group/thumb block rounded-full border-2 shadow-sm', sliderColorMap[color].thumb,
             isVertical
@@ -9864,7 +9969,7 @@ import * as React from 'react'
 import * as SwitchPrimitive from '@radix-ui/react-switch'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 // Switch track variants
 const switchVariants = cva(
@@ -9965,7 +10070,11 @@ const Switch = React.forwardRef<
   const resolvedSize = size || 'default'
   const resolvedDisabled = disabled ?? fieldContext?.disabled
   const generatedId = React.useId()
-  const switchId = id ?? fieldContext?.id ?? generatedId
+  // With its own label the switch is one item of a group: keep a unique id. Only a
+  // bare switch labelled by FieldLabel takes the Field id.
+  const hasOwnLabel = Boolean(label || startLabel || endLabel)
+  const switchId = id ?? (hasOwnLabel ? generatedId : fieldContext?.id ?? generatedId)
+  useFieldControl(hasOwnLabel ? 'group' : 'single', Boolean(fieldContext) && (hasOwnLabel || !id))
 
   const switchEl = (
     <SwitchPrimitive.Root
@@ -10677,7 +10786,7 @@ export {
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 const textareaVariants = cva(
   [
@@ -10758,6 +10867,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     const resolvedError = error ?? fieldContext?.error
     const resolvedState = resolvedError ? 'error' : state
     const textareaId = id ?? fieldContext?.id
+    useFieldControl('single', Boolean(fieldContext) && !id)
     const isDisabled = props.disabled ?? fieldContext?.disabled
 
     // Keyboard focus detection (when focusRing: false, auto-show ring on Tab navigation)

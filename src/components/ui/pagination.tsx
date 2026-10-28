@@ -593,11 +593,15 @@ PaginationEllipsis.displayName = 'PaginationEllipsis'
 
 // ─── PaginationItems (Convenience) ───────────────────────
 
+// Renders the <li> items straight into PaginationContent's <ul>: a wrapper element
+// between them breaks the list structure for assistive technology (a `display:
+// contents` div used to sit here). The div props and ref stay in the signature for
+// compatibility but have no element to attach to.
 const PaginationItems = React.forwardRef<HTMLDivElement, React.ComponentPropsWithoutRef<'div'>>(
-  ({ className, ...props }, ref) => {
+  (_props, _ref) => {
     const ctx = usePaginationContext()
     return (
-      <div ref={ref} className={cn('contents', className)} {...props}>
+      <>
         {ctx.paginationRange.map((item, index) => (
           <PaginationItem key={`${item}-${index}`}>
             {item === 'dots' ? (
@@ -607,7 +611,7 @@ const PaginationItems = React.forwardRef<HTMLDivElement, React.ComponentPropsWit
             )}
           </PaginationItem>
         ))}
-      </div>
+      </>
     )
   }
 )

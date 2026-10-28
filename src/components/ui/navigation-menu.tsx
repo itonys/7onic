@@ -250,10 +250,13 @@ const NavigationMenuItem = React.forwardRef<HTMLLIElement, NavigationMenuItemPro
     const { orientation, collapsed } = useNavigationMenuContext()
     const [open, setOpen] = React.useState(defaultOpen)
 
-    // Auto-close sub-menus when collapsed
-    React.useEffect(() => {
+    // Auto-close sub-menus when collapsed. Adjusted during render (React's pattern for
+    // state that follows a prop) instead of in an effect, which re-rendered once more.
+    const [prevCollapsed, setPrevCollapsed] = React.useState(collapsed)
+    if (collapsed !== prevCollapsed) {
+      setPrevCollapsed(collapsed)
       if (collapsed) setOpen(false)
-    }, [collapsed])
+    }
 
     if (orientation === 'horizontal') {
       return (
@@ -571,20 +574,37 @@ const NavigationMenuGroup = React.forwardRef<HTMLDivElement, NavigationMenuGroup
     const { size, collapsed } = useNavigationMenuContext()
     const s = navigationMenuSizeMap[size]
 
+    const labelId = React.useId()
+    const showLabel = Boolean(label) && !collapsed
+
+    // Groups sit inside NavigationMenuList's <ul>, so the group is wrapped in an <li> to
+    // keep the list structure valid. The spacing class stays on that <li>: it relies on
+    // :first-child among the list's children.
     return (
-      <div ref={ref} role="group" className={cn(label && !collapsed && s.groupMargin, className)} {...props}>
-        {label && !collapsed && (
-          <div className={cn(
-            'font-semibold text-text-subtle uppercase tracking-wider select-none',
-            s.groupLabel,
-          )}>
-            {label}
-          </div>
-        )}
-        <ul className="flex flex-col gap-0.5">
-          {children}
-        </ul>
-      </div>
+      <li className={cn(showLabel && s.groupMargin)}>
+        <div
+          ref={ref}
+          role="group"
+          aria-labelledby={showLabel && !props['aria-label'] ? labelId : undefined}
+          className={className}
+          {...props}
+        >
+          {showLabel && (
+            <div
+              id={labelId}
+              className={cn(
+                'font-semibold text-text-subtle uppercase tracking-wider select-none',
+                s.groupLabel,
+              )}
+            >
+              {label}
+            </div>
+          )}
+          <ul className="flex flex-col gap-0.5">
+            {children}
+          </ul>
+        </div>
+      </li>
     )
   }
 )

@@ -4,7 +4,7 @@ import * as React from 'react'
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 // Color maps for checked/indeterminate state
 const checkboxColorMap = {
@@ -86,7 +86,11 @@ const Checkbox = React.forwardRef<
   const resolvedSize = size || 'default'
   const resolvedDisabled = disabled ?? fieldContext?.disabled
   const generatedId = React.useId()
-  const checkboxId = id ?? fieldContext?.id ?? generatedId
+  // With its own label the checkbox is one item of a group: keep a unique id. Only a
+  // bare checkbox labelled by FieldLabel takes the Field id.
+  const hasOwnLabel = Boolean(label)
+  const checkboxId = id ?? (hasOwnLabel ? generatedId : fieldContext?.id ?? generatedId)
+  useFieldControl(hasOwnLabel ? 'group' : 'single', Boolean(fieldContext) && (hasOwnLabel || !id))
 
   const checkbox = (
     <CheckboxPrimitive.Root

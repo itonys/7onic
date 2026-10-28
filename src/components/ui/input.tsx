@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 const inputVariants = cva(
   [
@@ -112,6 +112,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const resolvedError = error ?? fieldContext?.error
     const resolvedState = resolvedError ? 'error' : state
     const inputId = id ?? fieldContext?.id
+    useFieldControl('single', Boolean(fieldContext) && !id)
     const isDisabled = props.disabled ?? fieldContext?.disabled
 
     // Keyboard focus detection (when focusRing: false, auto-show ring on Tab navigation)

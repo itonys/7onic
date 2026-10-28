@@ -4,7 +4,7 @@ import * as React from 'react'
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group'
 import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
-import { useFieldContext } from './field'
+import { useFieldContext, useFieldControl } from './field'
 
 // Color maps for checked state
 const radioColorMap = {
@@ -56,6 +56,9 @@ const RadioGroup = React.forwardRef<
 >(({ className, orientation, size = 'default', weight = 'bold', color = 'default', disabled, ...props }, ref) => {
   const fieldContext = useFieldContext()
   const resolvedDisabled = disabled ?? fieldContext?.disabled
+  // Inside a Field the FieldLabel names the radio group (items keep their own labels)
+  useFieldControl('labelled', Boolean(fieldContext))
+  const labelledBy = fieldContext?.hasLabel && !props['aria-label'] ? fieldContext.labelId : undefined
 
   return (
     <RadioGroupContext.Provider value={{ size, weight, color, disabled: resolvedDisabled }}>
@@ -64,6 +67,7 @@ const RadioGroup = React.forwardRef<
         className={cn(radioGroupVariants({ orientation }), className)}
         orientation={orientation || undefined}
         disabled={resolvedDisabled}
+        aria-labelledby={labelledBy}
         {...props}
       />
     </RadioGroupContext.Provider>

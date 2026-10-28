@@ -306,6 +306,13 @@ const ChatInput = React.forwardRef<HTMLDivElement, ChatInputRootProps>(
 )
 ChatInput.displayName = 'ChatInput'
 
+// Writes a node into a callback or object ref. Kept outside the component: React
+// Compiler rules flag assigning `.current` on refs that come from props or context.
+function assignRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
+  if (typeof ref === 'function') ref(value)
+  else if (ref) (ref as React.MutableRefObject<T | null>).current = value
+}
+
 // ============================================================================
 // ChatInputField — Auto-resizing textarea
 // ============================================================================
@@ -340,12 +347,8 @@ const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps
     const setRef = React.useCallback(
       (el: HTMLTextAreaElement | null) => {
         internalRef.current = el
-        ctx._fieldRef.current = el
-        if (typeof forwardedRef === 'function') {
-          forwardedRef(el)
-        } else if (forwardedRef) {
-          (forwardedRef as React.MutableRefObject<HTMLTextAreaElement | null>).current = el
-        }
+        assignRef(ctx._fieldRef, el)
+        assignRef(forwardedRef, el)
       },
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [forwardedRef]

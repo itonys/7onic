@@ -207,7 +207,6 @@ export interface ChatMessageAvatarProps {
   className?: string
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ChatMessageContentProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export interface ChatMessageFooterProps extends React.HTMLAttributes<HTMLDivElement> {

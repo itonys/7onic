@@ -6,6 +6,28 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.11] — 2026-10-29
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **Checkboxes and switches in one `Field` each toggle from their own label.** A `Checkbox` or `Switch` inside a `Field` took the Field's id, so several of them shared one id: clicking the label "SMS" toggled the first checkbox, and assistive technology could not tell the items apart. A `Checkbox` / `Switch` with its own `label` (or `startLabel` / `endLabel`) now keeps a unique id, and the `Field` becomes `role="group"` named by its `FieldLabel`; the group title no longer points at a single input. A bare `Checkbox` / `Switch` (no `label`) still takes the Field id, as before. No visual change.
+- **`RadioGroup` inside a `Field` is named by the `FieldLabel`.** The label used to point at an id no element had; the radio group now references it with `aria-labelledby`.
+- **`Select` connects to `Field`.** Inside a `Field`, `SelectTrigger` takes the Field id (so `FieldLabel` names it) and `Select` inherits the Field's `disabled` state, as Input and Textarea do. Previously neither happened, although the docs said they did.
+- **`Slider` can be given an accessible name.** `aria-label` / `aria-labelledby` were applied to the root element, but screen readers read the thumb (`role="slider"`), which had no name. They now go on the thumb(s); inside a `Field` the `FieldLabel` names the slider automatically.
+- **`PaginationItems` renders a valid list.** The page items were wrapped in a `display: contents` `<div>` inside `PaginationContent`'s `<ul>`, which breaks list semantics for assistive technology. The items now render directly into the list. The component still accepts its former props and ref, which have no element to attach to any more. No visual change.
+- **Vertical `NavigationMenu`: `NavigationMenuGroup` keeps the list structure valid.** The group (`<div role="group">`) sat directly inside `NavigationMenuList`'s `<ul>`; it is now wrapped in an `<li>`, and a group with a `label` is named by it. Spacing between groups is unchanged.
+- `NavigationMenuItem` closes its sub-menu when the menu collapses without an extra render pass, and `ChatInputField` merges refs through a helper; both behave as before and no longer trip the React Compiler lint rules.
+
+#### Changed
+
+- `Input` and `Textarea` register with their `Field` so a `FieldLabel` keeps pointing at them when a Field also holds labelled checkboxes. Existing single-input Fields render the same markup as before.
+- `llms.txt`: the Field section describes how single controls, groups, `RadioGroup` and `Slider` are labelled, and the Slider section documents `aria-label` on the thumb.
+- `llms.txt`: the Pagination compound example wraps `PaginationPrevious` / `PaginationNext` in `PaginationItem`, as the docs site does. The old example put buttons directly inside the `<ul>`, which is not a valid list.
+
+---
+
 ## [0.3.10] — 2026-10-27
 
 ### @7onic-ui/react
