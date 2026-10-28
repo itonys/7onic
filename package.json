@@ -49,6 +49,7 @@
     "build:7onic": "node scripts/build-7onic-cli.js",
     "generate:registry": "tsx scripts/generate-registry.ts",
     "verify:registry": "tsx scripts/generate-registry.ts && git diff --exit-code cli/src/registry/index.ts",
+    "verify:page-intl": "tsx scripts/verify-page-intl.ts",
     "verify:components": "tsx scripts/verify-components.ts",
     "verify:framework-compat": "tsx scripts/verify-framework-compat.ts",
     "verify:llms-examples": "tsx scripts/verify-llms-examples.ts",
