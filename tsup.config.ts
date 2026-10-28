@@ -55,6 +55,10 @@ const shared: Options = {
   esbuildOptions(options) {
     options.alias = alias
   },
+  // Next.js rewrites tsconfig.json "jsx" to "react-jsx" for the docs site.
+  // tsconfig.lib.json keeps the library on the settings it has always shipped
+  // with (classic React.createElement output, React.JSX.Element in .d.ts).
+  tsconfig: 'tsconfig.lib.json',
 }
 
 export default defineConfig([

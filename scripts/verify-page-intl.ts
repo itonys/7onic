@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // verify-page-intl.ts — client translation bundle checker
 // Every page that renders `pages.<name>` text must hand that bundle to the client
 // through <PageIntlProvider locale={locale} page="<name>"> in its own folder

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // verify-components.ts — Pre-publish component quality checker
 // Checks deployment components for hardcoded values, unnecessary code,
 // missing token usage, and dark mode compatibility.
