@@ -10,6 +10,7 @@ export declare const colors: {
   white: string;
   black: string;
   gray: ShadeRecord;
+  'gray-dark': ShadeRecord;
   primary: ShadeRecord;
   secondary: ShadeRecord;
   blue: ShadeRecord;

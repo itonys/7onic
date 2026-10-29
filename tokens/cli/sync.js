@@ -314,8 +314,11 @@ function resolveLineHeight(v, fontSizeData) {
 function inlineComment(comment) {
   return comment ? ` /* ${comment} */` : "";
 }
+function objKey(name) {
+  return /^[A-Za-z_$][\w$]*$/.test(name) ? name : `'${name}'`;
+}
 var KNOWN_ORDERS = {
-  colorPalettes: ["white", "black", "gray", "primary", "secondary", "blue", "green", "yellow", "red", "chart"],
+  colorPalettes: ["white", "black", "gray", "gray-dark", "primary", "secondary", "blue", "green", "yellow", "red", "chart"],
   fontSize: ["2xs", "xs", "sm", "md", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl"],
   borderRadius: ["none", "sm", "base", "md", "lg", "xl", "2xl", "3xl", "full"],
   shadow: ["xs", "sm", "md", "lg", "xl", "primary-glow"],
@@ -1337,9 +1340,9 @@ function generateTypeDefinitions(tokens) {
     const paletteData = colorData[palette];
     if (!paletteData) continue;
     if (typeof paletteData === "object" && "value" in paletteData) {
-      lines.push(`  ${palette}: string;`);
+      lines.push(`  ${objKey(palette)}: string;`);
     } else {
-      lines.push(`  ${palette}: ShadeRecord;`);
+      lines.push(`  ${objKey(palette)}: ShadeRecord;`);
     }
   }
   lines.push(`};`);
@@ -1801,11 +1804,11 @@ function generateV3Preset(tokens) {
   }
   lines.push(``);
   lines.push(`        // Primitive color palettes (HEX for opacity modifier support)`);
-  const palettesOnly = ["gray", "blue", "green", "yellow", "red", "violet", "rose"];
+  const palettesOnly = ["gray", "gray-dark", "blue", "green", "yellow", "red", "violet", "rose"];
   for (const palName of palettesOnly) {
     const palette = colorData[palName];
     if (!palette) continue;
-    lines.push(`        ${palName}: {`);
+    lines.push(`        ${objKey(palName)}: {`);
     for (const shade of orderedKeys(palette, { type: "known", order: KNOWN_ORDERS.shadeOrder }, `primitive.color.${palName}`)) {
       const token = palette[shade];
       if (token?.value) {
@@ -2198,7 +2201,7 @@ function generateV4Theme(tokens) {
   lines.push(`  --color-white: ${colorData.white.value};`);
   lines.push(`  --color-black: ${colorData.black.value};`);
   lines.push(``);
-  const v4Palettes = ["gray", "primary", "secondary", "blue", "green", "yellow", "red", "violet", "rose"];
+  const v4Palettes = ["gray", "gray-dark", "primary", "secondary", "blue", "green", "yellow", "red", "violet", "rose"];
   for (const palName of v4Palettes) {
     const palette = colorData[palName];
     if (!palette) continue;

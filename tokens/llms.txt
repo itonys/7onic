@@ -218,8 +218,10 @@ Strategy: `dark` class on `<html>` element.
 
 ## Colors — Primitive (raw palette, use sparingly)
 
-7 color families, each with 50–900 shades (10 steps):
-`gray`, `primary`, `secondary`, `blue`, `green`, `red`, `yellow`
+8 color families, each with 50–900 shades (10 steps):
+`gray`, `gray-dark`, `primary`, `secondary`, `blue`, `green`, `red`, `yellow`
+
+`gray` is the light-mode neutral; `gray-dark` is the dark-mode-only neutral that dark semantic tokens (background, text, border, disabled) reference. Use semantic tokens — they switch between the two automatically.
 
 Usage: `bg-primary-100`, `text-gray-600`, `border-blue-300`
 **Prefer semantic tokens over primitives** — primitives don't auto-adapt to dark mode.

@@ -6,6 +6,24 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/tokens
+
+#### Added
+
+- **`gray-dark` palette (`primitive.color.gray-dark.50`–`900`)** — a dark-mode-only neutral scale. Dark semantic tokens (background, text, border, disabled, `secondary.tint`, `warning.text`) now reference it instead of reusing the light `gray` scale in reverse. Changing light grays through token sync no longer changes dark-mode text.
+
+#### Changed
+
+- **Dark mode surfaces and text.** Background `#222225` → `#18181B`, paper `#232327`, muted `#2C2C30`, elevated `#343438`; muted text `#9C9C9D` (4.5:1 or more on every dark surface); subtle text `#818182`; borders `#3B3B40` / subtle `#2C2C30` / strong `#55555A`. Light mode is unchanged. Projects that sync their own `figma-tokens.json` keep their current colors until they add `gray-dark`.
+
+#### Fixed
+
+- **`sync-tokens` generates palettes whose name contains a hyphen.** Tailwind v3 preset and type definitions now quote keys like `'gray-dark'`, and the v3 / v4 palette lists include `gray-dark`.
+
+---
+
 ## [0.3.11] — 2026-10-29
 
 ### @7onic-ui/react
