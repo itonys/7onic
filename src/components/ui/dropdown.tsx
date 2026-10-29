@@ -8,9 +8,9 @@ import { cn } from '@/lib/utils'
 type DropdownMenuRadius = 'md' | 'lg' | 'xl'
 
 const contentRadiusMap: Record<DropdownMenuRadius, string> = {
-  md: 'rounded-md',     // 6px
+  md: 'rounded-md',     // 6px (default)
   lg: 'rounded-lg',     // 8px
-  xl: 'rounded-xl',     // 12px (default)
+  xl: 'rounded-xl',     // 12px
 }
 
 const itemRadiusMap: Record<DropdownMenuRadius, string> = {
@@ -69,7 +69,7 @@ const DropdownMenuStyleContext = React.createContext<{
   radius: DropdownMenuRadius
   flush: boolean
   size: DropdownMenuSize
-}>({ radius: 'lg', flush: false, size: 'md' })
+}>({ radius: 'md', flush: false, size: 'md' })
 
 // Root — state management (controlled / uncontrolled)
 const DropdownMenu = DropdownMenuPrimitive.Root

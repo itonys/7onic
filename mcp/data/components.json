@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "f68ac90cc701e87a4342117a19b2c4a1044126d0132a764fd1a2067faec837b5",
+  "sourceHash": "7c14ed7aa1c0b5660a9bf3be026c1268ff11bc5e77d7871dce39d543cbf0128d",
   "count": 41,
   "components": [
     {
@@ -1687,7 +1687,7 @@
           "target": null,
           "name": "fontWeight",
           "type": "`'normal' \\| 'semibold'`",
-          "default": "per variant",
+          "default": "`'normal'`",
           "description": "Font weight",
           "enumValues": [
             "normal",
@@ -1868,7 +1868,7 @@
           "target": "Root",
           "name": "fontWeight",
           "type": "`'normal' \\| 'semibold'`",
-          "default": "per variant",
+          "default": "`'normal'`",
           "description": "Font weight",
           "enumValues": [
             "normal",
@@ -2048,7 +2048,7 @@
           "target": "Root",
           "name": "fontWeight",
           "type": "`'normal' \\| 'semibold'`",
-          "default": "per variant",
+          "default": "`'normal'`",
           "description": "Font weight",
           "enumValues": [
             "normal",
@@ -5520,7 +5520,7 @@
           "name": "hoverFade",
           "type": "`boolean`",
           "default": "`false`",
-          "description": "Fade non-hovered elements",
+          "description": "Fade non-hovered elements (Bar / Line / Area only — ChartPie highlights with its own `activeShape`)",
           "enumValues": null
         },
         {
@@ -6686,9 +6686,9 @@
         {
           "target": "ChatMessage",
           "name": "typing",
-          "type": "`boolean`",
+          "type": "`boolean \\| TypingIndicatorProps` (without `className`)",
           "default": "`false`",
-          "description": "Show animated typing dots inside Content",
+          "description": "Show the typing indicator inside Content — `true` for defaults, or an object (`variant`, `color`, `speed`, `label`, `showLabel`) to customize",
           "enumValues": null
         },
         {

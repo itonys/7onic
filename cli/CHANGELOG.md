@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### 7onic
+
+#### Fixed
+
+- **`npx 7onic add breadcrumb` copies the working collapse.** The registry's Breadcrumb source now implements `maxItems` / `itemsBeforeCollapse` / `itemsAfterCollapse` (same as `@7onic-ui/react`). The Dropdown source drops a stale default-radius comment.
+
 ## [0.1.20] — 2026-10-29
 
 ### 7onic

@@ -6,6 +6,16 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **Breadcrumb `maxItems` now collapses the list.** `maxItems`, `itemsBeforeCollapse` and `itemsAfterCollapse` were documented but had no effect, and were passed through to the `<nav>` element. When there are more items than `maxItems`, `BreadcrumbList` now keeps the first `itemsBeforeCollapse` (default 1) and last `itemsAfterCollapse` (default 1) items and replaces the rest with one ellipsis item. Your own separators are reused, and items rendered as `<Fragment>{separator}{item}</Fragment>` from a list are counted too.
+
+---
+
 ## [0.3.12] — 2026-10-29
 
 ### @7onic-ui/tokens

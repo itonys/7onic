@@ -656,7 +656,7 @@ import { Toggle } from '@7onic-ui/react'
 | variant | `'default' \| 'outline' \| 'ghost' \| 'outline-ghost'` | `'default'` | Visual style |
 | size | `'xs' \| 'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | 28/32/36/40/48px |
 | radius | Same as Button | `'default'` | Border radius |
-| fontWeight | `'normal' \| 'semibold'` | per variant | Font weight |
+| fontWeight | `'normal' \| 'semibold'` | `'normal'` | Font weight |
 | iconOnly | `boolean` | `false` | Square mode (no text padding) |
 | pressEffect | `boolean` | `true` | Scale-down on press |
 | pressed | `boolean` | — | Controlled state |
@@ -683,7 +683,7 @@ import { ToggleGroup, ToggleGroupItem } from '@7onic-ui/react'
 | variant | `'default' \| 'outline'` | `'default'` | Visual style |
 | size | `'xs' \| 'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | Item size |
 | radius | Same as Button | `'default'` | Border radius |
-| fontWeight | `'normal' \| 'semibold'` | per variant | Font weight |
+| fontWeight | `'normal' \| 'semibold'` | `'normal'` | Font weight |
 | orientation | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction |
 | value | `string \| string[]` | — | Controlled value |
 | defaultValue | `string \| string[]` | — | Uncontrolled default |
@@ -710,7 +710,7 @@ import { Segmented, SegmentedItem } from '@7onic-ui/react'
 | variant | `'default' \| 'outline' \| 'underline' \| 'ghost'` | `'default'` | Visual style |
 | size | `'sm' \| 'md' \| 'default' \| 'lg'` | `'default'` | 32/36/40/48px (no xs) |
 | radius | Same as Button (excl. none) | `'default'` | Border radius |
-| fontWeight | `'normal' \| 'semibold'` | per variant | Font weight |
+| fontWeight | `'normal' \| 'semibold'` | `'normal'` | Font weight |
 | value | `string` | — | Controlled value |
 | defaultValue | `string` | — | Uncontrolled default |
 | onValueChange | `(value: string) => void` | — | Change handler |
@@ -1540,7 +1540,7 @@ const chartConfig = {
 | Prop (Container) | Type | Default | Description |
 |---|---|---|---|
 | config | `ChartConfig` | required | Data key → label/color mapping |
-| hoverFade | `boolean` | `false` | Fade non-hovered elements |
+| hoverFade | `boolean` | `false` | Fade non-hovered elements (Bar / Line / Area only — ChartPie highlights with its own `activeShape`) |
 
 | Prop (Bar) | Type | Default | Description |
 |---|---|---|---|
@@ -1867,7 +1867,7 @@ import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter }
 | radius | `'md' \| 'lg' \| 'xl' \| '2xl'` | `'2xl'` | Bubble corner radius |
 | tail | `boolean` | `true` | Asymmetric tail corner (sharp on avatar side) — bubble only |
 | avatarSize | `'sm' \| 'md' \| 'lg'` | — | Avatar size — also adjusts gap between avatar and bubble |
-| typing | `boolean` | `false` | Show animated typing dots inside Content |
+| typing | `boolean \| TypingIndicatorProps` (without `className`) | `false` | Show the typing indicator inside Content — `true` for defaults, or an object (`variant`, `color`, `speed`, `label`, `showLabel`) to customize |
 | actions | `ReactNode` | — | Hover-reveal action buttons (copy, react, etc.) |
 
 | Prop (ChatMessage.Avatar) | Type | Default | Description |
