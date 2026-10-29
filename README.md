@@ -324,7 +324,7 @@ your project's `.claude/`) or copy the files from
 - [x] Automated doc verification (8 checks, AST-powered, blocks publish on error)
 - [x] Automated component verification (7 checks — hardcoded colors, tokens, dark mode, dead code)
 - [x] Multilingual documentation — English, Japanese, Korean (powered by next-intl)
-- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.11
+- [x] npm package distribution — `@7onic-ui/react` + `@7onic-ui/tokens` v0.3.12
 - [x] AI integration — `llms.txt` standard, setup guides for Claude Code / Cursor / Copilot / ChatGPT
 - [x] MCP server — token search, component catalog, layout recipes, `validate_code` rule checking (en/ja/ko), Claude Code plugin one-command install
 - [x] AI Kit — `/7onic-setup` + `/7onic-design` skills and a design agent (plugin, `npx 7onic init --claude`, or manual copy)
@@ -355,5 +355,5 @@ MIT
 <p align="center">
   <strong>One JSON, every format — from Figma to production.</strong><br>
   Independently built.<br>
-  <sub>Last updated: 2026-10-29 (v0.3.11)</sub>
+  <sub>Last updated: 2026-10-29 (v0.3.12)</sub>
 </p>
