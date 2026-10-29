@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.22] — 2026-10-30
+
+### 7onic
+
+#### Fixed
+
+- **`add breadcrumb` copies the Server Component fix.** The registry's Breadcrumb source collapses `maxItems` lists rendered from Server Components and lists whose items are wrapped in your own component (same as `@7onic-ui/react` 0.3.14).
+
 ## [0.1.21] — 2026-10-29
 
 ### 7onic

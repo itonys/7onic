@@ -222,6 +222,22 @@ function flattenFragments(children: React.ReactNode): React.ReactNode[] {
   )
 }
 
+// Children passed from a Server Component arrive with lazy element types, so
+// `node.type === BreadcrumbItem` cannot tell them apart. When no child can be
+// identified, the list is read as the alternating item / separator order every
+// breadcrumb uses. Unidentified children next to identified separators (items
+// wrapped in the caller's own component) count as items.
+function classifyNodes(nodes: React.ReactNode[]): ('item' | 'separator')[] {
+  const known = nodes.map((node) => {
+    const type = React.isValidElement(node) ? node.type : null
+    return type === BreadcrumbSeparator ? 'separator' : type === BreadcrumbItem ? 'item' : null
+  })
+  if (known.every((kind) => kind === null)) {
+    return nodes.map((_, i) => (i % 2 === 0 ? 'item' : 'separator'))
+  }
+  return known.map((kind) => kind ?? 'item')
+}
+
 // Groups children into segments (the separator before an item + the item),
 // then keeps the first `before` and last `after` segments around one ellipsis
 // item. The user's own separators are reused, so custom separators survive.
@@ -229,21 +245,17 @@ function collapseItems(children: React.ReactNode, maxItems: number | undefined, 
   if (maxItems === undefined) return children
 
   const nodes = flattenFragments(children)
+  const kinds = classifyNodes(nodes)
   const segments: { separator: React.ReactNode; nodes: React.ReactNode[] }[] = []
   let pendingSeparator: React.ReactNode = null
-  for (const node of nodes) {
-    const type = React.isValidElement(node) ? node.type : null
-    if (type === BreadcrumbSeparator) {
+  nodes.forEach((node, i) => {
+    if (kinds[i] === 'separator') {
       pendingSeparator = node
-    } else if (type === BreadcrumbItem) {
+    } else {
       segments.push({ separator: pendingSeparator, nodes: [node] })
       pendingSeparator = null
-    } else if (segments.length > 0) {
-      segments[segments.length - 1].nodes.push(node)
-    } else {
-      segments.push({ separator: null, nodes: [node] })
     }
-  }
+  })
 
   if (segments.length <= maxItems || before + after >= segments.length) return children
 

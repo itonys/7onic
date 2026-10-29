@@ -6,6 +6,16 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.14] — 2026-10-30
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **Breadcrumb `maxItems` collapses in Server Components.** In 0.3.13 the list only collapsed when it was rendered in a Client Component. Children passed from a React Server Component (the Next.js App Router default) and items wrapped in your own component were not recognized, so every item stayed visible. Items and separators are now also identified by their alternating order, and the server-rendered HTML is already collapsed.
+
+---
+
 ## [0.3.13] — 2026-10-29
 
 ### @7onic-ui/react
