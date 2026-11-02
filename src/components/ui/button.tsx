@@ -59,6 +59,28 @@ const buttonVariants = cva(
   }
 )
 
+const REACT_LAZY_TYPE = Symbol.for('react.lazy')
+
+// asChild: Slot merges props only into a single child element, so icons and
+// wrappers must go inside that child, not next to it. Lazy children (from
+// Server Components) are resolved the same way Radix Slot does.
+function renderInsideChild(
+  children: React.ReactNode,
+  render: (content: React.ReactNode) => React.ReactNode
+): React.ReactNode {
+  let child: unknown = children
+  const resolve = (React as { use?: (usable: unknown) => unknown }).use
+  if (
+    typeof child === 'object' && child !== null &&
+    (child as { $$typeof?: symbol }).$$typeof === REACT_LAZY_TYPE &&
+    typeof resolve === 'function'
+  ) {
+    child = resolve((child as { _payload: unknown })._payload)
+  }
+  if (!React.isValidElement<{ children?: React.ReactNode }>(child)) return render(children)
+  return React.cloneElement(child, undefined, render(child.props.children))
+}
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -125,6 +147,27 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant === 'ghost' ? 'font-semibold' : ''
     ) : ''
 
+    const renderContent = (content: React.ReactNode) => loading ? (
+      <>
+        <svg
+          className={cn(iconSizeClass, 'animate-spin')}
+          fill="none"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+        <span>{content}</span>
+      </>
+    ) : (
+      <>
+        {leftIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{leftIcon}</span>}
+        {content}
+        {rightIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{rightIcon}</span>}
+      </>
+    )
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, radius, fullWidth }), variant === 'solid' && solidColorMap[color], pressEffect !== false && 'active:scale-pressed', fontWeightClass, selectedStyles, className)}
@@ -134,26 +177,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-pressed={selected || undefined}
         {...props}
       >
-        {loading ? (
-          <>
-            <svg
-              className={cn(iconSizeClass, 'animate-spin')}
-              fill="none"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-            </svg>
-            <span>{children}</span>
-          </>
-        ) : (
-          <>
-            {leftIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{leftIcon}</span>}
-            {children}
-            {rightIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{rightIcon}</span>}
-          </>
-        )}
+        {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
       </Comp>
     )
   }

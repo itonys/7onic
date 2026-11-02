@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "7c14ed7aa1c0b5660a9bf3be026c1268ff11bc5e77d7871dce39d543cbf0128d",
+  "sourceHash": "2ceeace13ee43e0b4130dfb5ad5e7d140cc3e2f80e368bfd00d55121eab283c8",
   "count": 41,
   "components": [
     {
@@ -2720,7 +2720,7 @@
           "name": "removable",
           "type": "`boolean`",
           "default": "`false`",
-          "description": "Shows remove button",
+          "description": "Shows remove button (not rendered with `asChild` — a button inside a link is invalid HTML)",
           "enumValues": null
         },
         {

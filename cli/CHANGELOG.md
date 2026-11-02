@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.23] — 2026-11-02
+
+### 7onic
+
+#### Fixed
+
+- **`add button`, `add icon-button`, `add badge` and `add navigation-menu` copy the `asChild` fix.** The registry sources keep the component styles on your element with `asChild` (same as `@7onic-ui/react`).
+
 ## [0.1.22] — 2026-10-30
 
 ### 7onic

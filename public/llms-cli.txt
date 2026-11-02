@@ -872,7 +872,7 @@ import { Badge } from '@/components/ui/badge'
 | radius | `'sm' \| 'base' \| 'md' \| 'lg' \| 'full'` | `'full'` | Border radius |
 | icon | `ReactNode` | — | Leading icon |
 | dot | `boolean` | `false` | Status dot indicator |
-| removable | `boolean` | `false` | Shows remove button |
+| removable | `boolean` | `false` | Shows remove button (not rendered with `asChild` — a button inside a link is invalid HTML) |
 | onRemove | `() => void` | — | Remove handler |
 | asChild | `boolean` | `false` | Slot pattern |
 

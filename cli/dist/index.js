@@ -10068,6 +10068,28 @@ export type BadgeColor = 'default' | 'primary' | 'success' | 'warning' | 'error'
 export type BadgeSize = 'sm' | 'default' | 'lg'
 export type BadgeRadius = 'sm' | 'base' | 'md' | 'lg' | 'full'
 
+const REACT_LAZY_TYPE = Symbol.for('react.lazy')
+
+// asChild: Slot merges props only into a single child element, so the dot and
+// icon must go inside that child, not next to it. Lazy children (from Server
+// Components) are resolved the same way Radix Slot does.
+function renderInsideChild(
+  children: React.ReactNode,
+  render: (content: React.ReactNode) => React.ReactNode
+): React.ReactNode {
+  let child: unknown = children
+  const resolve = (React as { use?: (usable: unknown) => unknown }).use
+  if (
+    typeof child === 'object' && child !== null &&
+    (child as { $$typeof?: symbol }).$$typeof === REACT_LAZY_TYPE &&
+    typeof resolve === 'function'
+  ) {
+    child = resolve((child as { _payload: unknown })._payload)
+  }
+  if (!React.isValidElement<{ children?: React.ReactNode }>(child)) return render(children)
+  return React.cloneElement(child, undefined, render(child.props.children))
+}
+
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof badgeVariants> {
@@ -10079,7 +10101,7 @@ export interface BadgeProps
   icon?: React.ReactNode
   /** Show a status dot before text */
   dot?: boolean
-  /** Show a remove button */
+  /** Show a remove button (not rendered with asChild \u2014 a button inside a link is invalid HTML) */
   removable?: boolean
   /** Callback when remove button is clicked */
   onRemove?: () => void
@@ -10113,17 +10135,8 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     // Dot color: in solid variant use currentColor (white/foreground), otherwise use semantic color
     const dotColor = variant === 'solid' ? 'bg-current' : dotColorMap[color]
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          badgeVariants({ size, radius }),
-          colorClasses,
-          outlineClasses,
-          className
-        )}
-        {...props}
-      >
+    const renderContent = (content: React.ReactNode) => (
+      <>
         {dot && (
           <span
             className={cn('shrink-0 rounded-full', badgeDotSizes[resolvedSize], dotColor)}
@@ -10138,8 +10151,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             {icon}
           </span>
         )}
-        {children}
-        {removable && (
+        {content}
+        {/* A button inside the asChild element (usually a link) would be invalid HTML */}
+        {removable && !asChild && (
           <button
             type="button"
             className="shrink-0 -mr-0.5 ml-0.5 rounded-full p-0.5 opacity-70 hover:opacity-100 transition-opacity focus-visible:focus-ring"
@@ -10161,6 +10175,21 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             </svg>
           </button>
         )}
+      </>
+    )
+
+    return (
+      <Comp
+        ref={ref}
+        className={cn(
+          badgeVariants({ size, radius }),
+          colorClasses,
+          outlineClasses,
+          className
+        )}
+        {...props}
+      >
+        {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
       </Comp>
     )
   }
@@ -10651,6 +10680,28 @@ const buttonVariants = cva(
   }
 )
 
+const REACT_LAZY_TYPE = Symbol.for('react.lazy')
+
+// asChild: Slot merges props only into a single child element, so icons and
+// wrappers must go inside that child, not next to it. Lazy children (from
+// Server Components) are resolved the same way Radix Slot does.
+function renderInsideChild(
+  children: React.ReactNode,
+  render: (content: React.ReactNode) => React.ReactNode
+): React.ReactNode {
+  let child: unknown = children
+  const resolve = (React as { use?: (usable: unknown) => unknown }).use
+  if (
+    typeof child === 'object' && child !== null &&
+    (child as { $$typeof?: symbol }).$$typeof === REACT_LAZY_TYPE &&
+    typeof resolve === 'function'
+  ) {
+    child = resolve((child as { _payload: unknown })._payload)
+  }
+  if (!React.isValidElement<{ children?: React.ReactNode }>(child)) return render(children)
+  return React.cloneElement(child, undefined, render(child.props.children))
+}
+
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
@@ -10717,6 +10768,27 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant === 'ghost' ? 'font-semibold' : ''
     ) : ''
 
+    const renderContent = (content: React.ReactNode) => loading ? (
+      <>
+        <svg
+          className={cn(iconSizeClass, 'animate-spin')}
+          fill="none"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+        </svg>
+        <span>{content}</span>
+      </>
+    ) : (
+      <>
+        {leftIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{leftIcon}</span>}
+        {content}
+        {rightIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{rightIcon}</span>}
+      </>
+    )
+
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, radius, fullWidth }), variant === 'solid' && solidColorMap[color], pressEffect !== false && 'active:scale-pressed', fontWeightClass, selectedStyles, className)}
@@ -10726,26 +10798,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         aria-pressed={selected || undefined}
         {...props}
       >
-        {loading ? (
-          <>
-            <svg
-              className={cn(iconSizeClass, 'animate-spin')}
-              fill="none"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-            </svg>
-            <span>{children}</span>
-          </>
-        ) : (
-          <>
-            {leftIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{leftIcon}</span>}
-            {children}
-            {rightIcon && <span className={cn(iconSizeClass, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">{rightIcon}</span>}
-          </>
-        )}
+        {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
       </Comp>
     )
   }
@@ -14260,6 +14313,28 @@ const iconButtonVariants = cva(
   }
 )
 
+const REACT_LAZY_TYPE = Symbol.for('react.lazy')
+
+// asChild: Slot merges props only into a single child element, so the icon
+// wrapper must go inside that child, not around it. Lazy children (from
+// Server Components) are resolved the same way Radix Slot does.
+function renderInsideChild(
+  children: React.ReactNode,
+  render: (content: React.ReactNode) => React.ReactNode
+): React.ReactNode {
+  let child: unknown = children
+  const resolve = (React as { use?: (usable: unknown) => unknown }).use
+  if (
+    typeof child === 'object' && child !== null &&
+    (child as { $$typeof?: symbol }).$$typeof === REACT_LAZY_TYPE &&
+    typeof resolve === 'function'
+  ) {
+    child = resolve((child as { _payload: unknown })._payload)
+  }
+  if (!React.isValidElement<{ children?: React.ReactNode }>(child)) return render(children)
+  return React.cloneElement(child, undefined, render(child.props.children))
+}
+
 export interface IconButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof iconButtonVariants> {
@@ -14293,6 +14368,22 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
       lg: 'icon-lg',      // 24px
     }[size || 'default']
 
+    const renderContent = (content: React.ReactNode) => loading ? (
+      <svg
+        className={cn(iconSize, 'animate-spin')}
+        fill="none"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+      </svg>
+    ) : (
+      <span className={cn(iconSize, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">
+        {content}
+      </span>
+    )
+
     return (
       <Comp
         className={cn(iconButtonVariants({ variant, size, radius }), variant === 'solid' && solidColorMap[color], pressEffect !== false && 'active:scale-pressed', className)}
@@ -14301,21 +14392,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         aria-busy={loading || undefined}
         {...props}
       >
-        {loading ? (
-          <svg
-            className={cn(iconSize, 'animate-spin')}
-            fill="none"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-          </svg>
-        ) : (
-          <span className={cn(iconSize, '[&>svg]:w-full [&>svg]:h-full')} aria-hidden="true">
-            {children}
-          </span>
-        )}
+        {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
       </Comp>
     )
   }
@@ -15349,6 +15426,30 @@ function ChevronRightIcon({ className }: { className?: string }) {
   )
 }
 
+// \u2500\u2500\u2500 asChild Content \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
+
+const REACT_LAZY_TYPE = Symbol.for('react.lazy')
+
+// asChild: Slot merges props only into a single child element, so the icon and
+// text wrapper must go inside that child, not next to it. Lazy children (from
+// Server Components) are resolved the same way Radix Slot does.
+function renderInsideChild(
+  children: React.ReactNode,
+  render: (content: React.ReactNode) => React.ReactNode
+): React.ReactNode {
+  let child: unknown = children
+  const resolve = (React as { use?: (usable: unknown) => unknown }).use
+  if (
+    typeof child === 'object' && child !== null &&
+    (child as { $$typeof?: symbol }).$$typeof === REACT_LAZY_TYPE &&
+    typeof resolve === 'function'
+  ) {
+    child = resolve((child as { _payload: unknown })._payload)
+  }
+  if (!React.isValidElement<{ children?: React.ReactNode }>(child)) return render(children)
+  return React.cloneElement(child, undefined, render(child.props.children))
+}
+
 // \u2500\u2500\u2500 Radius Configuration \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
 
 type NavigationMenuRadius = 'sm' | 'md' | 'lg' | 'xl'
@@ -15834,9 +15935,21 @@ const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLin
     // \u2500\u2500 Vertical mode \u2500\u2500
 
     const Comp = asChild ? Slot : 'a'
+    const iconNode = icon && <span className={cn('shrink-0', s.icon)}>{icon}</span>
+    // With asChild the text lives inside the child element; use it for the collapsed tooltip too
+    const childText = asChild && React.isValidElement<{ children?: React.ReactNode }>(children)
+      ? children.props.children
+      : children
 
     // Content-level links (sub-menu items): compact, indented
     if (inContent) {
+      const renderContent = (content: React.ReactNode) => (
+        <>
+          {iconNode}
+          {!collapsed && content}
+        </>
+      )
+
       return (
         <Comp
           ref={ref}
@@ -15853,13 +15966,19 @@ const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLin
           {...(active ? { 'aria-current': 'page' as const } : {})}
           {...props}
         >
-          {icon && <span className={cn('shrink-0', s.icon)}>{icon}</span>}
-          {!collapsed && children}
+          {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
         </Comp>
       )
     }
 
     // Top-level vertical links
+    const renderContent = (content: React.ReactNode) => (
+      <>
+        {iconNode}
+        {!collapsed && <span className="truncate">{content}</span>}
+      </>
+    )
+
     return (
       <Comp
         ref={ref}
@@ -15876,11 +15995,10 @@ const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLin
           className
         )}
         {...(active ? { 'aria-current': 'page' as const } : {})}
-        {...(collapsed && typeof children === 'string' ? { title: children } : {})}
+        {...(collapsed && typeof childText === 'string' ? { title: childText } : {})}
         {...props}
       >
-        {icon && <span className={cn('shrink-0', s.icon)}>{icon}</span>}
-        {!collapsed && <span className="truncate">{children}</span>}
+        {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
       </Comp>
     )
   }
@@ -21909,7 +22027,7 @@ function showCompanionHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.22";
+var VERSION = "0.1.23";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

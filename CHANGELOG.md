@@ -6,6 +6,16 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.15] — 2026-11-02
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **`asChild` keeps the component styles on Button, IconButton, Badge and vertical NavigationMenuLink.** With `asChild` these components passed several children (icons, a dot, wrappers and your element) to the slot, so the classes never reached your element: `<Button asChild><a>` rendered a plain unstyled link, and Badge or a vertical NavigationMenuLink threw `React.Children.only`. Icons, the status dot and the text wrapper are now placed inside your element, which receives the component classes. Without `asChild` the rendered HTML is unchanged. With `asChild`, Badge does not render the `removable` button, because a button inside a link is invalid HTML.
+
+---
+
 ## [0.3.14] — 2026-10-30
 
 ### @7onic-ui/react

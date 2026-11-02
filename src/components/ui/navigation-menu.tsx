@@ -24,6 +24,30 @@ function ChevronRightIcon({ className }: { className?: string }) {
   )
 }
 
+// ─── asChild Content ──────────────────────────────────────
+
+const REACT_LAZY_TYPE = Symbol.for('react.lazy')
+
+// asChild: Slot merges props only into a single child element, so the icon and
+// text wrapper must go inside that child, not next to it. Lazy children (from
+// Server Components) are resolved the same way Radix Slot does.
+function renderInsideChild(
+  children: React.ReactNode,
+  render: (content: React.ReactNode) => React.ReactNode
+): React.ReactNode {
+  let child: unknown = children
+  const resolve = (React as { use?: (usable: unknown) => unknown }).use
+  if (
+    typeof child === 'object' && child !== null &&
+    (child as { $$typeof?: symbol }).$$typeof === REACT_LAZY_TYPE &&
+    typeof resolve === 'function'
+  ) {
+    child = resolve((child as { _payload: unknown })._payload)
+  }
+  if (!React.isValidElement<{ children?: React.ReactNode }>(child)) return render(children)
+  return React.cloneElement(child, undefined, render(child.props.children))
+}
+
 // ─── Radius Configuration ─────────────────────────────────
 
 type NavigationMenuRadius = 'sm' | 'md' | 'lg' | 'xl'
@@ -509,9 +533,21 @@ const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLin
     // ── Vertical mode ──
 
     const Comp = asChild ? Slot : 'a'
+    const iconNode = icon && <span className={cn('shrink-0', s.icon)}>{icon}</span>
+    // With asChild the text lives inside the child element; use it for the collapsed tooltip too
+    const childText = asChild && React.isValidElement<{ children?: React.ReactNode }>(children)
+      ? children.props.children
+      : children
 
     // Content-level links (sub-menu items): compact, indented
     if (inContent) {
+      const renderContent = (content: React.ReactNode) => (
+        <>
+          {iconNode}
+          {!collapsed && content}
+        </>
+      )
+
       return (
         <Comp
           ref={ref}
@@ -528,13 +564,19 @@ const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLin
           {...(active ? { 'aria-current': 'page' as const } : {})}
           {...props}
         >
-          {icon && <span className={cn('shrink-0', s.icon)}>{icon}</span>}
-          {!collapsed && children}
+          {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
         </Comp>
       )
     }
 
     // Top-level vertical links
+    const renderContent = (content: React.ReactNode) => (
+      <>
+        {iconNode}
+        {!collapsed && <span className="truncate">{content}</span>}
+      </>
+    )
+
     return (
       <Comp
         ref={ref}
@@ -551,11 +593,10 @@ const NavigationMenuLink = React.forwardRef<HTMLAnchorElement, NavigationMenuLin
           className
         )}
         {...(active ? { 'aria-current': 'page' as const } : {})}
-        {...(collapsed && typeof children === 'string' ? { title: children } : {})}
+        {...(collapsed && typeof childText === 'string' ? { title: childText } : {})}
         {...props}
       >
-        {icon && <span className={cn('shrink-0', s.icon)}>{icon}</span>}
-        {!collapsed && <span className="truncate">{children}</span>}
+        {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
       </Comp>
     )
   }

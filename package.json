@@ -1,6 +1,6 @@
 {
   "name": "@7onic-ui/react",
-  "version": "0.3.14",
+  "version": "0.3.15",
   "private": false,
   "sideEffects": [
     "*.css"

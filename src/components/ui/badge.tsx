@@ -93,6 +93,28 @@ export type BadgeColor = 'default' | 'primary' | 'success' | 'warning' | 'error'
 export type BadgeSize = 'sm' | 'default' | 'lg'
 export type BadgeRadius = 'sm' | 'base' | 'md' | 'lg' | 'full'
 
+const REACT_LAZY_TYPE = Symbol.for('react.lazy')
+
+// asChild: Slot merges props only into a single child element, so the dot and
+// icon must go inside that child, not next to it. Lazy children (from Server
+// Components) are resolved the same way Radix Slot does.
+function renderInsideChild(
+  children: React.ReactNode,
+  render: (content: React.ReactNode) => React.ReactNode
+): React.ReactNode {
+  let child: unknown = children
+  const resolve = (React as { use?: (usable: unknown) => unknown }).use
+  if (
+    typeof child === 'object' && child !== null &&
+    (child as { $$typeof?: symbol }).$$typeof === REACT_LAZY_TYPE &&
+    typeof resolve === 'function'
+  ) {
+    child = resolve((child as { _payload: unknown })._payload)
+  }
+  if (!React.isValidElement<{ children?: React.ReactNode }>(child)) return render(children)
+  return React.cloneElement(child, undefined, render(child.props.children))
+}
+
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLSpanElement>,
     VariantProps<typeof badgeVariants> {
@@ -104,7 +126,7 @@ export interface BadgeProps
   icon?: React.ReactNode
   /** Show a status dot before text */
   dot?: boolean
-  /** Show a remove button */
+  /** Show a remove button (not rendered with asChild — a button inside a link is invalid HTML) */
   removable?: boolean
   /** Callback when remove button is clicked */
   onRemove?: () => void
@@ -138,17 +160,8 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
     // Dot color: in solid variant use currentColor (white/foreground), otherwise use semantic color
     const dotColor = variant === 'solid' ? 'bg-current' : dotColorMap[color]
 
-    return (
-      <Comp
-        ref={ref}
-        className={cn(
-          badgeVariants({ size, radius }),
-          colorClasses,
-          outlineClasses,
-          className
-        )}
-        {...props}
-      >
+    const renderContent = (content: React.ReactNode) => (
+      <>
         {dot && (
           <span
             className={cn('shrink-0 rounded-full', badgeDotSizes[resolvedSize], dotColor)}
@@ -163,8 +176,9 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             {icon}
           </span>
         )}
-        {children}
-        {removable && (
+        {content}
+        {/* A button inside the asChild element (usually a link) would be invalid HTML */}
+        {removable && !asChild && (
           <button
             type="button"
             className="shrink-0 -mr-0.5 ml-0.5 rounded-full p-0.5 opacity-70 hover:opacity-100 transition-opacity focus-visible:focus-ring"
@@ -186,6 +200,21 @@ const Badge = React.forwardRef<HTMLSpanElement, BadgeProps>(
             </svg>
           </button>
         )}
+      </>
+    )
+
+    return (
+      <Comp
+        ref={ref}
+        className={cn(
+          badgeVariants({ size, radius }),
+          colorClasses,
+          outlineClasses,
+          className
+        )}
+        {...props}
+      >
+        {asChild ? renderInsideChild(children, renderContent) : renderContent(children)}
       </Comp>
     )
   }
