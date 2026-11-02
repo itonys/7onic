@@ -1,4 +1,4 @@
-// llms-full.txt parser (Phase 2, docs/roadmap/active/MCP-SERVER-PLAN.md).
+// llms-full.txt parser (Phase 2, docs/roadmap/done/MCP-SERVER-PLAN.md).
 // SECTION 3 (### header = 1 record, 41 measured incl. the AI Components
 // category) → components.json. SECTION 1's "⛔ AI Rules" block → rules.json.
 // Parse unit is the `###` header, NOT the src file (AlertModal ⊂ modal.tsx).

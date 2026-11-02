@@ -3,7 +3,7 @@
 // through <PageIntlProvider locale={locale} page="<name>"> in its own folder
 // (layout.tsx, or page.tsx for the landing page). The root provider only carries the
 // shared namespaces, so a page without the wrapper shows raw message keys after
-// client navigation. See docs/roadmap/active/I18N-CLIENT-MESSAGES-PLAN.md.
+// client navigation. See docs/roadmap/done/I18N-CLIENT-MESSAGES-PLAN.md.
 // Usage: npm run verify:page-intl
 
 import * as fs from 'node:fs'

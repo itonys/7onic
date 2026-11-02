@@ -1,4 +1,4 @@
-// Phase 1 Data Layer (docs/roadmap/active/MCP-SERVER-PLAN.md).
+// Phase 1 Data Layer (docs/roadmap/done/MCP-SERVER-PLAN.md).
 // Loads the sync-tokens outputs AT RUNTIME so `npm run sync-tokens` is
 // reflected in MCP answers without rebuilding dist/ (mtime-signature cache).
 // Sources (read-only for the MCP — figma-tokens.json stays the only SSOT):
