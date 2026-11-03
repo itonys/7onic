@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.24] — 2026-11-03
+
+### 7onic
+
+#### Changed
+
+- **`add` suggests restarting a running dev server.** After components are added, the CLI prints a one-line reminder: a dev server that is already running can miss the new files (Tailwind may skip classes used only in them, and a bundler can keep stale module paths after a dependency install).
+
 ## [0.1.23] — 2026-11-02
 
 ### 7onic

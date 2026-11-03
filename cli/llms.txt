@@ -94,3 +94,4 @@ accordion, alert, avatar, badge, breadcrumb, button, button-group, card, chat-in
 - Components use `cn()` from `@/lib/utils` (configurable)
 - All components are in a flat directory (no nested imports)
 - Existing files are skipped by default (use `--overwrite` to replace)
+- If a dev server is already running, restart it after `add` so the new components and their dependencies are picked up

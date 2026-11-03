@@ -253,6 +253,14 @@ export async function add(args: string[]): Promise<void> {
   }
   logger.break()
   logger.success(`Done! ${addedCount} component(s) added.`)
+
+  // A running dev server may miss the new files: Tailwind can skip classes used
+  // only in them, and a bundler can keep stale module paths after a dependency install.
+  if (addedCount > 0) {
+    logger.info(
+      `If your dev server is already running, restart it so the new components are picked up.`,
+    )
+  }
 }
 
 /**

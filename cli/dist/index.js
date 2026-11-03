@@ -21888,6 +21888,11 @@ async function add(args) {
   }
   logger.break();
   logger.success(`Done! ${addedCount} component(s) added.`);
+  if (addedCount > 0) {
+    logger.info(
+      `If your dev server is already running, restart it so the new components are picked up.`
+    );
+  }
 }
 function resolveDependencies(names) {
   const resolved = /* @__PURE__ */ new Set();
@@ -22027,7 +22032,7 @@ function showCompanionHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.23";
+var VERSION = "0.1.24";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 
