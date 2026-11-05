@@ -6,6 +6,17 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.17] — 2026-11-06
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **DropdownMenu no longer scrolls the page when it returns focus after a keyboard close.** In 0.3.16 the trigger was focused without `preventScroll`, so a trigger in a sticky header pulled the page up (Escape at 1200px went back to about 770px, and a menu item linking to an anchor stopped short of it). Focus still returns to the trigger, and the scroll position stays.
+- **Menu items no longer show your project's link or button focus outline on hover.** DropdownMenu items (including checkbox, radio and submenu items) and Select items moved real focus on hover, so a project-wide `a:focus-visible` or `button:focus-visible` outline drew a box around the hovered item, for example an `asChild` link. The highlight background stays the focus indicator for mouse and keyboard.
+
+---
+
 ## [0.3.16] — 2026-11-06
 
 ### @7onic-ui/react

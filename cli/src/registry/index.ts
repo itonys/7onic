@@ -4655,11 +4655,38 @@ const DropdownMenuStyleContext = React.createContext<{
   size: DropdownMenuSize
 }>({ radius: 'md', flush: false, size: 'md' })
 
+// Trigger element, shared from Root so Content can return focus to it after a keyboard close
+// (Radix keeps its own trigger ref private; looking it up by id fails when the trigger has a custom id)
+const DropdownMenuTriggerRefContext = React.createContext<React.MutableRefObject<HTMLElement | null> | null>(null)
+
 // Root — state management (controlled / uncontrolled)
-const DropdownMenu = DropdownMenuPrimitive.Root
+function DropdownMenu(props: React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Root>) {
+  const triggerRef = React.useRef<HTMLElement | null>(null)
+  return (
+    <DropdownMenuTriggerRefContext.Provider value={triggerRef}>
+      <DropdownMenuPrimitive.Root {...props} />
+    </DropdownMenuTriggerRefContext.Provider>
+  )
+}
+DropdownMenu.displayName = 'DropdownMenu'
 
 // Trigger — the element that toggles the menu
-const DropdownMenuTrigger = DropdownMenuPrimitive.Trigger
+const DropdownMenuTrigger = React.forwardRef<
+  React.ElementRef<typeof DropdownMenuPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Trigger>
+>((props, forwardedRef) => {
+  const triggerRef = React.useContext(DropdownMenuTriggerRefContext)
+  const ref = React.useCallback(
+    (node: HTMLButtonElement | null) => {
+      if (triggerRef) triggerRef.current = node
+      if (typeof forwardedRef === 'function') forwardedRef(node)
+      else if (forwardedRef) forwardedRef.current = node
+    },
+    [triggerRef, forwardedRef],
+  )
+  return <DropdownMenuPrimitive.Trigger ref={ref} {...props} />
+})
+DropdownMenuTrigger.displayName = DropdownMenuPrimitive.Trigger.displayName
 
 // Group — groups related items
 const DropdownMenuGroup = DropdownMenuPrimitive.Group
@@ -4694,6 +4721,7 @@ const DropdownMenuContent = React.forwardRef<
   }
 >(({ className, sideOffset = 4, radius = 'md', flush = false, size = 'md', onCloseAutoFocus, ...props }, ref) => {
   useLastInputTypeTracker()
+  const triggerRef = React.useContext(DropdownMenuTriggerRefContext)
   return (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuStyleContext.Provider value={{ radius, flush, size }}>
@@ -4701,7 +4729,10 @@ const DropdownMenuContent = React.forwardRef<
         ref={ref}
         sideOffset={sideOffset}
         onCloseAutoFocus={(e) => {
-          if (!lastInputWasKeyboard) e.preventDefault()
+          // Radix's own return calls trigger.focus() without preventScroll, which jumps the page when the
+          // trigger sits in a sticky header — return focus here instead (keyboard close only)
+          e.preventDefault()
+          if (lastInputWasKeyboard) triggerRef?.current?.focus({ preventScroll: true })
           onCloseAutoFocus?.(e)
         }}
         className={cn(
@@ -4718,6 +4749,9 @@ const DropdownMenuContent = React.forwardRef<
 })
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 
+// focus-visible:!outline-none on items: Radix moves real focus to the hovered item, so a project-wide
+// a:focus-visible / button:focus-visible outline would draw a box on hover — the highlight background is the indicator.
+// !important because Tailwind v4 utilities sit in a cascade layer, which loses to any unlayered project rule
 // Item — a single menu item
 const DropdownMenuItem = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Item>,
@@ -4730,7 +4764,7 @@ const DropdownMenuItem = React.forwardRef<
     <DropdownMenuPrimitive.Item
       ref={ref}
       className={cn(
-        'relative flex cursor-default select-none items-center outline-none',
+        'relative flex cursor-default select-none items-center outline-none focus-visible:!outline-none',
         itemSizeMap[size],
         !flush && itemRadiusMap[radius],
         flush && flushItemPaddingMap[size],
@@ -4756,7 +4790,7 @@ const DropdownMenuCheckboxItem = React.forwardRef<
     <DropdownMenuPrimitive.CheckboxItem
       ref={ref}
       className={cn(
-        'relative flex cursor-default select-none items-center outline-none',
+        'relative flex cursor-default select-none items-center outline-none focus-visible:!outline-none',
         indicatorItemSizeMap[size],
         !flush && itemRadiusMap[radius],
         flush && flushIndicatorItemPaddingMap[size],
@@ -4792,7 +4826,7 @@ const DropdownMenuRadioItem = React.forwardRef<
     <DropdownMenuPrimitive.RadioItem
       ref={ref}
       className={cn(
-        'relative flex cursor-default select-none items-center outline-none',
+        'relative flex cursor-default select-none items-center outline-none focus-visible:!outline-none',
         indicatorItemSizeMap[size],
         !flush && itemRadiusMap[radius],
         flush && flushIndicatorItemPaddingMap[size],
@@ -4869,7 +4903,7 @@ const DropdownMenuSubTrigger = React.forwardRef<
     <DropdownMenuPrimitive.SubTrigger
       ref={ref}
       className={cn(
-        'flex cursor-default select-none items-center outline-none',
+        'flex cursor-default select-none items-center outline-none focus-visible:!outline-none',
         itemSizeMap[size],
         !flush && itemRadiusMap[radius],
         flush && flushItemPaddingMap[size],
@@ -9092,6 +9126,9 @@ const SelectContent = React.forwardRef<
 })
 SelectContent.displayName = SelectPrimitive.Content.displayName
 
+// focus-visible:!outline-none on items: Radix moves real focus to the hovered item, so a project-wide
+// a:focus-visible / button:focus-visible outline would draw a box on hover — the highlight background is the indicator.
+// !important because Tailwind v4 utilities sit in a cascade layer, which loses to any unlayered project rule
 // Item — a single selectable item (with right-aligned check indicator)
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
@@ -9102,7 +9139,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
       ref={ref}
       className={cn(
-        'relative flex w-full cursor-default select-none items-center outline-none',
+        'relative flex w-full cursor-default select-none items-center outline-none focus-visible:!outline-none',
         itemSizeMap[itemSize],
         !flush && itemRadiusMap[contentRadius],
         flush && flushItemPaddingMap[itemSize],

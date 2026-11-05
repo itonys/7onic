@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.26] — 2026-11-06
+
+### 7onic
+
+#### Fixed
+
+- **`add dropdown` and `add select` copy the focus fixes.** The registry sources return focus without scrolling the page after a keyboard close, and menu items no longer pick up a project-wide focus outline on hover (same as `@7onic-ui/react`).
+
 ## [0.1.25] — 2026-11-06
 
 ### 7onic

@@ -298,6 +298,9 @@ const SelectContent = React.forwardRef<
 })
 SelectContent.displayName = SelectPrimitive.Content.displayName
 
+// focus-visible:!outline-none on items: Radix moves real focus to the hovered item, so a project-wide
+// a:focus-visible / button:focus-visible outline would draw a box on hover — the highlight background is the indicator.
+// !important because Tailwind v4 utilities sit in a cascade layer, which loses to any unlayered project rule
 // Item — a single selectable item (with right-aligned check indicator)
 const SelectItem = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Item>,
@@ -308,7 +311,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
       ref={ref}
       className={cn(
-        'relative flex w-full cursor-default select-none items-center outline-none',
+        'relative flex w-full cursor-default select-none items-center outline-none focus-visible:!outline-none',
         itemSizeMap[itemSize],
         !flush && itemRadiusMap[contentRadius],
         flush && flushItemPaddingMap[itemSize],
