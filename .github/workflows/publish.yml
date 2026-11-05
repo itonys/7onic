@@ -74,6 +74,11 @@ jobs:
       - name: Build component library
         run: npm run build:lib
 
+      # The root .npmrc sets ignore-scripts=true, which also skips the prepublishOnly hook,
+      # so the release checks run here as their own step and cannot be skipped silently.
+      - name: Release checks
+        run: npm run verify:release
+
       - name: Publish @7onic-ui/react
         run: npm publish --access public --provenance
 

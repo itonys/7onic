@@ -61,7 +61,8 @@ npm run e2e               # 5 stdio scenarios (form/dashboard/settings/table/not
 ```
 
 `verify-drift` + `verify-validate` also run from the repo root as
-`npm run verify:mcp`, which is part of the root `prepublishOnly` chain.
+`npm run verify:mcp`, which is part of the root `verify:release` chain
+(run by the publish workflow before `npm publish`).
 They execute the committed `dist/` bundles, so they work without
 `mcp/node_modules`.
 
