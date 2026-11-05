@@ -97,12 +97,14 @@ export interface PopoverContentProps
   showClose?: boolean
   /** Custom close icon (replaces default X icon) */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
 }
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   PopoverContentProps
->(({ className, variant = 'default', size, side = 'bottom', sideOffset, showArrow = true, showClose = false, closeIcon, children, ...props }, ref) => {
+>(({ className, variant = 'default', size, side = 'bottom', sideOffset, showArrow = true, showClose = false, closeIcon, closeLabel = 'Close', children, ...props }, ref) => {
   const resolvedSide = side as PopoverSide
   // CSS arrow (default) needs more gap since it doesn't occupy layout space
   const resolvedOffset = sideOffset ?? (variant === 'default' && showArrow ? 12 : 6)
@@ -123,7 +125,7 @@ const PopoverContent = React.forwardRef<
         {showClose && (
           <PopoverPrimitive.Close
             className="absolute top-3 right-3 rounded-md p-1 text-text-muted hover:text-foreground hover:bg-background-muted transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-            aria-label="Close"
+            aria-label={closeLabel}
           >
             {closeIcon || <DefaultCloseIcon className="icon-sm" />}
           </PopoverPrimitive.Close>

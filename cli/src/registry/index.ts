@@ -449,6 +449,8 @@ export interface AlertRootProps
   onClose?: () => void
   /** Custom close icon */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
   /** Custom status icon (overrides default) */
   icon?: React.ReactNode
   /** Hide the status icon entirely */
@@ -465,6 +467,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertRootProps>(
     closable = false,
     onClose,
     closeIcon,
+    closeLabel = 'Close',
     icon,
     hideIcon = false,
     children,
@@ -511,7 +514,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertRootProps>(
                   : 'group-has-[[data-alert-description]]:top-3 group-has-[[data-alert-description]]:right-3',
               )}
               onClick={onClose}
-              aria-label="Close"
+              aria-label={closeLabel}
             >
               {closeIcon || <DefaultCloseIcon className="icon-sm" />}
             </button>
@@ -4426,6 +4429,8 @@ export interface DrawerContentProps
   showCloseButton?: boolean
   /** Custom close icon (replaces default X) */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
   children?: React.ReactNode
 }
 
@@ -4439,7 +4444,7 @@ const SIDE_POSITION: Record<DrawerSide, string> = {
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DrawerContentProps
->(({ className, children, side = 'right', size = 'md', showCloseButton = true, closeIcon, ...props }, ref) => {
+>(({ className, children, side = 'right', size = 'md', showCloseButton = true, closeIcon, closeLabel = 'Close', ...props }, ref) => {
   const isHorizontal = side === 'left' || side === 'right'
   const sizeClass = isHorizontal
     ? drawerSizeHorizontal({ size })
@@ -4471,7 +4476,7 @@ const DrawerContent = React.forwardRef<
             'disabled:pointer-events-none'
           )}>
             {closeIcon || <DefaultCloseIcon className="icon-sm" />}
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{closeLabel}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>
@@ -4665,6 +4670,20 @@ const DropdownMenuSub = DropdownMenuPrimitive.Sub
 // RadioGroup — radio selection group
 const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
 
+// Close focus: Radix returns focus to the trigger on close. Return it only when the menu was closed
+// from the keyboard — after a pointer close the programmatic focus would show a stray focus ring
+// (docs/decisions/RADIX-CLOSE-AUTOFOCUS.md). Tracks the last input type once per page.
+let lastInputWasKeyboard = false
+let inputTypeTrackerInstalled = false
+function useLastInputTypeTracker() {
+  React.useEffect(() => {
+    if (inputTypeTrackerInstalled) return
+    inputTypeTrackerInstalled = true
+    document.addEventListener('keydown', () => { lastInputWasKeyboard = true }, true)
+    document.addEventListener('pointerdown', () => { lastInputWasKeyboard = false }, true)
+  }, [])
+}
+
 // Content — the floating panel (rendered in a Portal)
 const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
@@ -4673,14 +4692,16 @@ const DropdownMenuContent = React.forwardRef<
     flush?: boolean
     size?: DropdownMenuSize
   }
->(({ className, sideOffset = 4, radius = 'md', flush = false, size = 'md', onCloseAutoFocus, ...props }, ref) => (
+>(({ className, sideOffset = 4, radius = 'md', flush = false, size = 'md', onCloseAutoFocus, ...props }, ref) => {
+  useLastInputTypeTracker()
+  return (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuStyleContext.Provider value={{ radius, flush, size }}>
       <DropdownMenuPrimitive.Content
         ref={ref}
         sideOffset={sideOffset}
         onCloseAutoFocus={(e) => {
-          e.preventDefault()
+          if (!lastInputWasKeyboard) e.preventDefault()
           onCloseAutoFocus?.(e)
         }}
         className={cn(
@@ -4693,7 +4714,8 @@ const DropdownMenuContent = React.forwardRef<
       />
     </DropdownMenuStyleContext.Provider>
   </DropdownMenuPrimitive.Portal>
-))
+  )
+})
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 
 // Item — a single menu item
@@ -5903,12 +5925,14 @@ export interface ModalContentProps
   showCloseButton?: boolean
   /** Custom close icon (replaces default X) */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
 }
 
 const ModalContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   ModalContentProps
->(({ className, children, size = 'sm', scrollBehavior = 'outside', showCloseButton = true, closeIcon, ...props }, ref) => {
+>(({ className, children, size = 'sm', scrollBehavior = 'outside', showCloseButton = true, closeIcon, closeLabel = 'Close', ...props }, ref) => {
   const isInside = scrollBehavior === 'inside'
   const isFull = size === 'full'
   const useInsideScroll = isInside || isFull
@@ -5922,7 +5946,7 @@ const ModalContent = React.forwardRef<
       'disabled:pointer-events-none'
     )}>
       {closeIcon || <DefaultCloseIcon className="icon-sm" />}
-      <span className="sr-only">Close</span>
+      <span className="sr-only">{closeLabel}</span>
     </DialogPrimitive.Close>
   )
 
@@ -7770,12 +7794,14 @@ export interface PopoverContentProps
   showClose?: boolean
   /** Custom close icon (replaces default X icon) */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
 }
 
 const PopoverContent = React.forwardRef<
   React.ElementRef<typeof PopoverPrimitive.Content>,
   PopoverContentProps
->(({ className, variant = 'default', size, side = 'bottom', sideOffset, showArrow = true, showClose = false, closeIcon, children, ...props }, ref) => {
+>(({ className, variant = 'default', size, side = 'bottom', sideOffset, showArrow = true, showClose = false, closeIcon, closeLabel = 'Close', children, ...props }, ref) => {
   const resolvedSide = side as PopoverSide
   // CSS arrow (default) needs more gap since it doesn't occupy layout space
   const resolvedOffset = sideOffset ?? (variant === 'default' && showArrow ? 12 : 6)
@@ -7796,7 +7822,7 @@ const PopoverContent = React.forwardRef<
         {showClose && (
           <PopoverPrimitive.Close
             className="absolute top-3 right-3 rounded-md p-1 text-text-muted hover:text-foreground hover:bg-background-muted transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-focus-ring"
-            aria-label="Close"
+            aria-label={closeLabel}
           >
             {closeIcon || <DefaultCloseIcon className="icon-sm" />}
           </PopoverPrimitive.Close>
@@ -8622,6 +8648,8 @@ const segmentedItemVariants = cva(
           'hover:text-foreground',
           'data-[state=checked]:bg-background data-[state=checked]:text-foreground',
           'data-[state=checked]:shadow-sm',
+          // focus-ring and shadow-sm both set box-shadow; the extra pseudo-class makes the ring win on the selected item
+          'data-[state=checked]:focus-visible:focus-ring',
         ].join(' '),
         // Outline: gray background when selected
         outline: [
@@ -9001,6 +9029,20 @@ const SelectScrollDownButton = React.forwardRef<
 ))
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName
 
+// Close focus: Radix returns focus to the trigger on close. Return it only when the menu was closed
+// from the keyboard — after a pointer close the programmatic focus would show a stray focus ring
+// (docs/decisions/RADIX-CLOSE-AUTOFOCUS.md). Tracks the last input type once per page.
+let lastInputWasKeyboard = false
+let inputTypeTrackerInstalled = false
+function useLastInputTypeTracker() {
+  React.useEffect(() => {
+    if (inputTypeTrackerInstalled) return
+    inputTypeTrackerInstalled = true
+    document.addEventListener('keydown', () => { lastInputWasKeyboard = true }, true)
+    document.addEventListener('pointerdown', () => { lastInputWasKeyboard = false }, true)
+  }, [])
+}
+
 // Content — the floating panel (reads size + radius from context, auto-maps both)
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
@@ -9008,6 +9050,7 @@ const SelectContent = React.forwardRef<
     flush?: boolean
   }
 >(({ className, children, position = 'popper', sideOffset = 1, flush = false, onCloseAutoFocus, ...props }, ref) => {
+  useLastInputTypeTracker()
   const { size, radius } = React.useContext(SelectRootContext)
   const itemSize = itemSizeFromTrigger[size]
   const contentRadius = contentRadiusFromRoot[radius]
@@ -9017,7 +9060,7 @@ const SelectContent = React.forwardRef<
         <SelectPrimitive.Content
           ref={ref}
           onCloseAutoFocus={(e) => {
-            e.preventDefault()
+            if (!lastInputWasKeyboard) e.preventDefault()
             onCloseAutoFocus?.(e)
           }}
           className={cn(
@@ -11486,6 +11529,7 @@ interface ToastItemProps {
   position: ToastPosition
   size: ToastSize
   closeButton: boolean
+  closeLabel: string
   richColors: boolean
   defaultDuration: number
   onRemove: (id: string) => void
@@ -11496,6 +11540,7 @@ const ToastItem = React.memo(function ToastItem({
   position,
   size,
   closeButton: globalCloseButton,
+  closeLabel,
   richColors,
   defaultDuration,
   onRemove,
@@ -11668,7 +11713,7 @@ const ToastItem = React.memo(function ToastItem({
           type="button"
           className="shrink-0 rounded-md p-1 opacity-70 hover:opacity-100 transition-opacity focus-visible:focus-ring"
           onClick={handleDismiss}
-          aria-label="Close"
+          aria-label={closeLabel}
         >
           <DefaultCloseIcon className="icon-sm" />
         </button>
@@ -11691,6 +11736,8 @@ export interface ToasterProps {
   visibleToasts?: number
   /** Show close button on all toasts */
   closeButton?: boolean
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
   /** Use rich (filled) colors for status toasts — default: true */
   richColors?: boolean
   /** Expand all toasts (no stacking) */
@@ -11710,6 +11757,7 @@ function Toaster({
   duration = 4000,
   visibleToasts = 5,
   closeButton = false,
+  closeLabel = 'Close',
   richColors = true,
   expand = false,
   offset = 24,
@@ -11780,6 +11828,7 @@ function Toaster({
               position={position}
               size={size}
               closeButton={closeButton}
+              closeLabel={closeLabel}
               richColors={richColors}
               defaultDuration={duration}
               onRemove={handleRemove}

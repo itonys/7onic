@@ -86,6 +86,20 @@ const DropdownMenuSub = DropdownMenuPrimitive.Sub
 // RadioGroup — radio selection group
 const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
 
+// Close focus: Radix returns focus to the trigger on close. Return it only when the menu was closed
+// from the keyboard — after a pointer close the programmatic focus would show a stray focus ring
+// (docs/decisions/RADIX-CLOSE-AUTOFOCUS.md). Tracks the last input type once per page.
+let lastInputWasKeyboard = false
+let inputTypeTrackerInstalled = false
+function useLastInputTypeTracker() {
+  React.useEffect(() => {
+    if (inputTypeTrackerInstalled) return
+    inputTypeTrackerInstalled = true
+    document.addEventListener('keydown', () => { lastInputWasKeyboard = true }, true)
+    document.addEventListener('pointerdown', () => { lastInputWasKeyboard = false }, true)
+  }, [])
+}
+
 // Content — the floating panel (rendered in a Portal)
 const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
@@ -94,14 +108,16 @@ const DropdownMenuContent = React.forwardRef<
     flush?: boolean
     size?: DropdownMenuSize
   }
->(({ className, sideOffset = 4, radius = 'md', flush = false, size = 'md', onCloseAutoFocus, ...props }, ref) => (
+>(({ className, sideOffset = 4, radius = 'md', flush = false, size = 'md', onCloseAutoFocus, ...props }, ref) => {
+  useLastInputTypeTracker()
+  return (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuStyleContext.Provider value={{ radius, flush, size }}>
       <DropdownMenuPrimitive.Content
         ref={ref}
         sideOffset={sideOffset}
         onCloseAutoFocus={(e) => {
-          e.preventDefault()
+          if (!lastInputWasKeyboard) e.preventDefault()
           onCloseAutoFocus?.(e)
         }}
         className={cn(
@@ -114,7 +130,8 @@ const DropdownMenuContent = React.forwardRef<
       />
     </DropdownMenuStyleContext.Provider>
   </DropdownMenuPrimitive.Portal>
-))
+  )
+})
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 
 // Item — a single menu item

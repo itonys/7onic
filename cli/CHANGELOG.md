@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### 7onic
+
+#### Fixed
+
+- **`add` copies the accessibility fixes.** The registry sources include `closeLabel` on Alert, Drawer, Modal, Popover and Toast, focus return after a keyboard close on Dropdown and Select, and the focus ring on the selected Segmented item (same as `@7onic-ui/react`).
+
 ## [0.1.24] — 2026-11-03
 
 ### 7onic

@@ -345,6 +345,7 @@ interface ToastItemProps {
   position: ToastPosition
   size: ToastSize
   closeButton: boolean
+  closeLabel: string
   richColors: boolean
   defaultDuration: number
   onRemove: (id: string) => void
@@ -355,6 +356,7 @@ const ToastItem = React.memo(function ToastItem({
   position,
   size,
   closeButton: globalCloseButton,
+  closeLabel,
   richColors,
   defaultDuration,
   onRemove,
@@ -527,7 +529,7 @@ const ToastItem = React.memo(function ToastItem({
           type="button"
           className="shrink-0 rounded-md p-1 opacity-70 hover:opacity-100 transition-opacity focus-visible:focus-ring"
           onClick={handleDismiss}
-          aria-label="Close"
+          aria-label={closeLabel}
         >
           <DefaultCloseIcon className="icon-sm" />
         </button>
@@ -550,6 +552,8 @@ export interface ToasterProps {
   visibleToasts?: number
   /** Show close button on all toasts */
   closeButton?: boolean
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
   /** Use rich (filled) colors for status toasts — default: true */
   richColors?: boolean
   /** Expand all toasts (no stacking) */
@@ -569,6 +573,7 @@ function Toaster({
   duration = 4000,
   visibleToasts = 5,
   closeButton = false,
+  closeLabel = 'Close',
   richColors = true,
   expand = false,
   offset = 24,
@@ -639,6 +644,7 @@ function Toaster({
               position={position}
               size={size}
               closeButton={closeButton}
+              closeLabel={closeLabel}
               richColors={richColors}
               defaultDuration={duration}
               onRemove={handleRemove}

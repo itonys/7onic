@@ -1039,6 +1039,7 @@ import { Button, Modal, ModalBody, ModalClose, ModalContent, ModalDescription, M
 | size | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'sm'` | Modal width |
 | scrollBehavior | `'inside' \| 'outside'` | `'outside'` | Scroll target |
 | showCloseButton | `boolean` | `true` | Show X button |
+| closeLabel | `string` | `'Close'` | Screen-reader label of the X button — pass the page language (e.g. `t('close')`) |
 
 **Sub-components:** ModalTrigger, ModalPortal, ModalOverlay, ModalContent, ModalHeader, ModalTitle, ModalDescription, ModalBody, ModalFooter, ModalClose
 
@@ -1111,6 +1112,7 @@ import { Button, Drawer, DrawerBody, DrawerClose, DrawerContent, DrawerFooter, D
 | side | `'left' \| 'right' \| 'top' \| 'bottom'` | `'right'` | Slide direction |
 | size | `'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Width/height |
 | showCloseButton | `boolean` | `true` | Show X button |
+| closeLabel | `string` | `'Close'` | Screen-reader label of the X button — pass the page language (e.g. `t('close')`) |
 
 **Sub-components:** DrawerTrigger, DrawerPortal, DrawerOverlay, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerBody, DrawerFooter, DrawerClose
 
@@ -1178,6 +1180,7 @@ import { Button, Popover, PopoverArrow, PopoverContent, PopoverPortal, PopoverTr
 | side | `'top' \| 'right' \| 'bottom' \| 'left'` | `'bottom'` | Placement |
 | showArrow | `boolean` | `true` | Show arrow |
 | showClose | `boolean` | `false` | Show X button |
+| closeLabel | `string` | `'Close'` | Screen-reader label of the X button — pass the page language (e.g. `t('close')`) |
 
 **Sub-components:** PopoverTrigger, PopoverContent, PopoverArrow, PopoverClose, PopoverAnchor, PopoverPortal
 
@@ -1210,6 +1213,7 @@ import { Alert, AlertDescription, AlertTitle } from '@7onic-ui/react'
 | radius | Same as Card | `'lg'` | Border radius |
 | closable | `boolean` | `false` | Show close button |
 | onClose | `() => void` | — | Close handler |
+| closeLabel | `string` | `'Close'` | Screen-reader label of the X button — pass the page language (e.g. `t('close')`) |
 | icon | `ReactNode` | auto | Custom icon (auto-selects by color) |
 | hideIcon | `boolean` | `false` | Hide icon |
 
@@ -1259,6 +1263,7 @@ toast.dismiss()      // Dismiss all
 | size | `'sm' \| 'default' \| 'lg'` | `'default'` | Toast size |
 | duration | `number` | `4000` | Auto-dismiss ms (0 = persistent) |
 | closeButton | `boolean` | `false` | Show close button |
+| closeLabel | `string` | `'Close'` | Screen-reader label of the X button — pass the page language (e.g. `t('close')`) |
 | richColors | `boolean` | `true` | Filled color backgrounds |
 | expand | `boolean` | `false` | Show all toasts expanded |
 | visibleToasts | `number` | `5` | Max visible at once |

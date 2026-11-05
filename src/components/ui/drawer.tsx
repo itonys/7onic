@@ -104,6 +104,8 @@ export interface DrawerContentProps
   showCloseButton?: boolean
   /** Custom close icon (replaces default X) */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
   children?: React.ReactNode
 }
 
@@ -117,7 +119,7 @@ const SIDE_POSITION: Record<DrawerSide, string> = {
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   DrawerContentProps
->(({ className, children, side = 'right', size = 'md', showCloseButton = true, closeIcon, ...props }, ref) => {
+>(({ className, children, side = 'right', size = 'md', showCloseButton = true, closeIcon, closeLabel = 'Close', ...props }, ref) => {
   const isHorizontal = side === 'left' || side === 'right'
   const sizeClass = isHorizontal
     ? drawerSizeHorizontal({ size })
@@ -149,7 +151,7 @@ const DrawerContent = React.forwardRef<
             'disabled:pointer-events-none'
           )}>
             {closeIcon || <DefaultCloseIcon className="icon-sm" />}
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{closeLabel}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Content>

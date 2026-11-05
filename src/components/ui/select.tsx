@@ -235,6 +235,20 @@ const SelectScrollDownButton = React.forwardRef<
 ))
 SelectScrollDownButton.displayName = SelectPrimitive.ScrollDownButton.displayName
 
+// Close focus: Radix returns focus to the trigger on close. Return it only when the menu was closed
+// from the keyboard — after a pointer close the programmatic focus would show a stray focus ring
+// (docs/decisions/RADIX-CLOSE-AUTOFOCUS.md). Tracks the last input type once per page.
+let lastInputWasKeyboard = false
+let inputTypeTrackerInstalled = false
+function useLastInputTypeTracker() {
+  React.useEffect(() => {
+    if (inputTypeTrackerInstalled) return
+    inputTypeTrackerInstalled = true
+    document.addEventListener('keydown', () => { lastInputWasKeyboard = true }, true)
+    document.addEventListener('pointerdown', () => { lastInputWasKeyboard = false }, true)
+  }, [])
+}
+
 // Content — the floating panel (reads size + radius from context, auto-maps both)
 const SelectContent = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Content>,
@@ -242,6 +256,7 @@ const SelectContent = React.forwardRef<
     flush?: boolean
   }
 >(({ className, children, position = 'popper', sideOffset = 1, flush = false, onCloseAutoFocus, ...props }, ref) => {
+  useLastInputTypeTracker()
   const { size, radius } = React.useContext(SelectRootContext)
   const itemSize = itemSizeFromTrigger[size]
   const contentRadius = contentRadiusFromRoot[radius]
@@ -251,7 +266,7 @@ const SelectContent = React.forwardRef<
         <SelectPrimitive.Content
           ref={ref}
           onCloseAutoFocus={(e) => {
-            e.preventDefault()
+            if (!lastInputWasKeyboard) e.preventDefault()
             onCloseAutoFocus?.(e)
           }}
           className={cn(

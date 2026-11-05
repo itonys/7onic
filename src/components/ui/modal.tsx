@@ -89,12 +89,14 @@ export interface ModalContentProps
   showCloseButton?: boolean
   /** Custom close icon (replaces default X) */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
 }
 
 const ModalContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
   ModalContentProps
->(({ className, children, size = 'sm', scrollBehavior = 'outside', showCloseButton = true, closeIcon, ...props }, ref) => {
+>(({ className, children, size = 'sm', scrollBehavior = 'outside', showCloseButton = true, closeIcon, closeLabel = 'Close', ...props }, ref) => {
   const isInside = scrollBehavior === 'inside'
   const isFull = size === 'full'
   const useInsideScroll = isInside || isFull
@@ -108,7 +110,7 @@ const ModalContent = React.forwardRef<
       'disabled:pointer-events-none'
     )}>
       {closeIcon || <DefaultCloseIcon className="icon-sm" />}
-      <span className="sr-only">Close</span>
+      <span className="sr-only">{closeLabel}</span>
     </DialogPrimitive.Close>
   )
 

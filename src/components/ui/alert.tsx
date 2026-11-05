@@ -174,6 +174,8 @@ export interface AlertRootProps
   onClose?: () => void
   /** Custom close icon */
   closeIcon?: React.ReactNode
+  /** Accessible label for the close button (screen readers) — localize per page */
+  closeLabel?: string
   /** Custom status icon (overrides default) */
   icon?: React.ReactNode
   /** Hide the status icon entirely */
@@ -190,6 +192,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertRootProps>(
     closable = false,
     onClose,
     closeIcon,
+    closeLabel = 'Close',
     icon,
     hideIcon = false,
     children,
@@ -236,7 +239,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertRootProps>(
                   : 'group-has-[[data-alert-description]]:top-3 group-has-[[data-alert-description]]:right-3',
               )}
               onClick={onClose}
-              aria-label="Close"
+              aria-label={closeLabel}
             >
               {closeIcon || <DefaultCloseIcon className="icon-sm" />}
             </button>

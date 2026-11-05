@@ -78,6 +78,8 @@ const segmentedItemVariants = cva(
           'hover:text-foreground',
           'data-[state=checked]:bg-background data-[state=checked]:text-foreground',
           'data-[state=checked]:shadow-sm',
+          // focus-ring and shadow-sm both set box-shadow; the extra pseudo-class makes the ring win on the selected item
+          'data-[state=checked]:focus-visible:focus-ring',
         ].join(' '),
         // Outline: gray background when selected
         outline: [

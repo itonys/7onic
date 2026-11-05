@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "2ceeace13ee43e0b4130dfb5ad5e7d140cc3e2f80e368bfd00d55121eab283c8",
+  "sourceHash": "6f1854a876c257b73fbdf9f38a3ec6b42d040cb38d9aa43814548771771109ef",
   "count": 41,
   "components": [
     {
@@ -3669,6 +3669,14 @@
           "default": "`true`",
           "description": "Show X button",
           "enumValues": null
+        },
+        {
+          "target": "Content",
+          "name": "closeLabel",
+          "type": "`string`",
+          "default": "`'Close'`",
+          "description": "Screen-reader label of the X button — pass the page language (e.g. `t('close')`)",
+          "enumValues": null
         }
       ],
       "variants": [
@@ -3879,6 +3887,14 @@
           "type": "`boolean`",
           "default": "`true`",
           "description": "Show X button",
+          "enumValues": null
+        },
+        {
+          "target": "Content",
+          "name": "closeLabel",
+          "type": "`string`",
+          "default": "`'Close'`",
+          "description": "Screen-reader label of the X button — pass the page language (e.g. `t('close')`)",
           "enumValues": null
         }
       ],
@@ -4149,6 +4165,14 @@
           "default": "`false`",
           "description": "Show X button",
           "enumValues": null
+        },
+        {
+          "target": "Content",
+          "name": "closeLabel",
+          "type": "`string`",
+          "default": "`'Close'`",
+          "description": "Screen-reader label of the X button — pass the page language (e.g. `t('close')`)",
+          "enumValues": null
         }
       ],
       "variants": [
@@ -4289,6 +4313,14 @@
         },
         {
           "target": "Root",
+          "name": "closeLabel",
+          "type": "`string`",
+          "default": "`'Close'`",
+          "description": "Screen-reader label of the X button — pass the page language (e.g. `t('close')`)",
+          "enumValues": null
+        },
+        {
+          "target": "Root",
           "name": "icon",
           "type": "`ReactNode`",
           "default": "auto",
@@ -4415,6 +4447,14 @@
           "type": "`boolean`",
           "default": "`false`",
           "description": "Show close button",
+          "enumValues": null
+        },
+        {
+          "target": "Toaster",
+          "name": "closeLabel",
+          "type": "`string`",
+          "default": "`'Close'`",
+          "description": "Screen-reader label of the X button — pass the page language (e.g. `t('close')`)",
           "enumValues": null
         },
         {

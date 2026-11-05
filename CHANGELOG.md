@@ -6,6 +6,21 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/react
+
+#### Added
+
+- **`closeLabel` on Alert, DrawerContent, ModalContent, PopoverContent and Toaster.** The built-in close (X) button was always announced as "Close" by screen readers, even on Japanese or Korean pages. Pass the page language, for example `closeLabel="閉じる"`. The default stays `'Close'`.
+
+#### Fixed
+
+- **DropdownMenu and Select return focus to the trigger after a keyboard close.** Closing with Escape, Enter or Space left focus on the page body, so the next Tab started from the top of the page. Focus now returns to the trigger and shows the focus ring. After a mouse close, nothing changes: focus is not moved and no ring appears.
+- **Segmented shows the focus ring on the selected item.** The selected item's shadow replaced the keyboard focus ring. The ring now shows while the selected item has keyboard focus.
+
+---
+
 ## [0.3.15] — 2026-11-02
 
 ### @7onic-ui/react
