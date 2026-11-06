@@ -67,8 +67,8 @@ const groupNegativeMargins = {
 
 // Colorized fallback palette (12 colors × 2 variants) — exception 13 in TOKEN-EXCEPTIONS.md
 const avatarColors = [
-  { vivid: { bg: 'bg-[#DC2626]', text: 'text-white' }, soft: { bg: 'bg-[#FEE2E2]', text: 'text-[#DC2626]' } },  // red
-  { vivid: { bg: 'bg-[#EA580C]', text: 'text-white' }, soft: { bg: 'bg-[#FFEDD5]', text: 'text-[#EA580C]' } },  // orange
+  { vivid: { bg: 'bg-[#DC2626]', text: 'text-white' }, soft: { bg: 'bg-[#FEE2E2]', text: 'text-[#B91C1C]' } },  // red
+  { vivid: { bg: 'bg-[#EA580C]', text: 'text-white' }, soft: { bg: 'bg-[#FFEDD5]', text: 'text-[#C2410C]' } },  // orange
   { vivid: { bg: 'bg-[#D97706]', text: 'text-white' }, soft: { bg: 'bg-[#FEF3C7]', text: 'text-[#B45309]' } },  // amber
   { vivid: { bg: 'bg-[#CA8A04]', text: 'text-white' }, soft: { bg: 'bg-[#FEF9C3]', text: 'text-[#A16207]' } },  // yellow
   { vivid: { bg: 'bg-[#059669]', text: 'text-white' }, soft: { bg: 'bg-[#D1FAE5]', text: 'text-[#047857]' } },  // emerald

@@ -4,6 +4,18 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.27] — 2026-11-06
+
+### 7onic
+
+#### Added
+
+- **`add chat-message` and `add metric-card` copy the new label props.** The registry sources include `statusLabels` on ChatMessageFooter and `srLabel` on MetricCardTrend (same as `@7onic-ui/react`).
+
+#### Fixed
+
+- **`add dropdown` and `add avatar` copy the latest fixes.** A closing animation added to DropdownMenuContent with `className` now plays, and the soft red and orange AvatarFallback text reaches 4.5:1 contrast (same as `@7onic-ui/react`).
+
 ## [0.1.26] — 2026-11-06
 
 ### 7onic

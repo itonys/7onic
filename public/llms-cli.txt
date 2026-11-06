@@ -1661,6 +1661,7 @@ import { MetricCard, MetricCardDescription, MetricCardHeader, MetricCardSymbol, 
 | Prop (Trend) | Type | Default | Description |
 |---|---|---|---|
 | direction | `'up' \| 'down' \| 'neutral'` | — | Trend arrow + color |
+| srLabel | `string` | `'Increased'` / `'Decreased'` / `'No change'` | Screen reader text for the trend — localize per page |
 
 **Sub-components:** MetricCardHeader, MetricCardTitle, MetricCardValue, MetricCardTrend, MetricCardDescription, MetricCardSymbol
 
@@ -1921,6 +1922,7 @@ import { ChatMessage, ChatMessageAvatar, ChatMessageContent, ChatMessageFooter }
 |---|---|---|---|
 | timestamp | `string` | — | Pre-formatted time string |
 | status | `'sending' \| 'sent' \| 'read' \| 'error' \| ReactNode` | — | Delivery status (built-in presets or custom node) |
+| statusLabels | `Partial<Record<'sending' \| 'sent' \| 'read' \| 'error', string>>` | — | Text for the built-in presets — localize per page (unset keys keep "Sending..." / "Sent" / "Read" / "Failed") |
 | size | `'sm' \| 'default' \| 'lg'` | — | Size override (defaults to context value from root) |
 
 ---

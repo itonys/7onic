@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "6f1854a876c257b73fbdf9f38a3ec6b42d040cb38d9aa43814548771771109ef",
+  "sourceHash": "dff0389abbfdbd9316dd19826adfd4a48d0a11abe52c14646f9397b27bb88f2f",
   "rules": {
     "corePrinciple": "**Token values are user-defined.** Every project has different brand colors and design decisions. The token NAMES are the API — never assume or hardcode specific values.",
     "whitelist": [

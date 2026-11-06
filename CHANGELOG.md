@@ -6,6 +6,22 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.18] — 2026-11-06
+
+### @7onic-ui/react
+
+#### Added
+
+- **`statusLabels` on ChatMessageFooter.** The built-in statuses always showed "Sending...", "Sent", "Read" and "Failed" in English. Pass the page language, for example `statusLabels={{ sent: '送信済み', read: '既読' }}`. Keys you leave out keep the English text, and the built-in colors still apply.
+- **`srLabel` on MetricCardTrend.** Screen readers always heard "Increased", "Decreased" or "No change" in English. Pass the page language, for example `srLabel="増加"`. Without it, the English text for each direction stays.
+
+#### Fixed
+
+- **A closing animation on DropdownMenuContent now plays.** A context provider sat between the menu portal and the content, so Radix could not see the content element and removed the menu at once on close. An animation you add with `className` (for example on `data-[state=closed]`) now runs before the menu is removed. The menu still has no animation of its own.
+- **AvatarFallback `colorVariant="soft"` text is easier to read in red and orange.** Two of the twelve colors were below the 4.5:1 contrast ratio on their pastel background (orange 3.11, red 3.95). The text is now one step darker: orange `#C2410C` (4.52) and red `#B91C1C` (5.30). The color each name gets does not change.
+
+---
+
 ## [0.3.17] — 2026-11-06
 
 ### @7onic-ui/react

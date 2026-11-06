@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "6f1854a876c257b73fbdf9f38a3ec6b42d040cb38d9aa43814548771771109ef",
+  "sourceHash": "dff0389abbfdbd9316dd19826adfd4a48d0a11abe52c14646f9397b27bb88f2f",
   "count": 41,
   "components": [
     {
@@ -5976,6 +5976,14 @@
             "down",
             "neutral"
           ]
+        },
+        {
+          "target": "Trend",
+          "name": "srLabel",
+          "type": "`string`",
+          "default": "`'Increased'` / `'Decreased'` / `'No change'`",
+          "description": "Screen reader text for the trend — localize per page",
+          "enumValues": null
         }
       ],
       "variants": [
@@ -6797,6 +6805,14 @@
           "type": "`'sending' \\| 'sent' \\| 'read' \\| 'error' \\| ReactNode`",
           "default": "—",
           "description": "Delivery status (built-in presets or custom node)",
+          "enumValues": null
+        },
+        {
+          "target": "ChatMessage.Footer",
+          "name": "statusLabels",
+          "type": "`Partial<Record<'sending' \\| 'sent' \\| 'read' \\| 'error', string>>`",
+          "default": "—",
+          "description": "Text for the built-in presets — localize per page (unset keys keep \"Sending...\" / \"Sent\" / \"Read\" / \"Failed\")",
           "enumValues": null
         },
         {

@@ -138,9 +138,11 @@ const DropdownMenuContent = React.forwardRef<
 >(({ className, sideOffset = 4, radius = 'md', flush = false, size = 'md', onCloseAutoFocus, ...props }, ref) => {
   useLastInputTypeTracker()
   const triggerRef = React.useContext(DropdownMenuTriggerRefContext)
+  // The Provider sits outside the Portal: Radix Presence reads the Portal's direct child DOM node to wait for
+  // a closing animation, and a Context Provider in that slot has no node, so the menu unmounted instantly
   return (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuStyleContext.Provider value={{ radius, flush, size }}>
+  <DropdownMenuStyleContext.Provider value={{ radius, flush, size }}>
+    <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content
         ref={ref}
         sideOffset={sideOffset}
@@ -159,8 +161,8 @@ const DropdownMenuContent = React.forwardRef<
         )}
         {...props}
       />
-    </DropdownMenuStyleContext.Provider>
-  </DropdownMenuPrimitive.Portal>
+    </DropdownMenuPrimitive.Portal>
+  </DropdownMenuStyleContext.Provider>
   )
 })
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName

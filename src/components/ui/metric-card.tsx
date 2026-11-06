@@ -187,10 +187,12 @@ MetricCardValue.displayName = 'MetricCardValue'
 
 export interface MetricCardTrendProps extends React.HTMLAttributes<HTMLParagraphElement> {
   direction: MetricCardTrendDirection
+  /** Screen reader text for the trend direction — localize per page (defaults: "Increased" · "Decreased" · "No change") */
+  srLabel?: string
 }
 
 const MetricCardTrend = React.forwardRef<HTMLParagraphElement, MetricCardTrendProps>(
-  ({ className, direction, children, ...props }, ref) => {
+  ({ className, direction, srLabel, children, ...props }, ref) => {
     const config = trendConfig[direction]
     return (
       <p
@@ -213,7 +215,7 @@ const MetricCardTrend = React.forwardRef<HTMLParagraphElement, MetricCardTrendPr
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
           </svg>
         )}
-        <span className="sr-only">{config.srLabel}</span>
+        <span className="sr-only">{srLabel ?? config.srLabel}</span>
         {children}
       </p>
     )

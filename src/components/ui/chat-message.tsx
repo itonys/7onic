@@ -214,6 +214,8 @@ export interface ChatMessageFooterProps extends React.HTMLAttributes<HTMLDivElem
   timestamp?: string
   /** Status: built-in preset ('sending' | 'sent' | 'read' | 'error') or custom ReactNode */
   status?: React.ReactNode
+  /** Text for the built-in status presets — localize per page (defaults: "Sending..." · "Sent" · "Read" · "Failed") */
+  statusLabels?: Partial<Record<ChatMessageStatus, string>>
   /** Size override (defaults to context value from ChatMessage root) */
   size?: ChatMessageSize
 }
@@ -375,6 +377,7 @@ const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProp
       className,
       timestamp,
       status,
+      statusLabels,
       role: roleProp,
       size: sizeProp,
       children,
@@ -392,10 +395,10 @@ const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProp
       if (status == null) return null
       if (typeof status === 'string' && status in builtInStatusLabels) {
         const { label, className: cls } = builtInStatusLabels[status]
-        return <span className={cls}>{label}</span>
+        return <span className={cls}>{statusLabels?.[status as ChatMessageStatus] ?? label}</span>
       }
       return status
-    }, [status])
+    }, [status, statusLabels])
 
     return (
       <div

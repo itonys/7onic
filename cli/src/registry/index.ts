@@ -654,8 +654,8 @@ const groupNegativeMargins = {
 
 // Colorized fallback palette (12 colors × 2 variants) — exception 13 in TOKEN-EXCEPTIONS.md
 const avatarColors = [
-  { vivid: { bg: 'bg-[#DC2626]', text: 'text-white' }, soft: { bg: 'bg-[#FEE2E2]', text: 'text-[#DC2626]' } },  // red
-  { vivid: { bg: 'bg-[#EA580C]', text: 'text-white' }, soft: { bg: 'bg-[#FFEDD5]', text: 'text-[#EA580C]' } },  // orange
+  { vivid: { bg: 'bg-[#DC2626]', text: 'text-white' }, soft: { bg: 'bg-[#FEE2E2]', text: 'text-[#B91C1C]' } },  // red
+  { vivid: { bg: 'bg-[#EA580C]', text: 'text-white' }, soft: { bg: 'bg-[#FFEDD5]', text: 'text-[#C2410C]' } },  // orange
   { vivid: { bg: 'bg-[#D97706]', text: 'text-white' }, soft: { bg: 'bg-[#FEF3C7]', text: 'text-[#B45309]' } },  // amber
   { vivid: { bg: 'bg-[#CA8A04]', text: 'text-white' }, soft: { bg: 'bg-[#FEF9C3]', text: 'text-[#A16207]' } },  // yellow
   { vivid: { bg: 'bg-[#059669]', text: 'text-white' }, soft: { bg: 'bg-[#D1FAE5]', text: 'text-[#047857]' } },  // emerald
@@ -3763,6 +3763,8 @@ export interface ChatMessageFooterProps extends React.HTMLAttributes<HTMLDivElem
   timestamp?: string
   /** Status: built-in preset ('sending' | 'sent' | 'read' | 'error') or custom ReactNode */
   status?: React.ReactNode
+  /** Text for the built-in status presets — localize per page (defaults: "Sending..." · "Sent" · "Read" · "Failed") */
+  statusLabels?: Partial<Record<ChatMessageStatus, string>>
   /** Size override (defaults to context value from ChatMessage root) */
   size?: ChatMessageSize
 }
@@ -3924,6 +3926,7 @@ const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProp
       className,
       timestamp,
       status,
+      statusLabels,
       role: roleProp,
       size: sizeProp,
       children,
@@ -3941,10 +3944,10 @@ const ChatMessageFooter = React.forwardRef<HTMLDivElement, ChatMessageFooterProp
       if (status == null) return null
       if (typeof status === 'string' && status in builtInStatusLabels) {
         const { label, className: cls } = builtInStatusLabels[status]
-        return <span className={cls}>{label}</span>
+        return <span className={cls}>{statusLabels?.[status as ChatMessageStatus] ?? label}</span>
       }
       return status
-    }, [status])
+    }, [status, statusLabels])
 
     return (
       <div
@@ -4722,9 +4725,11 @@ const DropdownMenuContent = React.forwardRef<
 >(({ className, sideOffset = 4, radius = 'md', flush = false, size = 'md', onCloseAutoFocus, ...props }, ref) => {
   useLastInputTypeTracker()
   const triggerRef = React.useContext(DropdownMenuTriggerRefContext)
+  // The Provider sits outside the Portal: Radix Presence reads the Portal's direct child DOM node to wait for
+  // a closing animation, and a Context Provider in that slot has no node, so the menu unmounted instantly
   return (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuStyleContext.Provider value={{ radius, flush, size }}>
+  <DropdownMenuStyleContext.Provider value={{ radius, flush, size }}>
+    <DropdownMenuPrimitive.Portal>
       <DropdownMenuPrimitive.Content
         ref={ref}
         sideOffset={sideOffset}
@@ -4743,8 +4748,8 @@ const DropdownMenuContent = React.forwardRef<
         )}
         {...props}
       />
-    </DropdownMenuStyleContext.Provider>
-  </DropdownMenuPrimitive.Portal>
+    </DropdownMenuPrimitive.Portal>
+  </DropdownMenuStyleContext.Provider>
   )
 })
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
@@ -5777,10 +5782,12 @@ MetricCardValue.displayName = 'MetricCardValue'
 
 export interface MetricCardTrendProps extends React.HTMLAttributes<HTMLParagraphElement> {
   direction: MetricCardTrendDirection
+  /** Screen reader text for the trend direction — localize per page (defaults: "Increased" · "Decreased" · "No change") */
+  srLabel?: string
 }
 
 const MetricCardTrend = React.forwardRef<HTMLParagraphElement, MetricCardTrendProps>(
-  ({ className, direction, children, ...props }, ref) => {
+  ({ className, direction, srLabel, children, ...props }, ref) => {
     const config = trendConfig[direction]
     return (
       <p
@@ -5803,7 +5810,7 @@ const MetricCardTrend = React.forwardRef<HTMLParagraphElement, MetricCardTrendPr
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
           </svg>
         )}
-        <span className="sr-only">{config.srLabel}</span>
+        <span className="sr-only">{srLabel ?? config.srLabel}</span>
         {children}
       </p>
     )
