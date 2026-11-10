@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.28] — 2026-11-10
+
+### 7onic
+
+#### Fixed
+
+- **`add skeleton` and `add typing-indicator` copy the reduced-motion fixes.** The registry sources hide the Skeleton wave shimmer and stop the TypingIndicator dots under `prefers-reduced-motion: reduce` (same as `@7onic-ui/react` 0.3.19). The animations themselves are switched off by `@7onic-ui/tokens` 0.3.19 — update the tokens package too.
+
 ## [0.1.27] — 2026-11-06
 
 ### 7onic

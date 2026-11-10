@@ -18468,7 +18468,7 @@ const SkeletonBlock = React.forwardRef<HTMLDivElement, Omit<SkeletonProps, 'coun
       >
         {animation === 'wave' && (
           <div
-            className="absolute inset-0 animate-skeleton-wave"
+            className="absolute inset-0 animate-skeleton-wave motion-reduce:hidden"
             style={{
               animationDuration: \`\${WAVE_DURATION_MS}ms\`,
               background: \`linear-gradient(90deg, \${WAVE_GRADIENT})\`,
@@ -21690,7 +21690,7 @@ function DotsIndicator({
         <div
           key={i}
           className={cn(
-            'rounded-full animate-spinner-dot motion-reduce:animate-none motion-reduce:opacity-60',
+            'rounded-full animate-spinner-dot motion-reduce:!animate-none motion-reduce:opacity-60',
             bgColorMap[color]
           )}
           style={{
@@ -21732,7 +21732,7 @@ function CursorIndicator({
     <div
       aria-hidden="true"
       className={cn(
-        'rounded-full animate-typing-cursor motion-reduce:animate-none motion-reduce:opacity-60',
+        'rounded-full animate-typing-cursor motion-reduce:!animate-none motion-reduce:opacity-60',
         bgColorMap[color]
       )}
       style={{ width, height, animationDuration: '1200ms' }}
@@ -22125,7 +22125,7 @@ function showCompanionHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.27";
+var VERSION = "0.1.28";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

@@ -136,7 +136,7 @@ function DotsIndicator({
         <div
           key={i}
           className={cn(
-            'rounded-full animate-spinner-dot motion-reduce:animate-none motion-reduce:opacity-60',
+            'rounded-full animate-spinner-dot motion-reduce:!animate-none motion-reduce:opacity-60',
             bgColorMap[color]
           )}
           style={{
@@ -178,7 +178,7 @@ function CursorIndicator({
     <div
       aria-hidden="true"
       className={cn(
-        'rounded-full animate-typing-cursor motion-reduce:animate-none motion-reduce:opacity-60',
+        'rounded-full animate-typing-cursor motion-reduce:!animate-none motion-reduce:opacity-60',
         bgColorMap[color]
       )}
       style={{ width, height, animationDuration: '1200ms' }}

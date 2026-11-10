@@ -669,6 +669,20 @@ interface AnimationToken {
 }
 
 /**
+ * Animation types that keep running under `prefers-reduced-motion: reduce`.
+ * Loading indicators carry meaning — a stopped spinner reads as "frozen", not "loading".
+ * Every other animation (enter/exit transitions, decorative loops) is turned off.
+ */
+const REDUCED_MOTION_KEEP_TYPES = new Set<AnimationToken['type']>([
+  'spin', 'spinner-orbit', 'spinner-dot', 'spinner-bar', 'spinner-morph',
+])
+
+/** Animations to turn off when the user asks for reduced motion */
+function reducedMotionTargets(anims: AnimationToken[]): AnimationToken[] {
+  return anims.filter(a => !REDUCED_MOTION_KEEP_TYPES.has(a.type))
+}
+
+/**
  * Read semantic.animation composites from figma-tokens.json.
  * All animations are generated as named: @keyframes {name} + .animate-{name}
  * No composable system — token name maps 1:1 to CSS class name.
@@ -1336,6 +1350,27 @@ function generateVariablesCss(tokens: FigmaTokens): string {
     lines.push(``)
     for (const a of animTokens) {
       lines.push(generateAnimationCss(a, 'css'))
+      lines.push(``)
+    }
+
+    // Reduced motion for the plain classes below. Variant classes such as
+    // `data-[state=open]:animate-{name}` never match these selectors — the v3 preset and the v4
+    // utilities carry their own reduced-motion rule for that. The `html` prefix outranks the v3
+    // preset utility whatever the import order; in v4 an unlayered rule outranks the utilities layer.
+    const reduced = reducedMotionTargets(animTokens)
+    if (reduced.length > 0) {
+      lines.push(`/* ========================================`)
+      lines.push(`   Reduced Motion`)
+      lines.push(`   Turns component animations off when the user`)
+      lines.push(`   asks for reduced motion. Loading indicators`)
+      lines.push(`   (spin, spinner-*) keep running.`)
+      lines.push(`   ======================================== */`)
+      lines.push(``)
+      lines.push(`@media (prefers-reduced-motion: reduce) {`)
+      lines.push(reduced.map(a => `  html .animate-${a.name}`).join(',\n') + ` {`)
+      lines.push(`    animation: none;`)
+      lines.push(`  }`)
+      lines.push(`}`)
       lines.push(``)
     }
   }
@@ -2729,6 +2764,18 @@ function generateV3Preset(tokens: FigmaTokens): string {
       lines.push(`        '.animate-${a.name}': { 'animation': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}' },`)
     }
     lines.push(`      })`)
+    // Reduced motion — a second rule per utility, so every variant of the class
+    // (`data-[state=open]:animate-{name}` etc.) is switched off too
+    const v3Reduced = reducedMotionTargets(v3Anim)
+    if (v3Reduced.length > 0) {
+      lines.push(`      addUtilities({`)
+      lines.push(`        '@media (prefers-reduced-motion: reduce)': {`)
+      for (const a of v3Reduced) {
+        lines.push(`          '.animate-${a.name}': { 'animation': 'none' },`)
+      }
+      lines.push(`        },`)
+      lines.push(`      })`)
+    }
     lines.push(`    },`)
   }
   // Layout padding utilities removed (layout spacing is a design guideline, not a token)
@@ -3123,7 +3170,12 @@ function generateV4Theme(tokens: FigmaTokens): string {
     lines.push(`   ============================================= */`)
     lines.push(``)
     for (const a of v4Anim) {
-      lines.push(generateAnimationCss(a, 'v4'))
+      const css = generateAnimationCss(a, 'v4')
+      // Reduced motion — nested in the utility, so every variant of the class
+      // (`data-[state=open]:animate-{name}` etc.) is switched off too
+      lines.push(REDUCED_MOTION_KEEP_TYPES.has(a.type)
+        ? css
+        : css.replace(/\n\}$/, `\n  @media (prefers-reduced-motion: reduce) {\n    animation: none;\n  }\n}`))
       lines.push(``)
     }
   }

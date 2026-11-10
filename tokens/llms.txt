@@ -354,6 +354,10 @@ Shadows automatically adapt between light and dark themes.
 - `ease-ease-out` — slow end
 - `ease-ease-in-out` — slow start and end
 
+## Reduced Motion
+
+`variables.css` turns the `animate-*` classes off under `prefers-reduced-motion: reduce`. `animate-spin` and `animate-spinner-*` keep running (loading indicators).
+
 ## Opacity
 
 21-step scale: `opacity-0`, `opacity-5`, `opacity-10` ... `opacity-95`, `opacity-100`

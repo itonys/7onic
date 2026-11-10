@@ -371,6 +371,16 @@ var KNOWN_ORDERS = {
   typographyCategories: ["heading", "body", "label"],
   typographyOrders: { heading: ["1", "2", "3", "4", "5", "6"], body: ["lg", "default", "md", "sm", "xs", "2xs"], label: ["lg", "md", "default", "sm", "xs"] }
 };
+var REDUCED_MOTION_KEEP_TYPES = /* @__PURE__ */ new Set([
+  "spin",
+  "spinner-orbit",
+  "spinner-dot",
+  "spinner-bar",
+  "spinner-morph"
+]);
+function reducedMotionTargets(anims) {
+  return anims.filter((a) => !REDUCED_MOTION_KEEP_TYPES.has(a.type));
+}
 function readAnimationTokens(tokens) {
   const sem = tokens.semantic;
   const animation = sem?.animation;
@@ -915,6 +925,22 @@ function generateVariablesCss(tokens) {
     lines.push(``);
     for (const a of animTokens) {
       lines.push(generateAnimationCss(a, "css"));
+      lines.push(``);
+    }
+    const reduced = reducedMotionTargets(animTokens);
+    if (reduced.length > 0) {
+      lines.push(`/* ========================================`);
+      lines.push(`   Reduced Motion`);
+      lines.push(`   Turns component animations off when the user`);
+      lines.push(`   asks for reduced motion. Loading indicators`);
+      lines.push(`   (spin, spinner-*) keep running.`);
+      lines.push(`   ======================================== */`);
+      lines.push(``);
+      lines.push(`@media (prefers-reduced-motion: reduce) {`);
+      lines.push(reduced.map((a) => `  html .animate-${a.name}`).join(",\n") + ` {`);
+      lines.push(`    animation: none;`);
+      lines.push(`  }`);
+      lines.push(`}`);
       lines.push(``);
     }
   }
@@ -2091,6 +2117,16 @@ function generateV3Preset(tokens) {
       lines.push(`        '.animate-${a.name}': { 'animation': '${a.name} ${a.durationVar} ${a.easingVar}${infinite}' },`);
     }
     lines.push(`      })`);
+    const v3Reduced = reducedMotionTargets(v3Anim);
+    if (v3Reduced.length > 0) {
+      lines.push(`      addUtilities({`);
+      lines.push(`        '@media (prefers-reduced-motion: reduce)': {`);
+      for (const a of v3Reduced) {
+        lines.push(`          '.animate-${a.name}': { 'animation': 'none' },`);
+      }
+      lines.push(`        },`);
+      lines.push(`      })`);
+    }
     lines.push(`    },`);
   }
   lines.push(`  ],`);
@@ -2398,7 +2434,12 @@ function generateV4Theme(tokens) {
     lines.push(`   ============================================= */`);
     lines.push(``);
     for (const a of v4Anim) {
-      lines.push(generateAnimationCss(a, "v4"));
+      const css = generateAnimationCss(a, "v4");
+      lines.push(REDUCED_MOTION_KEEP_TYPES.has(a.type) ? css : css.replace(/\n\}$/, `
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}`));
       lines.push(``);
     }
   }

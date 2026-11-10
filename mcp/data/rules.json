@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "dff0389abbfdbd9316dd19826adfd4a48d0a11abe52c14646f9397b27bb88f2f",
+  "sourceHash": "d4e0e42a57066ba5d08ac510681cebdcb8edda4655467f9ee4626272553db93f",
   "rules": {
     "corePrinciple": "**Token values are user-defined.** Every project has different brand colors and design decisions. The token NAMES are the API — never assume or hardcode specific values.",
     "whitelist": [
@@ -175,6 +175,10 @@
       {
         "title": "Dark Mode Toggle Implementation",
         "body": "Strategy: `dark` class on `<html>` element.\n\n**Required behavior:**\n1. Toggle adds/removes `dark` class on `<html>`\n2. Persist choice to localStorage (key: `\"theme\"`)\n3. On page load: check localStorage first → fallback to system preference\n4. System preference: `window.matchMedia('(prefers-color-scheme: dark)')`\n\n**Three states:** `'light'` | `'dark'` | `'system'`\n\n**Minimal logic:**\n- Read: `localStorage.getItem('theme') || 'system'`\n- Apply: `document.documentElement.classList.toggle('dark', isDark)`\n- Save: `localStorage.setItem('theme', newTheme)`\n\n**Add a toggle button in the header** that cycles through light → dark → system (or light ↔ dark).\n\n---"
+      },
+      {
+        "title": "Reduced Motion — Automatic",
+        "body": "Component animations turn off on their own when the user's OS asks for reduced motion (`prefers-reduced-motion: reduce`). Do not add `motion-reduce:` classes to 7onic components.\n\n- **Turned off** — enter/exit animations (Modal, Drawer, Popover, Tooltip, Toast, Accordion, NavigationMenu, Checkbox, RadioGroup), Skeleton pulse/wave, Progress stripes, the TypingIndicator dots and cursor. The final state shows at once.\n- **Kept running** — Spinner and loading states (`animate-spin`, `animate-spinner-*`). A stopped spinner reads as \"frozen\", not \"loading\".\n\n---"
       },
       {
         "title": "Token Reference (Quick)",

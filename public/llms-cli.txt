@@ -329,6 +329,15 @@ Strategy: `dark` class on `<html>` element.
 
 ---
 
+## Reduced Motion — Automatic
+
+Component animations turn off on their own when the user's OS asks for reduced motion (`prefers-reduced-motion: reduce`). Do not add `motion-reduce:` classes to 7onic components.
+
+- **Turned off** — enter/exit animations (Modal, Drawer, Popover, Tooltip, Toast, Accordion, NavigationMenu, Checkbox, RadioGroup), Skeleton pulse/wave, Progress stripes, the TypingIndicator dots and cursor. The final state shows at once.
+- **Kept running** — Spinner and loading states (`animate-spin`, `animate-spinner-*`). A stopped spinner reads as "frozen", not "loading".
+
+---
+
 ## Token Reference (Quick)
 
 > Token values depend on the user's project configuration. Never assume specific hex values.

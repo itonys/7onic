@@ -955,6 +955,68 @@
 }
 
 /* ========================================
+   Reduced Motion
+   Turns component animations off when the user
+   asks for reduced motion. Loading indicators
+   (spin, spinner-*) keep running.
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html .animate-checkbox-enter,
+  html .animate-radio-enter,
+  html .animate-fade-in,
+  html .animate-fade-out,
+  html .animate-modal-overlay-enter,
+  html .animate-modal-overlay-exit,
+  html .animate-modal-content-enter,
+  html .animate-modal-content-exit,
+  html .animate-nav-viewport-enter,
+  html .animate-nav-viewport-exit,
+  html .animate-accordion-down,
+  html .animate-accordion-up,
+  html .animate-collapsible-down,
+  html .animate-collapsible-up,
+  html .animate-drawer-right-enter,
+  html .animate-drawer-right-exit,
+  html .animate-drawer-left-enter,
+  html .animate-drawer-left-exit,
+  html .animate-drawer-top-enter,
+  html .animate-drawer-top-exit,
+  html .animate-drawer-bottom-enter,
+  html .animate-drawer-bottom-exit,
+  html .animate-tooltip-top-enter,
+  html .animate-tooltip-top-exit,
+  html .animate-tooltip-bottom-enter,
+  html .animate-tooltip-bottom-exit,
+  html .animate-tooltip-right-enter,
+  html .animate-tooltip-right-exit,
+  html .animate-tooltip-left-enter,
+  html .animate-tooltip-left-exit,
+  html .animate-popover-top-enter,
+  html .animate-popover-top-exit,
+  html .animate-popover-bottom-enter,
+  html .animate-popover-bottom-exit,
+  html .animate-popover-right-enter,
+  html .animate-popover-right-exit,
+  html .animate-popover-left-enter,
+  html .animate-popover-left-exit,
+  html .animate-toast-slide-in-right,
+  html .animate-toast-slide-out-right,
+  html .animate-toast-slide-in-left,
+  html .animate-toast-slide-out-left,
+  html .animate-toast-slide-in-top,
+  html .animate-toast-slide-out-top,
+  html .animate-toast-slide-in-bottom,
+  html .animate-toast-slide-out-bottom,
+  html .animate-progress-stripe,
+  html .animate-skeleton-pulse,
+  html .animate-skeleton-wave,
+  html .animate-typing-cursor {
+    animation: none;
+  }
+}
+
+/* ========================================
    Framework Compat Aliases
    Maps Next.js / Tailwind v4 convention
    (--background, --foreground) to our tokens.

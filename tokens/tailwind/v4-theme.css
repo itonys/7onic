@@ -462,6 +462,9 @@
 }
 @utility animate-checkbox-enter {
   animation: checkbox-enter var(--duration-micro) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes radio-enter {
@@ -470,6 +473,9 @@
 }
 @utility animate-radio-enter {
   animation: radio-enter var(--duration-micro) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes fade-in {
@@ -478,6 +484,9 @@
 }
 @utility animate-fade-in {
   animation: fade-in var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes fade-out {
@@ -486,6 +495,9 @@
 }
 @utility animate-fade-out {
   animation: fade-out var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes modal-overlay-enter {
@@ -494,6 +506,9 @@
 }
 @utility animate-modal-overlay-enter {
   animation: modal-overlay-enter var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes modal-overlay-exit {
@@ -502,6 +517,9 @@
 }
 @utility animate-modal-overlay-exit {
   animation: modal-overlay-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes modal-content-enter {
@@ -510,6 +528,9 @@
 }
 @utility animate-modal-content-enter {
   animation: modal-content-enter var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes modal-content-exit {
@@ -518,6 +539,9 @@
 }
 @utility animate-modal-content-exit {
   animation: modal-content-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes nav-viewport-enter {
@@ -526,6 +550,9 @@
 }
 @utility animate-nav-viewport-enter {
   animation: nav-viewport-enter var(--duration-micro) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes nav-viewport-exit {
@@ -534,6 +561,9 @@
 }
 @utility animate-nav-viewport-exit {
   animation: nav-viewport-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes accordion-down {
@@ -542,6 +572,9 @@
 }
 @utility animate-accordion-down {
   animation: accordion-down var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes accordion-up {
@@ -550,6 +583,9 @@
 }
 @utility animate-accordion-up {
   animation: accordion-up var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes collapsible-down {
@@ -558,6 +594,9 @@
 }
 @utility animate-collapsible-down {
   animation: collapsible-down var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes collapsible-up {
@@ -566,6 +605,9 @@
 }
 @utility animate-collapsible-up {
   animation: collapsible-up var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-right-enter {
@@ -574,6 +616,9 @@
 }
 @utility animate-drawer-right-enter {
   animation: drawer-right-enter var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-right-exit {
@@ -582,6 +627,9 @@
 }
 @utility animate-drawer-right-exit {
   animation: drawer-right-exit var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-left-enter {
@@ -590,6 +638,9 @@
 }
 @utility animate-drawer-left-enter {
   animation: drawer-left-enter var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-left-exit {
@@ -598,6 +649,9 @@
 }
 @utility animate-drawer-left-exit {
   animation: drawer-left-exit var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-top-enter {
@@ -606,6 +660,9 @@
 }
 @utility animate-drawer-top-enter {
   animation: drawer-top-enter var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-top-exit {
@@ -614,6 +671,9 @@
 }
 @utility animate-drawer-top-exit {
   animation: drawer-top-exit var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-bottom-enter {
@@ -622,6 +682,9 @@
 }
 @utility animate-drawer-bottom-enter {
   animation: drawer-bottom-enter var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes drawer-bottom-exit {
@@ -630,6 +693,9 @@
 }
 @utility animate-drawer-bottom-exit {
   animation: drawer-bottom-exit var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-top-enter {
@@ -638,6 +704,9 @@
 }
 @utility animate-tooltip-top-enter {
   animation: tooltip-top-enter var(--duration-micro) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-top-exit {
@@ -646,6 +715,9 @@
 }
 @utility animate-tooltip-top-exit {
   animation: tooltip-top-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-bottom-enter {
@@ -654,6 +726,9 @@
 }
 @utility animate-tooltip-bottom-enter {
   animation: tooltip-bottom-enter var(--duration-micro) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-bottom-exit {
@@ -662,6 +737,9 @@
 }
 @utility animate-tooltip-bottom-exit {
   animation: tooltip-bottom-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-right-enter {
@@ -670,6 +748,9 @@
 }
 @utility animate-tooltip-right-enter {
   animation: tooltip-right-enter var(--duration-micro) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-right-exit {
@@ -678,6 +759,9 @@
 }
 @utility animate-tooltip-right-exit {
   animation: tooltip-right-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-left-enter {
@@ -686,6 +770,9 @@
 }
 @utility animate-tooltip-left-enter {
   animation: tooltip-left-enter var(--duration-micro) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes tooltip-left-exit {
@@ -694,6 +781,9 @@
 }
 @utility animate-tooltip-left-exit {
   animation: tooltip-left-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-top-enter {
@@ -702,6 +792,9 @@
 }
 @utility animate-popover-top-enter {
   animation: popover-top-enter var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-top-exit {
@@ -710,6 +803,9 @@
 }
 @utility animate-popover-top-exit {
   animation: popover-top-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-bottom-enter {
@@ -718,6 +814,9 @@
 }
 @utility animate-popover-bottom-enter {
   animation: popover-bottom-enter var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-bottom-exit {
@@ -726,6 +825,9 @@
 }
 @utility animate-popover-bottom-exit {
   animation: popover-bottom-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-right-enter {
@@ -734,6 +836,9 @@
 }
 @utility animate-popover-right-enter {
   animation: popover-right-enter var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-right-exit {
@@ -742,6 +847,9 @@
 }
 @utility animate-popover-right-exit {
   animation: popover-right-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-left-enter {
@@ -750,6 +858,9 @@
 }
 @utility animate-popover-left-enter {
   animation: popover-left-enter var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes popover-left-exit {
@@ -758,6 +869,9 @@
 }
 @utility animate-popover-left-exit {
   animation: popover-left-exit var(--duration-fast) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-in-right {
@@ -766,6 +880,9 @@
 }
 @utility animate-toast-slide-in-right {
   animation: toast-slide-in-right var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-out-right {
@@ -774,6 +891,9 @@
 }
 @utility animate-toast-slide-out-right {
   animation: toast-slide-out-right var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-in-left {
@@ -782,6 +902,9 @@
 }
 @utility animate-toast-slide-in-left {
   animation: toast-slide-in-left var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-out-left {
@@ -790,6 +913,9 @@
 }
 @utility animate-toast-slide-out-left {
   animation: toast-slide-out-left var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-in-top {
@@ -798,6 +924,9 @@
 }
 @utility animate-toast-slide-in-top {
   animation: toast-slide-in-top var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-out-top {
@@ -806,6 +935,9 @@
 }
 @utility animate-toast-slide-out-top {
   animation: toast-slide-out-top var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-in-bottom {
@@ -814,6 +946,9 @@
 }
 @utility animate-toast-slide-in-bottom {
   animation: toast-slide-in-bottom var(--duration-slow) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes toast-slide-out-bottom {
@@ -822,6 +957,9 @@
 }
 @utility animate-toast-slide-out-bottom {
   animation: toast-slide-out-bottom var(--duration-normal) var(--easing-ease-out);
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes spin {
@@ -838,6 +976,9 @@
 }
 @utility animate-progress-stripe {
   animation: progress-stripe var(--duration-spin) var(--easing-linear) infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes spinner-orbit {
@@ -880,6 +1021,9 @@
 }
 @utility animate-skeleton-pulse {
   animation: skeleton-pulse var(--duration-spin) var(--easing-ease-in-out) infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes skeleton-wave {
@@ -888,6 +1032,9 @@
 }
 @utility animate-skeleton-wave {
   animation: skeleton-wave var(--duration-spin) var(--easing-linear) infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }
 
 @keyframes typing-cursor {
@@ -896,4 +1043,7 @@
 }
 @utility animate-typing-cursor {
   animation: typing-cursor var(--duration-spin) var(--easing-ease-in-out) infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
 }

@@ -6,6 +6,26 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.19] — 2026-11-10
+
+### @7onic-ui/tokens
+
+#### Fixed
+
+- **Component animations now stop under `prefers-reduced-motion: reduce`.** `variables.css` defines the `.animate-*` classes outside any cascade layer, so in Tailwind v4 they always won over `motion-reduce:animate-none` and every enter/exit animation kept playing for users who asked for reduced motion. 50 of the 55 animations now turn off (Modal, Drawer, Popover, Tooltip, Toast, Accordion, NavigationMenu, Checkbox, RadioGroup, fade, Skeleton, Progress stripes, typing cursor): `variables.css` ships a reduced-motion block for the plain classes, and the Tailwind v3 preset and v4 theme carry the same rule inside each `animate-*` utility, so variant classes such as `data-[state=open]:animate-drawer-right-enter` are covered too. The final state shows at once and closing still unmounts. It works the same with Tailwind v3, Tailwind v4 and plain CSS.
+- **Loading indicators keep running.** `animate-spin` and `animate-spinner-orbit` / `-dot` / `-bar` / `-morph` are left on, because a stopped spinner reads as "frozen".
+- **Keeping one animation on.** Override it in your own CSS with `!important` inside `@media (prefers-reduced-motion: reduce)`. An `animate-*` utility cannot switch it back on, with or without `!`.
+- `npx sync-tokens` generates the same block from your own `figma-tokens.json`.
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **TypingIndicator stops and dims under reduced motion.** The component already carried `motion-reduce:animate-none`, but the class lost to the unlayered `.animate-*` rule and the dots kept pulsing. It now uses the important modifier, so the dots and the cursor stop at 60% opacity as documented.
+- **Skeleton `animation="wave"` hides its shimmer under reduced motion.** With the animation off the shimmer would stay as a still stripe across the placeholder.
+
+---
+
 ## [0.3.18] — 2026-11-06
 
 ### @7onic-ui/react

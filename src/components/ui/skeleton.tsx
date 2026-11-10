@@ -110,7 +110,7 @@ const SkeletonBlock = React.forwardRef<HTMLDivElement, Omit<SkeletonProps, 'coun
       >
         {animation === 'wave' && (
           <div
-            className="absolute inset-0 animate-skeleton-wave"
+            className="absolute inset-0 animate-skeleton-wave motion-reduce:hidden"
             style={{
               animationDuration: `${WAVE_DURATION_MS}ms`,
               background: `linear-gradient(90deg, ${WAVE_GRADIENT})`,
