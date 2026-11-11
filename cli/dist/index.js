@@ -12503,7 +12503,10 @@ const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         // Enter = submit | Shift+Enter = new line
-        if (e.key === 'Enter' && !e.shiftKey) {
+        // Enter during IME composition (Korean, Japanese, Chinese) confirms the
+        // composition \u2014 never submit. keyCode 229 covers Safari, which reports
+        // isComposing as false on the confirming Enter.
+        if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) {
           e.preventDefault()
           ctx._handleSubmit()
         }
@@ -22125,7 +22128,7 @@ function showCompanionHints(names) {
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.28";
+var VERSION = "0.1.29";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

@@ -6,7 +6,7 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
-## [Unreleased]
+## [0.3.20] — 2026-11-11
 
 ### @7onic-ui/react
 

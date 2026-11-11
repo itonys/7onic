@@ -4,7 +4,7 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.1.29] — 2026-11-11
 
 ### 7onic
 
