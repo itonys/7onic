@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### 7onic
+
+#### Fixed
+
+- **`add chat-input` copies the IME fix.** The registry source of ChatInputField ignores Enter while a Korean, Japanese or Chinese composition is in progress, so confirming the last character no longer sends the message early (same as `@7onic-ui/react`).
+
 ## [0.1.28] — 2026-11-10
 
 ### 7onic

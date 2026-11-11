@@ -379,7 +379,10 @@ const ChatInputField = React.forwardRef<HTMLTextAreaElement, ChatInputFieldProps
     const handleKeyDown = React.useCallback(
       (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         // Enter = submit | Shift+Enter = new line
-        if (e.key === 'Enter' && !e.shiftKey) {
+        // Enter during IME composition (Korean, Japanese, Chinese) confirms the
+        // composition — never submit. keyCode 229 covers Safari, which reports
+        // isComposing as false on the confirming Enter.
+        if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing && e.keyCode !== 229) {
           e.preventDefault()
           ctx._handleSubmit()
         }

@@ -6,6 +6,16 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **ChatInputField no longer submits while an IME is composing.** Pressing Enter to confirm a Korean, Japanese or Chinese composition sent the message before the last character was committed, and that character was then left in the field to be sent again as a second message. Enter now submits only after the composition ends (`isComposing`, plus `keyCode 229` for Safari, which reports `isComposing` as false on the confirming Enter). Shift+Enter still inserts a line break.
+
+---
+
 ## [0.3.19] — 2026-11-10
 
 ### @7onic-ui/tokens
