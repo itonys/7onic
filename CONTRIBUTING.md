@@ -8,7 +8,7 @@ Thank you for your interest in contributing! PRs are welcome for bug fixes, impr
 2. Create a feature branch: `git checkout -b feat/your-feature`
 3. Make your changes
 4. Run checks: `npm run typecheck && npm run build:lib`
-5. Submit a PR — [CodeRabbit](https://coderabbit.ai) will automatically review it
+5. Submit a PR
 
 ## Code Style
 
@@ -72,9 +72,8 @@ Some hardcoded values are intentionally allowed (SVG attributes, Recharts numeri
 
 ## What to Expect
 
-1. **CodeRabbit** will review your PR automatically
-2. A maintainer will review and provide feedback
-3. Once approved, your PR will be merged
+1. A maintainer will review and provide feedback
+2. Once approved, your PR will be merged
 
 ## License
 
