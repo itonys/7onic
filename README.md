@@ -25,9 +25,9 @@
 |:---:|---|---|
 | **🎯** | **Zero design-code drift** | Design and code from a single vision. No handoff, no drift — every component is pixel-verified against Figma. |
 | **📦** | **One JSON, every format** | `figma-tokens.json` auto-generates CSS, Tailwind v3, Tailwind v4, JS/TS, and JSON — all in sync. |
-| **🧩** | **shadcn freedom + MUI convenience** | shadcn's customization with none of its missing features. MUI's built-in power with none of its styling constraints. Both, by design. |
+| **🧩** | **Editable source, full component set** | Copy component source into your project with the CLI and edit it freely, or install the package and override styles with `className`. Forms, overlays, charts, and AI chat components are included. |
 | **⚡** | **npm, CLI, or MCP — three ways in** | `npm install` for packages, `npx 7onic add` for local copy, or `claude plugin install 7onic-design@7onic` so your AI agent can explore every token and component and run `validate_code` before a single file lands in your project. Same system, three workflows. |
-| **🔀** | **Only Tailwind v3+v4 dual support** | The ecosystem's only design system supporting both Tailwind versions. Same tokens, same DX. |
+| **🔀** | **Tailwind v3 and v4, both supported** | One token source generates a v3 preset and a v4 theme. Same token names and the same components on either version. |
 | **🪄** | **Framework-aware setup** | Detects Next.js / Vite, TypeScript, and Tailwind — exits with a clear error if anything's missing. Auto-cleans Vite boilerplate (`.bak` backup), auto-wraps `*` reset in `@layer base` for Next.js + Tailwind v4. No Provider wrapper, no `globals.css` replacement. |
 | **🎮** | **Built-in playground** | Interactive props editor + live code generation in docs. No Storybook setup needed. |
 | **🌗** | **Dark mode, zero config** | Light/dark themes built into tokens. System preference detection out of the box. |
@@ -35,7 +35,8 @@
 | **🤖** | **AI-ready** | `llms.txt` for any AI tool, plus an MCP server that installs as a Claude Code plugin in one command (no `npm install`, ~3 MB). AI builds with design tokens, not hardcoded values, and `validate_code` rejects what docs alone can't prevent. Claude Code, Cursor, Copilot. |
 | **🌏** | **CJK-first typography** | Type scale tuned for Japanese kanji, Korean hangul, and Latin — not an afterthought. |
 | **🔐** | **Supply chain verified** | Cryptographically signed releases (npm provenance), automated vulnerability scanning in CI, reproducible builds. You can verify every package came from this exact GitHub commit — not a hijacked account. |
-| **🔥** | **Relentlessly updated** | Actively maintained with continuous research, refinement, and new features. Not abandoned — ever. |
+| **🧪** | **Tested the way you install it** | Release checks in CI install the packed package into a fresh project and run the CLI end to end (`init`, `add`, build) in Next.js and Vite projects on Tailwind v3 and v4. Every pull request also opens the docs in a real browser to check playground code and accessibility wiring. |
+| **🔥** | **Actively maintained** | Released regularly since April 2026. Every change is recorded in the [changelog](https://7onic.design/changelog). |
 
 ---
 
@@ -331,7 +332,7 @@ your project's `.claude/`) or copy the files from
 - [x] `npx 7onic add` CLI (shadcn-style) — source copy with dependency resolution
 - [x] `npx 7onic init` full workflow — framework/TS/Tailwind detection (abort if missing), Vite `@/` alias auto-configure, base deps install, CSS token import, Vite boilerplate cleanup (`.bak` backup), Next.js+v4 `*` reset auto-wrap, `cn()` + `7onic.json` generation
 - [x] Technical blog — [blog.7onic.design](https://blog.7onic.design) ("Design to Code" series)
-- [x] Enterprise-grade supply chain security — cryptographically signed releases (npm provenance), automated vulnerability scanning on every build, reproducible installs. Protection against npm package hijacking attacks (like the 2026 axios incident)
+- [x] Supply chain security — cryptographically signed releases (npm provenance), automated vulnerability scanning on every build, reproducible installs. Protection against npm package hijacking attacks (like the 2026 axios incident)
 - [ ] Theme Customizer — live palette preview + CSS variable export
 - [ ] Figma UI Kit
 - [ ] Dashboard / landing templates
