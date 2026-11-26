@@ -4,6 +4,15 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.31] — 2026-11-27
+
+### 7onic
+
+#### Fixed
+
+- **`add chart` copies source that compiles with recharts 3.0 to 3.6.** The outline shape typed its props with `BarShapeProps`, which recharts only exports from 3.7, so a project that already had an older recharts 3 failed type checking. The shape props now use a local type.
+- **`add chart` warns when recharts 2.x is already installed.** Dependencies that are already in `package.json` are not upgraded, so an existing recharts 2 stays and the copied chart components (written for recharts 3) fail type checking. The CLI now says so and shows the upgrade command (`npm install recharts@^3`). It does not upgrade recharts by itself, so your own recharts 2 code keeps working until you choose to upgrade.
+
 ## [0.1.30] — 2026-11-27
 
 ### 7onic

@@ -11449,7 +11449,9 @@ function ChartBar({
 
   // TOKEN-EXCEPTION: SVG stroke is centered by default (half inside, half outside).
   // Custom shape renders an inset rect so the stroke stays fully inside the bar bounds.
-  const outlineShape = React.useCallback((shapeProps: RechartsPrimitive.BarShapeProps & { x?: number; y?: number; width?: number; height?: number; index?: number }) => {
+  // Local shape props type: RechartsPrimitive.BarShapeProps only exists from recharts 3.7,
+  // and the copied source (npx 7onic add chart) must compile against every supported version.
+  const outlineShape = React.useCallback((shapeProps: { x?: number; y?: number; width?: number; height?: number; index?: number }) => {
     const x = shapeProps.x ?? 0
     const y = shapeProps.y ?? 0
     const width = shapeProps.width ?? 0
@@ -21900,6 +21902,7 @@ async function add(args) {
   const pkgJson = JSON.parse(import_node_fs6.default.readFileSync(pkgJsonPath, "utf-8"));
   const installedDeps = { ...pkgJson.dependencies, ...pkgJson.devDependencies };
   const depsToInstall = [...allNpmDeps].filter((d3) => !installedDeps[d3]);
+  const existingRechartsMajor = hasRecharts && !skipRecharts && installedDeps.recharts ? getInstalledMajor(projectRoot, "recharts", installedDeps.recharts) : null;
   if (!flagYes) {
     const uniqueNew = [...new Set(newFiles.map((f) => f.name))];
     const summary = [
@@ -21991,6 +21994,12 @@ async function add(args) {
   if (skipRecharts) {
     O2.warn(
       "Skipped recharts. Run `npm install recharts` manually before using chart components."
+    );
+  }
+  if (existingRechartsMajor !== null && existingRechartsMajor < 3) {
+    O2.warn(
+      `recharts ${existingRechartsMajor}.x is installed, but chart components need recharts 3 or later.
+  Upgrade it before using them: ${import_picocolors3.default.cyan("npm install recharts@^3")}`
     );
   }
   if (skippedFiles.length > 0) {
@@ -22139,10 +22148,22 @@ function showCompanionHints(names) {
     );
   }
 }
+function getInstalledMajor(projectRoot, name, range) {
+  try {
+    const installed = JSON.parse(
+      import_node_fs6.default.readFileSync(import_node_path6.default.join(projectRoot, "node_modules", name, "package.json"), "utf-8")
+    );
+    const major = parseInt(String(installed.version).split(".")[0], 10);
+    if (!Number.isNaN(major)) return major;
+  } catch {
+  }
+  const match = /(\d+)/.exec(range);
+  return match ? parseInt(match[1], 10) : null;
+}
 
 // cli/src/index.ts
 var import_picocolors4 = __toESM(require_picocolors());
-var VERSION = "0.1.30";
+var VERSION = "0.1.31";
 var HELP = `
 ${import_picocolors4.default.bold("7onic")} \u2014 Add 7onic design system components to your project
 

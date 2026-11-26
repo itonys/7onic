@@ -128,6 +128,13 @@ export async function add(args: string[]): Promise<void> {
   const installedDeps = { ...pkgJson.dependencies, ...pkgJson.devDependencies }
   const depsToInstall = [...allNpmDeps].filter(d => !installedDeps[d])
 
+  // Already-installed deps are not upgraded, so an existing recharts 2.x stays
+  // and the copied chart.tsx (written for recharts 3) fails type checking.
+  const existingRechartsMajor =
+    hasRecharts && !skipRecharts && installedDeps.recharts
+      ? getInstalledMajor(projectRoot, 'recharts', installedDeps.recharts)
+      : null
+
   // Show summary and confirm
   if (!flagYes) {
     const uniqueNew = [...new Set(newFiles.map(f => f.name))]
@@ -244,6 +251,13 @@ export async function add(args: string[]): Promise<void> {
   if (skipRecharts) {
     p.log.warn(
       'Skipped recharts. Run `npm install recharts` manually before using chart components.',
+    )
+  }
+
+  if (existingRechartsMajor !== null && existingRechartsMajor < 3) {
+    p.log.warn(
+      `recharts ${existingRechartsMajor}.x is installed, but chart components need recharts 3 or later.\n` +
+      `  Upgrade it before using them: ${pc.cyan('npm install recharts@^3')}`,
     )
   }
 
@@ -443,4 +457,23 @@ function showCompanionHints(names: string[]): void {
       `${pc.dim('Tip:')} also using ${pc.cyan(name)}? Run: ${pc.green(`npx 7onic add ${name}`)}`
     )
   }
+}
+
+/**
+ * Major version of an already-installed dependency: the installed package.json
+ * first (the version actually used), then the range in the project package.json
+ * (e.g. "^2.15.4" → 2). Returns null when it cannot be read.
+ */
+function getInstalledMajor(projectRoot: string, name: string, range: string): number | null {
+  try {
+    const installed = JSON.parse(
+      fs.readFileSync(path.join(projectRoot, 'node_modules', name, 'package.json'), 'utf-8'),
+    )
+    const major = parseInt(String(installed.version).split('.')[0], 10)
+    if (!Number.isNaN(major)) return major
+  } catch {
+    // not installed yet (or unreadable) — fall back to the declared range
+  }
+  const match = /(\d+)/.exec(range)
+  return match ? parseInt(match[1], 10) : null
 }

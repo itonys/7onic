@@ -2325,7 +2325,9 @@ function ChartBar({
 
   // TOKEN-EXCEPTION: SVG stroke is centered by default (half inside, half outside).
   // Custom shape renders an inset rect so the stroke stays fully inside the bar bounds.
-  const outlineShape = React.useCallback((shapeProps: RechartsPrimitive.BarShapeProps & { x?: number; y?: number; width?: number; height?: number; index?: number }) => {
+  // Local shape props type: RechartsPrimitive.BarShapeProps only exists from recharts 3.7,
+  // and the copied source (npx 7onic add chart) must compile against every supported version.
+  const outlineShape = React.useCallback((shapeProps: { x?: number; y?: number; width?: number; height?: number; index?: number }) => {
     const x = shapeProps.x ?? 0
     const y = shapeProps.y ?? 0
     const width = shapeProps.width ?? 0

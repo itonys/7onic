@@ -2137,7 +2137,7 @@ import { Field, FieldCharCount, FieldError, FieldLabel, Input, Textarea } from '
 
 ## Chart Patterns
 
-**⚠️ recharts is required.** The CLI prompts to install it when you run `npx 7onic add chart`.
+**⚠️ recharts is required.** The CLI prompts to install it when you run `npx 7onic add chart`. If recharts 2.x is already installed, the CLI keeps it and shows how to upgrade — chart components need recharts 3 or later (`npm install recharts@^3`).
 
 If you need to install manually:
 ```bash
