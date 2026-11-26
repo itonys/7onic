@@ -6,6 +6,16 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [0.3.21] — 2026-11-27
+
+### @7onic-ui/react
+
+#### Fixed
+
+- **Chart source compiles with recharts 3.11.** recharts 3.11.0 widened the `fill` prop of `Bar` and `Area` to `string | RechartsFill` (a gradient or pattern object). The `outline` variant of ChartBar and the `gradient` variant of ChartArea passed `fill` straight to SVG attributes that only accept a color string, so type checking the copied source (`npx 7onic add chart`) failed with recharts 3.11 and `next build` stopped. `fill` is now turned into a color string first: a string is used as is, and a fill object uses its base `color`. Charts with string colors render exactly as before. The prebuilt package (`@7onic-ui/react/chart`) was not affected.
+
+---
+
 ## [0.3.20] — 2026-11-11
 
 ### @7onic-ui/react

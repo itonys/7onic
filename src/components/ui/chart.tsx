@@ -40,6 +40,18 @@ function useChart() {
   return context
 }
 
+// recharts >= 3.11 widens `fill` to `string | RechartsFill` (gradient/pattern object).
+// Raw SVG attributes (<rect fill>, <stop stopColor>) need a color string, so take the
+// object's base `color`. Typed as unknown to compile against every supported recharts version.
+function toSvgColor(value: unknown): string | undefined {
+  if (typeof value === 'string') return value
+  if (value && typeof value === 'object' && 'color' in value) {
+    const { color } = value as { color?: unknown }
+    if (typeof color === 'string') return color
+  }
+  return undefined
+}
+
 function ChartContainer({
   id,
   className,
@@ -186,6 +198,8 @@ function ChartBar({
     : stackPosition === 'bottom'                      ? 0                 // vertical stacked base: all flat (sits on axis, top connects to next bar)
     :                                                   [r, r, 0, 0]      // default vertical: top corners only
 
+  const fillColor = toSvgColor(fill)
+
   // TOKEN-EXCEPTION: SVG stroke is centered by default (half inside, half outside).
   // Custom shape renders an inset rect so the stroke stays fully inside the bar bounds.
   const outlineShape = React.useCallback((shapeProps: RechartsPrimitive.BarShapeProps & { x?: number; y?: number; width?: number; height?: number; index?: number }) => {
@@ -206,15 +220,15 @@ function ChartBar({
         width={Math.max(0, width - sw)}
         height={Math.max(0, height - sw)}
         rx={rx}
-        fill={fill}
+        fill={fillColor}
         fillOpacity={0.4 * fadeMultiplier}
-        stroke={fill}
+        stroke={fillColor}
         strokeOpacity={fadeMultiplier}
         strokeWidth={sw}
         style={hoverFade ? CHART_FADE_TRANSITION : undefined}
       />
     )
-  }, [appliedRadius, fill, hoverFade, activeIndex])
+  }, [appliedRadius, fillColor, hoverFade, activeIndex])
 
   // Solid variant hover-fade shape: renders Rectangle with per-bar opacity
   const solidHoverShape = React.useCallback((shapeProps: any) => {
@@ -670,8 +684,8 @@ function ChartArea({
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
             {/* TOKEN-EXCEPTION: SVG stop attributes require inline values */}
-            <stop offset="5%" stopColor={fill || stroke} stopOpacity={0.8} />
-            <stop offset="95%" stopColor={fill || stroke} stopOpacity={0} />
+            <stop offset="5%" stopColor={toSvgColor(fill) || stroke} stopOpacity={0.8} />
+            <stop offset="95%" stopColor={toSvgColor(fill) || stroke} stopOpacity={0} />
           </linearGradient>
         </defs>
       )}

@@ -4,6 +4,14 @@ All notable changes to the `7onic` CLI package will be documented in this file.
 
 This project follows [Semantic Versioning](https://semver.org/).
 
+## [0.1.30] — 2026-11-27
+
+### 7onic
+
+#### Fixed
+
+- **`add chart` copies source that compiles with recharts 3.11.** recharts 3.11.0 widened the `fill` prop of `Bar` and `Area` to a string or a gradient/pattern object, and the copied `chart.tsx` passed it straight to SVG color attributes, so `next build` failed with a type error. The registry source now turns `fill` into a color string first (same as `@7onic-ui/react`).
+
 ## [0.1.29] — 2026-11-11
 
 ### 7onic
