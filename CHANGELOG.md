@@ -6,7 +6,7 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
-## [Unreleased]
+## [0.3.22] — 2026-11-27
 
 ### @7onic-ui/tokens
 
@@ -20,6 +20,7 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 - **`llms.txt` self-check lists `bg-gray-dark-*`** among the raw color classes to avoid.
 - **MCP `validate_code` reports `gray-dark` palette classes** (`bg-gray-dark-500`, `text-gray-dark-100`, also inside `@apply`) as `raw-color`, with the semantic tokens as the suggestion. They passed unchecked before. Claude Code plugin 0.2.9.
+- **Chart source types the outline bar shape locally** instead of with recharts' `BarShapeProps` (exported only from recharts 3.7). No change to rendering or to the published types; it keeps the package source identical to what `npx 7onic add chart` copies since CLI 0.1.31.
 
 ---
 
