@@ -221,7 +221,7 @@ Strategy: `dark` class on `<html>` element.
 8 color families, each with 50–900 shades (10 steps):
 `gray`, `gray-dark`, `primary`, `secondary`, `blue`, `green`, `red`, `yellow`
 
-`gray` is the light-mode neutral; `gray-dark` is the dark-mode-only neutral that dark semantic tokens (background, text, border, disabled) reference. Use semantic tokens — they switch between the two automatically.
+`gray` is the light-mode neutral; `gray-dark` is the dark-mode-only neutral that dark semantic tokens (background, text, border, disabled) reference. Use semantic tokens — they switch between the two automatically. Never write `gray-dark-*` classes (`bg-gray-dark-800`, `text-gray-dark-100`) yourself — a surface built that way stays dark in light mode.
 
 Usage: `bg-primary-100`, `text-gray-600`, `border-blue-300`
 **Prefer semantic tokens over primitives** — primitives don't auto-adapt to dark mode.
@@ -402,7 +402,7 @@ The token system is comprehensive — semantic colors, primitives, spacing, typo
 
 Before presenting code to the user, scan your own output for violations:
 
-- [ ] Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-white`, `border-gray-*`)
+- [ ] Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-gray-dark-*`, `bg-white`, `border-gray-*`)
 - [ ] Any arbitrary value? (`p-[*]`, `text-[*]`, `rounded-[*]`, `z-[*]`)
 - [ ] Any inline style? (`style={{ }}`)
 - [ ] Any `dark:` prefix?

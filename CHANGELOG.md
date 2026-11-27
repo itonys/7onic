@@ -6,6 +6,23 @@ This project follows [Semantic Versioning](https://semver.org/) and uses synchro
 
 ---
 
+## [Unreleased]
+
+### @7onic-ui/tokens
+
+#### Changed
+
+- **`llms.txt` says `gray-dark-*` classes are not for direct use.** The dark-mode gray scale is a primitive palette like `gray`: a surface written as `bg-gray-dark-800` stays dark in light mode. The palette note and the self-check list now name it; use `bg-background`, `bg-background-paper`, `text-foreground`, `border-border`.
+
+### @7onic-ui/react
+
+#### Changed
+
+- **`llms.txt` self-check lists `bg-gray-dark-*`** among the raw color classes to avoid.
+- **MCP `validate_code` reports `gray-dark` palette classes** (`bg-gray-dark-500`, `text-gray-dark-100`, also inside `@apply`) as `raw-color`, with the semantic tokens as the suggestion. They passed unchecked before. Claude Code plugin 0.2.9.
+
+---
+
 ## [0.3.21] — 2026-11-27
 
 ### @7onic-ui/react

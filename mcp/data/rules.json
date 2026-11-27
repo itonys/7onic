@@ -1,6 +1,6 @@
 {
   "generatedFrom": "public/llms-full.txt",
-  "sourceHash": "d4e0e42a57066ba5d08ac510681cebdcb8edda4655467f9ee4626272553db93f",
+  "sourceHash": "3893d9d5a4d391e70b5409c2bf21b3d442a7c57295a9ebc45baea9b1a8aaf7c2",
   "rules": {
     "corePrinciple": "**Token values are user-defined.** Every project has different brand colors and design decisions. The token NAMES are the API — never assume or hardcode specific values.",
     "whitelist": [
@@ -131,7 +131,7 @@
       "tokens.json"
     ],
     "selfCheck": [
-      "Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-white`, `border-gray-*`)",
+      "Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-gray-dark-*`, `bg-white`, `border-gray-*`)",
       "Any arbitrary value? (`p-[*]`, `text-[*]`, `rounded-[*]`, `z-[*]`)",
       "Any inline style? (`style={{ }}`)",
       "Any `dark:` prefix?",

@@ -275,7 +275,7 @@ Customization guide: https://7onic.design/components/theming
 
 Before presenting code to the user, scan your own output for violations:
 
-- [ ] Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-white`, `border-gray-*`)
+- [ ] Any raw color class? (`bg-blue-*`, `text-gray-*`, `bg-gray-dark-*`, `bg-white`, `border-gray-*`)
 - [ ] Any arbitrary value? (`p-[*]`, `text-[*]`, `rounded-[*]`, `z-[*]`)
 - [ ] Any inline style? (`style={{ }}`)
 - [ ] Any `dark:` prefix?

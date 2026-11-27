@@ -43,10 +43,11 @@ const ARBITRARY_ALLOWED = /^(h|w|min-h|min-w|max-h|max-w|size|basis)-\[/
 // Primitive color scales + white/black exist as tokens but app code must be
 // semantic-first (forbidden pattern "Raw Tailwind colors").
 const RAW_COLOR =
-  /^(bg|text|border|ring|divide|fill|stroke|from|to|via|outline|accent|caret|decoration|shadow)-((gray|blue|green|yellow|red)-\d+|white|black)(\/\d+)?$/
+  /^(bg|text|border|ring|divide|fill|stroke|from|to|via|outline|accent|caret|decoration|shadow)-((gray-dark|gray|blue|green|yellow|red)-\d+|white|black)(\/\d+)?$/
 
 const RAW_COLOR_SUGGESTIONS: Record<string, string> = {
   gray: 'muted / border / text-muted / bg-background-muted',
+  'gray-dark': 'background / text-muted / border (dark values come from the semantic tokens)',
   blue: 'primary / info',
   green: 'success',
   yellow: 'warning',
@@ -428,7 +429,7 @@ export function validateCode(code: string, opts: { locale?: Locale } = {}): Vali
     const line = i + 1
     if (ignoredLines.has(line)) return
     const bad = m[1].split(/\s+/).find((c) =>
-      /(gray|blue|green|yellow|red)-\d+/.test(c) || c.includes('['),
+      /(gray-dark|gray|blue|green|yellow|red)-\d+/.test(c) || c.includes('['),
     )
     if (bad) report(ctx, 'apply-raw', line, bad)
   })

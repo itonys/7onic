@@ -15160,9 +15160,10 @@ var ALLOWED_VARIANT = new RegExp(
   "^(sm|md|lg|xl|2xl|hover|focus|focus-visible|focus-within|active|disabled|visited|checked|required|invalid|first|last|odd|even|only|empty|placeholder|file|marker|selection|before|after|motion-safe|motion-reduce|ltr|rtl|open|enabled|read-only|group(-[\\w/[\\]-]+)?|peer(-[\\w/[\\]-]+)?|data-\\[[^\\]]*\\]|aria-\\[[^\\]]*\\])$"
 );
 var ARBITRARY_ALLOWED = /^(h|w|min-h|min-w|max-h|max-w|size|basis)-\[/;
-var RAW_COLOR = /^(bg|text|border|ring|divide|fill|stroke|from|to|via|outline|accent|caret|decoration|shadow)-((gray|blue|green|yellow|red)-\d+|white|black)(\/\d+)?$/;
+var RAW_COLOR = /^(bg|text|border|ring|divide|fill|stroke|from|to|via|outline|accent|caret|decoration|shadow)-((gray-dark|gray|blue|green|yellow|red)-\d+|white|black)(\/\d+)?$/;
 var RAW_COLOR_SUGGESTIONS = {
   gray: "muted / border / text-muted / bg-background-muted",
+  "gray-dark": "background / text-muted / border (dark values come from the semantic tokens)",
   blue: "primary / info",
   green: "success",
   yellow: "warning",
@@ -15571,7 +15572,7 @@ function validateCode(code, opts = {}) {
     const line = i + 1;
     if (ignoredLines.has(line)) return;
     const bad = m[1].split(/\s+/).find(
-      (c) => /(gray|blue|green|yellow|red)-\d+/.test(c) || c.includes("[")
+      (c) => /(gray-dark|gray|blue|green|yellow|red)-\d+/.test(c) || c.includes("[")
     );
     if (bad) report(ctx, "apply-raw", line, bad);
   });
